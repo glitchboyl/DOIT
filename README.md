@@ -1,6 +1,6 @@
-# do_it
+# DO IT
 
-A new Flutter project.
+for lynn.
 
 ## Getting Started
 
