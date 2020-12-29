@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:DO_IT/Home/HomeScreen.dart';
+import 'package:DO_IT/Today/TodayScreen.dart';
 import 'package:DO_IT/utils/Adapt.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class _DOITAppState extends State<DOITApp> {
   dynamic iconHeight = Adapt.px(150);
 
   List<Widget> screens = [
-    HomeScreen(),
+    TodayScreen(),
   ];
 
   @override
@@ -31,7 +31,9 @@ class _DOITAppState extends State<DOITApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: Scaffold(
-        body: screens[selected],
+        body: SafeArea(
+          child: screens[selected],
+        ),
         bottomNavigationBar: BottomNavigationBar(
           elevation: 0,
           currentIndex: selected,
@@ -50,12 +52,12 @@ class _DOITAppState extends State<DOITApp> {
             BottomNavigationBarItem(
               label: '',
               icon: Image.asset(
-                'assets/navigation-bar/home.png',
+                'assets/navigation-bar/today.png',
                 width: iconWidth,
                 height: iconHeight,
               ),
               activeIcon: Image.asset(
-                'assets/navigation-bar/home-actived.png',
+                'assets/navigation-bar/today-actived.png',
                 width: iconWidth,
                 height: iconHeight,
               ),

@@ -39,7 +39,7 @@ class TodoItem extends StatelessWidget {
 
     return {
       'icon':
-          'assets/home/todo-item/$type${this.isComplete != null && this.isComplete ? '-completed' : ''}.png',
+          'assets/today/todo-item/$type${this.isComplete != null && this.isComplete ? '-completed' : ''}.png',
       'color': this.isComplete != null && this.isComplete
           ? Color(0xFFBECFEB)
           : colors[this.priority],
@@ -47,15 +47,15 @@ class TodoItem extends StatelessWidget {
           ? Color(0xFFBECFEB)
           : Color(0xFF373655),
       'arrow':
-          'assets/home/todo-item/entry-arrow${this.isComplete != null && this.isComplete ? '-completed' : ''}.png',
+          'assets/today/todo-item/entry-arrow${this.isComplete != null && this.isComplete ? '-completed' : ''}.png',
     };
   }
 
   Widget build(BuildContext context) {
     var todoItemStyle = getTodoItemStyle();
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: Adapt.px(40),
+    return Container(
+      margin: EdgeInsets.symmetric(
+        vertical: Adapt.px(20),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -103,10 +103,6 @@ class TodoItem extends StatelessWidget {
                             fontSize: Adapt.px(44),
                           ),
                         ),
-                        // SizedBox(
-                        //   width: 1,
-                        //   height: Adapt.px(24),
-                        // ),
                         Text(
                           this.time,
                           style: TextStyle(
