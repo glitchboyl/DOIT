@@ -42,22 +42,24 @@ String getDateTime(DateTime time, {bool getYear = false}) {
 String getItemTime(ItemTime time) {
   var to = time.to;
   var from = time.from;
-  if (to == null) return "每天重复";
+  if (to == null) {
+    return "每天重复";
+  }
   var itemTime = "";
   var nowTime = DateTime.now();
-  if (from != null) {
+  if (from != null && !from.isAfter(to)) {
     var getYear = !from.isSameYear(to);
-    if (!from.isSameYear(to)) if (from.isSameDay(nowTime) &&
-        to.isSameDay(nowTime)) {
+    if (from.isSameDay(nowTime) && to.isSameDay(nowTime)) {
       itemTime += "今天";
-    } else if (from.isBefore(to)) {
+    } else {
       itemTime +=
-          "${getDateTime(from, getYear: getYear)} ${getClockTime(from)} - ${getDateTime(to, getYear: getYear)}}";
+          "${getDateTime(from, getYear: getYear)} ${getClockTime(from)} - ${getDateTime(to, getYear: getYear)}";
     }
-  } else if (to.isSameDay(nowTime))
+  } else if (to.isSameDay(nowTime)) {
     itemTime += "今天";
-  else
-    itemTime += getDateTime(to);
+  } else {
+    itemTime += getDateTime(to, getYear: !to.isSameYear(nowTime));
+  }
   itemTime += " ${getClockTime(to)}";
   return itemTime;
 }
@@ -120,9 +122,7 @@ class Item extends StatelessWidget {
                 // height: 20/14
               ),
             ),
-            SizedBox(
-              height: 2
-            ),
+            SizedBox(height: 2),
             Text(
               getItemTime(time),
               style: TextStyle(

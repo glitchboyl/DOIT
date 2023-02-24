@@ -1,4 +1,4 @@
-package com.example.doit
+package com.cllynn.doit
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -15,7 +15,7 @@ class _FirstTabState extends State<FirstTab> {
 
   @override
   Widget build(BuildContext context) {
-    const Key centerKey = ValueKey<String>('bottom-sliver-list');
+    // const Key centerKey = ValueKey<String>('bottom-sliver-list');
     return CupertinoTabView(builder: (context) {
       return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -38,7 +38,7 @@ class _FirstTabState extends State<FirstTab> {
                     (context, index) {
                       return Item(
                         'Hello World',
-                        time: ItemTime(to: DateTime(2022)),
+                        time: ItemTime(from: DateTime(2023, 2, 27), to: DateTime(2023, 2, 26)),
                       );
                     },
                     childCount: 10,
