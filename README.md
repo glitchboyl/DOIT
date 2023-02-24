@@ -1,6 +1,6 @@
-# DO IT
+# DOIT
 
-for lynn.
+A new Flutter project.
 
 ## Getting Started
 
