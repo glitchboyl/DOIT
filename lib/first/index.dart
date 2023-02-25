@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../styles.dart';
+import 'package:doit/styles.dart';
 import 'item.dart';
 
 class FirstTab extends StatefulWidget {
@@ -19,10 +19,10 @@ class _FirstTabState extends State<FirstTab> {
     return CupertinoTabView(builder: (context) {
       return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          backgroundColor: Styles.navigatorBarColor,
+          backgroundColor: Styles.NavigatorBarColor,
           middle: const Text('聚焦'),
           border: Border(
-            bottom: BorderSide(color: Styles.navigatorBarColor),
+            bottom: BorderSide(color: Styles.NavigatorBarColor),
           ),
         ),
         child: Padding(
@@ -48,7 +48,7 @@ class _FirstTabState extends State<FirstTab> {
             ],
           ),
         ),
-        backgroundColor: Styles.generalBackgroundColor,
+        backgroundColor: Styles.GeneralBackgroundColor,
       );
     });
   }

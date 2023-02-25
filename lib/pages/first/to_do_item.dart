@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 
-import '../styles.dart';
+import 'package:doit/styles.dart';
 
-enum ItemStatus { a, b, c, d }
+enum ToDoItemStatus { a, b, c, d }
 
-enum ItemType { a, b, c, d }
+enum ToDoItemType { a, b, c, d }
 
 extension DateTimeExtension on DateTime {
   bool isSameDay(DateTime date) {
@@ -17,13 +17,6 @@ extension DateTimeExtension on DateTime {
   bool isSameYear(DateTime date) {
     return this.year.toString() == date.year.toString();
   }
-}
-
-class ItemTime {
-  const ItemTime({this.to, this.from});
-
-  final DateTime? to;
-  final DateTime? from;
 }
 
 String fillZero(int n) => n < 10 ? "0" : "";
@@ -39,9 +32,7 @@ String getDateTime(DateTime time, {bool getYear = false}) {
   return "${getYear ? time.year.toString() + ' ' : ''}${fillZero(month)}${month.toString()}.${fillZero(day)}${day.toString()}";
 }
 
-String getItemTime(ItemTime time) {
-  var to = time.to;
-  var from = time.from;
+String getItemTime({DateTime? to, DateTime? from}) {
   if (to == null) {
     return "每天重复";
   }
@@ -64,18 +55,20 @@ String getItemTime(ItemTime time) {
   return itemTime;
 }
 
-class Item extends StatelessWidget {
-  const Item(
+class ToDoItem extends StatelessWidget {
+  const ToDoItem(
     this.title, {
-    this.type = ItemType.a,
-    this.status = ItemStatus.a,
-    required this.time,
+    this.type = ToDoItemType.a,
+    this.status = ToDoItemStatus.a,
+    this.to,
+    this.from,
   });
 
   final String title;
-  final ItemType type;
-  final ItemStatus status;
-  final ItemTime time;
+  final ToDoItemType type;
+  final ToDoItemStatus status;
+  final DateTime? to;
+  final DateTime? from;
 
   @override
   Widget build(BuildContext context) {
@@ -124,7 +117,7 @@ class Item extends StatelessWidget {
             ),
             SizedBox(height: 2),
             Text(
-              getItemTime(time),
+              getItemTime(to: to, from: from),
               style: TextStyle(
                 color: Styles.ToDoItemTimeColor,
                 fontSize: 10,

@@ -16,7 +16,7 @@ class _SecondTabState extends State<SecondTab> {
     return CupertinoTabView(builder: (context) {
       return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          backgroundColor: Styles.navigatorBarColor,
+          backgroundColor: Styles.NavigatorBarColor,
           middle: const Text('Second'),
         ),
         child: CustomScrollView(
@@ -36,7 +36,7 @@ class _SecondTabState extends State<SecondTab> {
             // ),
           ],
         ),
-        backgroundColor: Styles.generalBackgroundColor,
+        backgroundColor: Styles.GeneralBackgroundColor,
       );
     });
   }
