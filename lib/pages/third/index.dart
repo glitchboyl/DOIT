@@ -20,6 +20,7 @@ class _ThirdTabState extends State<ThirdTab> {
       child: Container(
         child: Text('boy next door'),
       ),
+      backgroundColor: Styles.GeneralBackgroundColor,
     );
   }
 }

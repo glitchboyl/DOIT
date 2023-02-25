@@ -20,6 +20,7 @@ class _FourthTabState extends State<FourthTab> {
       child: Container(
         child: Text('oh yessir'),
       ),
+      backgroundColor: Styles.GeneralBackgroundColor,
     );
   }
 }

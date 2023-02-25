@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/tab_bar.dart';
 import 'package:doit/routes.dart';
 
@@ -20,16 +20,22 @@ class DOITApp extends StatelessWidget {
 
   @override
   Widget build(context) {
-    return CupertinoApp(
-      home: CupertinoTabScaffold(
-        tabBar: tabBar(Routes.getTabBarItems()),
-        tabBuilder: (context, index) {
-          return CupertinoTabView(
-            routes: tabRoutes,
-            builder: (context) => Routes.pages[index].viewWidget(context),
-          );
-        },
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(375, 812),
+      builder: (context, child) {
+        return CupertinoApp(
+          debugShowCheckedModeBanner: false,
+          home: CupertinoTabScaffold(
+            tabBar: tabBar(Routes.getTabBarItems()),
+            tabBuilder: (context, index) {
+              return CupertinoTabView(
+                routes: tabRoutes,
+                builder: (context) => Routes.pages[index].viewWidget(context),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
