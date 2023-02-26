@@ -1,7 +1,10 @@
+import 'package:doit/widgets/dashed_line.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'to_do_item.dart';
 import 'package:doit/models/to_do_item.dart';
+import 'package:doit/widgets/dashed_line.dart';
 import 'package:doit/widgets/add_to_do_item_button.dart';
 import 'package:doit/styles.dart';
 
@@ -18,8 +21,6 @@ class _SecondTabState extends State<SecondTab> {
       remarks: 'ass we can',
       type: ToDoItemType.a,
       status: ToDoItemStatus.a,
-      to: DateTime(2023, 2, 26),
-      from: DateTime(2023, 2, 27),
     ),
     ToDoItem(
       id: UniqueKey().hashCode,
@@ -61,9 +62,24 @@ class _SecondTabState extends State<SecondTab> {
                     ),
                   ),
                 ),
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Container(
+                    height: 0,
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 28.w,
+                          alignment: Alignment.center,
+                          child: dashedLine(),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
-            addToDoItemButton(
+            AddToDoItemButton(
               () => {
                 // setState(() {
                 //   mockList = [...mockList, 1];

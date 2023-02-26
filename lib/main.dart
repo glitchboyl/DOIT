@@ -25,6 +25,11 @@ class DOITApp extends StatelessWidget {
       builder: (context, child) {
         return CupertinoApp(
           debugShowCheckedModeBanner: false,
+          theme: new CupertinoThemeData(
+            textTheme: new CupertinoTextThemeData(
+              textStyle: TextStyle(fontFamily: 'DIN'),
+            ),
+          ),
           home: CupertinoTabScaffold(
             tabBar: tabBar(Routes.getTabBarItems()),
             tabBuilder: (context, index) {

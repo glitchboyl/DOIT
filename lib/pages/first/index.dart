@@ -53,11 +53,21 @@ class _FirstTabState extends State<FirstTab> {
                 ),
               ],
             ),
-            addToDoItemButton(
+            AddToDoItemButton(
               () => {
-                // setState(() {
-                //   mockList = [...mockList, 1];
-                // });
+                setState(() {
+                  mockList = [
+                    ...mockList,
+                    ToDoItem(
+                      id: UniqueKey().hashCode,
+                      title: 'ass we can',
+                      type: ToDoItemType.a,
+                      status: ToDoItemStatus.a,
+                      to: DateTime(2023, 2, 26),
+                      from: DateTime(2023, 2, 27),
+                    )
+                  ];
+                })
               },
             ),
           ],

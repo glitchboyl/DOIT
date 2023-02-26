@@ -56,6 +56,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Styles.ToDoItemTitleColor,
                   fontSize: 14.sp,
+                  height: 20.sp / 14.sp,
                 ),
               ),
               SizedBox(height: 2.h),
@@ -64,6 +65,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 style: TextStyle(
                   color: Styles.ToDoItemTimeColor,
                   fontSize: 10.sp,
+                  height: 14.sp / 10.sp,
                 ),
               ),
             ],

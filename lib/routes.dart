@@ -1,22 +1,26 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/models/tab_view_page.dart';
 import 'package:doit/pages/first/index.dart';
 import 'package:doit/pages/second/index.dart';
 import 'package:doit/pages/third/index.dart';
 import 'package:doit/pages/fourth/index.dart';
 
+final double tabIconWidth = 30;
+final double tabIconHeight = 30;
+
 class Routes {
   static List<TabViewPage> pages = [
     TabViewPage(
       tabIcon: Image.asset(
         'assets/images/first.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       tabActiveIcon: Image.asset(
         'assets/images/first_actived.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       viewWidget: (context) => FirstTab(),
       name: "聚焦",
@@ -25,13 +29,13 @@ class Routes {
     TabViewPage(
       tabIcon: Image.asset(
         'assets/images/second.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       tabActiveIcon: Image.asset(
         'assets/images/second_actived.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       viewWidget: (context) => SecondTab(),
       name: "Second",
@@ -40,13 +44,13 @@ class Routes {
     TabViewPage(
       tabIcon: Image.asset(
         'assets/images/third.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       tabActiveIcon: Image.asset(
         'assets/images/third_actived.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       viewWidget: (context) => ThirdTab(),
       name: "Third",
@@ -55,13 +59,13 @@ class Routes {
     TabViewPage(
       tabIcon: Image.asset(
         'assets/images/fourth.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       tabActiveIcon: Image.asset(
         'assets/images/fourth_actived.png',
-        width: 30,
-        height: 30,
+        width: tabIconWidth,
+        height: tabIconHeight,
       ),
       viewWidget: (context) => FourthTab(),
       name: "Fourth",

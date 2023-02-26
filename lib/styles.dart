@@ -27,17 +27,31 @@ abstract class Styles {
     darkColor: Color(0xFF868CA3),
   );
 
-  static const Color ToDoItemRemarksColor = CupertinoDynamicColor.withBrightness(
+  static const Color ToDoItemRemarksColor =
+      CupertinoDynamicColor.withBrightness(
     color: Color(0xFF868CA3),
     darkColor: Color(0xFF868CA3),
   );
 
-  static const Color AddToDoItemButtonColor = CupertinoDynamicColor.withBrightness(
+  static const Color DashedLineColor = CupertinoDynamicColor.withBrightness(
+    color: Color(0xFFDBDEEE),
+    darkColor: Color(0xFFDBDEEE),
+  );
+
+  static const Color AddToDoItemButtonColor =
+      CupertinoDynamicColor.withBrightness(
     color: Color(0xFF3A36EE),
     darkColor: Color(0xFF3A36EE),
   );
 
-  static const Color AddToDoItemButtonShadowColor = CupertinoDynamicColor.withBrightness(
+  static const Color AddToDoItemButtonActiveColor =
+      CupertinoDynamicColor.withBrightness(
+    color: Color(0xFF2224C6),
+    darkColor: Color(0xFF2224C6),
+  );
+
+  static const Color AddToDoItemButtonShadowColor =
+      CupertinoDynamicColor.withBrightness(
     color: Color(0x33312DE0),
     darkColor: Color(0x33312DE0),
   );

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
+import 'package:doit/widgets/dashed_line.dart';
 import 'package:doit/styles.dart';
 
 class ToDoItemWidget extends StatelessWidget {
@@ -13,26 +13,24 @@ class ToDoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: item.remarks != '' ? 84.h : 70.h,
+      height: item.remarks != '' ? 88.h : 74.h,
       child: Row(
         children: [
           Container(
+            width: 28.w,
             margin: const EdgeInsets.only(right: 4),
             child: Column(
               children: [
                 Text(
-                  '整天',
+                  item.to != null ? getClockTime(item.to!) : '整天',
                   style: TextStyle(
                     color: Styles.ToDoItemTitleColor,
                     fontSize: 10.sp,
+                    height: 14.sp / 10.sp,
                   ),
                 ),
                 Expanded(
-                  child: DottedLine(
-                    direction: Axis.vertical,
-                    dashColor: Color(0xFFDBDEEE),
-                    lineThickness: 2.0,
-                  ),
+                  child: dashedLine(),
                 ),
               ],
             ),
@@ -71,6 +69,7 @@ class ToDoItemWidget extends StatelessWidget {
                         style: TextStyle(
                           color: Styles.ToDoItemTitleColor,
                           fontSize: 10.sp,
+                          height: 14.sp / 10.sp,
                         ),
                       ),
                       Expanded(
@@ -94,6 +93,7 @@ class ToDoItemWidget extends StatelessWidget {
                         style: TextStyle(
                           color: Styles.ToDoItemTitleColor,
                           fontSize: 10.sp,
+                          height: 14.sp / 10.sp,
                         ),
                       ),
                     ],
@@ -104,6 +104,7 @@ class ToDoItemWidget extends StatelessWidget {
                     style: TextStyle(
                       color: Styles.ToDoItemTitleColor,
                       fontSize: 14.sp,
+                      height: 20.sp / 14.sp,
                     ),
                   ),
                   if (item.remarks != '') ...[
@@ -113,6 +114,7 @@ class ToDoItemWidget extends StatelessWidget {
                       style: TextStyle(
                         color: Styles.ToDoItemRemarksColor,
                         fontSize: 10.sp,
+                        height: 14.sp / 10.sp,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
