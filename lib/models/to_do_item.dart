@@ -29,7 +29,7 @@ class ToDoItemAttribute {
   final String text;
 }
 
-final toDoItemTypeMap = {
+const toDoItemTypeMap = {
   ToDoItemType.Study: ToDoItemAttribute(
     icon: 'assets/images/study.svg',
     color: Styles.StudyColor,
@@ -57,7 +57,7 @@ final toDoItemTypeMap = {
   ),
 };
 
-final toDoItemLevelMap = {
+const toDoItemLevelMap = {
   ToDoItemLevel.I: ToDoItemAttribute(
     icon: 'assets/images/level_I.svg',
     color: Styles.ToDoItemLevelIColor,

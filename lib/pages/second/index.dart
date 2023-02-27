@@ -66,9 +66,7 @@ class _SecondTabState extends State<SecondTab> {
                 SliverSafeArea(
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return ToDoItemWidget(mockList[index]);
-                      },
+                      (context, index) => ToDoItemWidget(mockList[index]),
                       childCount: mockList.length,
                     ),
                   ),

@@ -35,7 +35,7 @@ class _FirstTabState extends State<FirstTab> {
         ),
         title: const Text(
           'DO IT',
-          style: TextStyle(
+          style: const TextStyle(
             color: Styles.PrimaryColor,
             fontWeight: FontWeight.bold,
           ),
@@ -57,9 +57,7 @@ class _FirstTabState extends State<FirstTab> {
                 SliverSafeArea(
                   sliver: SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        return SimpleToDoItemWidget(mockList[index]);
-                      },
+                      (context, index) => SimpleToDoItemWidget(mockList[index]),
                       childCount: mockList.length,
                     ),
                   ),

@@ -30,9 +30,9 @@ class SimpleToDoItemWidget extends StatelessWidget {
             width: MEAS.simpleToDoItemLevelWidth,
             height: MEAS.simpleToDoItemLevelHeight,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(2),
-                bottomRight: Radius.circular(2),
+              borderRadius: const BorderRadius.only(
+                topRight: const Radius.circular(2),
+                bottomRight: const Radius.circular(2),
               ),
               color: item.levelColor,
             ),

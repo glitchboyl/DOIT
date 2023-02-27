@@ -1,8 +1,8 @@
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class MEAS {
-  static double designSizeWidth = 375;
-  static double designSizeHeight = 812;
+  static const double designSizeWidth = 375;
+  static const double designSizeHeight = 812;
 
   static double navigationBarIconWidth = 24.w;
   static double navigationBarIconHeight = 24.w;

@@ -30,7 +30,7 @@ class _DOITAppState extends State<DOITApp> {
   void initState() {
     super.initState();
     for (int i = 0; i < navigation.length; i++) {
-      var page = navigation[i];
+      final page = navigation[i];
       _navigationBarItems.add(
         BottomNavigationBarItem(
           icon: svg(

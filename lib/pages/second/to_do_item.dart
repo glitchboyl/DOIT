@@ -23,7 +23,7 @@ class ToDoItemWidget extends StatelessWidget {
             height: 16.h,
             margin: const EdgeInsets.only(right: 2),
             alignment: Alignment.center,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Styles.GeneralBackgroundColor,
             ),
             child: Text(
@@ -37,11 +37,11 @@ class ToDoItemWidget extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(12),
-                  bottomLeft: Radius.circular(12),
-                  bottomRight: Radius.circular(12),
+              decoration: const BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                  topRight: const Radius.circular(12),
+                  bottomLeft: const Radius.circular(12),
+                  bottomRight: const Radius.circular(12),
                 ),
                 color: Styles.ToDoItemBackgroundColor,
               ),
@@ -79,7 +79,7 @@ class ToDoItemWidget extends StatelessWidget {
                         ),
                       ),
                       Expanded(
-                        child: Container(),
+                        child: SizedBox.shrink(),
                       ),
                       Container(
                         width: MEAS.toDoItemTypeWidth,

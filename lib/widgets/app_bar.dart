@@ -13,9 +13,6 @@ AppBar appBar({
       centerTitle: true,
       title: title,
       actions: trailing != null ? [trailing] : [],
-      // actions: [Container(width: double.infinity, height: double.infinity, child: leading)],
-      // actions: [Container(color: Colors.red,child: leading!,)],
-      // actions: [RotatedBox(quarterTurns: 2, child: leading!)],
       backgroundColor: Styles.AppBarColor,
       shadowColor: Colors.transparent,
     );

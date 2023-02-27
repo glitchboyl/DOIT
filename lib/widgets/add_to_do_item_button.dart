@@ -35,7 +35,7 @@ class _AddToDoItemButtonState extends State<AddToDoItemButton> {
             shadowColor: Styles.AddToDoItemButtonShadowColor,
             elevation: 24,
             splashFactory: NoSplash.splashFactory,
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
           ),
           child: svg(
             'assets/images/add_to_do_item.svg',
