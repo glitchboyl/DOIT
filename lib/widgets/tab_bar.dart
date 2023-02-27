@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doit/styles.dart';
+import 'package:doit/constants/meas.dart';
+import 'package:doit/constants/colors.dart';
 
 CupertinoTabBar tabBar(List<BottomNavigationBarItem> items) => CupertinoTabBar(
       items: items,
-      backgroundColor: Styles.TabBarColor,
-      height: 49.h,
+      backgroundColor: Colors.TabBarColor,
+      height: MEAS.tabBarHeight,
       border: Border(
-        top: BorderSide(color: Styles.TabBarColor),
+        top: BorderSide(color: Colors.TabBarColor),
       ),
     );

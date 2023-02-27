@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/tab_bar.dart';
 import 'package:doit/routes.dart';
+import 'constants/meas.dart';
 
 void main() {
   runApp(DOITApp());
@@ -21,7 +22,7 @@ class DOITApp extends StatelessWidget {
   @override
   Widget build(context) {
     return ScreenUtilInit(
-      designSize: const Size(375, 812),
+      designSize: Size(MEAS.designSizeWidth, MEAS.designSizeHeight),
       builder: (context, child) {
         return CupertinoApp(
           debugShowCheckedModeBanner: false,

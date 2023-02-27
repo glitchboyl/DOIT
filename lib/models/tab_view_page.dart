@@ -9,8 +9,8 @@ class TabViewPage {
     required this.path,
   });
 
-  final Widget tabIcon;
-  final Widget tabActiveIcon;
+  final String tabIcon;
+  final String tabActiveIcon;
   final Widget Function(BuildContext) viewWidget;
   final String name;
   final String path;

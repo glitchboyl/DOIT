@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范" transform="translate(-44.000000, -118.000000)">
+            <g id="doit-tab-date-unselected" transform="translate(44.000000, 118.000000)">
+                <rect id="矩形" fill="#FFFFFF" opacity="0" x="0" y="0" width="30" height="30"></rect>
+                <rect id="矩形" stroke="#818DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" x="4" y="5" width="22" height="21" rx="5"></rect>
+                <polyline id="路径-10" stroke="#818DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="11 17 14 20 19 15"></polyline>
+                <line x1="4" y1="11" x2="25" y2="11" id="Stroke-9" stroke="#818DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="10" y1="4" x2="10" y2="7" id="Stroke-11" stroke="#818DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="20" y1="4" x2="20" y2="7" id="Stroke-13" stroke="#818DAA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
+            </g>
+        </g>
+    </g>
+</svg>

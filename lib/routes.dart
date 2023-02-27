@@ -1,72 +1,38 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/models/tab_view_page.dart';
 import 'package:doit/pages/first/index.dart';
 import 'package:doit/pages/second/index.dart';
 import 'package:doit/pages/third/index.dart';
 import 'package:doit/pages/fourth/index.dart';
-
-final double tabIconWidth = 30;
-final double tabIconHeight = 30;
+import 'package:doit/widgets/svg.dart';
+import 'constants/meas.dart';
 
 class Routes {
   static List<TabViewPage> pages = [
     TabViewPage(
-      tabIcon: Image.asset(
-        'assets/images/first.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
-      tabActiveIcon: Image.asset(
-        'assets/images/first_actived.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
+      tabIcon: 'assets/images/first.svg',
+      tabActiveIcon: 'assets/images/first_actived.svg',
       viewWidget: (context) => FirstTab(),
       name: "聚焦",
       path: '/first',
     ),
     TabViewPage(
-      tabIcon: Image.asset(
-        'assets/images/second.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
-      tabActiveIcon: Image.asset(
-        'assets/images/second_actived.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
+      tabIcon: 'assets/images/second.svg',
+      tabActiveIcon: 'assets/images/second_actived.svg',
       viewWidget: (context) => SecondTab(),
       name: "Second",
       path: '/second',
     ),
     TabViewPage(
-      tabIcon: Image.asset(
-        'assets/images/third.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
-      tabActiveIcon: Image.asset(
-        'assets/images/third_actived.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
+      tabIcon: 'assets/images/third.svg',
+      tabActiveIcon: 'assets/images/third_actived.svg',
       viewWidget: (context) => ThirdTab(),
       name: "Third",
       path: '/third',
     ),
     TabViewPage(
-      tabIcon: Image.asset(
-        'assets/images/fourth.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
-      tabActiveIcon: Image.asset(
-        'assets/images/fourth_actived.png',
-        width: tabIconWidth,
-        height: tabIconHeight,
-      ),
+      tabIcon: 'assets/images/third.svg',
+      tabActiveIcon: 'assets/images/third_actived.svg',
       viewWidget: (context) => FourthTab(),
       name: "Fourth",
       path: '/fourth',
@@ -77,8 +43,20 @@ class Routes {
     final List<BottomNavigationBarItem> tabBarItems = [];
     for (int i = 0; i < Routes.pages.length; i++) {
       var page = Routes.pages[i];
-      tabBarItems.add(BottomNavigationBarItem(
-          icon: page.tabIcon, activeIcon: page.tabActiveIcon));
+      tabBarItems.add(
+        BottomNavigationBarItem(
+          icon: svg(
+            page.tabIcon,
+            width: MEAS.tabIconWidth,
+            height: MEAS.tabIconHeight,
+          ),
+          activeIcon: svg(
+            page.tabActiveIcon,
+            width: MEAS.tabIconWidth,
+            height: MEAS.tabIconHeight,
+          ),
+        ),
+      );
     }
     return tabBarItems;
   }

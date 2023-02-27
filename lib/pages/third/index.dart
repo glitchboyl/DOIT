@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:doit/styles.dart';
+import 'package:doit/widgets/navigation_bar.dart';
+import 'package:doit/constants/colors.dart';
 
 class ThirdTab extends StatefulWidget {
   @override
@@ -10,17 +11,11 @@ class _ThirdTabState extends State<ThirdTab> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        backgroundColor: Styles.NavigatorBarColor,
-        middle: const Text('Third'),
-        border: Border(
-          bottom: BorderSide(color: Styles.NavigatorBarColor),
-        ),
-      ),
+      navigationBar: navigationBar(middle: const Text('Third')),
       child: Container(
         child: Text('boy next door'),
       ),
-      backgroundColor: Styles.GeneralBackgroundColor,
+      backgroundColor: Colors.GeneralBackgroundColor,
     );
   }
 }

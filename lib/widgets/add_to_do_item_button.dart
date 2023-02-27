@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doit/styles.dart';
-
-// Widget addToDoItemButton(Function() onPressed) => ;
+import 'package:doit/constants/meas.dart';
+import 'package:doit/constants/colors.dart';
+import 'package:doit/widgets/svg.dart';
 
 class AddToDoItemButton extends StatefulWidget {
   const AddToDoItemButton(this.onPressed);
@@ -12,22 +11,22 @@ class AddToDoItemButton extends StatefulWidget {
 }
 
 class _AddToDoItemButtonState extends State<AddToDoItemButton> {
-  Color buttonColor = Styles.AddToDoItemButtonColor;
+  Color buttonColor = Colors.AddToDoItemButtonColor;
   @override
   Widget build(context) {
     return Positioned(
       right: 0,
       bottom: 48,
       child: Container(
-        width: 52.w,
-        height: 52.h,
+        width: MEAS.addToDoItemButtonWidth,
+        height: MEAS.addToDoItemButtonHeight,
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          color: Styles.AddToDoItemButtonActiveColor,
+          color: Colors.AddToDoItemButtonActiveColor,
           borderRadius: BorderRadius.circular(50),
           boxShadow: [
             BoxShadow(
-              color: Styles.AddToDoItemButtonShadowColor,
+              color: Colors.AddToDoItemButtonShadowColor,
               offset: Offset(0, 12), //阴影y轴偏移量
               blurRadius: 18, //阴影模糊程度
               spreadRadius: -4, //阴影扩散程度
@@ -36,19 +35,19 @@ class _AddToDoItemButtonState extends State<AddToDoItemButton> {
         ),
         child: GestureDetector(
           onTapDown: (tapDetails) {
-            setState(() => buttonColor = Styles.AddToDoItemButtonActiveColor);
+            setState(() => buttonColor = Colors.AddToDoItemButtonActiveColor);
           },
           onTapCancel: () {
-            setState(() => buttonColor = Styles.AddToDoItemButtonColor);
+            setState(() => buttonColor = Colors.AddToDoItemButtonColor);
           },
           child: CupertinoButton(
             color: buttonColor,
             padding: EdgeInsets.zero,
             pressedOpacity: 1,
-            child: Image.asset(
-              'assets/images/add_to_do_item.png',
-              width: 16.w,
-              height: 16.h,
+            child: svg(
+              'assets/images/add_to_do_item.svg',
+              width: MEAS.addToDoItemIconWidth,
+              height: MEAS.addToDoItemIconHeight,
             ),
             onPressed: widget.onPressed,
           ),

@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:dotted_line/dotted_line.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doit/styles.dart';
+import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/meas.dart';
 
 DottedLine dashedLine() => DottedLine(
-      dashLength: 3.2.h,
+      dashLength: MEAS.dashLength,
+      dashGapLength: MEAS.dashGapLength,
       direction: Axis.vertical,
-      dashColor: Styles.DashedLineColor,
-      lineThickness: 2.w,
+      dashColor: Colors.DashedLineColor,
+      lineThickness: MEAS.lineThickness,
+      dashRadius: MEAS.dashRadius,
     );

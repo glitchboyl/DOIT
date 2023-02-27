@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/svg.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/styles.dart';
+import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/meas.dart';
 
 class SimpleToDoItemWidget extends StatelessWidget {
   const SimpleToDoItemWidget(this.item);
@@ -25,26 +27,31 @@ class SimpleToDoItemWidget extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 4.w,
-            height: 12.h,
+            width: MEAS.simpleToDoItemLevelWidth,
+            height: MEAS.simpleToDoItemLevelHeight,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(2),
                 bottomRight: Radius.circular(2),
               ),
-              color: CupertinoColors.activeOrange,
+              color: item.levelColor,
             ),
           ),
           Container(
-            width: 24.w,
-            height: 24.h,
+            width: MEAS.simpleToDoItemTypeWidth,
+            height: MEAS.simpleToDoItemTypeHeight,
             margin: const EdgeInsets.only(
               left: 12,
               right: 12,
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
-              color: CupertinoColors.systemGreen,
+              color: item.typeColor,
+            ),
+            child: svg(
+              item.typeIcon,
+              width: MEAS.simpleToDoItemTypeIconWidth,
+              height: MEAS.simpleToDoItemTypeIconHeight,
             ),
           ),
           Column(
@@ -54,7 +61,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
               Text(
                 item.title,
                 style: TextStyle(
-                  color: Styles.ToDoItemTitleColor,
+                  color: Colors.ToDoItemTitleColor,
                   fontSize: 14.sp,
                   height: 20.sp / 14.sp,
                 ),
@@ -63,7 +70,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
               Text(
                 getToDoItemTime(to: item.to, from: item.from),
                 style: TextStyle(
-                  color: Styles.ToDoItemTimeColor,
+                  color: Colors.ToDoItemTimeColor,
                   fontSize: 10.sp,
                   height: 14.sp / 10.sp,
                 ),
