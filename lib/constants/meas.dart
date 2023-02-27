@@ -7,7 +7,6 @@ abstract class MEAS {
   static double navigationBarIconWidth = 24.w;
   static double navigationBarIconHeight = 24.w;
 
-  static double tabBarHeight = 49.h;
   static double tabIconWidth = 30;
   static double tabIconHeight = 30;
 
@@ -17,15 +16,17 @@ abstract class MEAS {
   static double simpleToDoItemTypeHeight = 24.h;
   static double simpleToDoItemTypeIconWidth = 18.w;
   static double simpleToDoItemTypeIconHeight = 18.h;
-  
+
   static double toDoItemLevelWidth = 12.w;
   static double toDoItemLevelHeight = 12.h;
-  static double toDoItemLevelIconWidth = 12.w;
-  static double toDoItemLevelIconHeight = 12.h;
-  static double toDoItemTypeWidth = 18.w;
-  static double toDoItemTypeHeight = 18.h;
-  static double toDoItemTypeIconWidth = 14.w;
-  static double toDoItemTypeIconHeight = 14.h;
+  static double toDoItemLevelIconWidth = 10.w;
+  static double toDoItemLevelIconHeight = 10.h;
+  static double toDoItemTypeWidth = 12.w;
+  static double toDoItemTypeHeight = 12.h;
+  static double toDoItemTypeIconWidth = 10.w;
+  static double toDoItemTypeIconHeight = 10.h;
+
+  static double toDoListTimelineContainerWidth = 28.w;
 
   static double addToDoItemButtonWidth = 52.w;
   static double addToDoItemButtonHeight = 52.h;

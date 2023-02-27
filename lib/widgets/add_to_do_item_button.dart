@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/constants/meas.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/styles.dart';
 import 'package:doit/widgets/svg.dart';
 
 class AddToDoItemButton extends StatefulWidget {
@@ -11,46 +11,38 @@ class AddToDoItemButton extends StatefulWidget {
 }
 
 class _AddToDoItemButtonState extends State<AddToDoItemButton> {
-  Color buttonColor = Colors.AddToDoItemButtonColor;
+  Color _buttonColor = Styles.AddToDoItemButtonColor;
   @override
   Widget build(context) {
     return Positioned(
       right: 0,
       bottom: 48,
-      child: Container(
-        width: MEAS.addToDoItemButtonWidth,
-        height: MEAS.addToDoItemButtonHeight,
-        clipBehavior: Clip.antiAlias,
-        decoration: BoxDecoration(
-          color: Colors.AddToDoItemButtonActiveColor,
-          borderRadius: BorderRadius.circular(50),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.AddToDoItemButtonShadowColor,
-              offset: Offset(0, 12), //阴影y轴偏移量
-              blurRadius: 18, //阴影模糊程度
-              spreadRadius: -4, //阴影扩散程度
+      child: GestureDetector(
+        onTapDown: (tapDetails) {
+          setState(() => _buttonColor = Styles.AddToDoItemButtonActiveColor);
+        },
+        onTapCancel: () {
+          setState(() => _buttonColor = Styles.AddToDoItemButtonColor);
+        },
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(
+              MEAS.addToDoItemButtonWidth,
+              MEAS.addToDoItemButtonHeight,
             ),
-          ],
-        ),
-        child: GestureDetector(
-          onTapDown: (tapDetails) {
-            setState(() => buttonColor = Colors.AddToDoItemButtonActiveColor);
-          },
-          onTapCancel: () {
-            setState(() => buttonColor = Colors.AddToDoItemButtonColor);
-          },
-          child: CupertinoButton(
-            color: buttonColor,
-            padding: EdgeInsets.zero,
-            pressedOpacity: 1,
-            child: svg(
-              'assets/images/add_to_do_item.svg',
-              width: MEAS.addToDoItemIconWidth,
-              height: MEAS.addToDoItemIconHeight,
-            ),
-            onPressed: widget.onPressed,
+            backgroundColor: _buttonColor,
+            foregroundColor: _buttonColor,
+            shadowColor: Styles.AddToDoItemButtonShadowColor,
+            elevation: 24,
+            splashFactory: NoSplash.splashFactory,
+            shape: CircleBorder(),
           ),
+          child: svg(
+            'assets/images/add_to_do_item.svg',
+            width: MEAS.addToDoItemIconWidth,
+            height: MEAS.addToDoItemIconHeight,
+          ),
+          onPressed: widget.onPressed,
         ),
       ),
     );

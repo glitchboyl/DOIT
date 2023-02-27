@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
-import 'package:doit/widgets/navigation_bar.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:doit/widgets/app_bar.dart';
+import 'package:doit/constants/styles.dart';
 
 class FourthTab extends StatefulWidget {
   @override
@@ -10,12 +10,12 @@ class FourthTab extends StatefulWidget {
 class _FourthTabState extends State<FourthTab> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: navigationBar(middle: const Text('Fourth')),
-      child: Container(
+    return Scaffold(
+      appBar: appBar(title: const Text('Fourth')),
+      body: Container(
         child: Text('oh yessir'),
       ),
-      backgroundColor: Colors.GeneralBackgroundColor,
+      backgroundColor: Styles.GeneralBackgroundColor,
     );
   }
 }

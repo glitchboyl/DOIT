@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'to_do_item.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/widgets/dashed_line.dart';
-import 'package:doit/widgets/navigation_bar.dart';
+import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/add_to_do_item_button.dart';
-import 'package:doit/widgets/svg.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class SecondTab extends StatefulWidget {
@@ -36,21 +34,21 @@ class _SecondTabState extends State<SecondTab> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: navigationBar(
-        leading: navigationBarButton(
-          'assets/images/quadrant.svg',
+    return Scaffold(
+      appBar: appBar(
+        leading: appBarIconButton(
+          'assets/images/view.svg',
           () => {},
         ),
-        middle: const Text(
+        title: const Text(
           '10月',
           style: TextStyle(
+            color: Styles.PrimaryColor,
             fontWeight: FontWeight.bold,
-            fontFamily: 'DIN',
           ),
         ),
       ),
-      child: Padding(
+      body: Padding(
         padding: const EdgeInsets.only(
           top: 12,
           left: 24,
@@ -59,7 +57,7 @@ class _SecondTabState extends State<SecondTab> {
         child: Stack(
           children: [
             Container(
-              width: 28.w,
+              width: MEAS.toDoListTimelineContainerWidth,
               alignment: Alignment.center,
               child: dashedLine(),
             ),
@@ -87,7 +85,7 @@ class _SecondTabState extends State<SecondTab> {
           ],
         ),
       ),
-      backgroundColor: Colors.GeneralBackgroundColor,
+      backgroundColor: Styles.GeneralBackgroundColor,
     );
   }
 }

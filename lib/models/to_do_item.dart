@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:flutter/material.dart';
+import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 enum ToDoItemLevel {
@@ -20,7 +20,7 @@ enum ToDoItemType {
 class ToDoItemAttribute {
   const ToDoItemAttribute({
     required this.icon,
-    this.color = Colors.CompleteColor,
+    this.color = Styles.CompleteColor,
     required this.text,
   });
 
@@ -32,27 +32,27 @@ class ToDoItemAttribute {
 final toDoItemTypeMap = {
   ToDoItemType.Study: ToDoItemAttribute(
     icon: 'assets/images/study.svg',
-    color: Colors.StudyColor,
+    color: Styles.StudyColor,
     text: '学习',
   ),
   ToDoItemType.Work: ToDoItemAttribute(
     icon: 'assets/images/work.svg',
-    color: Colors.WorkColor,
+    color: Styles.WorkColor,
     text: '工作',
   ),
   ToDoItemType.Life: ToDoItemAttribute(
     icon: 'assets/images/life.svg',
-    color: Colors.LifeColor,
+    color: Styles.LifeColor,
     text: '生活',
   ),
   ToDoItemType.Health: ToDoItemAttribute(
     icon: 'assets/images/health.svg',
-    color: Colors.HealthColor,
+    color: Styles.HealthColor,
     text: '健康',
   ),
   ToDoItemType.Travel: ToDoItemAttribute(
     icon: 'assets/images/travel.svg',
-    color: Colors.TravelColor,
+    color: Styles.TravelColor,
     text: '旅行',
   ),
 };
@@ -60,22 +60,22 @@ final toDoItemTypeMap = {
 final toDoItemLevelMap = {
   ToDoItemLevel.I: ToDoItemAttribute(
     icon: 'assets/images/level_I.svg',
-    color: Colors.ToDoItemLevelIColor,
+    color: Styles.ToDoItemLevelIColor,
     text: '重要且紧急',
   ),
   ToDoItemLevel.II: ToDoItemAttribute(
     icon: 'assets/images/level_I.svg',
-    color: Colors.ToDoItemLevelIIColor,
+    color: Styles.ToDoItemLevelIIColor,
     text: '重要不紧急',
   ),
   ToDoItemLevel.III: ToDoItemAttribute(
     icon: 'assets/images/level_III.svg',
-    color: Colors.ToDoItemLevelIIIColor,
+    color: Styles.ToDoItemLevelIIIColor,
     text: '学习',
   ),
   ToDoItemLevel.IV: ToDoItemAttribute(
     icon: 'assets/images/level_IV.svg',
-    color: Colors.ToDoItemLevelIVColor,
+    color: Styles.ToDoItemLevelIVColor,
     text: '不重要不紧急',
   ),
 };
@@ -102,13 +102,16 @@ class ToDoItem {
   String get typeIcon =>
       toDoItemTypeMap[type]?.icon ?? toDoItemTypeMap[ToDoItemType.Life]!.icon;
 
-  Color get typeColor => toDoItemTypeMap[type]?.color ?? Colors.CompleteColor;
+  Color get typeColor => toDoItemTypeMap[type]?.color ?? Styles.CompleteColor;
+
+  String get typeText =>
+      toDoItemTypeMap[type]?.text ?? toDoItemTypeMap[ToDoItemType.Life]!.text;
 
   String get levelIcon =>
       toDoItemLevelMap[level]?.icon ?? toDoItemLevelMap[ToDoItemLevel.IV]!.icon;
 
   Color get levelColor =>
-      toDoItemLevelMap[level]?.color ?? Colors.CompleteColor;
+      toDoItemLevelMap[level]?.color ?? Styles.CompleteColor;
 
   String get levelText =>
       toDoItemLevelMap[level]?.text ?? toDoItemLevelMap[ToDoItemLevel.IV]!.text;

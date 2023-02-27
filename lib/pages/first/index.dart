@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'simple_to_do_item.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/widgets/navigation_bar.dart';
+import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/add_to_do_item_button.dart';
 import 'package:doit/widgets/svg.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class FirstTab extends StatefulWidget {
@@ -27,25 +27,25 @@ class _FirstTabState extends State<FirstTab> {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: navigationBar(
-        leading: navigationBarButton(
+    return Scaffold(
+      appBar: appBar(
+        leading: appBarIconButton(
           'assets/images/menu.svg',
           () => {},
         ),
-        middle: const Text(
+        title: const Text(
           'DO IT',
           style: TextStyle(
+            color: Styles.PrimaryColor,
             fontWeight: FontWeight.bold,
-            fontFamily: 'DIN',
           ),
         ),
-        trailing: navigationBarButton(
+        trailing: appBarIconButton(
           'assets/images/quadrant.svg',
           () => {},
         ),
       ),
-      child: Padding(
+      body: Padding(
         padding: const EdgeInsets.only(
           left: 16,
           right: 16,
@@ -86,7 +86,7 @@ class _FirstTabState extends State<FirstTab> {
           ],
         ),
       ),
-      backgroundColor: Colors.GeneralBackgroundColor,
+      backgroundColor: Styles.GeneralBackgroundColor,
     );
   }
 }

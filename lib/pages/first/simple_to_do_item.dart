@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/svg.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class SimpleToDoItemWidget extends StatelessWidget {
@@ -17,7 +17,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: CupertinoColors.white,
+        color: Styles.ToDoItemBackgroundColor,
       ),
       padding: const EdgeInsets.only(
         top: 12,
@@ -61,7 +61,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
               Text(
                 item.title,
                 style: TextStyle(
-                  color: Colors.ToDoItemTitleColor,
+                  color: Styles.PrimaryColor,
                   fontSize: 14.sp,
                   height: 20.sp / 14.sp,
                 ),
@@ -70,9 +70,11 @@ class SimpleToDoItemWidget extends StatelessWidget {
               Text(
                 getToDoItemTime(to: item.to, from: item.from),
                 style: TextStyle(
-                  color: Colors.ToDoItemTimeColor,
-                  fontSize: 10.sp,
-                  height: 14.sp / 10.sp,
+                  color: item.level == ToDoItemLevel.IV
+                      ? item.levelColor
+                      : Styles.ToDoItemTimeColor,
+                  fontSize: 11.sp,
+                  height: 16.sp / 11.sp,
                 ),
               ),
             ],

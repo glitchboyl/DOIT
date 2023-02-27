@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/widgets/dashed_line.dart';
 import 'package:doit/widgets/svg.dart';
-import 'package:doit/constants/colors.dart';
+import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class ToDoItemWidget extends StatelessWidget {
@@ -15,24 +15,23 @@ class ToDoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: item.remarks != '' ? 94.h : 78.h,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            width: 28.w,
-            height: 14.h,
-            margin: const EdgeInsets.only(right: 4),
+            width: MEAS.toDoListTimelineContainerWidth,
+            height: 16.h,
+            margin: const EdgeInsets.only(right: 2),
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: Colors.GeneralBackgroundColor,
+              color: Styles.GeneralBackgroundColor,
             ),
             child: Text(
               item.to != null ? getClockTime(item.to!) : '整天',
               style: TextStyle(
-                color: Colors.ToDoItemTitleColor,
-                fontSize: 10.sp,
-                height: 14.sp / 10.sp,
+                color: Styles.PrimaryColor,
+                fontSize: 11.sp,
+                height: 16.sp / 11.sp,
               ),
             ),
           ),
@@ -44,11 +43,12 @@ class ToDoItemWidget extends StatelessWidget {
                   bottomLeft: Radius.circular(12),
                   bottomRight: Radius.circular(12),
                 ),
-                color: CupertinoColors.white,
+                color: Styles.ToDoItemBackgroundColor,
               ),
-              padding: const EdgeInsets.only(top: 12, left: 12, right: 12),
+              padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.only(bottom: 10),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
@@ -73,9 +73,9 @@ class ToDoItemWidget extends StatelessWidget {
                       Text(
                         item.levelText,
                         style: TextStyle(
-                          color: Colors.ToDoItemTitleColor,
-                          fontSize: 10.sp,
-                          height: 14.sp / 10.sp,
+                          color: Styles.PrimaryColor,
+                          fontSize: 11.sp,
+                          height: 16.sp / 11.sp,
                         ),
                       ),
                       Expanded(
@@ -96,32 +96,22 @@ class ToDoItemWidget extends StatelessWidget {
                           width: MEAS.toDoItemTypeIconWidth,
                           height: MEAS.toDoItemTypeIconHeight,
                         ),
-                        //   ConstrainedBox(
-                        //       constraints: BoxConstraints(
-                        //         maxWidth: MEAS.toDoItemTypeIconWidth,
-                        //         maxHeight: MEAS.toDoItemTypeIconHeight,
-                        //       ),
-                        //       child: Container(
-                        //         color: CupertinoColors.activeOrange,
-                        //       )
-
-                        //       ),
                       ),
                       Text(
-                        '日常',
+                        item.typeText,
                         style: TextStyle(
-                          color: Colors.ToDoItemTitleColor,
-                          fontSize: 10.sp,
-                          height: 14.sp / 10.sp,
+                          color: Styles.PrimaryColor,
+                          fontSize: 11.sp,
+                          height: 16.sp / 11.sp,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10.h),
+                  SizedBox(height: 8.h),
                   Text(
                     item.title,
                     style: TextStyle(
-                      color: Colors.ToDoItemTitleColor,
+                      color: Styles.PrimaryColor,
                       fontSize: 14.sp,
                       height: 20.sp / 14.sp,
                     ),
@@ -131,9 +121,9 @@ class ToDoItemWidget extends StatelessWidget {
                     Text(
                       item.remarks,
                       style: TextStyle(
-                        color: Colors.ToDoItemRemarksColor,
-                        fontSize: 10.sp,
-                        height: 14.sp / 10.sp,
+                        color: Styles.ToDoItemRemarksColor,
+                        fontSize: 11.sp,
+                        height: 16.sp / 11.sp,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
