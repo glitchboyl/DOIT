@@ -91,7 +91,7 @@ class ToDoItem {
     this.from,
   });
 
-  final int id;
+  final Key id;
   final String title;
   final String remarks;
   final ToDoItemType type;

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/constants/styles.dart';
+import 'package:doit/constants/keys.dart';
 
 class FourthTab extends StatefulWidget {
   @override
-  _FourthTabState createState() => _FourthTabState();
+  FourthTabState createState() => FourthTabState();
 }
 
-class _FourthTabState extends State<FourthTab> {
+class FourthTabState extends State<FourthTab> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(title: const Text('Fourth')),
-      body: Container(
-        child: Text('oh yessir'),
-      ),
-      backgroundColor: Styles.GeneralBackgroundColor,
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        key: Keys.Fourth,
+        appBar: AppBarBuilder(title: const Text('Fourth')),
+        body: Container(
+          child: Text('oh yessir'),
+        ),
+        // backgroundColor: Styles.PageBackgroundColor,
+      );
 }

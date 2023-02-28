@@ -3,8 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/widgets/dashed_line.dart';
-import 'package:doit/widgets/svg.dart';
+import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -13,128 +12,129 @@ class ToDoItemWidget extends StatelessWidget {
   final ToDoItem item;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: MEAS.toDoListTimelineContainerWidth,
-            height: 16.h,
-            margin: const EdgeInsets.only(right: 2),
-            alignment: Alignment.center,
-            decoration: const BoxDecoration(
-              color: Styles.GeneralBackgroundColor,
-            ),
-            child: Text(
-              item.to != null ? getClockTime(item.to!) : '整天',
-              style: TextStyle(
-                color: Styles.PrimaryColor,
-                fontSize: 11.sp,
-                height: 16.sp / 11.sp,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
+  Widget build(BuildContext context) => Container(
+        key: item.id,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              width: MEAS.toDoListTimelineContainerWidth,
+              height: 16.h,
+              margin: EdgeInsets.only(right: 2.w),
+              alignment: Alignment.center,
               decoration: const BoxDecoration(
-                borderRadius: const BorderRadius.only(
-                  topRight: const Radius.circular(12),
-                  bottomLeft: const Radius.circular(12),
-                  bottomRight: const Radius.circular(12),
-                ),
-                color: Styles.ToDoItemBackgroundColor,
+                color: Styles.PageBackgroundColor,
               ),
-              padding: const EdgeInsets.all(12),
-              margin: const EdgeInsets.only(bottom: 10),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        width: MEAS.toDoItemLevelWidth,
-                        height: MEAS.toDoItemLevelWidth,
-                        margin: const EdgeInsets.only(
-                          right: 4,
+              child: Text(
+                item.to != null ? getClockTime(item.to!) : '整天',
+                style: TextStyle(
+                  color: Styles.TextColor,
+                  fontSize: MEAS.smallTextSize,
+                  height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(12.r),
+                    bottomLeft: Radius.circular(12.r),
+                    bottomRight: Radius.circular(12.r),
+                  ),
+                  color: Styles.ToDoItemBackgroundColor,
+                ),
+                padding: EdgeInsets.all(12.w),
+                margin: EdgeInsets.only(bottom: 10.w),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          width: MEAS.toDoItemLevelWidth,
+                          height: MEAS.toDoItemLevelWidth,
+                          margin: EdgeInsets.only(
+                            right: 4.w,
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: item.levelColor,
+                          ),
+                          child: SVGIcon(
+                            icon: item.levelIcon,
+                            width: MEAS.toDoItemLevelIconWidth,
+                            height: MEAS.toDoItemLevelIconHeight,
+                          ),
                         ),
-                        clipBehavior: Clip.antiAlias,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: item.levelColor,
+                        Text(
+                          item.levelText,
+                          style: TextStyle(
+                            color: Styles.TextColor,
+                            fontSize: MEAS.smallTextSize,
+                            height:
+                                MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                          ),
                         ),
-                        child: svg(
-                          item.levelIcon,
-                          width: MEAS.toDoItemLevelIconWidth,
-                          height: MEAS.toDoItemLevelIconHeight,
+                        Expanded(
+                          child: SizedBox.shrink(),
                         ),
+                        Container(
+                          width: MEAS.toDoItemTypeWidth,
+                          height: MEAS.toDoItemTypeHeight,
+                          margin: EdgeInsets.only(
+                            right: 4.w,
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4.r),
+                            color: item.typeColor,
+                          ),
+                          child: SVGIcon(
+                            icon: item.typeIcon,
+                            width: MEAS.toDoItemTypeIconWidth,
+                            height: MEAS.toDoItemTypeIconHeight,
+                          ),
+                        ),
+                        Text(
+                          item.typeText,
+                          style: TextStyle(
+                            color: Styles.TextColor,
+                            fontSize: MEAS.smallTextSize,
+                            height:
+                                MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Text(
+                      item.title,
+                      style: TextStyle(
+                        color: Styles.TextColor,
+                        fontSize: MEAS.textSize,
+                        height: MEAS.textLineHeight / MEAS.textSize,
                       ),
+                    ),
+                    if (item.remarks != '') ...[
+                      SizedBox(height: 2.h),
                       Text(
-                        item.levelText,
+                        item.remarks,
                         style: TextStyle(
-                          color: Styles.PrimaryColor,
-                          fontSize: 11.sp,
-                          height: 16.sp / 11.sp,
+                          color: Styles.ToDoItemRemarksColor,
+                          fontSize: MEAS.smallTextSize,
+                          height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
                         ),
-                      ),
-                      Expanded(
-                        child: SizedBox.shrink(),
-                      ),
-                      Container(
-                        width: MEAS.toDoItemTypeWidth,
-                        height: MEAS.toDoItemTypeHeight,
-                        margin: const EdgeInsets.only(
-                          right: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: item.typeColor,
-                        ),
-                        child: svg(
-                          item.typeIcon,
-                          width: MEAS.toDoItemTypeIconWidth,
-                          height: MEAS.toDoItemTypeIconHeight,
-                        ),
-                      ),
-                      Text(
-                        item.typeText,
-                        style: TextStyle(
-                          color: Styles.PrimaryColor,
-                          fontSize: 11.sp,
-                          height: 16.sp / 11.sp,
-                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
-                  ),
-                  SizedBox(height: 8.h),
-                  Text(
-                    item.title,
-                    style: TextStyle(
-                      color: Styles.PrimaryColor,
-                      fontSize: 14.sp,
-                      height: 20.sp / 14.sp,
-                    ),
-                  ),
-                  if (item.remarks != '') ...[
-                    SizedBox(height: 2.h),
-                    Text(
-                      item.remarks,
-                      style: TextStyle(
-                        color: Styles.ToDoItemRemarksColor,
-                        fontSize: 11.sp,
-                        height: 16.sp / 11.sp,
-                      ),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
                   ],
-                ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
+          ],
+        ),
+      );
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doit/widgets/svg.dart';
+import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
@@ -13,74 +13,70 @@ class SimpleToDoItemWidget extends StatelessWidget {
   final ToDoItem item;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Styles.ToDoItemBackgroundColor,
-      ),
-      padding: const EdgeInsets.only(
-        top: 12,
-        bottom: 12,
-      ),
-      margin: const EdgeInsets.only(top: 10),
-      child: Row(
-        children: [
-          Container(
-            width: MEAS.simpleToDoItemLevelWidth,
-            height: MEAS.simpleToDoItemLevelHeight,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topRight: const Radius.circular(2),
-                bottomRight: const Radius.circular(2),
-              ),
-              color: item.levelColor,
-            ),
-          ),
-          Container(
-            width: MEAS.simpleToDoItemTypeWidth,
-            height: MEAS.simpleToDoItemTypeHeight,
-            margin: const EdgeInsets.only(
-              left: 12,
-              right: 12,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: item.typeColor,
-            ),
-            child: svg(
-              item.typeIcon,
-              width: MEAS.simpleToDoItemTypeIconWidth,
-              height: MEAS.simpleToDoItemTypeIconHeight,
-            ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                item.title,
-                style: TextStyle(
-                  color: Styles.PrimaryColor,
-                  fontSize: 14.sp,
-                  height: 20.sp / 14.sp,
+  Widget build(BuildContext context) => Container(
+        key: item.id,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12.r),
+          color: Styles.ToDoItemBackgroundColor,
+        ),
+        padding: EdgeInsets.symmetric(
+          vertical: 12.w,
+        ),
+        margin: EdgeInsets.only(top: 10.w),
+        child: Row(
+          children: [
+            Container(
+              width: MEAS.simpleToDoItemLevelWidth,
+              height: MEAS.simpleToDoItemLevelHeight,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.horizontal(
+                  right: Radius.circular(2.r),
                 ),
+                color: item.levelColor,
               ),
-              SizedBox(height: 2.h),
-              Text(
-                getToDoItemTime(to: item.to, from: item.from),
-                style: TextStyle(
-                  color: item.level == ToDoItemLevel.IV
-                      ? item.levelColor
-                      : Styles.ToDoItemTimeColor,
-                  fontSize: 11.sp,
-                  height: 16.sp / 11.sp,
+            ),
+            Container(
+              width: MEAS.simpleToDoItemTypeWidth,
+              height: MEAS.simpleToDoItemTypeHeight,
+              margin: EdgeInsets.symmetric(
+                horizontal: 12.w,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.r),
+                color: item.typeColor,
+              ),
+              child: SVGIcon(
+                icon: item.typeIcon,
+                width: MEAS.simpleToDoItemTypeIconWidth,
+                height: MEAS.simpleToDoItemTypeIconHeight,
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  item.title,
+                  style: TextStyle(
+                    color: Styles.TextColor,
+                    fontSize: MEAS.textSize,
+                    height: MEAS.textLineHeight / MEAS.textSize,
+                  ),
                 ),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
-  }
+                SizedBox(height: 2.h),
+                Text(
+                  getToDoItemTime(to: item.to, from: item.from),
+                  style: TextStyle(
+                    color: item.level == ToDoItemLevel.IV
+                        ? item.levelColor
+                        : Styles.ToDoItemTimeColor,
+                    fontSize: MEAS.smallTextSize,
+                    height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                  ),
+                ),
+              ],
+            )
+          ],
+        ),
+      );
 }

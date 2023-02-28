@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 abstract class Styles {
   static const Color AppBarColor = Colors.white;
-  static const Color GeneralBackgroundColor = Color(0xFFF7F7FA);
-  static const Color PrimaryColor = Color(0xFF373655);
-  static const Color TabBarColor = Colors.white;
+  static const Color PageBackgroundColor = Color(0xFFF7F7FA);
+  static const Color TextColor = Color(0xFF373655);
+  static const Color BottomNavigationBarColor = Colors.white;
   static const Color ToDoItemBackgroundColor = Colors.white;
   static const Color StudyColor = Color(0xFF9470FF);
   static const Color WorkColor = Color(0xFF6B89FF);
@@ -22,4 +22,7 @@ abstract class Styles {
   static const Color AddToDoItemButtonColor = Color(0xFF3A36EE);
   static const Color AddToDoItemButtonActiveColor = Color(0xFF2224C6);
   static const Color AddToDoItemButtonShadowColor = Color(0x33312DE0);
+  static const Color AddToDoItemDialogBackgroundColor = Colors.white;
+  static const Color ToDoItemTitleInputColor = Color(0xFFF7F7FA);
+  static const Color ToDoItemTitleHintColor = Color(0xFFB8BBCC);
 }
