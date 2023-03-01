@@ -18,6 +18,8 @@ abstract class MEAS {
   static double simpleToDoItemTypeHeight = 24.w;
   static double simpleToDoItemTypeIconWidth = 18.w;
   static double simpleToDoItemTypeIconHeight = 18.w;
+  static double simpleToDoItemOperationIconWidth = 20.w;
+  static double simpleToDoItemOperationIconHeight = 20.w;
 
   static double toDoItemLevelWidth = 12.w;
   static double toDoItemLevelHeight = 12.w;
@@ -44,7 +46,7 @@ abstract class MEAS {
 
   static double textSize = 14.sp;
   static double textLineHeight = 20.sp;
-  static double smallTextSize = 11.sp;
+  static double smallTextSize = 12.sp;
   static double smallTextLineHeight = 16.sp;
   static double largeTextSize = 18.sp;
   static double largeTextLineHeight = 26.sp;

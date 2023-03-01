@@ -14,12 +14,14 @@ class SVGIcon extends StatelessWidget {
   final double? height;
 
   @override
-  Widget build(context) => Center(
-        child: SvgPicture.asset(
-          icon,
-          width: width,
-          height: height,
-          fit: BoxFit.scaleDown,
+  Widget build(context) => SizedBox(
+        width: width,
+        height: height,
+        child: Center(
+          child: SvgPicture.asset(
+            icon,
+            fit: BoxFit.cover,
+          ),
         ),
       );
 }

@@ -23,12 +23,13 @@ class ToDoItemWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: 2.w),
               alignment: Alignment.center,
               decoration: const BoxDecoration(
-                color: Styles.PageBackgroundColor,
+                color: Styles.BackgroundColor,
               ),
               child: Text(
-                item.to != null ? getClockTime(item.to!) : '整天',
+                // item.startTime != null ? getClockTime(item.startTime!) : '整天',
+                getClockTime(item.startTime),
                 style: TextStyle(
-                  color: Styles.TextColor,
+                  color: Styles.PrimaryTextColor,
                   fontSize: MEAS.smallTextSize,
                   height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
                 ),
@@ -42,7 +43,7 @@ class ToDoItemWidget extends StatelessWidget {
                     bottomLeft: Radius.circular(12.r),
                     bottomRight: Radius.circular(12.r),
                   ),
-                  color: Styles.ToDoItemBackgroundColor,
+                  color: Styles.RegularBaseColor,
                 ),
                 padding: EdgeInsets.all(12.w),
                 margin: EdgeInsets.only(bottom: 10.w),
@@ -72,7 +73,7 @@ class ToDoItemWidget extends StatelessWidget {
                         Text(
                           item.levelText,
                           style: TextStyle(
-                            color: Styles.TextColor,
+                            color: Styles.PrimaryTextColor,
                             fontSize: MEAS.smallTextSize,
                             height:
                                 MEAS.smallTextLineHeight / MEAS.smallTextSize,
@@ -100,7 +101,7 @@ class ToDoItemWidget extends StatelessWidget {
                         Text(
                           item.typeText,
                           style: TextStyle(
-                            color: Styles.TextColor,
+                            color: Styles.PrimaryTextColor,
                             fontSize: MEAS.smallTextSize,
                             height:
                                 MEAS.smallTextLineHeight / MEAS.smallTextSize,
@@ -112,7 +113,7 @@ class ToDoItemWidget extends StatelessWidget {
                     Text(
                       item.title,
                       style: TextStyle(
-                        color: Styles.TextColor,
+                        color: Styles.PrimaryTextColor,
                         fontSize: MEAS.textSize,
                         height: MEAS.textLineHeight / MEAS.textSize,
                       ),
@@ -122,7 +123,7 @@ class ToDoItemWidget extends StatelessWidget {
                       Text(
                         item.remarks,
                         style: TextStyle(
-                          color: Styles.ToDoItemRemarksColor,
+                          color: Styles.SecondaryTextColor,
                           fontSize: MEAS.smallTextSize,
                           height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
                         ),

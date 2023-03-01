@@ -4,12 +4,13 @@ import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class DashedLine extends StatelessWidget {
+  const DashedLine({Key? key}) : super(key: key);
   @override
   Widget build(context) => DottedLine(
         dashLength: MEAS.dashLength,
         dashGapLength: MEAS.dashGapLength,
         direction: Axis.vertical,
-        dashColor: Styles.DashedLineColor,
+        dashColor: Styles.DeactivedColor,
         lineThickness: MEAS.lineThickness,
         dashRadius: MEAS.dashRadius,
       );

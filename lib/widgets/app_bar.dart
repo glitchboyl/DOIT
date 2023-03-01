@@ -24,7 +24,7 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
         title: title,
         centerTitle: true,
         actions: [trailing ?? SizedBox.shrink()],
-        backgroundColor: Styles.AppBarColor,
+        backgroundColor: Styles.RegularBaseColor,
         shadowColor: Colors.transparent,
         toolbarHeight: MEAS.appBarHeight,
       );

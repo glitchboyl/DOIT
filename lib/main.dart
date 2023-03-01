@@ -2,13 +2,15 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:doit/widgets/add_to_do_item_button.dart';
-import 'package:doit/widgets/bottom_navigation_bar.dart';
-import 'package:doit/widgets/svg_icon.dart';
-import 'package:doit/models/navigation.dart';
+import 'widgets/add_to_do_item_button.dart';
+import 'widgets/bottom_navigation_bar.dart';
+import 'widgets/svg_icon.dart';
+import 'models/navigation.dart';
+import 'models/floating_action_button_location.dart';
+import 'models/floating_action_button_animator.dart';
 import 'constants/styles.dart';
 import 'constants/meas.dart';
-import 'models/floating_action_button_location.dart';
+import 'constants/keys.dart';
 
 void main() {
   runApp(DOITApp());
@@ -21,13 +23,13 @@ void main() {
 
 class DOITApp extends StatefulWidget {
   @override
-  _DOITAppState createState() => _DOITAppState();
+  DOITAppState createState() => DOITAppState();
 }
 
-class _DOITAppState extends State<DOITApp> {
+class DOITAppState extends State<DOITApp> {
   int _currentIndex = 0;
   List<BottomNavigationBarItem> _navigationBarItems = [];
-  List<Widget> _pageWidgets = [];
+  final List<Widget> _pageWidgets = [];
 
   @override
   void initState() {
@@ -56,43 +58,43 @@ class _DOITAppState extends State<DOITApp> {
   @override
   Widget build(context) => ScreenUtilInit(
         designSize: Size(MEAS.designSizeWidth, MEAS.designSizeHeight),
-        builder: (context, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              brightness: Brightness.light,
-              fontFamily: 'DIN',
-              highlightColor: Colors.transparent,
-              splashColor: Colors.transparent,
+        builder: (context, child) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            brightness: Brightness.light,
+            fontFamily: 'Barlow',
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
+          ),
+          themeMode: ThemeMode.light,
+          home: Scaffold(
+            body: IndexedStack(index: _currentIndex, children: _pageWidgets),
+            floatingActionButton: Visibility(
+              visible: navigation[_currentIndex].name ==
+                      Keys.Schedule.toString() ||
+                  navigation[_currentIndex].name == Keys.Overview.toString(),
+              child: AddToDoItemButton(key: Keys.AddToDoItemButton),
             ),
-            themeMode: ThemeMode.light,
-            home: Scaffold(
-              body: IndexedStack(index: _currentIndex, children: _pageWidgets),
-              floatingActionButton:
-                  (navigation[_currentIndex].name == 'First' ||
-                          navigation[_currentIndex].name == 'Second')
-                      ? AddToDoItemButton()
-                      : null,
-              floatingActionButtonLocation: FABLocation(
-                location: FloatingActionButtonLocation.endDocked,
-                offsetX: -16.w,
-                offsetY: -MEAS.bottomNavigationBarHeight -
-                    MEAS.addToDoItemButtonBottom,
-              ),
-              resizeToAvoidBottomInset: false,
-              backgroundColor: Styles.PageBackgroundColor,
-              bottomNavigationBar: BottomNavigationBarBuilder(
-                items: _navigationBarItems,
-                currentIndex: _currentIndex,
-                onTap: (int index) {
-                  if (_currentIndex != index)
-                    setState(() {
-                      _currentIndex = index;
-                    });
-                },
-              ),
+            floatingActionButtonLocation: FABLocation(
+              location: FloatingActionButtonLocation.endDocked,
+              offsetX: -16.w,
+              offsetY: -MEAS.bottomNavigationBarHeight -
+                  MEAS.addToDoItemButtonBottom,
             ),
-          );
-        },
+            floatingActionButtonAnimator: FABAnimator(),
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Styles.BackgroundColor,
+            bottomNavigationBar: BottomNavigationBarBuilder(
+              items: _navigationBarItems,
+              currentIndex: _currentIndex,
+              onTap: (int index) {
+                if (_currentIndex != index)
+                  setState(() {
+                    _currentIndex = index;
+                  });
+              },
+            ),
+          ),
+        ),
       );
 }

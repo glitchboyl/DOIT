@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/widgets/svg_icon.dart';
 
-class AppBarIconButton extends StatelessWidget {
-  const AppBarIconButton({
+class SVGIconButton extends StatelessWidget {
+  const SVGIconButton({
     Key? key,
     required this.icon,
     required this.onPressed,
@@ -15,12 +15,10 @@ class AppBarIconButton extends StatelessWidget {
   @override
   Widget build(context) => IconButton(
         padding: EdgeInsets.all(0),
-        icon: SizedBox(
+        icon: SVGIcon(
+          icon: icon,
           width: MEAS.appBarIconWidth,
           height: MEAS.appBarIconHeight,
-          child: SVGIcon(
-            icon: icon,
-          ),
         ),
         onPressed: onPressed,
       );

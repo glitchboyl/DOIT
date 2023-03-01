@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:doit/constants/styles.dart';
-import 'package:doit/constants/meas.dart';
 
 enum ToDoItemLevel {
   I,
@@ -17,10 +16,18 @@ enum ToDoItemType {
   Travel,
 }
 
+enum RepeatType {
+  Never,
+  EveryDay,
+  EveryWeek,
+  EveryMonth,
+  EveryYear,
+}
+
 class ToDoItemAttribute {
   const ToDoItemAttribute({
     required this.icon,
-    this.color = Styles.CompleteColor,
+    this.color = Styles.DeactivedColor,
     required this.text,
   });
 
@@ -71,7 +78,7 @@ const toDoItemLevelMap = {
   ToDoItemLevel.III: ToDoItemAttribute(
     icon: 'assets/images/level_III.svg',
     color: Styles.ToDoItemLevelIIIColor,
-    text: '学习',
+    text: '不重要紧急',
   ),
   ToDoItemLevel.IV: ToDoItemAttribute(
     icon: 'assets/images/level_IV.svg',
@@ -87,8 +94,10 @@ class ToDoItem {
     this.remarks = '',
     required this.type,
     required this.level,
-    this.to,
-    this.from,
+    required this.startTime,
+    required this.endTime,
+    this.repeatType = RepeatType.Never,
+    this.completeTime,
   });
 
   final Key id;
@@ -96,13 +105,17 @@ class ToDoItem {
   final String remarks;
   final ToDoItemType type;
   final ToDoItemLevel level;
-  final DateTime? to;
-  final DateTime? from;
+  final DateTime startTime;
+  final DateTime endTime;
+  final RepeatType? repeatType;
+  final DateTime? completeTime;
 
   String get typeIcon =>
       toDoItemTypeMap[type]?.icon ?? toDoItemTypeMap[ToDoItemType.Life]!.icon;
 
-  Color get typeColor => toDoItemTypeMap[type]?.color ?? Styles.CompleteColor;
+  Color get typeColor => completeTime != null
+      ? Styles.DeactivedColor
+      : toDoItemTypeMap[type]?.color ?? Styles.DeactivedColor;
 
   String get typeText =>
       toDoItemTypeMap[type]?.text ?? toDoItemTypeMap[ToDoItemType.Life]!.text;
@@ -110,9 +123,26 @@ class ToDoItem {
   String get levelIcon =>
       toDoItemLevelMap[level]?.icon ?? toDoItemLevelMap[ToDoItemLevel.IV]!.icon;
 
-  Color get levelColor =>
-      toDoItemLevelMap[level]?.color ?? Styles.CompleteColor;
+  Color get levelColor => completeTime != null
+      ? Styles.DeactivedColor
+      : toDoItemLevelMap[level]?.color ?? Styles.DeactivedColor;
 
   String get levelText =>
       toDoItemLevelMap[level]?.text ?? toDoItemLevelMap[ToDoItemLevel.IV]!.text;
+
+  String get repeatText {
+    switch (repeatType) {
+      case RepeatType.EveryYear:
+        return '每年重复';
+      case RepeatType.EveryMonth:
+        return '每月重复';
+      case RepeatType.EveryWeek:
+        return '每周重复';
+      case RepeatType.EveryDay:
+        return '每天重复';
+      case RepeatType.Never:
+      default:
+        return '';
+    }
+  }
 }

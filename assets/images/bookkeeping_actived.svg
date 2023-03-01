@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范" transform="translate(-259.000000, -76.000000)">
+            <g id="doit-tab-bookkeeping-selected" transform="translate(259.000000, 76.000000)">
+                <rect id="蒙版" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="30" height="30"></rect>
+                <path d="M13,5 L17,5 C21.9705627,5 26,9.02943725 26,14 L26,17 C26,20.8659932 22.8659932,24 19,24 L11,24 C7.13400675,24 4,20.8659932 4,17 L4,14 C4,9.02943725 8.02943725,5 13,5 Z" id="矩形" stroke="#3A36EE" stroke-width="2" fill="#3A36EE" stroke-linecap="round" stroke-linejoin="round"></path>
+                <line x1="18.5" y1="23.5" x2="18.5" y2="24.5" id="直线-4" stroke="#3A36EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="11.5" y1="23.5" x2="11.5" y2="24.5" id="直线-4" stroke="#3A36EE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="14.5" y1="18" x2="15.5" y2="18" id="直线-7" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="11" y1="8" x2="19" y2="8" id="直线-7" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"></line>
+            </g>
+        </g>
+    </g>
+</svg>

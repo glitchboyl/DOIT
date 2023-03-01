@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/app_bar.dart';
-import 'package:doit/widgets/app_bar_icon_button.dart';
+import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 UnderlineInputBorder titleBorder = UnderlineInputBorder(
-  borderSide: BorderSide(color: Styles.ToDoItemTitleInputColor, width: 2.h),
+  borderSide: BorderSide(color: Styles.BackgroundColor, width: 2.h),
 );
 UnderlineInputBorder descriptionBorder = UnderlineInputBorder(
   borderSide: BorderSide(
@@ -16,6 +16,8 @@ UnderlineInputBorder descriptionBorder = UnderlineInputBorder(
 
 // ignore: must_be_immutable
 class AddToDoItemDialog extends StatelessWidget {
+  // const AddToDoItemDialog({Key? key}) : super(key: key);
+
   bool _sendActived = false;
   String _title = '';
   String _description = '';
@@ -31,10 +33,6 @@ class AddToDoItemDialog extends StatelessWidget {
             child: SafeArea(
               child: Container(
                 height: MEAS.addToDoItemDialogHeight,
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  borderRadius: radius,
-                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
@@ -42,13 +40,13 @@ class AddToDoItemDialog extends StatelessWidget {
                       title: Text(
                         '添加日程',
                         style: TextStyle(
-                          color: Styles.TextColor,
+                          color: Styles.PrimaryTextColor,
                           fontWeight: FontWeight.bold,
                           fontSize: MEAS.largeTextSize,
                           height: MEAS.largeTextLineHeight / MEAS.largeTextSize,
                         ),
                       ),
-                      trailing: AppBarIconButton(
+                      trailing: SVGIconButton(
                         icon:
                             'assets/images/send${_sendActived ? '' : '_disabled'}.svg',
                         onPressed: () => {},
@@ -69,14 +67,14 @@ class AddToDoItemDialog extends StatelessWidget {
                               ),
                               hintText: '有好计划吗，快记录下来吧…',
                               hintStyle: const TextStyle(
-                                color: Styles.ToDoItemTitleHintColor,
+                                color: Styles.DeactivedDeepColor,
                               ),
                               border: titleBorder,
                               focusedBorder: titleBorder,
                               enabledBorder: titleBorder,
                             ),
                             style: TextStyle(
-                              color: Styles.TextColor,
+                              color: Styles.PrimaryTextColor,
                               fontSize: MEAS.textSize,
                               height: MEAS.textLineHeight / MEAS.textSize,
                             ),
@@ -95,7 +93,7 @@ class AddToDoItemDialog extends StatelessWidget {
                               ),
                               hintText: '描述信息',
                               hintStyle: const TextStyle(
-                                color: Styles.ToDoItemTitleHintColor,
+                                color: Styles.DeactivedDeepColor,
                               ),
                               border: descriptionBorder,
                               focusedBorder: descriptionBorder,
@@ -103,7 +101,7 @@ class AddToDoItemDialog extends StatelessWidget {
                               // hintStyle:
                             ),
                             style: TextStyle(
-                              color: Styles.TextColor,
+                              color: Styles.PrimaryTextColor,
                               fontSize:
                                   MEAS.addToDoItemDialogDescriptionTextSize,
                               height: MEAS.smallTextLineHeight /
@@ -122,8 +120,4 @@ class AddToDoItemDialog extends StatelessWidget {
               ),
             )),
       );
-
-  static BorderRadiusGeometry radius = BorderRadiusDirectional.vertical(
-    top: Radius.circular(MEAS.addToDoItemDialogRadius),
-  );
 }
