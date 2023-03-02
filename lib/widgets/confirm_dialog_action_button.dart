@@ -4,11 +4,11 @@ import 'package:doit/constants/styles.dart';
 
 class ConfirmDialogActionButton extends StatelessWidget {
   const ConfirmDialogActionButton({
-    Key? key,
+    super.key,
     required this.text,
     this.textColor = Styles.SecondaryTextColor,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final String text;
   final Color? textColor;

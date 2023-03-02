@@ -4,10 +4,10 @@ import 'package:doit/widgets/svg_icon.dart';
 
 class SVGIconButton extends StatelessWidget {
   const SVGIconButton({
-    Key? key,
+    super.key,
     required this.icon,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final String icon;
   final void Function() onPressed;

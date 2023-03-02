@@ -2,23 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/dashed_line.dart';
-import 'package:doit/widgets/app_bar.dart';
-import 'package:doit/widgets/svg_icon_button.dart';
 import 'app_bar.dart';
 import 'to_do_item.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class OverviewPage extends StatefulWidget {
-  const OverviewPage({Key? key}) : super(key: key);
+  const OverviewPage({super.key});
   @override
-  OverviewPageState createState() => OverviewPageState();
+  _OverviewPageState createState() => _OverviewPageState();
 
   static final appBar = ({Key? key}) => OverviewPageAppBar(key: key);
 }
 
-class OverviewPageState extends State<OverviewPage> {
+class _OverviewPageState extends State<OverviewPage> {
   List<ToDoItem> mockList = [
     ToDoItem(
       id: UniqueKey(),

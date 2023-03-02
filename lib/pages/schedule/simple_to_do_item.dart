@@ -9,6 +9,8 @@ import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
+const Duration _kSilde = Duration(milliseconds: 200);
+
 class SimpleToDoItemWidget extends StatelessWidget {
   const SimpleToDoItemWidget(
     this.item, {
@@ -120,10 +122,10 @@ class SimpleToDoItemWidget extends StatelessWidget {
               onPressed: (context) {
                 Slidable.of(context)?.dismiss(
                   ResizeRequest(
-                    const Duration(milliseconds: 200),
+                    _kSilde,
                     leftAction,
                   ),
-                  duration: const Duration(milliseconds: 200),
+                  duration: _kSilde,
                 );
               },
               child: Container(

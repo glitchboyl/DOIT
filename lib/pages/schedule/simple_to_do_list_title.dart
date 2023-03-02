@@ -5,8 +5,8 @@ import 'package:doit/constants/styles.dart';
 class SimpleToDoListTitle extends StatelessWidget {
   const SimpleToDoListTitle(
     this.title, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   final String title;
 

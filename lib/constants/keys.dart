@@ -11,4 +11,6 @@ abstract class Keys {
   static const TodayCompletedToDoList = ValueKey('TODAY_COMPLETED_TO_DO_LIST');
 
   static const AddToDoItemButton = ValueKey('ADD_TO_DO_ITEM_BUTTON');
+
+  static const DrawerItemAllSchedule = ValueKey('DRAWER_ITEM_ALL_SCHEDULE');
 }

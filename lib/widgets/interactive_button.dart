@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class InteractiveButton extends StatefulWidget {
   const InteractiveButton({
-    Key? key,
+    super.key,
     this.fixedSize,
     required this.color,
     this.activedColor,
@@ -11,7 +11,7 @@ class InteractiveButton extends StatefulWidget {
     this.shape,
     this.child,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   final Size? fixedSize;
   final Color color;
@@ -23,10 +23,10 @@ class InteractiveButton extends StatefulWidget {
   final void Function() onPressed;
 
   @override
-  InteractiveButtonState createState() => InteractiveButtonState();
+  _InteractiveButtonState createState() => _InteractiveButtonState();
 }
 
-class InteractiveButtonState extends State<InteractiveButton> {
+class _InteractiveButtonState extends State<InteractiveButton> {
   late Color _buttonColor;
 
   @override

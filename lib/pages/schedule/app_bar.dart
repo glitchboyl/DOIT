@@ -4,7 +4,7 @@ import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/constants/styles.dart';
 
 class SchedulePageAppBar extends AppBarBuilder {
-  const SchedulePageAppBar({Key? key}) : super(key: key);
+  const SchedulePageAppBar({super.key});
   @override
   Widget build(BuildContext context) => AppBarBuilder(
         leading: Builder(builder: (BuildContext context) {

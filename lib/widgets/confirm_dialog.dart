@@ -6,11 +6,11 @@ import 'package:doit/constants/styles.dart';
 
 class ConfirmDialogBuilder extends StatelessWidget {
   const ConfirmDialogBuilder({
-    Key? key,
+    super.key,
     required this.content,
     required this.onConfirm,
     this.danger = false,
-  }) : super(key: key);
+  });
 
   final String content;
   final void Function(BuildContext context) onConfirm;

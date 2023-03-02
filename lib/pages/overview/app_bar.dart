@@ -4,7 +4,7 @@ import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/constants/styles.dart';
 
 class OverviewPageAppBar extends AppBarBuilder {
-  const OverviewPageAppBar({Key? key}) : super(key: key);
+  const OverviewPageAppBar({super.key});
   @override
   Widget build(BuildContext context) => AppBarBuilder(
         leading: SVGIconButton(

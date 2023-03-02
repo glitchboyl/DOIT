@@ -12,14 +12,14 @@ import 'package:doit/utils/time.dart';
 import 'package:doit/constants/keys.dart';
 
 class SchedulePage extends StatefulWidget {
-  const SchedulePage({Key? key}) : super(key: key);
+  const SchedulePage({super.key});
   @override
-  SchedulePageState createState() => SchedulePageState();
+  _SchedulePageState createState() => _SchedulePageState();
 
   static final appBar = ({Key? key}) => SchedulePageAppBar(key: key);
 }
 
-class SchedulePageState extends State<SchedulePage> {
+class _SchedulePageState extends State<SchedulePage> {
   final Map<ValueKey<String>, ToDoList> toDoLists = {
     Keys.PastUncompletedToDoList: ToDoList(
       title: '过去',

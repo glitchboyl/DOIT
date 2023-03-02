@@ -46,6 +46,8 @@ abstract class MEAS {
   static double drawerWidth = 283.w;
   static double drawerItemIconWidth = 16.w;
   static double drawerItemIconHeight = 16.w;
+  static double drawerExpandArrowWidth = 12.w;
+  static double drawerExpandArrowHeight = 12.w;
 
   static double dashLength = 4.h;
   static double dashGapLength = 3.h;

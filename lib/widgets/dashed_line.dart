@@ -4,7 +4,7 @@ import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
 class DashedLine extends StatelessWidget {
-  const DashedLine({Key? key}) : super(key: key);
+  const DashedLine({super.key});
   @override
   Widget build(context) => DottedLine(
         dashLength: MEAS.dashLength,

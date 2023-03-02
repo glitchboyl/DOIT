@@ -6,14 +6,14 @@ import 'note_item.dart';
 import 'package:doit/models/note_item.dart';
 
 class NotesPage extends StatefulWidget {
-  const NotesPage({Key? key}) : super(key: key);
+  const NotesPage({super.key});
   @override
-  NotesPageState createState() => NotesPageState();
+  _NotesPageState createState() => _NotesPageState();
 
   static final appBar = ({Key? key}) => NotesPageAppBar(key: key);
 }
 
-class NotesPageState extends State<NotesPage> {
+class _NotesPageState extends State<NotesPage> {
   List<NoteItem> mockList = [
     NoteItem(
       id: UniqueKey(),

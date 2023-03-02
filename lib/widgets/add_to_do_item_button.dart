@@ -6,13 +6,16 @@ import 'package:doit/constants/styles.dart';
 import 'interactive_button.dart';
 import 'svg_icon.dart';
 
+const Duration _kShow = Duration(milliseconds: 350);
+const Duration _kHide = Duration(milliseconds: 450);
+
 class AddToDoItemButton extends StatefulWidget {
-  const AddToDoItemButton({Key? key}) : super(key: key);
+  const AddToDoItemButton({super.key});
   @override
-  AddToDoItemButtonState createState() => AddToDoItemButtonState();
+  _AddToDoItemButtonState createState() => _AddToDoItemButtonState();
 }
 
-class AddToDoItemButtonState extends State<AddToDoItemButton>
+class _AddToDoItemButtonState extends State<AddToDoItemButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
 
@@ -24,8 +27,8 @@ class AddToDoItemButtonState extends State<AddToDoItemButton>
 
   void initController() {
     _animationController = BottomSheet.createAnimationController(this);
-    _animationController.duration = const Duration(milliseconds: 350);
-    _animationController.reverseDuration = const Duration(milliseconds: 250);
+    _animationController.duration = _kShow;
+    _animationController.reverseDuration = _kHide;
   }
 
   @override

@@ -6,14 +6,16 @@ import 'package:doit/constants/meas.dart';
 
 class SchedulePageDrawerItem extends StatelessWidget {
   const SchedulePageDrawerItem({
-    Key? key,
+    super.key,
     this.icon,
+    this.color,
     required this.title,
-    required this.onTap,
-  }) : super(key: key);
+    this.onTap,
+  });
   final String? icon;
+  final Color? color;
   final String title;
-  final void Function() onTap;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) => GestureDetector(
@@ -23,11 +25,16 @@ class SchedulePageDrawerItem extends StatelessWidget {
           child: Row(
             children: [
               if (icon != null) ...[
-                SVGIcon(
-                  icon: icon!,
-                  width: MEAS.drawerItemIconWidth,
-                  height: MEAS.drawerItemIconHeight,
-                ),
+                color != null
+                    ? Container(
+                        padding: EdgeInsets.all(1.w),
+                        decoration: BoxDecoration(
+                          color: color,
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
+                        child: _getDrawerItemIcon(icon!),
+                      )
+                    : _getDrawerItemIcon(icon!),
                 SizedBox(width: 10.w),
               ],
               Text(
@@ -43,4 +50,11 @@ class SchedulePageDrawerItem extends StatelessWidget {
           ),
         ),
       );
+
+  static final SVGIcon Function(String) _getDrawerItemIcon =
+      (String icon) => SVGIcon(
+            icon: icon,
+            width: MEAS.drawerItemIconWidth,
+            height: MEAS.drawerItemIconHeight,
+          );
 }

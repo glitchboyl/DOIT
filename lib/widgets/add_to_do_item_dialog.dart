@@ -16,7 +16,7 @@ UnderlineInputBorder descriptionBorder = UnderlineInputBorder(
 
 // ignore: must_be_immutable
 class AddToDoItemDialog extends StatelessWidget {
-  // const AddToDoItemDialog({Key? key}) : super(key: key);
+  AddToDoItemDialog({super.key});
 
   bool _sendActived = false;
   String _title = '';
@@ -43,7 +43,8 @@ class AddToDoItemDialog extends StatelessWidget {
                           color: Styles.PrimaryTextColor,
                           fontWeight: FontWeight.bold,
                           fontSize: Styles.largeTextSize,
-                          height: Styles.largeTextLineHeight / Styles.largeTextSize,
+                          height:
+                              Styles.largeTextLineHeight / Styles.largeTextSize,
                         ),
                       ),
                       trailing: SVGIconButton(

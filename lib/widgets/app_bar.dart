@@ -4,11 +4,11 @@ import 'package:doit/constants/meas.dart';
 
 class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
   const AppBarBuilder({
-    Key? key,
+    super.key,
     this.leading,
     this.title,
     this.trailing,
-  }) : super(key: key);
+  });
 
   final Widget? leading;
   final Widget? title;

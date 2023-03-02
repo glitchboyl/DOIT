@@ -3,7 +3,7 @@ import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/constants/styles.dart';
 
 class BookkeepingPageAppBar extends AppBarBuilder {
-  const BookkeepingPageAppBar({Key? key}) : super(key: key);
+  const BookkeepingPageAppBar({super.key});
   @override
   Widget build(BuildContext context) => AppBarBuilder(
         title: Text(

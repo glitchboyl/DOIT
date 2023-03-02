@@ -25,10 +25,10 @@ void main() {
 
 class DOITApp extends StatefulWidget {
   @override
-  DOITAppState createState() => DOITAppState();
+  _DOITAppState createState() => _DOITAppState();
 }
 
-class DOITAppState extends State<DOITApp> {
+class _DOITAppState extends State<DOITApp> {
   int _currentIndex = 0;
   List<BottomNavigationBarItem> _navigationBarItems = [];
   final List<AppBarBuilder> _appBarWidgets = [];
