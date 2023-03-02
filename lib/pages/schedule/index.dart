@@ -77,7 +77,7 @@ class _SchedulePageState extends State<SchedulePage> {
     super.initState();
   }
 
-  getWidgets() {
+  List<Widget> getWidgets() {
     final List<Widget> widgets = [];
     toDoLists.forEach((key, tdl) {
       if (tdl.list.length > 0) {

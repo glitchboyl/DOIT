@@ -5,6 +5,7 @@ class NoteItem {
     required this.id,
     required this.title,
     required this.body,
+    this.images = const <String>[],
     required this.publishTime,
     this.location,
   });
@@ -12,6 +13,7 @@ class NoteItem {
   final Key id;
   String title;
   String body;
+  List<String>? images;
   DateTime publishTime;
   String? location;
 }

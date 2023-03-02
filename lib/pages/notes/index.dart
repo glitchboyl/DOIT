@@ -19,6 +19,7 @@ class _NotesPageState extends State<NotesPage> {
       id: UniqueKey(),
       title: '芜湖',
       body: '什么玩意',
+      images: ['assets/images/test_1.jpeg'],
       publishTime: DateTime(2023, 2, 26),
     ),
     NoteItem(
@@ -26,6 +27,7 @@ class _NotesPageState extends State<NotesPage> {
       title: 'The Pursuit of Happyness',
       body:
           'I’m the type of person, if you ask me a question, and I don’t know the answer, I’m gonna to tell you that I don’t know. ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo',
+      images: ['assets/images/test_2.jpeg'],
       publishTime: DateTime(2022, 1, 25),
     ),
   ];

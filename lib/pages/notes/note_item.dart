@@ -47,6 +47,18 @@ class NoteItemWidget extends StatelessWidget {
               width: MEAS.noteItemQuotesWidth,
               height: MEAS.noteItemQuotesHeight,
             ),
+            if (item.images!.length > 0)
+              Container(
+                margin: EdgeInsets.only(top: 10.h),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8.r),
+                ),
+                clipBehavior: Clip.antiAlias,
+                child: Image.asset(
+                  item.images![0],
+                  fit: BoxFit.cover,
+                ),
+              ),
             SizedBox(height: 10.h),
             Text(
               item.body,
