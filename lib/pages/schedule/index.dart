@@ -7,6 +7,7 @@ import 'package:doit/models/to_do_list.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
+import 'package:doit/utils/time.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/keys.dart';
@@ -69,11 +70,14 @@ class SchedulePageState extends State<SchedulePage> {
       ],
     ),
   };
-  final List<Widget> widgets = [];
 
   @override
   void initState() {
     super.initState();
+  }
+
+  getWidgets() {
+    final List<Widget> widgets = [];
     toDoLists.forEach((key, tdl) {
       if (tdl.list.length > 0) {
         widgets.add(
@@ -83,26 +87,36 @@ class SchedulePageState extends State<SchedulePage> {
           SliverList(
             key: key,
             delegate: SliverChildBuilderDelegate(
-              (context, index) => SimpleToDoItemWidget(
-                tdl.list[index],
-                onCompleted: () => {},
-                onResumed: () => {},
-                onDismissed: () => {
-                  tdl.list.removeAt(index),
-                  setState(() {}),
-                },
-              ),
+              (context, index) => SimpleToDoItemWidget(tdl.list[index],
+                  onCompleted: () => onCompleted(tdl.list, index),
+                  onResumed: () => onResumed(tdl.list, index),
+                  onDismissed: () => onDismissed(tdl.list, index)),
               childCount: tdl.list.length,
             ),
           ),
         );
       }
     });
+    return widgets;
   }
 
-  void onCompleted(List<ToDoItem> list, int index) => {};
+  void onCompleted(List<ToDoItem> list, int index) {
+    final ToDoItem tdi = list.removeAt(index);
+    tdi.completeTime = DateTime.now();
+    toDoLists[Keys.TodayCompletedToDoList]?.list.add(tdi);
+    setState(() {});
+  }
 
-  void onResumed(List<ToDoItem> list, int index) => {};
+  void onResumed(List<ToDoItem> list, int index) {
+    final ToDoItem tdi = list.removeAt(index);
+    tdi.completeTime = null;
+    toDoLists[tdi.startTime.isSameDay(nowTime)
+            ? Keys.TodayUncompletedToDoList
+            : Keys.PastUncompletedToDoList]
+        ?.list
+        .add(tdi);
+    setState(() {});
+  }
 
   void onDismissed(List<ToDoItem> list, int index) => {
         list.removeAt(index),
@@ -121,8 +135,8 @@ class SchedulePageState extends State<SchedulePage> {
             style: TextStyle(
               color: Styles.PrimaryTextColor,
               fontWeight: FontWeight.bold,
-              fontSize: MEAS.largeTextSize,
-              height: MEAS.largeTextLineHeight / MEAS.largeTextSize,
+              fontSize: Styles.largeTextSize,
+              height: Styles.largeTextLineHeight / Styles.largeTextSize,
             ),
           ),
           trailing: SVGIconButton(
@@ -134,7 +148,7 @@ class SchedulePageState extends State<SchedulePage> {
           padding: EdgeInsets.symmetric(
             horizontal: 16.w,
           ),
-          child: CustomScrollView(slivers: widgets),
+          child: CustomScrollView(slivers: getWidgets()),
         ),
         resizeToAvoidBottomInset: false,
       );

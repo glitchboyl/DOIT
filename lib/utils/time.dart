@@ -1,4 +1,4 @@
-import 'package:doit/models/to_do_item.dart';
+final DateTime nowTime = DateTime.now();
 
 extension DateTimeExtension on DateTime {
   bool isSameDay(DateTime date) {
@@ -19,10 +19,10 @@ String getClockTime(DateTime time) {
   return "${fillZero(hour)}${hour.toString()}:${fillZero(minute)}${minute.toString()}";
 }
 
-String getDateTime(DateTime time, {bool getYear = false}) {
+String getDateTime(DateTime time) {
   var month = time.month;
   var day = time.day;
-  return "${getYear ? time.year.toString() + ' ' : ''}${fillZero(month)}${month.toString()}.${fillZero(day)}${day.toString()}";
+  return "${!time.isSameYear(nowTime) ? time.year.toString() + ' ' : ''}${fillZero(month)}${month.toString()}.${fillZero(day)}${day.toString()}";
 }
 
 String getToDoItemTime(
@@ -30,16 +30,17 @@ String getToDoItemTime(
   DateTime endTime,
 ) {
   String timeText = "";
-  final DateTime nowTime = DateTime.now();
-
   if (startTime.isAfter(endTime)) {
     endTime = startTime;
   }
   timeText +=
-      "${startTime.isSameDay(nowTime) ? '今天' : getDateTime(startTime, getYear: !startTime.isSameYear(nowTime))} ${getClockTime(startTime)}";
+      "${startTime.isSameDay(nowTime) ? '今天' : getDateTime(startTime)} ${getClockTime(startTime)}";
   if (startTime != endTime) {
     timeText +=
-        " - ${endTime.isSameDay(startTime) ? '' : endTime.isSameDay(nowTime) ? '今天' : getDateTime(endTime, getYear: !endTime.isSameYear(nowTime))} ${getClockTime(endTime)}";
+        " - ${endTime.isSameDay(startTime) ? '' : endTime.isSameDay(nowTime) ? '今天' : getDateTime(endTime)} ${getClockTime(endTime)}";
   }
   return timeText;
 }
+
+String getNoteTime(DateTime publishTime) =>
+    "${getDateTime(publishTime)} ${getClockTime(publishTime)}";

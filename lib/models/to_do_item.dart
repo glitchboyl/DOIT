@@ -88,7 +88,7 @@ const toDoItemLevelMap = {
 };
 
 class ToDoItem {
-  const ToDoItem({
+  ToDoItem({
     required this.id,
     required this.title,
     this.remarks = '',
@@ -101,14 +101,14 @@ class ToDoItem {
   });
 
   final Key id;
-  final String title;
-  final String remarks;
-  final ToDoItemType type;
-  final ToDoItemLevel level;
-  final DateTime startTime;
-  final DateTime endTime;
-  final RepeatType? repeatType;
-  final DateTime? completeTime;
+  String title;
+  String remarks;
+  ToDoItemType type;
+  ToDoItemLevel level;
+  DateTime startTime;
+  DateTime endTime;
+  RepeatType? repeatType;
+  DateTime? completeTime;
 
   String get typeIcon =>
       toDoItemTypeMap[type]?.icon ?? toDoItemTypeMap[ToDoItemType.Life]!.icon;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 abstract class Styles {
   static const Color RegularBaseColor = Colors.white;
@@ -26,4 +27,11 @@ abstract class Styles {
   static const Color ResumeColor = Color(0xFFFFD83D);
   static const Color ResumeActivedColor = Color(0xFFD2AA26);
   static const Color AddToDoItemButtonShadowColor = Color(0x33312DE0);
+
+  static double textSize = 14.sp;
+  static double textLineHeight = 20.sp;
+  static double smallTextSize = 12.sp;
+  static double smallTextLineHeight = 16.sp;
+  static double largeTextSize = 18.sp;
+  static double largeTextLineHeight = 26.sp;
 }

@@ -48,14 +48,14 @@ class OverviewPageState extends State<OverviewPage> {
             style: TextStyle(
               color: Styles.PrimaryTextColor,
               fontWeight: FontWeight.bold,
-              fontSize: MEAS.largeTextSize,
-              height: MEAS.largeTextLineHeight / MEAS.largeTextSize,
+              fontSize: Styles.largeTextSize,
+              height: Styles.largeTextLineHeight / Styles.largeTextSize,
             ),
           ),
         ),
         body: Padding(
           padding: EdgeInsets.only(
-            top: 12.w,
+            top: 12.h,
             left: 24.w,
             right: 16.w,
           ),

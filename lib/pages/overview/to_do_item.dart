@@ -22,16 +22,14 @@ class ToDoItemWidget extends StatelessWidget {
               height: 16.h,
               margin: EdgeInsets.only(right: 2.w),
               alignment: Alignment.center,
-              decoration: const BoxDecoration(
-                color: Styles.BackgroundColor,
-              ),
+              color: Styles.BackgroundColor,
               child: Text(
                 // item.startTime != null ? getClockTime(item.startTime!) : '整天',
                 getClockTime(item.startTime),
                 style: TextStyle(
                   color: Styles.PrimaryTextColor,
-                  fontSize: MEAS.smallTextSize,
-                  height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                  fontSize: Styles.smallTextSize,
+                  height: Styles.smallTextLineHeight / Styles.smallTextSize,
                 ),
               ),
             ),
@@ -46,7 +44,7 @@ class ToDoItemWidget extends StatelessWidget {
                   color: Styles.RegularBaseColor,
                 ),
                 padding: EdgeInsets.all(12.w),
-                margin: EdgeInsets.only(bottom: 10.w),
+                margin: EdgeInsets.only(bottom: 10.h),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,9 +72,9 @@ class ToDoItemWidget extends StatelessWidget {
                           item.levelText,
                           style: TextStyle(
                             color: Styles.PrimaryTextColor,
-                            fontSize: MEAS.smallTextSize,
+                            fontSize: Styles.smallTextSize,
                             height:
-                                MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                                Styles.smallTextLineHeight / Styles.smallTextSize,
                           ),
                         ),
                         Expanded(
@@ -102,9 +100,9 @@ class ToDoItemWidget extends StatelessWidget {
                           item.typeText,
                           style: TextStyle(
                             color: Styles.PrimaryTextColor,
-                            fontSize: MEAS.smallTextSize,
+                            fontSize: Styles.smallTextSize,
                             height:
-                                MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                                Styles.smallTextLineHeight / Styles.smallTextSize,
                           ),
                         ),
                       ],
@@ -114,8 +112,8 @@ class ToDoItemWidget extends StatelessWidget {
                       item.title,
                       style: TextStyle(
                         color: Styles.PrimaryTextColor,
-                        fontSize: MEAS.textSize,
-                        height: MEAS.textLineHeight / MEAS.textSize,
+                        fontSize: Styles.textSize,
+                        height: Styles.textLineHeight / Styles.textSize,
                       ),
                     ),
                     if (item.remarks != '') ...[
@@ -124,8 +122,8 @@ class ToDoItemWidget extends StatelessWidget {
                         item.remarks,
                         style: TextStyle(
                           color: Styles.SecondaryTextColor,
-                          fontSize: MEAS.smallTextSize,
-                          height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                          fontSize: Styles.smallTextSize,
+                          height: Styles.smallTextLineHeight / Styles.smallTextSize,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

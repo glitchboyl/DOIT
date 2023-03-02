@@ -74,8 +74,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                         color: item.completeTime != null
                             ? Styles.DeactivedDeepColor
                             : Styles.PrimaryTextColor,
-                        fontSize: MEAS.textSize,
-                        height: MEAS.textLineHeight / MEAS.textSize,
+                        fontSize: Styles.textSize,
+                        height: Styles.textLineHeight / Styles.textSize,
                       ),
                     ),
                     SizedBox(height: 2.h),
@@ -90,8 +90,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                             : item.level == ToDoItemLevel.I
                                 ? item.levelColor
                                 : Styles.SecondaryTextColor,
-                        fontSize: MEAS.smallTextSize,
-                        height: MEAS.smallTextLineHeight / MEAS.smallTextSize,
+                        fontSize: Styles.smallTextSize,
+                        height: Styles.smallTextLineHeight / Styles.smallTextSize,
                       ),
                     ),
                   ],
@@ -100,27 +100,29 @@ class SimpleToDoItemWidget extends StatelessWidget {
             ),
           ),
           startActionPane: ActionPane(
-            key: UniqueKey(),
             motion: const ScrollMotion(),
             extentRatio: 0.18,
-            // dismissible: DismissiblePane(
-            //   onDismissed: onDismissed ?? () => {}
-            //   ,),
             children: [
               SimpleToDoItemOperation(
-                icon: 'assets/images/complete_to_do_item.svg',
-                color: Styles.CompleteColor,
-                activedColor: Styles.CompleteActivedColor,
-                onPressed: () => {},
+                key: ValueKey(item.id.toString() + '_LEFT_SLIDER_ACTION'),
+                icon:
+                    'assets/images/${item.completeTime != null ? 'resume' : 'complete'}_to_do_item.svg',
+                color: item.completeTime != null
+                    ? Styles.ResumeColor
+                    : Styles.CompleteColor,
+                activedColor: item.completeTime != null
+                    ? Styles.ResumeActivedColor
+                    : Styles.CompleteActivedColor,
+                onPressed: item.completeTime != null ? onResumed : onCompleted,
               ),
             ],
           ),
           endActionPane: ActionPane(
-            key: UniqueKey(),
             motion: const ScrollMotion(),
             extentRatio: 0.18,
             children: [
               SimpleToDoItemOperation(
+                key: ValueKey(item.id.toString() + '_RIGHT_SLIDER_ACTION'),
                 icon: 'assets/images/delete_to_do_item.svg',
                 color: Styles.DangerousColor,
                 activedColor: Styles.DangerousActivedColor,

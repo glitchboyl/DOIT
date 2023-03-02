@@ -42,8 +42,8 @@ class AddToDoItemDialog extends StatelessWidget {
                         style: TextStyle(
                           color: Styles.PrimaryTextColor,
                           fontWeight: FontWeight.bold,
-                          fontSize: MEAS.largeTextSize,
-                          height: MEAS.largeTextLineHeight / MEAS.largeTextSize,
+                          fontSize: Styles.largeTextSize,
+                          height: Styles.largeTextLineHeight / Styles.largeTextSize,
                         ),
                       ),
                       trailing: SVGIconButton(
@@ -62,7 +62,7 @@ class AddToDoItemDialog extends StatelessWidget {
                               contentPadding: EdgeInsets.symmetric(
                                 vertical:
                                     (MEAS.addToDoItemDialogTitleInputHeight -
-                                            MEAS.textLineHeight) /
+                                            Styles.textLineHeight) /
                                         2.h,
                               ),
                               hintText: '有好计划吗，快记录下来吧…',
@@ -75,8 +75,8 @@ class AddToDoItemDialog extends StatelessWidget {
                             ),
                             style: TextStyle(
                               color: Styles.PrimaryTextColor,
-                              fontSize: MEAS.textSize,
-                              height: MEAS.textLineHeight / MEAS.textSize,
+                              fontSize: Styles.textSize,
+                              height: Styles.textLineHeight / Styles.textSize,
                             ),
                             onChanged: (value) => setState(() {
                               _title = value;
@@ -88,7 +88,7 @@ class AddToDoItemDialog extends StatelessWidget {
                               contentPadding: EdgeInsets.symmetric(
                                 vertical:
                                     (MEAS.addToDoItemDialogDescriptionInputHeight -
-                                            MEAS.smallTextLineHeight) /
+                                            Styles.smallTextLineHeight) /
                                         2.h,
                               ),
                               hintText: '描述信息',
@@ -102,10 +102,9 @@ class AddToDoItemDialog extends StatelessWidget {
                             ),
                             style: TextStyle(
                               color: Styles.PrimaryTextColor,
-                              fontSize:
-                                  MEAS.addToDoItemDialogDescriptionTextSize,
-                              height: MEAS.smallTextLineHeight /
-                                  MEAS.addToDoItemDialogDescriptionTextSize,
+                              fontSize: Styles.smallTextSize,
+                              height: Styles.smallTextLineHeight /
+                                  Styles.smallTextSize,
                             ),
                             onChanged: (value) => setState(() {
                               _description = value;

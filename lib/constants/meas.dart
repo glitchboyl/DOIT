@@ -4,11 +4,11 @@ abstract class MEAS {
   static const double designSizeWidth = 375;
   static const double designSizeHeight = 812;
 
-  static double appBarHeight = 44.h;
+  static double appBarHeight = 52.h;
   static double appBarIconWidth = 24.w;
   static double appBarIconHeight = 24.w;
 
-  static double bottomNavigationBarHeight = 49.h;
+  static double bottomNavigationBarHeight = 56.h;
   static double bottomNavigationBarIconWidth = 30;
   static double bottomNavigationBarIconHeight = 30;
 
@@ -42,17 +42,12 @@ abstract class MEAS {
   static double addToDoItemDialogRadius = 18.r;
   static double addToDoItemDialogTitleInputHeight = 44.h;
   static double addToDoItemDialogDescriptionInputHeight = 38.h;
-  static double addToDoItemDialogDescriptionTextSize = 12.sp;
-
-  static double textSize = 14.sp;
-  static double textLineHeight = 20.sp;
-  static double smallTextSize = 12.sp;
-  static double smallTextLineHeight = 16.sp;
-  static double largeTextSize = 18.sp;
-  static double largeTextLineHeight = 26.sp;
 
   static double dashLength = 4.h;
   static double dashGapLength = 3.h;
   static double lineThickness = 1.w;
   static double dashRadius = 0.5.r;
+
+  static double noteItemQuotesWidth = 6.w;
+  static double noteItemQuotesHeight = 6.w;
 }

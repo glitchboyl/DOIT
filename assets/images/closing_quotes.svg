@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="6px" height="6px" viewBox="0 0 6 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>doit-icon-yyh</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范" transform="translate(-97.000000, -736.000000)">
+            <g id="doit-icon-yyh" transform="translate(97.000000, 736.000000)">
+                <rect id="矩形" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="6" height="6"></rect>
+                <path d="M1.756,4.736 C2.236,3.872 2.788,2.3 2.788,1.4 L1.216,1.4 C1.216,2.384 0.868,3.836 0.544,4.736 L1.756,4.736 Z M4.552,4.736 C5.02,3.884 5.584,2.3 5.584,1.4 L4,1.4 C4,2.384 3.652,3.836 3.328,4.736 L4.552,4.736 Z" id="形状" fill="#868CA3" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>
