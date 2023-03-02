@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
@@ -137,6 +138,10 @@ class SchedulePageState extends State<SchedulePage> {
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,
         ),
-        child: CustomScrollView(slivers: getWidgets()),
+        child: SlidableAutoCloseBehavior(
+          child: CustomScrollView(
+            slivers: getWidgets(),
+          ),
+        ),
       );
 }

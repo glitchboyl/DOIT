@@ -32,6 +32,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
         ),
         margin: EdgeInsets.only(top: 10.w),
         child: Slidable(
+          groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
           child: Container(
             padding: EdgeInsets.symmetric(
               vertical: 12.w,
