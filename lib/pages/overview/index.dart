@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:doit/widgets/dashed_line.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
+import 'app_bar.dart';
 import 'to_do_item.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
@@ -13,6 +14,8 @@ class OverviewPage extends StatefulWidget {
   const OverviewPage({Key? key}) : super(key: key);
   @override
   OverviewPageState createState() => OverviewPageState();
+
+  static final appBar = ({Key? key}) => OverviewPageAppBar(key: key);
 }
 
 class OverviewPageState extends State<OverviewPage> {
@@ -37,52 +40,34 @@ class OverviewPageState extends State<OverviewPage> {
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBarBuilder(
-          leading: SVGIconButton(
-            icon: 'assets/images/view.svg',
-            onPressed: () => {},
-          ),
-          title: Text(
-            '10月',
-            style: TextStyle(
-              color: Styles.PrimaryTextColor,
-              fontWeight: FontWeight.bold,
-              fontSize: Styles.largeTextSize,
-              height: Styles.largeTextLineHeight / Styles.largeTextSize,
-            ),
-          ),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.only(
+          top: 12.h,
+          left: 24.w,
+          right: 16.w,
         ),
-        body: Padding(
-          padding: EdgeInsets.only(
-            top: 12.h,
-            left: 24.w,
-            right: 16.w,
-          ),
-          child: Stack(
-            children: [
-              Container(
-                width: MEAS.toDoListTimelineContainerWidth,
-                alignment: Alignment.center,
-                child: DashedLine(),
-              ),
-              CustomScrollView(
-                slivers: [
-                  SliverSafeArea(
-                    sliver: SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) => ToDoItemWidget(
-                          mockList[index],
-                        ),
-                        childCount: mockList.length,
+        child: Stack(
+          children: [
+            Container(
+              width: MEAS.toDoListTimelineContainerWidth,
+              alignment: Alignment.center,
+              child: DashedLine(),
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverSafeArea(
+                  sliver: SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) => ToDoItemWidget(
+                        mockList[index],
                       ),
+                      childCount: mockList.length,
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
-        resizeToAvoidBottomInset: false,
       );
 }

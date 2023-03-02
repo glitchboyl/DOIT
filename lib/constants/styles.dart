@@ -34,4 +34,7 @@ abstract class Styles {
   static double smallTextLineHeight = 16.sp;
   static double largeTextSize = 18.sp;
   static double largeTextLineHeight = 26.sp;
+
+  static double drawerItemTextSize = 16.sp;
+  static double drawerItemTextLineHeight = 22.sp;
 }

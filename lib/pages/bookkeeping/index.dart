@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:doit/widgets/app_bar.dart';
+import 'app_bar.dart';
 
 class BookkeepingPage extends StatefulWidget {
   const BookkeepingPage({Key? key}) : super(key: key);
   @override
   BookkeepingPageState createState() => BookkeepingPageState();
+
+  static final appBar = ({Key? key}) => BookkeepingPageAppBar(key: key);
 }
 
 class BookkeepingPageState extends State<BookkeepingPage> {
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBarBuilder(title: const Text('Fourth')),
-        body: Container(
-          child: Text('oh yessir'),
-        ),
+  Widget build(BuildContext context) => Container(
+        child: Text('oh yessir'),
       );
 }

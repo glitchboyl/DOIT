@@ -16,7 +16,10 @@ class NoteItemWidget extends StatelessWidget {
         key: item.id,
         margin: EdgeInsets.only(bottom: 10.h),
         padding: EdgeInsets.all(12.w),
-        color: Styles.RegularBaseColor,
+        decoration: BoxDecoration(
+          color: Styles.RegularBaseColor,
+          borderRadius: BorderRadius.circular(12.r),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -24,6 +27,7 @@ class NoteItemWidget extends StatelessWidget {
               item.title,
               style: TextStyle(
                 color: Styles.PrimaryTextColor,
+                fontWeight: FontWeight.bold,
                 fontSize: Styles.textSize,
                 height: Styles.textLineHeight / Styles.textSize,
               ),

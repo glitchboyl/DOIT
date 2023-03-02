@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'pages/schedule/drawer.dart';
+import 'widgets/app_bar.dart';
 import 'widgets/add_to_do_item_button.dart';
 import 'widgets/bottom_navigation_bar.dart';
 import 'widgets/svg_icon.dart';
@@ -29,6 +31,7 @@ class DOITApp extends StatefulWidget {
 class DOITAppState extends State<DOITApp> {
   int _currentIndex = 0;
   List<BottomNavigationBarItem> _navigationBarItems = [];
+  final List<AppBarBuilder> _appBarWidgets = [];
   final List<Widget> _pageWidgets = [];
 
   @override
@@ -51,6 +54,7 @@ class DOITAppState extends State<DOITApp> {
           label: '',
         ),
       );
+      _appBarWidgets.add(page.appBar());
       _pageWidgets.add(page.widget());
     }
   }
@@ -68,11 +72,14 @@ class DOITAppState extends State<DOITApp> {
           ),
           themeMode: ThemeMode.light,
           home: Scaffold(
+            appBar: _appBarWidgets[_currentIndex],
             body: IndexedStack(index: _currentIndex, children: _pageWidgets),
+            drawer: SchedulePageDrawer(),
             floatingActionButton: Visibility(
               visible: navigation[_currentIndex].name ==
-                      Keys.Schedule.toString() ||
-                  navigation[_currentIndex].name == Keys.Overview.toString(),
+                      Keys.SchedulePage.toString() ||
+                  navigation[_currentIndex].name ==
+                      Keys.OverviewPage.toString(),
               child: AddToDoItemButton(key: Keys.AddToDoItemButton),
             ),
             floatingActionButtonLocation: FABLocation(

@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'app_bar.dart';
 import 'simple_to_do_list_title.dart';
 import 'simple_to_do_item.dart';
 import 'package:doit/models/to_do_list.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/widgets/app_bar.dart';
-import 'package:doit/widgets/svg_icon_button.dart';
+import 'package:doit/widgets/dialog.dart';
 import 'package:doit/utils/time.dart';
-import 'package:doit/constants/styles.dart';
-import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/keys.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({Key? key}) : super(key: key);
   @override
   SchedulePageState createState() => SchedulePageState();
+
+  static final appBar = ({Key? key}) => SchedulePageAppBar(key: key);
 }
 
 class SchedulePageState extends State<SchedulePage> {
@@ -119,37 +119,43 @@ class SchedulePageState extends State<SchedulePage> {
   }
 
   void onDismissed(List<ToDoItem> list, int index) => {
-        list.removeAt(index),
-        setState(() {}),
+        // showDialog<bool>(
+        //   context: context,
+        //   builder: (context) {
+        //     return AlertDialog(
+        //       title: Text("提示"),
+        //       content: Text("您确定要删除当前文件吗?"),
+        //       actions: <Widget>[
+        //         TextButton(
+        //           child: Text("取消"),
+        //           onPressed: () => Navigator.of(context).pop(), // 关闭对话框
+        //         ),
+        //         TextButton(
+        //           child: Text("删除"),
+        //           onPressed: () {
+        //             //关闭对话框并返回true
+        //             Navigator.of(context).pop(true);
+        //             list.removeAt(index);
+        //             setState(() {});
+        //           },
+        //         ),
+        //       ],
+        //     );
+        //   },
+        // )
+        showDialog<String>(
+          context: context,
+          builder: (context) => DialogBuilder(
+            key: UniqueKey(),
+          ),
+        )
       };
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBarBuilder(
-          leading: SVGIconButton(
-            icon: 'assets/images/menu.svg',
-            onPressed: () => {},
-          ),
-          title: Text(
-            'DO IT',
-            style: TextStyle(
-              color: Styles.PrimaryTextColor,
-              fontWeight: FontWeight.bold,
-              fontSize: Styles.largeTextSize,
-              height: Styles.largeTextLineHeight / Styles.largeTextSize,
-            ),
-          ),
-          trailing: SVGIconButton(
-            icon: 'assets/images/quadrant.svg',
-            onPressed: () => {},
-          ),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 16.w,
         ),
-        body: Padding(
-          padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-          ),
-          child: CustomScrollView(slivers: getWidgets()),
-        ),
-        resizeToAvoidBottomInset: false,
+        child: CustomScrollView(slivers: getWidgets()),
       );
 }

@@ -43,6 +43,10 @@ abstract class MEAS {
   static double addToDoItemDialogTitleInputHeight = 44.h;
   static double addToDoItemDialogDescriptionInputHeight = 38.h;
 
+  static double drawerWidth = 283.w;
+  static double drawerItemIconWidth = 16.w;
+  static double drawerItemIconHeight = 16.w;
+
   static double dashLength = 4.h;
   static double dashGapLength = 3.h;
   static double lineThickness = 1.w;

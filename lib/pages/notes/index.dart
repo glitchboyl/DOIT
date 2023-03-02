@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:doit/widgets/app_bar.dart';
-import 'package:doit/widgets/svg_icon_button.dart';
+import 'app_bar.dart';
 import 'note_item.dart';
 import 'package:doit/models/note_item.dart';
-import 'package:doit/constants/styles.dart';
-import 'package:doit/constants/meas.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({Key? key}) : super(key: key);
   @override
   NotesPageState createState() => NotesPageState();
+
+  static final appBar = ({Key? key}) => NotesPageAppBar(key: key);
 }
 
 class NotesPageState extends State<NotesPage> {
@@ -32,39 +31,25 @@ class NotesPageState extends State<NotesPage> {
   ];
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBarBuilder(
-          title: Text(
-            '日记',
-            style: TextStyle(
-              color: Styles.PrimaryTextColor,
-              fontWeight: FontWeight.bold,
-              fontSize: Styles.largeTextSize,
-              height: Styles.largeTextLineHeight / Styles.largeTextSize,
-            ),
-          ),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.only(
+          top: 14.h,
+          left: 16.w,
+          right: 16.w,
         ),
-        body: Padding(
-          padding: EdgeInsets.only(
-            top: 14.h,
-            left: 16.w,
-            right: 16.w,
-          ),
-          child: CustomScrollView(
-            slivers: [
-              SliverSafeArea(
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => NoteItemWidget(
-                      mockList[index],
-                    ),
-                    childCount: mockList.length,
+        child: CustomScrollView(
+          slivers: [
+            SliverSafeArea(
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (context, index) => NoteItemWidget(
+                    mockList[index],
                   ),
+                  childCount: mockList.length,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        resizeToAvoidBottomInset: false,
       );
 }
