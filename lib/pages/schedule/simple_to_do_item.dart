@@ -91,7 +91,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                                 ? item.levelColor
                                 : Styles.SecondaryTextColor,
                         fontSize: Styles.smallTextSize,
-                        height: Styles.smallTextLineHeight / Styles.smallTextSize,
+                        height:
+                            Styles.smallTextLineHeight / Styles.smallTextSize,
                       ),
                     ),
                   ],

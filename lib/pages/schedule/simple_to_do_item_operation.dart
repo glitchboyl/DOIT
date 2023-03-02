@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:doit/widgets/interactive_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/meas.dart';
@@ -18,7 +19,7 @@ class SimpleToDoItemOperation extends StatelessWidget {
   final void Function() onPressed;
 
   @override
-  Widget build(content) => Expanded(
+  Widget build(context) => Expanded(
         child: Container(
           height: double.infinity,
           child: InteractiveButton(
@@ -29,7 +30,10 @@ class SimpleToDoItemOperation extends StatelessWidget {
               width: MEAS.simpleToDoItemOperationIconWidth,
               height: MEAS.simpleToDoItemOperationIconHeight,
             ),
-            onPressed: onPressed,
+            onPressed: () => {
+              Slidable.of(context)?.close(),
+              onPressed(),
+            },
           ),
         ),
       );

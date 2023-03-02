@@ -6,7 +6,6 @@ import 'simple_to_do_list_title.dart';
 import 'simple_to_do_item.dart';
 import 'package:doit/models/to_do_list.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/widgets/confirm_dialog.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/keys.dart';
@@ -119,39 +118,19 @@ class SchedulePageState extends State<SchedulePage> {
     setState(() {});
   }
 
-  void onDismissed(List<ToDoItem> list, int index) => {
-        // showDialog<bool>(
-        //   context: context,
-        //   builder: (context) {
-        //     return AlertDialog(
-        //       title: Text("提示"),
-        //       content: Text("您确定要删除当前文件吗?"),
-        //       actions: <Widget>[
-        //         TextButton(
-        //           child: Text("取消"),
-        //           onPressed: () => Navigator.of(context).pop(), // 关闭对话框
-        //         ),
-        //         TextButton(
-        //           child: Text("删除"),
-        //           onPressed: () {
-        //             //关闭对话框并返回true
-        //             Navigator.of(context).pop(true);
-        //             list.removeAt(index);
-        //             setState(() {});
-        //           },
-        //         ),
-        //       ],
-        //     );
-        //   },
-        // )
-        showConfirmDialog(
-          context: context,
-          content: '确定要删除“要提醒老大爷明天去医院做身体检查💪”吗？',
-          onConfirm: (context) => {
-            Navigator.of(context).pop(),
-          },
-        ),
-      };
+  void onDismissed(List<ToDoItem> list, int index) {
+    final ToDoItem tdi = list[index];
+    showConfirmDialog(
+      context: context,
+      content: '确定要删除"${tdi.title}"吗？',
+      danger: true,
+      onConfirm: (context) => {
+        list.remove(tdi),
+        Navigator.of(context).pop(),
+        setState(() {}),
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) => Padding(
