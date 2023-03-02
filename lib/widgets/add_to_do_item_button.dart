@@ -45,7 +45,7 @@ class AddToDoItemButtonState extends State<AddToDoItemButton>
         shadowColor: Styles.AddToDoItemButtonShadowColor,
         elevation: 24.w,
         shape: const CircleBorder(),
-        child: SVGIcon(
+        child: const SVGIcon(
           icon: 'assets/images/add_to_do_item.svg',
         ),
         onPressed: () => showModalBottomSheet(
@@ -53,6 +53,7 @@ class AddToDoItemButtonState extends State<AddToDoItemButton>
           transitionAnimationController: _animationController,
           isScrollControlled: true,
           backgroundColor: Styles.RegularBaseColor,
+          barrierColor: Styles.BarrierColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.vertical(
               top: Radius.circular(MEAS.addToDoItemDialogRadius),

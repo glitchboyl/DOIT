@@ -6,7 +6,8 @@ import 'simple_to_do_list_title.dart';
 import 'simple_to_do_item.dart';
 import 'package:doit/models/to_do_list.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/widgets/dialog.dart';
+import 'package:doit/widgets/confirm_dialog.dart';
+import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/keys.dart';
 
@@ -143,12 +144,13 @@ class SchedulePageState extends State<SchedulePage> {
         //     );
         //   },
         // )
-        showDialog<String>(
+        showConfirmDialog(
           context: context,
-          builder: (context) => DialogBuilder(
-            key: UniqueKey(),
-          ),
-        )
+          content: '确定要删除“要提醒老大爷明天去医院做身体检查💪”吗？',
+          onConfirm: (context) => {
+            Navigator.of(context).pop(),
+          },
+        ),
       };
 
   @override

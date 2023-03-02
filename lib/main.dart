@@ -72,6 +72,7 @@ class DOITAppState extends State<DOITApp> {
           ),
           themeMode: ThemeMode.light,
           home: Scaffold(
+            drawerScrimColor: Styles.BarrierColor,
             appBar: _appBarWidgets[_currentIndex],
             body: IndexedStack(index: _currentIndex, children: _pageWidgets),
             drawer: SchedulePageDrawer(),

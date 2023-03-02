@@ -12,6 +12,7 @@ class InteractiveButton extends StatefulWidget {
     this.child,
     required this.onPressed,
   }) : super(key: key);
+
   final Size? fixedSize;
   final Color color;
   final Color? activedColor;
