@@ -76,6 +76,7 @@ class DOITAppState extends State<DOITApp> {
             appBar: _appBarWidgets[_currentIndex],
             body: IndexedStack(index: _currentIndex, children: _pageWidgets),
             drawer: SchedulePageDrawer(),
+            drawerEnableOpenDragGesture: false,
             floatingActionButton: Visibility(
               visible: navigation[_currentIndex].name ==
                       Keys.SchedulePage.toString() ||

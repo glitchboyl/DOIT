@@ -20,6 +20,9 @@ class ConfirmDialogActionButton extends StatelessWidget {
         child: InteractiveButton(
           color: Styles.BackgroundColor,
           activedColor: Styles.DialogActionActivedColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusDirectional.all(Radius.circular(0)),
+          ),
           child: Text(
             text,
             style: TextStyle(

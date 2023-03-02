@@ -28,11 +28,14 @@ class ConfirmDialogBuilder extends StatelessWidget {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 10.w, sigmaY: 0.h),
           child: Container(
+            height: 112.h,
             color: Styles.BackgroundColor,
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
+                Expanded(
+                    child: Center(child: Padding(
                   padding: EdgeInsets.all(16.w),
                   child: Text(
                     content,
@@ -44,7 +47,7 @@ class ConfirmDialogBuilder extends StatelessWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                ),
+                ))),
                 Divider(
                   height: 0.5.h,
                   thickness: 0.5.w,
@@ -60,7 +63,7 @@ class ConfirmDialogBuilder extends StatelessWidget {
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                       VerticalDivider(
-                        width: 0.5.w,
+                        width: 1.w,
                         thickness: 0.5.w,
                         color: Styles.DeactivedDeepColor,
                       ),
