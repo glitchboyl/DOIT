@@ -33,25 +33,27 @@ class _NotesPageState extends State<NotesPage> {
   ];
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(
-          top: 14.h,
-          left: 16.w,
-          right: 16.w,
-        ),
-        child: CustomScrollView(
-          slivers: [
-            SliverSafeArea(
-              sliver: SliverList(
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) => NoteItemWidget(
-                    mockList[index],
+  Widget build(BuildContext context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            top: 14.h,
+            left: 16.w,
+            right: 16.w,
+          ),
+          child: CustomScrollView(
+            slivers: [
+              SliverSafeArea(
+                sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => NoteItemWidget(
+                      mockList[index],
+                    ),
+                    childCount: mockList.length,
                   ),
-                  childCount: mockList.length,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }

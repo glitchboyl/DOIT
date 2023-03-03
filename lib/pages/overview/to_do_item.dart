@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
@@ -19,7 +19,7 @@ class ToDoItemWidget extends StatelessWidget {
           children: [
             Container(
               width: MEAS.toDoListTimelineContainerWidth,
-              height: 16.h,
+              height: Styles.smallTextLineHeight,
               margin: EdgeInsets.only(right: 2.w),
               alignment: Alignment.center,
               color: Styles.BackgroundColor,

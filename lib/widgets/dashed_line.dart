@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';

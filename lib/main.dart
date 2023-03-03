@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'pages/schedule/drawer.dart';
 import 'widgets/app_bar.dart';
-import 'widgets/add_to_do_item_button.dart';
+import 'widgets/add_button.dart';
 import 'widgets/bottom_navigation_bar.dart';
 import 'widgets/svg_icon.dart';
 import 'models/navigation.dart';
@@ -72,23 +72,20 @@ class _DOITAppState extends State<DOITApp> {
           ),
           themeMode: ThemeMode.light,
           home: Scaffold(
+            extendBodyBehindAppBar: true,
             drawerScrimColor: Styles.BarrierColor,
             appBar: _appBarWidgets[_currentIndex],
             body: IndexedStack(index: _currentIndex, children: _pageWidgets),
             drawer: SchedulePageDrawer(),
             drawerEnableOpenDragGesture: false,
-            floatingActionButton: Visibility(
-              visible: navigation[_currentIndex].name ==
-                      Keys.SchedulePage.toString() ||
-                  navigation[_currentIndex].name ==
-                      Keys.OverviewPage.toString(),
-              child: AddToDoItemButton(key: Keys.AddToDoItemButton),
+            floatingActionButton: AddButton(
+              navigation[_currentIndex].id,
+              key: Keys.AddButton,
             ),
             floatingActionButtonLocation: FABLocation(
               location: FloatingActionButtonLocation.endDocked,
               offsetX: -16.w,
-              offsetY: -MEAS.bottomNavigationBarHeight -
-                  MEAS.addToDoItemButtonBottom,
+              offsetY: -MEAS.bottomNavigationBarHeight - MEAS.addButtonBottom,
             ),
             floatingActionButtonAnimator: FABAnimator(),
             resizeToAvoidBottomInset: false,

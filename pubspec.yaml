@@ -25,14 +25,14 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^2.0.2
+  sqflite: ^2.2.5
+  path: ^1.8.3
   provider: ^6.0.0
   flutter_screenutil: ^5.6.1
   dotted_line: ^3.1.0
   flutter_slidable: ^2.0.0
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

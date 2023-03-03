@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/dashed_line.dart';
@@ -37,34 +37,36 @@ class _OverviewPageState extends State<OverviewPage> {
   ];
 
   @override
-  Widget build(BuildContext context) => Padding(
-        padding: EdgeInsets.only(
-          top: 12.h,
-          left: 24.w,
-          right: 16.w,
-        ),
-        child: Stack(
-          children: [
-            Container(
-              width: MEAS.toDoListTimelineContainerWidth,
-              alignment: Alignment.center,
-              child: DashedLine(),
-            ),
-            CustomScrollView(
-              slivers: [
-                SliverSafeArea(
-                  sliver: SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) => ToDoItemWidget(
-                        mockList[index],
+  Widget build(BuildContext context) => SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(
+            // top: 12.h,
+            left: 18.w,
+            right: 16.w,
+          ),
+          child: Stack(
+            children: [
+              Container(
+                width: MEAS.toDoListTimelineContainerWidth,
+                alignment: Alignment.center,
+                child: DashedLine(),
+              ),
+              CustomScrollView(
+                slivers: [
+                  SliverSafeArea(
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => ToDoItemWidget(
+                          mockList[index],
+                        ),
+                        childCount: mockList.length,
                       ),
-                      childCount: mockList.length,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       );
 }

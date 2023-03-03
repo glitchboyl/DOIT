@@ -9,11 +9,12 @@ class BookkeepingPageAppBar extends AppBarBuilder {
         title: Text(
           '记账',
           style: TextStyle(
-            color: Styles.PrimaryTextColor,
+            color: Styles.RegularBaseColor,
             fontWeight: FontWeight.bold,
             fontSize: Styles.largeTextSize,
             height: Styles.largeTextLineHeight / Styles.largeTextSize,
           ),
         ),
+        backgroundColor: Colors.transparent,
       );
 }

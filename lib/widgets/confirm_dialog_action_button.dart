@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:doit/widgets/interactive_button.dart';
 import 'package:doit/constants/styles.dart';
 

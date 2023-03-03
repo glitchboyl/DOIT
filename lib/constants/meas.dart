@@ -30,13 +30,13 @@ abstract class MEAS {
   static double toDoItemTypeIconWidth = 10.w;
   static double toDoItemTypeIconHeight = 10.w;
 
-  static double toDoListTimelineContainerWidth = 28.w;
+  static double toDoListTimelineContainerWidth = 32.w;
 
-  static double addToDoItemButtonWidth = 52.w;
-  static double addToDoItemButtonHeight = 52.w;
-  static double addToDoItemButtonBottom = 48.h;
-  static double addToDoItemIconWidth = 16.w;
-  static double addToDoItemIconHeight = 16.w;
+  static double addButtonWidth = 52.w;
+  static double addButtonHeight = 52.w;
+  static double addButtonBottom = 48.h;
+  static double addButtonIconWidth = 16.w;
+  static double addButtonIconHeight = 16.w;
 
   static double addToDoItemDialogHeight = 200.h;
   static double addToDoItemDialogRadius = 18.r;
@@ -56,4 +56,11 @@ abstract class MEAS {
 
   static double noteItemQuotesWidth = 6.w;
   static double noteItemQuotesHeight = 6.w;
+
+  static double bookkeepingStatisticsWidth = 343.w;
+  static double bookkeepingItemTypeWidth = 24.w;
+  static double bookkeepingItemTypeHeight = 24.w;
+  static double bookkeepingItemTypeIconWidth = 18.w;
+  static double bookkeepingItemTypeIconHeight = 18.w;
+
 }

@@ -8,14 +8,14 @@ import 'package:doit/constants/keys.dart';
 
 class Navigation {
   const Navigation({
-    required this.name,
+    required this.id,
     required this.icon,
     required this.activeIcon,
     required this.appBar,
     required this.widget,
   });
 
-  final String name;
+  final Key id;
   final String icon;
   final String activeIcon;
   final AppBarBuilder Function() appBar;
@@ -24,28 +24,28 @@ class Navigation {
 
 List<Navigation> navigation = [
   Navigation(
-    name: Keys.SchedulePage.toString(),
+    id: Keys.SchedulePage,
     icon: 'assets/images/schedule.svg',
     activeIcon: 'assets/images/schedule_actived.svg',
     appBar: () => SchedulePage.appBar(key: Keys.SchedulePage),
     widget: () => SchedulePage(key: Keys.SchedulePage),
   ),
   Navigation(
-    name: Keys.OverviewPage.toString(),
+    id: Keys.OverviewPage,
     icon: 'assets/images/overview.svg',
     activeIcon: 'assets/images/overview_actived.svg',
     appBar: () => OverviewPage.appBar(key: Keys.OverviewPage),
     widget: () => OverviewPage(key: Keys.OverviewPage),
   ),
   Navigation(
-    name: Keys.NotesPage.toString(),
+    id: Keys.NotesPage,
     icon: 'assets/images/notes.svg',
     activeIcon: 'assets/images/notes_actived.svg',
     appBar: () => NotesPage.appBar(key: Keys.NotesPage),
     widget: () => NotesPage(key: Keys.NotesPage),
   ),
   Navigation(
-    name: Keys.BookkeepingPage.toString(),
+    id: Keys.BookkeepingPage,
     icon: 'assets/images/bookkeeping.svg',
     activeIcon: 'assets/images/bookkeeping_actived.svg',
     appBar: () => BookkeepingPage.appBar(key: Keys.OverviewPage),

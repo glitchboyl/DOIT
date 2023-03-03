@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 abstract class Styles {
   static const Color RegularBaseColor = Colors.white;
   static const Color PrimaryColor = Color(0xFF3A36EE);
+  static const Color PrimaryLightColor = Color(0xFF5753FC);
   static const Color PrimaryDeepColor = Color(0xFF2224C6);
   static const Color PrimaryTextColor = Color(0xFF373655);
   static const Color SecondaryTextColor = Color(0xFF868CA3);
@@ -27,9 +28,11 @@ abstract class Styles {
   static const Color CompleteActivedColor = Color(0xFF2FC37E);
   static const Color ResumeColor = Color(0xFFFFD83D);
   static const Color ResumeActivedColor = Color(0xFFD2AA26);
-  static const Color AddToDoItemButtonShadowColor = Color(0x33312DE0);
+  static const Color AddButtonShadowColor = Color(0x33312DE0);
 
   static const Color DialogActionActivedColor = Color(0xFFEFEFF2);
+
+  static const Color BookkeepingStatisticsShadowColor = Color(0x0F373655);
 
   static double textSize = 14.sp;
   static double textLineHeight = 20.sp;
@@ -42,4 +45,7 @@ abstract class Styles {
 
   static double drawerItemTextSize = 16.sp;
   static double drawerItemTextLineHeight = 22.sp;
+
+  static double statisticTextSize = 20.sp;
+  static double statisticTextLineHeight = 32.sp;
 }
