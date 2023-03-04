@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/text.dart';
 import 'statistic.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -40,12 +41,10 @@ class BookkeepingStatistics extends StatelessWidget {
                   right: 12.w,
                 ),
                 alignment: Alignment.centerLeft,
-                child: Text(
+                child: TextBuilder(
                   '2023.2月',
-                  style: TextStyle(
-                    fontSize: Styles.largeTextSize,
-                    height: Styles.largeTextLineHeight / Styles.largeTextSize,
-                  ),
+                  fontSize: Styles.largeTextSize,
+                  lineHeight: Styles.largeTextLineHeight,
                 ),
               ),
               SizedBox(height: 4.h),

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/models/bookkeeping_item.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/utils/time.dart';
@@ -44,35 +45,29 @@ class BookkeepingItemWidget extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                TextBuilder(
                   item.title,
-                  style: TextStyle(
-                    color: Styles.PrimaryTextColor,
-                    fontSize: Styles.textSize,
-                    height: Styles.textLineHeight / Styles.textSize,
-                  ),
+                  color: Styles.PrimaryTextColor,
+                  fontSize: Styles.textSize,
+                  lineHeight: Styles.textLineHeight,
                 ),
-                Text(
+                TextBuilder(
                   getClockTime(item.time),
-                  style: TextStyle(
-                    color: Styles.SecondaryTextColor,
-                    fontSize: Styles.smallTextSize,
-                    height: Styles.smallTextLineHeight / Styles.smallTextSize,
-                  ),
+                  color: Styles.SecondaryTextColor,
+                  fontSize: Styles.smallTextSize,
+                  lineHeight: Styles.smallTextLineHeight,
                 ),
               ],
             ),
             Expanded(child: SizedBox.shrink()),
-            Text(
+            TextBuilder(
               '${item.type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(item.amount)}',
-              style: TextStyle(
-                color: item.type == BookkeepingItemType.Incomes
-                    ? Styles.PrimaryColor
-                    : Styles.DangerousColor,
-                fontWeight: FontWeight.bold,
-                fontSize: Styles.textSize,
-                height: Styles.textLineHeight / Styles.textSize,
-              ),
+              color: item.type == BookkeepingItemType.Incomes
+                  ? Styles.PrimaryColor
+                  : Styles.DangerousColor,
+              fontWeight: FontWeight.bold,
+              fontSize: Styles.textSize,
+              lineHeight: Styles.textLineHeight,
             ),
           ],
         ),

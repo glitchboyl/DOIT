@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -37,15 +38,12 @@ class SchedulePageDrawerItem extends StatelessWidget {
                     : _getDrawerItemIcon(icon!),
                 SizedBox(width: 10.w),
               ],
-              Text(
+              TextBuilder(
                 title,
-                style: TextStyle(
-                  color: Styles.PrimaryTextColor,
-                  fontSize: Styles.drawerItemTextSize,
-                  height: Styles.drawerItemTextLineHeight /
-                      Styles.drawerItemTextSize,
-                ),
-              )
+                color: Styles.PrimaryTextColor,
+                fontSize: Styles.drawerItemTextSize,
+                lineHeight: Styles.drawerItemTextLineHeight,
+              ),
             ],
           ),
         ),

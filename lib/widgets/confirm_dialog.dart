@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/text.dart';
 import 'confirm_dialog_action_button.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -35,19 +36,19 @@ class ConfirmDialogBuilder extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Expanded(
-                    child: Center(child: Padding(
-                  padding: EdgeInsets.all(16.w),
-                  child: Text(
-                    content,
-                    style: TextStyle(
-                      color: Styles.PrimaryTextColor,
-                      fontSize: Styles.smallTextSize,
-                      height:
-                          Styles.dialogContentLineHeight / Styles.smallTextSize,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(16.w),
+                      child: TextBuilder(
+                        content,
+                        color: Styles.PrimaryTextColor,
+                        fontSize: Styles.smallTextSize,
+                        lineHeight: Styles.confirmDialogContentLineHeight,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ))),
+                ),
                 Divider(
                   height: 0.5.h,
                   thickness: 0.5.w,

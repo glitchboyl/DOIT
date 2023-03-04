@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:doit/widgets/app_bar.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -13,14 +14,12 @@ class SchedulePageAppBar extends AppBarBuilder {
             onPressed: () => {Scaffold.of(context).openDrawer()},
           );
         }),
-        title: Text(
+        title: TextBuilder(
           'DO IT',
-          style: TextStyle(
-            color: Styles.PrimaryTextColor,
-            fontWeight: FontWeight.bold,
-            fontSize: Styles.largeTextSize,
-            height: Styles.largeTextLineHeight / Styles.largeTextSize,
-          ),
+          color: Styles.PrimaryTextColor,
+          fontSize: Styles.largeTextSize,
+          lineHeight: Styles.largeTextLineHeight,
+          fontWeight: FontWeight.bold,
         ),
         trailing: SVGIconButton(
           icon: 'assets/images/quadrant.svg',

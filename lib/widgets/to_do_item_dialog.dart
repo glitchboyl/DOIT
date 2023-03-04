@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_bar.dart';
+import 'text.dart';
 import 'svg_icon.dart';
 import 'svg_icon_button.dart';
-import 'add_to_do_item_dialog_input.dart';
-import 'add_to_do_item_calendar.dart';
+import 'to_do_item_dialog_input.dart';
+import 'to_do_item_calendar.dart';
 import 'bottom_drawer_select.dart';
 import 'bottom_drawer_select_item.dart';
 import 'icon.dart';
@@ -23,13 +24,14 @@ UnderlineInputBorder remarksBorder = UnderlineInputBorder(
   ),
 );
 
-class AddToDoItemDialog extends StatefulWidget {
-  const AddToDoItemDialog({super.key});
+class ToDoItemDialog extends StatefulWidget {
+  const ToDoItemDialog({super.key, this.item});
+  final ToDoItem? item;
   @override
-  _AddToDoItemDialogState createState() => _AddToDoItemDialogState();
+  _ToDoItemDialogState createState() => _ToDoItemDialogState();
 }
 
-class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
+class _ToDoItemDialogState extends State<ToDoItemDialog> {
   bool _sendActived = false;
   String _title = '';
   String _remarks = '';
@@ -43,23 +45,31 @@ class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
   @override
   void initState() {
     super.initState();
-    final nowTime = DateTime.now();
-    _startTime = nowTime;
-    _endTime = nowTime;
+    if (widget.item != null) {
+      _sendActived = true;
+      _title = widget.item!.title;
+      _remarks = widget.item!.remarks;
+      _startTime = widget.item!.startTime;
+      _endTime = widget.item!.endTime;
+      _level = widget.item!.level;
+      _type = widget.item!.type;
+    } else {
+      final nowTime = DateTime.now();
+      _startTime = nowTime;
+      _endTime = nowTime;
+    }
   }
 
   @override
   Widget build(context) => Wrap(
         children: <Widget>[
           AppBarBuilder(
-            title: Text(
-              '添加日程',
-              style: TextStyle(
-                color: Styles.PrimaryTextColor,
-                fontWeight: FontWeight.bold,
-                fontSize: Styles.largeTextSize,
-                height: Styles.largeTextLineHeight / Styles.largeTextSize,
-              ),
+            title: TextBuilder(
+              '${widget.item != null ? '编辑' : '添加'}日程',
+              color: Styles.PrimaryTextColor,
+              fontSize: Styles.largeTextSize,
+              lineHeight: Styles.largeTextLineHeight,
+              fontWeight: FontWeight.bold,
             ),
             trailing: SVGIconButton(
               icon: 'assets/images/send${_sendActived ? '' : '_disabled'}.svg',
@@ -72,22 +82,29 @@ class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
               },
             ),
           ),
-          SizedBox(height: 12.h),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            padding: EdgeInsets.only(
+              left: 16.w,
+              right: 16.w,
+              top: 12.h,
+              bottom: 18.h,
+            ),
             child: Column(
               children: [
-                AddToDoItemDialogInput(
-                  height: MEAS.addToDoItemDialogTitleInputHeight,
+                ToDoItemDialogInput(
+                  initialValue: _title,
+                  height: MEAS.toDoItemDialogTitleInputHeight,
                   hintText: '有好计划吗，快记录下来吧…',
+                  autofocus: true,
                   border: titleBorder,
                   onChanged: (value) => setState(() {
                     _title = value;
                     _sendActived = validate();
                   }),
                 ),
-                AddToDoItemDialogInput(
-                  height: MEAS.addToDoItemDialogRemarksInputHeight,
+                ToDoItemDialogInput(
+                  initialValue: _remarks,
+                  height: MEAS.toDoItemDialogRemarksInputHeight,
                   hintText: '描述信息',
                   border: remarksBorder,
                   onChanged: (value) => _remarks = value,
@@ -105,35 +122,31 @@ class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
                             height: MEAS.simpleToDoItemOperationIconHeight,
                           ),
                           SizedBox(width: 6.w),
-                          Text(
+                          TextBuilder(
                             getToDoItemTime(_startTime, _endTime),
-                            // 'qweqwe',
-                            style: TextStyle(
-                              color: Styles.PrimaryColor,
-                              fontSize: Styles.smallTextSize,
-                              height: Styles.smallTextLineHeight /
-                                  Styles.smallTextSize,
-                            ),
+                            color: Styles.PrimaryColor,
+                            fontSize: Styles.smallTextSize,
+                            lineHeight: Styles.smallTextLineHeight,
                           ),
                         ],
                       ),
                       onTap: () => showBottomDrawer(
                         context: context,
-                        builder: (context) => AddToDoItemCalendar(),
+                        builder: (context) => ToDoItemCalendar(),
                       ),
                     ),
                     GestureDetector(
                       child: IconBuilder(
-                        width: MEAS.addToDoItemPropertyWidth,
-                        height: MEAS.addToDoItemPropertyWidth,
+                        width: MEAS.toDoItemPropertyWidth,
+                        height: MEAS.toDoItemPropertyWidth,
                         margin: EdgeInsets.only(
                           left: 20.w,
                         ),
                         borderRadius: BorderRadius.circular(50.r),
                         color: toDoItemLevelMap[_level]!.color,
                         icon: toDoItemLevelMap[_level]!.icon,
-                        iconWidth: MEAS.addToDoItemPropertyIconWidth,
-                        iconHeight: MEAS.addToDoItemPropertyIconHeight,
+                        iconWidth: MEAS.toDoItemPropertyIconWidth,
+                        iconHeight: MEAS.toDoItemPropertyIconHeight,
                       ),
                       onTap: () => showBottomDrawer(
                         context: context,
@@ -144,13 +157,13 @@ class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
                             key: ValueKey(level),
                             title: toDoItemLevelMap[level]!.text,
                             icon: IconBuilder(
-                              width: MEAS.addToDoItemPropertyWidth,
-                              height: MEAS.addToDoItemPropertyWidth,
+                              width: MEAS.toDoItemPropertyWidth,
+                              height: MEAS.toDoItemPropertyWidth,
                               borderRadius: BorderRadius.circular(50.r),
                               color: toDoItemLevelMap[level]!.color,
                               icon: toDoItemLevelMap[level]!.icon,
-                              iconWidth: MEAS.addToDoItemPropertyIconWidth,
-                              iconHeight: MEAS.addToDoItemPropertyIconHeight,
+                              iconWidth: MEAS.toDoItemPropertyIconWidth,
+                              iconHeight: MEAS.toDoItemPropertyIconHeight,
                             ),
                           ),
                           onSelected: (level, index) => {
@@ -164,16 +177,16 @@ class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
                     ),
                     GestureDetector(
                       child: IconBuilder(
-                        width: MEAS.addToDoItemPropertyWidth,
-                        height: MEAS.addToDoItemPropertyWidth,
+                        width: MEAS.toDoItemPropertyWidth,
+                        height: MEAS.toDoItemPropertyWidth,
                         margin: EdgeInsets.only(
                           left: 20.w,
                         ),
                         borderRadius: BorderRadius.circular(6.r),
                         color: toDoItemTypeMap[_type]!.color,
                         icon: toDoItemTypeMap[_type]!.icon,
-                        iconWidth: MEAS.addToDoItemPropertyIconWidth,
-                        iconHeight: MEAS.addToDoItemPropertyIconHeight,
+                        iconWidth: MEAS.toDoItemPropertyIconWidth,
+                        iconHeight: MEAS.toDoItemPropertyIconHeight,
                       ),
                       onTap: () => showBottomDrawer(
                         context: context,
@@ -184,13 +197,13 @@ class _AddToDoItemDialogState extends State<AddToDoItemDialog> {
                             key: ValueKey(type),
                             title: toDoItemTypeMap[type]!.text,
                             icon: IconBuilder(
-                              width: MEAS.addToDoItemPropertyWidth,
-                              height: MEAS.addToDoItemPropertyWidth,
+                              width: MEAS.toDoItemPropertyWidth,
+                              height: MEAS.toDoItemPropertyWidth,
                               borderRadius: BorderRadius.circular(6.r),
                               color: toDoItemTypeMap[type]!.color,
                               icon: toDoItemTypeMap[type]!.icon,
-                              iconWidth: MEAS.addToDoItemPropertyIconWidth,
-                              iconHeight: MEAS.addToDoItemPropertyIconHeight,
+                              iconWidth: MEAS.toDoItemPropertyIconWidth,
+                              iconHeight: MEAS.toDoItemPropertyIconHeight,
                             ),
                           ),
                           onSelected: (type, index) => {

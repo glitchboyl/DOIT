@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 
 class BottomDrawerSelectItem extends StatelessWidget {
@@ -21,13 +22,11 @@ class BottomDrawerSelectItem extends StatelessWidget {
               icon!,
               SizedBox(width: 10.w),
             ],
-            Text(
+            TextBuilder(
               title,
-              style: TextStyle(
-                color: Styles.PrimaryTextColor,
-                fontSize: Styles.textSize,
-                height: Styles.textLineHeight / Styles.textSize,
-              ),
+              color: Styles.PrimaryTextColor,
+              fontSize: Styles.textSize,
+              lineHeight: Styles.textLineHeight,
             ),
           ],
         ),

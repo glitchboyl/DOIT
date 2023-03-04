@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/interactive_button.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -23,13 +24,11 @@ class ConfirmDialogActionButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadiusDirectional.all(Radius.circular(0)),
           ),
-          child: Text(
+          child: TextBuilder(
             text,
-            style: TextStyle(
-              color: textColor,
-              fontSize: Styles.largeTextSize,
-              height: Styles.largeTextLineHeight / Styles.largeTextSize,
-            ),
+            color: textColor,
+            fontSize: Styles.largeTextSize,
+            lineHeight: Styles.largeTextLineHeight,
           ),
           onPressed: onPressed,
         ),

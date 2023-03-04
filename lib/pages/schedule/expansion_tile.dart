@@ -85,8 +85,8 @@ class _ExpansionTileState extends State<ExpansionTileBuilder>
                     turns: _iconTurns,
                     child: SVGIcon(
                       icon: 'assets/images/arrow.svg',
-                      width: MEAS.drawerExpandArrowWidth,
-                      height: MEAS.drawerExpandArrowHeight,
+                      width: MEAS.arrowWidth,
+                      height: MEAS.arrowHeight,
                     ),
                   ),
                   SizedBox(width: 16.w)

@@ -30,6 +30,8 @@ abstract class Styles {
   static const Color ResumeActivedColor = Color(0xFFD2AA26);
   static const Color AddButtonShadowColor = Color(0x33312DE0);
 
+  static const Color CalendarDateRangeColor = Color(0xFFF0F0FF);
+
   static const Color DialogActionActivedColor = Color(0xFFEFEFF2);
 
   static const Color BookkeepingStatisticsShadowColor = Color(0x0F373655);
@@ -41,7 +43,14 @@ abstract class Styles {
   static double largeTextSize = 18.sp;
   static double largeTextLineHeight = 26.sp;
 
-  static double dialogContentLineHeight = 18.sp;
+  static double confirmDialogContentLineHeight = 18.sp;
+
+  static double dateTextSize = 15.sp;
+  static double dateTextLineHeight = 18.sp;
+  static double dateSubTextSize = 9.sp;
+  static double dateSubTextLineHeight = 12.sp;
+  static double calendarSwitchButtonTextSize = 16.sp;
+  static double calendarSwitchButtonTextLineHeight = 24.sp;
 
   static double drawerItemTextSize = 16.sp;
   static double drawerItemTextLineHeight = 22.sp;

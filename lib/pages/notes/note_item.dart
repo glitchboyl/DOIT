@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/note_item.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -23,23 +24,19 @@ class NoteItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            TextBuilder(
               item.title,
-              style: TextStyle(
-                color: Styles.PrimaryTextColor,
-                fontWeight: FontWeight.bold,
-                fontSize: Styles.textSize,
-                height: Styles.textLineHeight / Styles.textSize,
-              ),
+              color: Styles.PrimaryTextColor,
+              fontWeight: FontWeight.bold,
+              fontSize: Styles.textSize,
+              lineHeight: Styles.textLineHeight,
             ),
             SizedBox(height: 2.h),
-            Text(
+            TextBuilder(
               getNoteTime(item.publishTime),
-              style: TextStyle(
-                color: Styles.SecondaryTextColor,
-                fontSize: Styles.smallTextSize,
-                height: Styles.smallTextLineHeight / Styles.smallTextSize,
-              ),
+              color: Styles.SecondaryTextColor,
+              fontSize: Styles.smallTextSize,
+              lineHeight: Styles.smallTextLineHeight,
             ),
             SizedBox(height: 12.h),
             SVGIcon(
@@ -60,13 +57,11 @@ class NoteItemWidget extends StatelessWidget {
                 ),
               ),
             SizedBox(height: 10.h),
-            Text(
+            TextBuilder(
               item.body,
-              style: TextStyle(
-                color: Styles.PrimaryTextColor,
-                fontSize: Styles.smallTextSize,
-                height: Styles.smallTextLineHeight / Styles.smallTextSize,
-              ),
+              color: Styles.PrimaryTextColor,
+              fontSize: Styles.smallTextSize,
+              lineHeight: Styles.smallTextLineHeight,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

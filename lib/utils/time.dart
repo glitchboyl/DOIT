@@ -1,28 +1,29 @@
 final DateTime nowTime = DateTime.now();
 
 extension DateTimeExtension on DateTime {
-  bool isSameDay(DateTime date) {
-    return this.year.toString() == date.year.toString() &&
-        this.month.toString() == date.month.toString() &&
-        this.day.toString() == date.day.toString();
-  }
+  bool isSameDay(DateTime date) =>
+      this.year.toString() == date.year.toString() &&
+      this.month.toString() == date.month.toString() &&
+      this.day.toString() == date.day.toString();
 
-  bool isSameYear(DateTime date) {
-    return this.year.toString() == date.year.toString();
-  }
+  bool isSameMonth(DateTime date) =>
+      this.month.toString() == date.month.toString();
+
+  bool isSameYear(DateTime date) =>
+      this.year.toString() == date.year.toString();
 }
 
-String fillZero(int n) => n < 10 ? "0" : "";
+String fillDateZero(int n) => '${n < 10 ? "0" : ""}${n.toString()}';
 String getClockTime(DateTime time) {
   var hour = time.hour;
   var minute = time.minute;
-  return "${fillZero(hour)}${hour.toString()}:${fillZero(minute)}${minute.toString()}";
+  return "${fillDateZero(hour)}:${fillDateZero(minute)}";
 }
 
 String getDateTime(DateTime time) {
   var month = time.month;
   var day = time.day;
-  return "${!time.isSameYear(nowTime) ? time.year.toString() + ' ' : ''}${fillZero(month)}${month.toString()}.${fillZero(day)}${day.toString()}";
+  return "${!time.isSameYear(nowTime) ? time.year.toString() + ' ' : ''}${fillDateZero(month)}.${fillDateZero(day)}";
 }
 
 String getToDoItemTime(

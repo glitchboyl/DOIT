@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/styles.dart';
 import 'interactive_button.dart';
-import 'add_to_do_item_dialog.dart';
+import 'to_do_item_dialog.dart';
 import 'svg_icon.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/constants/keys.dart';
@@ -34,7 +34,7 @@ class AddButton extends StatelessWidget {
               currentPage == Keys.OverviewPage.toString()) {
             showBottomDrawer(
               context: context,
-              builder: (context) => AddToDoItemDialog(),
+              builder: (context) => ToDoItemDialog(),
             );
           } else if (currentPage == Keys.NotesPage.toString()) {
           } else if (currentPage == Keys.BookkeepingPage.toString()) {

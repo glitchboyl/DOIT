@@ -39,23 +39,21 @@ abstract class MEAS {
   static double addButtonIconHeight = 16.w;
   static double bottomDrawerRadius = 18.r;
 
-  static double addToDoItemDialogHeight = 200.h;
-  static double addToDoItemDialogTitleInputHeight = 44.h;
-  static double addToDoItemDialogRemarksInputHeight = 38.h;
-  static double addToDoItemPropertyWidth = 18.w;
-  static double addToDoItemPropertyHeight = 18.w;
-  static double addToDoItemPropertyIconWidth = 14.w;
-  static double addToDoItemPropertyIconHeight = 14.w;
-  // static double addToDoItemTypeWidth = .w;
-  // static double addToDoItemLevelHeight = 20.w;
-  // static double addToDoItemLevelIconWidth = 14.w;
-  // static double addToDoItemLevelIconHeight = 14.w;
+  static double toDoItemDialogHeight = 200.h;
+  static double toDoItemDialogTitleInputHeight = 44.h;
+  static double toDoItemDialogRemarksInputHeight = 38.h;
+  static double toDoItemPropertyWidth = 18.w;
+  static double toDoItemPropertyHeight = 18.w;
+  static double toDoItemPropertyIconWidth = 14.w;
+  static double toDoItemPropertyIconHeight = 14.w;
+  static double calendarItemRadius = 8.r;
 
   static double drawerWidth = 283.w;
   static double drawerItemIconWidth = 16.w;
   static double drawerItemIconHeight = 16.w;
-  static double drawerExpandArrowWidth = 12.w;
-  static double drawerExpandArrowHeight = 12.w;
+  
+  static double arrowWidth = 12.w;
+  static double arrowHeight = 12.w;
 
   static double dashLength = 4.h;
   static double dashGapLength = 3.h;

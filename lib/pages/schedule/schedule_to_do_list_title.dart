@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 
 class ScheduleToDoListTitle extends StatelessWidget {
@@ -15,14 +16,12 @@ class ScheduleToDoListTitle extends StatelessWidget {
         margin: EdgeInsets.only(
           top: 12.h,
         ),
-        child: Text(
+        child: TextBuilder(
           title,
-          style: TextStyle(
-            fontSize: Styles.smallTextSize,
-            fontWeight: FontWeight.bold,
-            height: Styles.smallTextLineHeight / Styles.smallTextSize,
-            color: Styles.PrimaryTextColor,
-          ),
+          color: Styles.PrimaryTextColor,
+          fontSize: Styles.smallTextSize,
+          lineHeight: Styles.smallTextLineHeight,
+          fontWeight: FontWeight.bold,
         ),
       );
 }

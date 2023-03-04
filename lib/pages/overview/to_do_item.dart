@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
-import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/icon.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -24,14 +24,12 @@ class ToDoItemWidget extends StatelessWidget {
               margin: EdgeInsets.only(right: 2.w),
               alignment: Alignment.center,
               color: Styles.BackgroundColor,
-              child: Text(
+              child: TextBuilder(
                 // item.startTime != null ? getClockTime(item.startTime!) : '整天',
                 getClockTime(item.startTime),
-                style: TextStyle(
-                  color: Styles.PrimaryTextColor,
-                  fontSize: Styles.smallTextSize,
-                  height: Styles.smallTextLineHeight / Styles.smallTextSize,
-                ),
+                color: Styles.PrimaryTextColor,
+                fontSize: Styles.smallTextSize,
+                lineHeight: Styles.smallTextLineHeight,
               ),
             ),
             Expanded(
@@ -64,14 +62,11 @@ class ToDoItemWidget extends StatelessWidget {
                           iconWidth: MEAS.toDoItemLevelIconWidth,
                           iconHeight: MEAS.toDoItemLevelIconHeight,
                         ),
-                        Text(
+                        TextBuilder(
                           item.levelText,
-                          style: TextStyle(
-                            color: Styles.PrimaryTextColor,
-                            fontSize: Styles.smallTextSize,
-                            height: Styles.smallTextLineHeight /
-                                Styles.smallTextSize,
-                          ),
+                          color: Styles.PrimaryTextColor,
+                          fontSize: Styles.smallTextSize,
+                          lineHeight: Styles.smallTextLineHeight,
                         ),
                         Expanded(
                           child: SizedBox.shrink(),
@@ -88,36 +83,28 @@ class ToDoItemWidget extends StatelessWidget {
                           iconWidth: MEAS.toDoItemTypeIconWidth,
                           iconHeight: MEAS.toDoItemTypeIconHeight,
                         ),
-                        Text(
+                        TextBuilder(
                           item.typeText,
-                          style: TextStyle(
-                            color: Styles.PrimaryTextColor,
-                            fontSize: Styles.smallTextSize,
-                            height: Styles.smallTextLineHeight /
-                                Styles.smallTextSize,
-                          ),
+                          color: Styles.PrimaryTextColor,
+                          fontSize: Styles.smallTextSize,
+                          lineHeight: Styles.smallTextLineHeight,
                         ),
                       ],
                     ),
                     SizedBox(height: 8.h),
-                    Text(
+                    TextBuilder(
                       item.title,
-                      style: TextStyle(
-                        color: Styles.PrimaryTextColor,
-                        fontSize: Styles.textSize,
-                        height: Styles.textLineHeight / Styles.textSize,
-                      ),
+                      color: Styles.PrimaryTextColor,
+                      fontSize: Styles.textSize,
+                      lineHeight: Styles.textLineHeight,
                     ),
                     if (item.remarks != '') ...[
                       SizedBox(height: 2.h),
-                      Text(
+                      TextBuilder(
                         item.remarks,
-                        style: TextStyle(
-                          color: Styles.SecondaryTextColor,
-                          fontSize: Styles.smallTextSize,
-                          height:
-                              Styles.smallTextLineHeight / Styles.smallTextSize,
-                        ),
+                        color: Styles.SecondaryTextColor,
+                        fontSize: Styles.smallTextSize,
+                        lineHeight: Styles.smallTextLineHeight,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),

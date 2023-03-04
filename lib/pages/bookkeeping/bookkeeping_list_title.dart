@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:doit/widgets/text.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -22,32 +23,28 @@ class BookkeepingListTitle extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Text(
+            TextBuilder(
               timeText,
-              style: TextStyle(
-                fontSize: Styles.smallTextSize,
-                fontWeight: FontWeight.bold,
-                height: Styles.smallTextLineHeight / Styles.smallTextSize,
-                color: Styles.PrimaryTextColor,
-              ),
+              color: Styles.PrimaryTextColor,
+              fontSize: Styles.smallTextSize,
+              fontWeight: FontWeight.bold,
+              lineHeight: Styles.smallTextLineHeight,
             ),
             Expanded(child: SizedBox.shrink()),
-            Text(
+            TextBuilder(
               '收入: ${moneyFormat(incomes)}',
-              style: TextStyle(
-                fontSize: Styles.smallTextSize,
-                height: Styles.smallTextLineHeight / Styles.smallTextSize,
-                color: Styles.PrimaryTextColor,
-              ),
+              color: Styles.PrimaryTextColor,
+              fontSize: Styles.smallTextSize,
+              fontWeight: FontWeight.bold,
+              lineHeight: Styles.smallTextLineHeight,
             ),
             SizedBox(width: 12.w),
-            Text(
+            TextBuilder(
               '支出: ${moneyFormat(incomes)}',
-              style: TextStyle(
-                fontSize: Styles.smallTextSize,
-                height: Styles.smallTextLineHeight / Styles.smallTextSize,
-                color: Styles.PrimaryTextColor,
-              ),
+              color: Styles.PrimaryTextColor,
+              fontSize: Styles.smallTextSize,
+              fontWeight: FontWeight.bold,
+              lineHeight: Styles.smallTextLineHeight,
             ),
           ],
         ),
