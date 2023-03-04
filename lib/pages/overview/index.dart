@@ -18,7 +18,7 @@ class OverviewPage extends StatefulWidget {
 class _OverviewPageState extends State<OverviewPage> {
   List<ToDoItem> mockList = [
     ToDoItem(
-      id: UniqueKey(),
+      id: UniqueKey().hashCode,
       title: '芜湖',
       remarks: '什么玩意',
       type: ToDoItemType.Life,
@@ -27,7 +27,7 @@ class _OverviewPageState extends State<OverviewPage> {
       endTime: DateTime(2023, 2, 27),
     ),
     ToDoItem(
-      id: UniqueKey(),
+      id: UniqueKey().hashCode,
       title: '测试一下',
       type: ToDoItemType.Health,
       level: ToDoItemLevel.II,

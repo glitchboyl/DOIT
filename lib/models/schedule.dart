@@ -22,7 +22,7 @@ final Map<ScheduleToDoListType, ScheduleToDoList> scheduleToDoListMap = {
     title: '过去',
     list: [
       ToDoItem(
-        id: UniqueKey(),
+        id: UniqueKey().hashCode,
         title: '健身计划开始。',
         type: ToDoItemType.Life,
         level: ToDoItemLevel.I,
@@ -35,7 +35,7 @@ final Map<ScheduleToDoListType, ScheduleToDoList> scheduleToDoListMap = {
     title: '今天',
     list: [
       ToDoItem(
-        id: UniqueKey(),
+        id: UniqueKey().hashCode,
         title: '看书看书看书!!!',
         type: ToDoItemType.Study,
         level: ToDoItemLevel.II,
@@ -44,7 +44,7 @@ final Map<ScheduleToDoListType, ScheduleToDoList> scheduleToDoListMap = {
         repeatType: RepeatType.EveryDay,
       ),
       ToDoItem(
-        id: UniqueKey(),
+        id: UniqueKey().hashCode,
         title: '记得写实习报告!!!!',
         type: ToDoItemType.Study,
         level: ToDoItemLevel.I,
@@ -57,7 +57,7 @@ final Map<ScheduleToDoListType, ScheduleToDoList> scheduleToDoListMap = {
     title: '已完成',
     list: [
       ToDoItem(
-        id: UniqueKey(),
+        id: UniqueKey().hashCode,
         title: '整理需求文档',
         type: ToDoItemType.Study,
         level: ToDoItemLevel.II,

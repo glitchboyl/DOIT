@@ -24,8 +24,8 @@ enum RepeatType {
   EveryYear,
 }
 
-class ToDoItemAttribute {
-  const ToDoItemAttribute({
+class ToDoItemProperty {
+  const ToDoItemProperty({
     required this.icon,
     this.color = Styles.DeactivedColor,
     required this.text,
@@ -37,27 +37,27 @@ class ToDoItemAttribute {
 }
 
 const toDoItemTypeMap = {
-  ToDoItemType.Study: ToDoItemAttribute(
+  ToDoItemType.Study: ToDoItemProperty(
     icon: 'assets/images/study.svg',
     color: Styles.StudyColor,
     text: '学习',
   ),
-  ToDoItemType.Work: ToDoItemAttribute(
+  ToDoItemType.Work: ToDoItemProperty(
     icon: 'assets/images/work.svg',
     color: Styles.WorkColor,
     text: '工作',
   ),
-  ToDoItemType.Life: ToDoItemAttribute(
+  ToDoItemType.Life: ToDoItemProperty(
     icon: 'assets/images/life.svg',
     color: Styles.LifeColor,
     text: '生活',
   ),
-  ToDoItemType.Health: ToDoItemAttribute(
+  ToDoItemType.Health: ToDoItemProperty(
     icon: 'assets/images/health.svg',
     color: Styles.HealthColor,
     text: '健康',
   ),
-  ToDoItemType.Travel: ToDoItemAttribute(
+  ToDoItemType.Travel: ToDoItemProperty(
     icon: 'assets/images/travel.svg',
     color: Styles.TravelColor,
     text: '旅行',
@@ -65,22 +65,22 @@ const toDoItemTypeMap = {
 };
 
 const toDoItemLevelMap = {
-  ToDoItemLevel.I: ToDoItemAttribute(
+  ToDoItemLevel.I: ToDoItemProperty(
     icon: 'assets/images/level_I.svg',
     color: Styles.ToDoItemLevelIColor,
     text: '重要且紧急',
   ),
-  ToDoItemLevel.II: ToDoItemAttribute(
+  ToDoItemLevel.II: ToDoItemProperty(
     icon: 'assets/images/level_I.svg',
     color: Styles.ToDoItemLevelIIColor,
     text: '重要不紧急',
   ),
-  ToDoItemLevel.III: ToDoItemAttribute(
+  ToDoItemLevel.III: ToDoItemProperty(
     icon: 'assets/images/level_III.svg',
     color: Styles.ToDoItemLevelIIIColor,
     text: '不重要紧急',
   ),
-  ToDoItemLevel.IV: ToDoItemAttribute(
+  ToDoItemLevel.IV: ToDoItemProperty(
     icon: 'assets/images/level_IV.svg',
     color: Styles.ToDoItemLevelIVColor,
     text: '不重要不紧急',
@@ -99,7 +99,7 @@ class ToDoItem {
     this.completeTime,
   });
 
-  final Key id;
+  final int id;
   String title;
   String remarks;
   ToDoItemType type;
@@ -108,6 +108,20 @@ class ToDoItem {
   DateTime endTime;
   RepeatType? repeatType;
   DateTime? completeTime;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'remarks': remarks,
+      'type': ToDoItemType.values.indexOf(type),
+      'level': ToDoItemLevel.values.indexOf(level),
+      'startTime': startTime.millisecondsSinceEpoch,
+      'endTime': endTime.millisecondsSinceEpoch,
+      'repeatType': RepeatType.values.indexOf(repeatType!),
+      'completeTime': completeTime?.millisecondsSinceEpoch,
+    };
+  }
 
   String get typeIcon =>
       toDoItemTypeMap[type]?.icon ?? toDoItemTypeMap[ToDoItemType.Life]!.icon;

@@ -77,22 +77,20 @@ class _ExpansionTileState extends State<ExpansionTileBuilder>
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             GestureDetector(
-              child: Container(
-                color: Colors.transparent,
-                child: Row(
-                  children: [
-                    Expanded(child: widget.title),
-                    RotationTransition(
-                      turns: _iconTurns,
-                      child: SVGIcon(
-                        icon: 'assets/images/arrow.svg',
-                        width: MEAS.drawerExpandArrowWidth,
-                        height: MEAS.drawerExpandArrowHeight,
-                      ),
+              behavior: HitTestBehavior.translucent,
+              child: Row(
+                children: [
+                  Expanded(child: widget.title),
+                  RotationTransition(
+                    turns: _iconTurns,
+                    child: SVGIcon(
+                      icon: 'assets/images/arrow.svg',
+                      width: MEAS.drawerExpandArrowWidth,
+                      height: MEAS.drawerExpandArrowHeight,
                     ),
-                    SizedBox(width: 16.w)
-                  ],
-                ),
+                  ),
+                  SizedBox(width: 16.w)
+                ],
               ),
               onTap: _handleTap,
             ),

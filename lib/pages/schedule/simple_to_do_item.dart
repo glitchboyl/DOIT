@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'simple_to_do_item_action.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
@@ -12,17 +13,19 @@ const Duration _kSilde = Duration(milliseconds: 200);
 class SimpleToDoItemWidget extends StatelessWidget {
   const SimpleToDoItemWidget(
     this.item, {
-    required this.leftAction,
-    required this.rightAction,
+    required this.onStatusChanged,
+    required this.onEdited,
+    required this.onDeleted,
   });
 
   final ToDoItem item;
-  final void Function() leftAction;
-  final void Function() rightAction;
+  final void Function() onStatusChanged;
+  final void Function() onEdited;
+  final void Function() onDeleted;
 
   @override
   Widget build(BuildContext context) => Container(
-        key: item.id,
+        key: ValueKey(item.id),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
@@ -103,21 +106,20 @@ class SimpleToDoItemWidget extends StatelessWidget {
           startActionPane: ActionPane(
             motion: const ScrollMotion(),
             dismissible: DismissiblePane(
-              onDismissed: leftAction,
+              onDismissed: onStatusChanged,
             ),
             extentRatio: 0.5,
             children: [
-              CustomSlidableAction(
+              SimpleToDoItemAction(
                 key: ValueKey(item.id.toString() + '_LEFT_SLIDER_ACTION'),
-                padding: EdgeInsets.zero,
-                backgroundColor: item.completeTime != null
+                color: item.completeTime != null
                     ? Styles.ResumeColor
                     : Styles.CompleteColor,
                 onPressed: (context) {
                   Slidable.of(context)?.dismiss(
                     ResizeRequest(
                       _kSilde,
-                      leftAction,
+                      onStatusChanged,
                     ),
                     duration: _kSilde,
                   );
@@ -135,25 +137,33 @@ class SimpleToDoItemWidget extends StatelessWidget {
                     height: MEAS.simpleToDoItemOperationIconHeight,
                   ),
                 ),
-                autoClose: false,
               ),
             ],
           ),
           endActionPane: ActionPane(
             motion: const ScrollMotion(),
-            extentRatio: 0.18,
+            extentRatio: 0.36,
             children: [
-              CustomSlidableAction(
+              SimpleToDoItemAction(
+                key: ValueKey(item.id.toString() + '_RIGHT_SLIDER_ACTION_2'),
+                color: Styles.PrimaryColor,
+                child: SVGIcon(
+                  icon: 'assets/images/edit_to_do_item.svg',
+                  width: MEAS.simpleToDoItemOperationIconWidth,
+                  height: MEAS.simpleToDoItemOperationIconHeight,
+                ),
+                onPressed: (context) => onEdited(),
+                autoClose: true,
+              ),
+              SimpleToDoItemAction(
                 key: ValueKey(item.id.toString() + '_RIGHT_SLIDER_ACTION'),
-                padding: EdgeInsets.zero,
-                backgroundColor: Styles.DangerousColor,
-                foregroundColor: Styles.DangerousColor,
+                color: Styles.DangerousColor,
                 child: SVGIcon(
                   icon: 'assets/images/delete_to_do_item.svg',
                   width: MEAS.simpleToDoItemOperationIconWidth,
                   height: MEAS.simpleToDoItemOperationIconHeight,
                 ),
-                onPressed: (context) => rightAction(),
+                onPressed: (context) => onDeleted(),
                 autoClose: true,
               ),
             ],

@@ -5,40 +5,14 @@ import 'package:doit/constants/styles.dart';
 import 'interactive_button.dart';
 import 'add_to_do_item_dialog.dart';
 import 'svg_icon.dart';
+import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/constants/keys.dart';
-import 'package:doit/providers/asd.dart';
+import 'package:doit/providers/to_do_list.dart';
 
-const Duration _kShow = Duration(milliseconds: 300);
-const Duration _kHide = Duration(milliseconds: 300);
+class AddButton extends StatelessWidget {
+  const AddButton(this.currentPageKey, {super.key});
 
-class AddButton extends StatefulWidget {
-  const AddButton(this.currentPage, {super.key});
-  final Key currentPage;
-  @override
-  _AddButtonState createState() => _AddButtonState();
-}
-
-class _AddButtonState extends State<AddButton>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-
-  @override
-  void initState() {
-    super.initState();
-    initController();
-  }
-
-  void initController() {
-    _animationController = BottomSheet.createAnimationController(this);
-    _animationController.duration = _kShow;
-    _animationController.reverseDuration = _kHide;
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _animationController.dispose();
-  }
+  final Key currentPageKey;
 
   @override
   Widget build(context) => InteractiveButton(
@@ -55,25 +29,14 @@ class _AddButtonState extends State<AddButton>
           icon: 'assets/images/add_to_do_item.svg',
         ),
         onPressed: () {
-          String currentPage = widget.currentPage.toString();
+          String currentPage = currentPageKey.toString();
           if (currentPage == Keys.SchedulePage.toString() ||
               currentPage == Keys.OverviewPage.toString()) {
-            showModalBottomSheet(
+            showBottomDrawer(
               context: context,
-              transitionAnimationController: _animationController,
-              isScrollControlled: true,
-              backgroundColor: Styles.RegularBaseColor,
-              barrierColor: Styles.BarrierColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusDirectional.vertical(
-                  top: Radius.circular(MEAS.addToDoItemDialogRadius),
-                ),
-              ),
-              clipBehavior: Clip.antiAlias,
-              builder: (BuildContext context) => AddToDoItemDialog(),
+              builder: (context) => AddToDoItemDialog(),
             );
           } else if (currentPage == Keys.NotesPage.toString()) {
-            testDatabase();
           } else if (currentPage == Keys.BookkeepingPage.toString()) {
             print('qweqwe');
           }

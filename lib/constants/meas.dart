@@ -37,11 +37,19 @@ abstract class MEAS {
   static double addButtonBottom = 48.h;
   static double addButtonIconWidth = 16.w;
   static double addButtonIconHeight = 16.w;
+  static double bottomDrawerRadius = 18.r;
 
   static double addToDoItemDialogHeight = 200.h;
-  static double addToDoItemDialogRadius = 18.r;
   static double addToDoItemDialogTitleInputHeight = 44.h;
-  static double addToDoItemDialogDescriptionInputHeight = 38.h;
+  static double addToDoItemDialogRemarksInputHeight = 38.h;
+  static double addToDoItemPropertyWidth = 18.w;
+  static double addToDoItemPropertyHeight = 18.w;
+  static double addToDoItemPropertyIconWidth = 14.w;
+  static double addToDoItemPropertyIconHeight = 14.w;
+  // static double addToDoItemTypeWidth = .w;
+  // static double addToDoItemLevelHeight = 20.w;
+  // static double addToDoItemLevelIconWidth = 14.w;
+  // static double addToDoItemLevelIconHeight = 14.w;
 
   static double drawerWidth = 283.w;
   static double drawerItemIconWidth = 16.w;
@@ -62,5 +70,4 @@ abstract class MEAS {
   static double bookkeepingItemTypeHeight = 24.w;
   static double bookkeepingItemTypeIconWidth = 18.w;
   static double bookkeepingItemTypeIconHeight = 18.w;
-
 }

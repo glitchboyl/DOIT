@@ -20,7 +20,7 @@ class BookkeepingPage extends StatefulWidget {
 
 class _BookkeepingPageState extends State<BookkeepingPage> {
   final mockList = [];
-  final _widgets = [];
+  final List<Widget> _widgets = [SizedBox(height: 4.h)];
   bool initialized = false;
 
   @override
@@ -30,7 +30,7 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
   }
 
   void buildWidgets() {
-    _widgets.removeRange(0, _widgets.length);
+    _widgets.removeRange(1, _widgets.length);
     bookkeepingMap.forEach((date, list) {
       _widgets.add(
         BookkeepingListTitle(
@@ -52,30 +52,11 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
         );
       }
     });
-    // _widgets.add();
-    // scheduleToDoListMap.forEach((key, tdl) {
-    //   if (tdl.list.length > 0) {
-    //     _widgets.add(ScheduleToDoListTitle(
-    //       tdl.title,
-    //       key: ValueKey(key),
-    //     ));
-    //     for (int i = 0; i < tdl.list.length; i++) {
-    //       _widgets.add(
-    //         SimpleToDoItemWidget(
-    //           tdl.list[i],
-    //           key: tdl.list[i].id,
-    //           leftAction: () => leftAction(tdl.list, i),
-    //           rightAction: () => rightAction(tdl.list, i),
-    //         ),
-    //       );
-    //     }
-    //   }
-    // });
-    // if (!initialized) {
-    //   setState(() {});
-    // } else {
-    //   initialized = true;
-    // }
+    if (!initialized) {
+      setState(() {});
+    } else {
+      initialized = true;
+    }
   }
 
   @override

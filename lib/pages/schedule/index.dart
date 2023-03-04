@@ -40,8 +40,9 @@ class _SchedulePageState extends State<SchedulePage> {
           _widgets.add(
             SimpleToDoItemWidget(
               tdl.list[i],
-              leftAction: () => leftAction(tdl.list, i),
-              rightAction: () => rightAction(tdl.list, i),
+              onStatusChanged: () => onStatusChanged(tdl.list, i),
+              onEdited: () => onEdited(tdl.list, i),
+              onDeleted: () => onDeleted(tdl.list, i),
             ),
           );
         }
@@ -54,7 +55,7 @@ class _SchedulePageState extends State<SchedulePage> {
     }
   }
 
-  void leftAction(List<ToDoItem> list, int index) {
+  void onStatusChanged(List<ToDoItem> list, int index) {
     final ToDoItem tdi = list.removeAt(index);
     buildWidgets();
     Future.delayed(const Duration(milliseconds: 1), () {
@@ -73,7 +74,9 @@ class _SchedulePageState extends State<SchedulePage> {
     });
   }
 
-  void rightAction(List<ToDoItem> list, int index) {
+  void onEdited(List<ToDoItem> list, int index) {}
+
+  void onDeleted(List<ToDoItem> list, int index) {
     showConfirmDialog(
       context: context,
       content: '确定要删除"${list[index].title}"吗？',
