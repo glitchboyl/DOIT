@@ -17,12 +17,23 @@ final showBottomDrawer = ({
         ),
       ),
       clipBehavior: Clip.antiAlias,
-      builder: (context) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: SafeArea(
-          child: builder(context),
+      builder: (context) => WillPopScope(
+        onWillPop: () async {
+          final currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus &&
+              currentFocus.focusedChild != null) {
+            FocusManager.instance.primaryFocus?.unfocus();
+            return false;
+          }
+          return true;
+        },
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: SafeArea(
+            child: builder(context),
+          ),
         ),
       ),
     );

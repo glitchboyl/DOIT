@@ -7,7 +7,7 @@ import 'svg_icon_button.dart';
 import 'to_do_item_dialog_input.dart';
 import 'to_do_item_calendar.dart';
 import 'bottom_drawer_select.dart';
-import 'bottom_drawer_select_item.dart';
+import 'bottom_drawer_item.dart';
 import 'icon.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
@@ -94,7 +94,8 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                 ToDoItemDialogInput(
                   initialValue: _title,
                   height: MEAS.toDoItemDialogTitleInputHeight,
-                  hintText: '有好计划吗，快记录下来吧…',
+                  hintText: '有新日程吗，快记录下来吧…',
+                  maxLength: 50,
                   autofocus: true,
                   border: titleBorder,
                   onChanged: (value) => setState(() {
@@ -105,7 +106,8 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                 ToDoItemDialogInput(
                   initialValue: _remarks,
                   height: MEAS.toDoItemDialogRemarksInputHeight,
-                  hintText: '描述信息',
+                  hintText: '有额外要记下的事情吗？',
+                  maxLength: 150,
                   border: remarksBorder,
                   onChanged: (value) => _remarks = value,
                 ),
@@ -132,7 +134,14 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                       ),
                       onTap: () => showBottomDrawer(
                         context: context,
-                        builder: (context) => ToDoItemCalendar(),
+                        builder: (context) => ToDoItemCalendar(
+                          startTime: _startTime,
+                          endTime: _endTime,
+                          onConfirmed: (startTime, endTime) => setState(() {
+                            _startTime = startTime;
+                            _endTime = endTime ?? startTime;
+                          }),
+                        ),
                       ),
                     ),
                     GestureDetector(
@@ -153,7 +162,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         builder: (context) => BottomDrawerSelect<ToDoItemLevel>(
                           title: '选择等级',
                           selectList: toDoItemLevelMap.keys.toList(),
-                          itemBuilder: (level, index) => BottomDrawerSelectItem(
+                          itemBuilder: (level, index) => BottomDrawerItem(
                             key: ValueKey(level),
                             title: toDoItemLevelMap[level]!.text,
                             icon: IconBuilder(
@@ -193,7 +202,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         builder: (context) => BottomDrawerSelect<ToDoItemType>(
                           title: '选择标签',
                           selectList: toDoItemTypeMap.keys.toList(),
-                          itemBuilder: (type, index) => BottomDrawerSelectItem(
+                          itemBuilder: (type, index) => BottomDrawerItem(
                             key: ValueKey(type),
                             title: toDoItemTypeMap[type]!.text,
                             icon: IconBuilder(

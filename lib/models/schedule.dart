@@ -36,7 +36,7 @@ final Map<ScheduleToDoListType, ScheduleToDoList> scheduleToDoListMap = {
     list: [
       ToDoItem(
         id: UniqueKey().hashCode,
-        title: '看书看书看书!!!',
+        title: '看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书!!!',
         type: ToDoItemType.Study,
         level: ToDoItemLevel.II,
         startTime: DateTime.now(),

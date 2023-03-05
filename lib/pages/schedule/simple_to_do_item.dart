@@ -37,8 +37,10 @@ class SimpleToDoItemWidget extends StatelessWidget {
           key: ValueKey(item.id.toString() + '_SLIDABLE'),
           groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
           child: Container(
-            padding: EdgeInsets.symmetric(
-              vertical: 12.w,
+            padding: EdgeInsets.only(
+              top: 12.h,
+              bottom: 12.h,
+              right: 8.w,
             ),
             child: Row(
               children: [
@@ -68,34 +70,38 @@ class SimpleToDoItemWidget extends StatelessWidget {
                     height: MEAS.simpleToDoItemTypeIconHeight,
                   ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextBuilder(
-                      item.title,
-                      color: item.completeTime != null
-                          ? Styles.DeactivedDeepColor
-                          : Styles.PrimaryTextColor,
-                      fontSize: Styles.textSize,
-                      lineHeight: Styles.textLineHeight,
-                    ),
-                    SizedBox(height: 2.h),
-                    TextBuilder(
-                      getToDoItemTime(
-                        item.startTime,
-                        item.endTime,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextBuilder(
+                        item.title,
+                        color: item.completeTime != null
+                            ? Styles.DeactivedDeepColor
+                            : Styles.PrimaryTextColor,
+                        fontSize: Styles.textSize,
+                        lineHeight: Styles.textLineHeight,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      color: item.completeTime != null
-                          ? Styles.DeactivedDeepColor
-                          : item.level == ToDoItemLevel.I
-                              ? item.levelColor
-                              : Styles.SecondaryTextColor,
-                      fontSize: Styles.smallTextSize,
-                      lineHeight: Styles.smallTextLineHeight,
-                    ),
-                  ],
-                )
+                      SizedBox(height: 2.h),
+                      TextBuilder(
+                        getToDoItemTime(
+                          item.startTime,
+                          item.endTime,
+                        ),
+                        color: item.completeTime != null
+                            ? Styles.DeactivedDeepColor
+                            : item.level == ToDoItemLevel.I
+                                ? item.levelColor
+                                : Styles.SecondaryTextColor,
+                        fontSize: Styles.smallTextSize,
+                        lineHeight: Styles.smallTextLineHeight,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -107,7 +113,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
             extentRatio: 0.5,
             children: [
               SimpleToDoItemAction(
-                key: ValueKey(item.id.toString() + '_LEFT_SLIDER_ACTION'),
+                key: ValueKey(item.id.toString() + '_CHANGE_STATUS'),
                 color: item.completeTime != null
                     ? Styles.ResumeColor
                     : Styles.CompleteColor,
@@ -141,7 +147,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
             extentRatio: 0.36,
             children: [
               SimpleToDoItemAction(
-                key: ValueKey(item.id.toString() + '_RIGHT_SLIDER_ACTION_2'),
+                key: ValueKey(item.id.toString() + '_EDIT'),
                 color: Styles.PrimaryColor,
                 child: SVGIcon(
                   icon: 'assets/images/edit_to_do_item.svg',
@@ -152,7 +158,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 autoClose: true,
               ),
               SimpleToDoItemAction(
-                key: ValueKey(item.id.toString() + '_RIGHT_SLIDER_ACTION'),
+                key: ValueKey(item.id.toString() + '_DELETE'),
                 color: Styles.DangerousColor,
                 child: SVGIcon(
                   icon: 'assets/images/delete_to_do_item.svg',

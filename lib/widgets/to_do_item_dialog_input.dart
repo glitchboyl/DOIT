@@ -9,6 +9,7 @@ class ToDoItemDialogInput extends StatelessWidget {
     this.initialValue,
     this.hintText,
     this.autofocus = false,
+    this.maxLength,
     this.border,
     this.onChanged,
   });
@@ -17,6 +18,7 @@ class ToDoItemDialogInput extends StatelessWidget {
   final String? initialValue;
   final String? hintText;
   final bool autofocus;
+  final int? maxLength;
   final InputBorder? border;
   final void Function(String)? onChanged;
 
@@ -34,8 +36,12 @@ class ToDoItemDialogInput extends StatelessWidget {
           border: border,
           focusedBorder: border,
           enabledBorder: border,
-          // hintStyle:
+          counterText: "",
         ),
+        minLines: 1,
+        maxLines: 3,
+        maxLength: maxLength,
+        keyboardType: TextInputType.multiline,
         autofocus: autofocus,
         style: TextStyle(
           color: Styles.PrimaryTextColor,

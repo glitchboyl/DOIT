@@ -248,7 +248,7 @@ int leapDays(int year) => leapMonth(year) != 0
         : 29
     : 0;
 
-getLunarYearDays(year) {
+int getLunarYearDays(int year) {
   int i, sum = 348;
   for (i = 0x8000; i > 0x8; i >>= 1) {
     sum += lunarInfo[year - 1900] & i != 0 ? 1 : 0;
@@ -256,23 +256,23 @@ getLunarYearDays(year) {
   return sum + leapDays(year);
 }
 
-toChineseMonth(int month) {
+String toChineseMonth(int month) {
   if (month > 12 || month < 1) {
-    return -1;
+    return '';
   }
   var s = lunarMonthChinese[month - 1];
   s += "\u6708";
   return s;
 }
 
-getLunarMonthDays(y, m) {
-  if (m > 12 || m < 1) {
+int getLunarMonthDays(int year, int month) {
+  if (month > 12 || month < 1) {
     return -1;
   }
-  return lunarInfo[y - 1900] & (0x10000 >> m) != 0 ? 30 : 29;
+  return lunarInfo[year - 1900] & (0x10000 >> month) != 0 ? 30 : 29;
 }
 
-toChineseDay(int day) {
+String toChineseDay(int day) {
   String s;
   switch (day) {
     case 10:
@@ -304,7 +304,7 @@ LunarDate getLunar(DateTime solarDate) {
             solarDate.month,
             solarDate.day,
           ).millisecondsSinceEpoch -
-          DateTime.utc(1900, 1, 31).millisecondsSinceEpoch) /
+          DateTime.utc(1900, 1, 31).millisecondsSinceEpoch) ~/
       86400000;
   for (i = 1900; i < 2101 && offset > 0; i++) {
     temp = getLunarYearDays(i);
@@ -314,24 +314,19 @@ LunarDate getLunar(DateTime solarDate) {
     offset += temp;
     i--;
   }
-  //农历年
-  var year = i;
 
-  int leap = leapMonth(i); //闰哪个月
-
+  int year = i;
+  int leap = leapMonth(i);
   var isLeap = false;
 
-  //效验闰月
   for (i = 1; i < 13 && offset > 0; i++) {
-    //闰月
     if (leap > 0 && i == leap + 1 && isLeap == false) {
       --i;
       isLeap = true;
-      temp = leapDays(year); //计算农历闰月天数
+      temp = leapDays(year);
     } else {
-      temp = getLunarMonthDays(year, i); //计算农历普通月天数
+      temp = getLunarMonthDays(year, i);
     }
-    //解除闰月
     if (isLeap == true && i == leap + 1) {
       isLeap = false;
     }
@@ -348,23 +343,22 @@ LunarDate getLunar(DateTime solarDate) {
     offset += temp;
     --i;
   }
-  //农历月
-  var month = i;
-  //农历日
-  var day = offset + 1;
 
   return LunarDate(
-    month: isLeap && leap == month ? "\u95f0" : "" + toChineseMonth(month),
-    day: toChineseDay(day.toInt()),
+    solarDate: solarDate,
+    month: (isLeap && (leap == i) ? "\u95f0" : "") + toChineseMonth(i),
+    day: toChineseDay(offset + 1),
   );
 }
 
 class LunarDate {
   const LunarDate({
+    required this.solarDate,
     required this.month,
     required this.day,
   });
 
+  final DateTime solarDate;
   final String month;
   final String day;
 }

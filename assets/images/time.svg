@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范" transform="translate(-46.000000, -276.000000)">
+            <g id="doit-icon-grey-time" transform="translate(46.000000, 276.000000)">
+                <rect id="矩形" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="20" height="20"></rect>
+                <circle id="椭圆形" stroke="#DBDEEE" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" cx="10" cy="10" r="7"></circle>
+                <polyline id="直线-8" stroke="#868CA3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" points="10 7 10 10 12 13"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

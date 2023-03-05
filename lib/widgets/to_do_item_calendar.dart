@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:lunar/lunar.dart';
 import 'app_bar.dart';
 import 'text.dart';
 import 'svg_icon.dart';
 import 'to_do_item_calendar_switch_button.dart';
 import 'calendar_item.dart';
+import 'bottom_drawer_item.dart';
+import 'time_picker.dart';
+import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/lunar.dart';
 import 'package:doit/utils/solar_terms.dart';
+import 'package:doit/utils/festivals.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/calendar.dart';
@@ -49,17 +52,37 @@ final firstDay = DateTime(nowTime.year - 10);
 final lastDay = DateTime(nowTime.year + 50);
 
 class ToDoItemCalendar extends StatefulWidget {
-  const ToDoItemCalendar({super.key});
+  const ToDoItemCalendar({
+    super.key,
+    this.startTime,
+    this.endTime,
+    required this.onConfirmed,
+  });
+  final DateTime? startTime;
+  final DateTime? endTime;
+  final void Function(
+    DateTime startTime,
+    DateTime? endTime,
+  ) onConfirmed;
+
   @override
   _ToDoItemCalendarState createState() => _ToDoItemCalendarState();
 }
 
 class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
   late PageController _pageController;
-  final rangeStartDay = nowTime;
-  final rangeEndDay = nowTime;
-  bool toggle = false;
-  late DateTime _focusedDay = rangeStartDay;
+  late DateTime _startTime;
+  late DateTime? _endTime;
+  late DateTime _focusedDay;
+  bool _toggle = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _startTime = widget.startTime ?? nowTime;
+    _endTime = widget.endTime;
+    _focusedDay = _startTime;
+  }
 
   @override
   Widget build(context) => Wrap(
@@ -69,19 +92,19 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
               children: [
                 ToDoItemCalendarSwitchButton(
                   '开始',
-                  isActived: !toggle,
+                  isActived: !_toggle,
                   onPressed: () => setState(() {
-                    _focusedDay = rangeStartDay;
-                    toggle = !toggle;
+                    _focusedDay = _startTime;
+                    _toggle = !_toggle;
                   }),
                 ),
                 SizedBox(width: 12.w),
                 ToDoItemCalendarSwitchButton(
                   '结束',
-                  isActived: toggle,
+                  isActived: _toggle,
                   onPressed: () => setState(() {
-                    _focusedDay = rangeEndDay;
-                    toggle = !toggle;
+                    _focusedDay = _endTime ?? nowTime;
+                    _toggle = !_toggle;
                   }),
                 ),
               ],
@@ -93,7 +116,13 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                 fontSize: Styles.textSize,
                 lineHeight: Styles.textLineHeight,
               ),
-              onPressed: () => {},
+              onPressed: () => {
+                widget.onConfirmed(
+                  _startTime,
+                  _endTime,
+                ),
+                Navigator.of(context).pop(),
+              },
             ),
           ),
           Container(
@@ -143,7 +172,6 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                             icon: 'assets/images/triangle.svg',
                             width: MEAS.arrowWidth,
                             height: MEAS.arrowHeight,
-                            // onPressed: () => {},
                           ),
                         ),
                         onTap: () => {
@@ -174,8 +202,8 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
             child: TableCalendar(
               firstDay: firstDay,
               lastDay: lastDay,
-              rangeStartDay: rangeStartDay,
-              rangeEndDay: rangeEndDay,
+              rangeStartDay: _startTime,
+              rangeEndDay: _endTime,
               focusedDay: _focusedDay,
               startingDayOfWeek: StartingDayOfWeek.monday,
               daysOfWeekHeight: 24.h,
@@ -188,6 +216,31 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                 weekdayStyle: daysOfWeekTextStyle,
                 weekendStyle: daysOfWeekTextStyle,
               ),
+              onPageChanged: (focusedDay) => setState(
+                () => _focusedDay = focusedDay,
+              ),
+              onDaySelected: (day, _) => setState(() {
+                if (_toggle) {
+                  _endTime = DateTime(
+                    day.year,
+                    day.month,
+                    day.day,
+                    _endTime != null ? _endTime!.hour : _startTime.hour,
+                    _endTime != null ? _endTime!.minute : _startTime.minute,
+                  );
+                  if (_endTime!.isBefore(_startTime)) _startTime = _endTime!;
+                } else {
+                  _startTime = DateTime(
+                    day.year,
+                    day.month,
+                    day.day,
+                    _startTime.hour,
+                    _startTime.minute,
+                  );
+                  if (_endTime != null && _startTime.isAfter(_endTime!))
+                    _endTime = null;
+                }
+              }),
               calendarBuilders: CalendarBuilders(
                 rangeHighlightBuilder: (context, day, isWithinRange) =>
                     isWithinRange
@@ -195,13 +248,13 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                             margin: EdgeInsets.only(
                               top: 1.h,
                               bottom: 1.h,
-                              left: day.isSameDay(rangeStartDay) ||
-                                      (day.isSameDay(rangeEndDay) &&
+                              left: day.isSameDay(_startTime) ||
+                                      (day.isSameDay(_endTime) &&
                                           day.weekday == DateTime.monday)
                                   ? 6.w
                                   : 0,
-                              right: day.isSameDay(rangeEndDay) ||
-                                      (day.isSameDay(rangeStartDay) &&
+                              right: day.isSameDay(_endTime) ||
+                                      (day.isSameDay(_startTime) &&
                                           day.weekday == DateTime.sunday)
                                   ? 6.w
                                   : 0,
@@ -210,12 +263,12 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                               color: Styles.CalendarDateRangeColor,
                               borderRadius: BorderRadius.horizontal(
                                 left: Radius.circular(
-                                    (day.isSameDay(rangeStartDay) ||
+                                    (day.isSameDay(_startTime) ||
                                             day.weekday == DateTime.monday)
                                         ? MEAS.calendarItemRadius
                                         : 0),
                                 right: Radius.circular(
-                                    day.isSameDay(rangeEndDay) ||
+                                    day.isSameDay(_endTime) ||
                                             day.weekday == DateTime.sunday
                                         ? MEAS.calendarItemRadius
                                         : 0),
@@ -224,39 +277,76 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                           )
                         : null,
                 prioritizedBuilder: (context, day, focusedDay) {
-                  final lunar = Lunar.fromDate(day);
-                  List<String> festivals = lunar.getFestivals();
+                  final LunarDate lunar = getLunar(day);
+                  String festival = getDateFestivals(lunar);
                   String solarTerm = getDateSolarTerm(day);
-                  bool highlight = festivals.length > 0 || solarTerm != '';
+                  bool highlight = festival != '' || solarTerm != '';
 
                   return calendarItemBuilder(
-                    color: (day.isSameDay(rangeStartDay) ||
-                            day.isSameDay(rangeEndDay))
-                        ? Styles.PrimaryColor
-                        : null,
+                    color:
+                        (day.isSameDay(_startTime) || day.isSameDay(_endTime))
+                            ? Styles.PrimaryColor
+                            : null,
                     text: day.day.toString(),
-                    textColor: (day.isSameDay(rangeStartDay) ||
-                            day.isSameDay(rangeEndDay))
-                        ? Styles.RegularBaseColor
-                        : day.isSameMonth(focusedDay)
-                            ? Styles.PrimaryTextColor
-                            : Styles.DeactivedDeepColor,
-                    subText: festivals.length > 0
-                        ? festivals[0]
-                        : solarTerm != ''
-                            ? solarTerm
-                            : getLunar(day).day,
-                    subTextColor: (day.isSameDay(rangeStartDay) ||
-                            day.isSameDay(rangeEndDay))
-                        ? Styles.RegularBaseColor
-                        : day.isSameMonth(focusedDay)
-                            ? highlight
-                                ? Styles.PrimaryColor
-                                : Styles.PrimaryTextColor
-                            : Styles.DeactivedDeepColor,
+                    textColor:
+                        (day.isSameDay(_startTime) || day.isSameDay(_endTime))
+                            ? Styles.RegularBaseColor
+                            : day.isSameMonth(focusedDay)
+                                ? Styles.PrimaryTextColor
+                                : Styles.DeactivedDeepColor,
+                    subText: highlight
+                        ? (festival != '' ? festival : solarTerm)
+                        : lunar.day,
+                    subTextColor:
+                        (day.isSameDay(_startTime) || day.isSameDay(_endTime))
+                            ? Styles.RegularBaseColor
+                            : day.isSameMonth(focusedDay)
+                                ? highlight
+                                    ? Styles.PrimaryColor
+                                    : Styles.PrimaryTextColor
+                                : Styles.DeactivedDeepColor,
                   );
                 },
               ),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(
+              top: 12.h,
+              left: 16.w,
+              right: 16.w,
+              bottom: 18.h,
+            ),
+            child: Column(
+              children: [
+                BottomDrawerItem(
+                  title: '时间',
+                  value: getClockTime(_toggle
+                      ? (_endTime != null ? _endTime! : _startTime)
+                      : _startTime),
+                  icon: SVGIcon(
+                    icon: 'assets/images/time.svg',
+                    width: MEAS.simpleToDoItemOperationIconWidth,
+                    height: MEAS.simpleToDoItemOperationIconWidth,
+                  ),
+                  onPressed: () => {
+                    showBottomDrawer(
+                      context: context,
+                      builder: (context) => TimePicker(
+                        _toggle
+                            ? (_endTime != null ? _endTime! : _startTime)
+                            : _startTime,
+                        onConfirmed: (time) => setState(() {
+                          if (_toggle)
+                            _endTime = time;
+                          else
+                            _startTime = time;
+                        }),
+                      ),
+                    ),
+                  },
+                ),
+              ],
             ),
           ),
         ],
