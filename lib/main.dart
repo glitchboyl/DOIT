@@ -2,11 +2,13 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'pages/schedule/drawer.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/add_button.dart';
 import 'widgets/bottom_navigation_bar.dart';
 import 'widgets/svg_icon.dart';
+import 'providers/to_do_list.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
@@ -15,7 +17,14 @@ import 'constants/meas.dart';
 import 'constants/keys.dart';
 
 void main() {
-  runApp(DOITApp());
+  final _toDoListProvider = ToDoListProvider();
+  _toDoListProvider.connectDB();
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => _toDoListProvider,
+      child: DOITApp(),
+    ),
+  );
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);

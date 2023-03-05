@@ -24,7 +24,7 @@ class Statistic extends StatelessWidget {
               ),
               SizedBox(height: 10.h),
               TextBuilder(
-                title,
+                moneyFormat(amount),
                 color: Styles.PrimaryTextColor,
                 fontWeight: FontWeight.bold,
                 fontSize: Styles.statisticTextSize,

@@ -20,9 +20,9 @@ class SimpleToDoItemWidget extends StatelessWidget {
   });
 
   final ToDoItem item;
-  final void Function() onStatusChanged;
-  final void Function() onEdited;
-  final void Function() onDeleted;
+  final void Function(BuildContext context) onStatusChanged;
+  final void Function(BuildContext context) onEdited;
+  final void Function(BuildContext context) onDeleted;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -108,7 +108,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
           startActionPane: ActionPane(
             motion: const ScrollMotion(),
             dismissible: DismissiblePane(
-              onDismissed: onStatusChanged,
+              onDismissed: () => onStatusChanged(context),
             ),
             extentRatio: 0.5,
             children: [
@@ -121,7 +121,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   Slidable.of(context)?.dismiss(
                     ResizeRequest(
                       _kSilde,
-                      onStatusChanged,
+                      () => onStatusChanged(context),
                     ),
                     duration: _kSilde,
                   );
@@ -154,7 +154,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   width: MEAS.simpleToDoItemOperationIconWidth,
                   height: MEAS.simpleToDoItemOperationIconHeight,
                 ),
-                onPressed: (context) => onEdited(),
+                onPressed: (context) => onEdited(context),
                 autoClose: true,
               ),
               SimpleToDoItemAction(
@@ -165,7 +165,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   width: MEAS.simpleToDoItemOperationIconWidth,
                   height: MEAS.simpleToDoItemOperationIconHeight,
                 ),
-                onPressed: (context) => onDeleted(),
+                onPressed: (context) => onDeleted(context),
                 autoClose: true,
               ),
             ],

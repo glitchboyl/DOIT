@@ -5,7 +5,9 @@ import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'schedule_to_do_list_title.dart';
 import 'simple_to_do_item.dart';
+import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/models/schedule.dart';
+import 'package:doit/models/to_do_list.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/utils/time.dart';
@@ -19,73 +21,54 @@ class SchedulePage extends StatefulWidget {
 }
 
 class _SchedulePageState extends State<SchedulePage> {
-  final List<Widget> _widgets = [];
-  bool initialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    buildWidgets();
-  }
-
-  void buildWidgets() {
-    _widgets.removeRange(0, _widgets.length);
-    scheduleToDoListMap.forEach((key, tdl) {
+  List<Widget> buildWidgets(BuildContext context) {
+    final List<Widget> _widgets = [];
+    Provider.of<ToDoListProvider>(
+      context,
+      listen: false,
+    ).scheduleToDoListMap.forEach((type, tdl) {
       if (tdl.list.length > 0) {
         _widgets.add(ScheduleToDoListTitle(
           tdl.title,
-          key: ValueKey(key),
+          key: ValueKey(type),
         ));
         for (int i = 0; i < tdl.list.length; i++) {
           _widgets.add(
             SimpleToDoItemWidget(
               tdl.list[i],
-              onStatusChanged: () => onStatusChanged(tdl.list, i),
-              onEdited: () => onEdited(tdl.list, i),
-              onDeleted: () => onDeleted(tdl.list, i),
+              onStatusChanged: (context) => onStatusChanged(context, type, i),
+              onEdited: (context) => onEdited(context, type, i),
+              onDeleted: (context) => onDeleted(context, type, i),
             ),
           );
         }
       }
     });
-    if (!initialized) {
-      setState(() {});
-    } else {
-      initialized = true;
-    }
+    return _widgets;
   }
 
-  void onStatusChanged(List<ToDoItem> list, int index) {
-    final ToDoItem tdi = list.removeAt(index);
-    buildWidgets();
-    Future.delayed(const Duration(milliseconds: 1), () {
-      if (tdi.completeTime == null) {
-        tdi.completeTime = DateTime.now();
-        scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]?.list.add(tdi);
-      } else {
-        tdi.completeTime = null;
-        scheduleToDoListMap[tdi.startTime.isSameDay(nowTime)
-                ? ScheduleToDoListType.TodayUncompleted
-                : ScheduleToDoListType.PastUncompleted]
-            ?.list
-            .add(tdi);
-      }
-      buildWidgets();
-    });
-  }
+  ToDoListProvider getProvider(BuildContext context, {bool listen = true}) =>
+      Provider.of<ToDoListProvider>(
+        context,
+        listen: listen,
+      );
 
-  void onEdited(List<ToDoItem> list, int index) {}
+  void onStatusChanged(
+          BuildContext context, ScheduleToDoListType type, int index) =>
+      getProvider(context, listen: false).updateSchedule(type, index);
 
-  void onDeleted(List<ToDoItem> list, int index) {
+  void onEdited(BuildContext context, ScheduleToDoListType type, int index) {}
+
+  void onDeleted(BuildContext context, ScheduleToDoListType type, int index) {
+    final provider = getProvider(context, listen: false);
     showConfirmDialog(
       context: context,
-      content: '确定要删除"${list[index].title}"吗？',
+      content:
+          '确定要删除"${provider.scheduleToDoListMap[type]!.list[index].title}"吗？',
       danger: true,
       onConfirm: (context) => {
-        list.removeAt(index),
+        provider.deleteSchedule(type, index),
         Navigator.of(context).pop(),
-        buildWidgets(),
-        setState(() {}),
       },
     );
   }
@@ -97,9 +80,14 @@ class _SchedulePageState extends State<SchedulePage> {
             horizontal: 16.w,
           ),
           child: SlidableAutoCloseBehavior(
-            child: ListView.builder(
-              itemBuilder: (context, index) => _widgets[index],
-              itemCount: _widgets.length,
+            child: Consumer<ToDoListProvider>(
+              builder: (context, provider, _) {
+                final _widgets = buildWidgets(context);
+                return ListView.builder(
+                  itemBuilder: (context, index) => _widgets[index],
+                  itemCount: _widgets.length,
+                );
+              },
             ),
           ),
         ),

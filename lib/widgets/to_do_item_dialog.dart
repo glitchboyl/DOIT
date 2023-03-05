@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'text.dart';
 import 'svg_icon.dart';
@@ -12,6 +13,7 @@ import 'icon.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/models/to_do_item.dart';
+import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -36,7 +38,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
   String _title = '';
   String _remarks = '';
   late DateTime _startTime;
-  late DateTime _endTime;
+  DateTime? _endTime;
   ToDoItemLevel _level = ToDoItemLevel.IV;
   ToDoItemType _type = ToDoItemType.Life;
 
@@ -56,7 +58,6 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
     } else {
       final nowTime = DateTime.now();
       _startTime = nowTime;
-      _endTime = nowTime;
     }
   }
 
@@ -76,8 +77,19 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
               onPressed: () => {
                 if (_sendActived)
                   {
-                    print(_title),
-                    print(_remarks),
+                    Provider.of<ToDoListProvider>(context, listen: false)
+                        .insert(
+                      ToDoItem(
+                        id: UniqueKey().hashCode,
+                        title: _title,
+                        remarks: _remarks,
+                        type: _type,
+                        level: _level,
+                        startTime: _startTime,
+                        endTime: _endTime ?? _startTime,
+                      ),
+                    ),
+                    Navigator.of(context).pop(),
                   }
               },
             ),
@@ -125,7 +137,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                           ),
                           SizedBox(width: 6.w),
                           TextBuilder(
-                            getToDoItemTime(_startTime, _endTime),
+                            getToDoItemTime(_startTime, _endTime ?? _startTime),
                             color: Styles.PrimaryColor,
                             fontSize: Styles.smallTextSize,
                             lineHeight: Styles.smallTextLineHeight,
