@@ -1,17 +1,15 @@
 import 'dart:async';
 import 'package:doit/utils/time.dart';
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/models/schedule.dart';
+import 'db.dart';
 
 final sortByDate =
     (ToDoItem a, ToDoItem b) => a.startTime.compareTo(b.startTime);
 
-class ToDoListProvider extends ChangeNotifier {
-  late Future<Database> _db;
-  bool _isConnected = false;
+class ToDoListProvider extends ChangeNotifier with DBProvider {
   final List<ToDoItem> _toDoList = [];
   final Map<ScheduleToDoListType, ScheduleToDoList> _scheduleToDoListMap = {
     ScheduleToDoListType.PastUncompleted: ScheduleToDoList(
@@ -69,32 +67,8 @@ class ToDoListProvider extends ChangeNotifier {
   Map<ScheduleToDoListType, ScheduleToDoList> get scheduleToDoListMap =>
       _scheduleToDoListMap;
 
-  connectDB() async {
-    if (!_isConnected) {
-      WidgetsFlutterBinding.ensureInitialized();
-      _db = openDatabase(
-        join(await getDatabasesPath(), 'doit_database.db'),
-        onCreate: (db, version) {
-          // create table
-          // db.execute(
-          //   'CREATE TABLE notes(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
-          // );
-          // db.execute(
-          //   'CREATE TABLE bookkeeping_list(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
-          // );
-          return db.execute(
-            'CREATE TABLE to_do_list(id INTEGER PRIMARY KEY, title TEXT, remarks TEXT, type INTEGER, level, startTime INTEGER, endTime INTEGER, repeatType INTEGER, completeTime INTEGER)',
-          );
-        },
-        version: 1,
-      );
-      _isConnected = true;
-    }
-    await getData();
-  }
-
-  getData() async {
-    final db = await _db;
+  Future<void> getData() async {
+    final db = await getDBHelper();
 
     final List<Map<String, dynamic>> maps = await db.query('to_do_list');
 
@@ -141,24 +115,28 @@ class ToDoListProvider extends ChangeNotifier {
   void updateSchedule(ScheduleToDoListType type, int index) {
     final ToDoItem toDoItem = _scheduleToDoListMap[type]!.list.removeAt(index);
     notifyListeners();
-    Future.delayed(const Duration(milliseconds: 1), () {
-      if (toDoItem.completeTime == null) {
-        toDoItem.completeTime = DateTime.now();
-        final list =
-            _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!.list;
-        list.add(toDoItem);
-        list.sort(sortByDate);
-      } else {
-        toDoItem.completeTime = null;
-        final list = (scheduleToDoListMap[toDoItem.startTime.isSameDay(nowTime)
-                ? ScheduleToDoListType.TodayUncompleted
-                : ScheduleToDoListType.PastUncompleted])!
-            .list;
-        list.add(toDoItem);
-        list.sort(sortByDate);
-      }
-      update(toDoItem);
-    });
+    Future.delayed(
+      const Duration(milliseconds: 1),
+      () {
+        if (toDoItem.completeTime == null) {
+          toDoItem.completeTime = DateTime.now();
+          final list =
+              _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!.list;
+          list.add(toDoItem);
+          list.sort(sortByDate);
+        } else {
+          toDoItem.completeTime = null;
+          final list = (scheduleToDoListMap[
+                  toDoItem.startTime.isSameDay(nowTime)
+                      ? ScheduleToDoListType.TodayUncompleted
+                      : ScheduleToDoListType.PastUncompleted])!
+              .list;
+          list.add(toDoItem);
+          list.sort(sortByDate);
+        }
+        update(toDoItem);
+      },
+    );
   }
 
   void deleteSchedule(ScheduleToDoListType type, int index) {
@@ -181,7 +159,7 @@ class ToDoListProvider extends ChangeNotifier {
     }
     _toDoList.add(item);
 
-    final db = await _db;
+    final db = await getDBHelper();
 
     await db.insert(
       'to_do_list',
@@ -192,7 +170,7 @@ class ToDoListProvider extends ChangeNotifier {
   }
 
   Future<void> update(ToDoItem item) async {
-    final db = await _db;
+    final db = await getDBHelper();
 
     await db.update(
       'to_do_list',
@@ -204,7 +182,7 @@ class ToDoListProvider extends ChangeNotifier {
   }
 
   Future<void> delete(int id) async {
-    final db = await _db;
+    final db = await getDBHelper();
 
     await db.delete(
       'to_do_list',

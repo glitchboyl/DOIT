@@ -5,6 +5,7 @@ import 'app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 
+// ignore: must_be_immutable
 class TimePicker extends StatelessWidget {
   TimePicker(
     this.time, {
@@ -14,7 +15,7 @@ class TimePicker extends StatelessWidget {
   final DateTime time;
   final void Function(DateTime time) onConfirmed;
 
-  late DateTime _time;
+  late DateTime _time = time;
 
   @override
   Widget build(context) => Wrap(
@@ -28,6 +29,9 @@ class TimePicker extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
             trailing: TextButton(
+              style: TextButton.styleFrom(
+                splashFactory: NoSplash.splashFactory,
+              ),
               child: TextBuilder(
                 '确定',
                 color: Styles.PrimaryColor,

@@ -110,6 +110,9 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
               ],
             ),
             trailing: TextButton(
+              style: TextButton.styleFrom(
+                splashFactory: NoSplash.splashFactory,
+              ),
               child: TextBuilder(
                 '确定',
                 color: Styles.PrimaryColor,

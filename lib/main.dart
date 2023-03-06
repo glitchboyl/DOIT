@@ -9,6 +9,7 @@ import 'widgets/add_button.dart';
 import 'widgets/bottom_navigation_bar.dart';
 import 'widgets/svg_icon.dart';
 import 'providers/to_do_list.dart';
+import 'providers/db.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
@@ -16,9 +17,9 @@ import 'constants/styles.dart';
 import 'constants/meas.dart';
 import 'constants/keys.dart';
 
-void main() {
+void main() async {
   final _toDoListProvider = ToDoListProvider();
-  _toDoListProvider.connectDB();
+  await connectDB([_toDoListProvider]);
   runApp(
     ChangeNotifierProvider(
       create: (context) => _toDoListProvider,

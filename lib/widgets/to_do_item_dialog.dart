@@ -41,6 +41,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
   DateTime? _endTime;
   ToDoItemLevel _level = ToDoItemLevel.IV;
   ToDoItemType _type = ToDoItemType.Life;
+  RepeatType _repeatType = RepeatType.Never;
 
   bool validate() => _title.trim() != '';
 
@@ -74,23 +75,33 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
             ),
             trailing: SVGIconButton(
               icon: 'assets/images/send${_sendActived ? '' : '_disabled'}.svg',
-              onPressed: () => {
-                if (_sendActived)
-                  {
-                    Provider.of<ToDoListProvider>(context, listen: false)
-                        .insert(
-                      ToDoItem(
-                        id: UniqueKey().hashCode,
-                        title: _title,
-                        remarks: _remarks,
-                        type: _type,
-                        level: _level,
-                        startTime: _startTime,
-                        endTime: _endTime ?? _startTime,
-                      ),
-                    ),
-                    Navigator.of(context).pop(),
+              onPressed: () {
+                if (_sendActived) {
+                  final _provider =
+                      Provider.of<ToDoListProvider>(context, listen: false);
+                  if (widget.item != null) {
+                    widget.item!.title = _title;
+                    widget.item!.remarks = _remarks;
+                    widget.item!.type = _type;
+                    widget.item!.level = _level;
+                    widget.item!.startTime = _startTime;
+                    widget.item!.endTime = _endTime ?? _startTime;
+                    widget.item!.repeatType = _repeatType;
+                    _provider.update(widget.item!);
+                  } else {
+                    _provider.insert(ToDoItem(
+                      id: UniqueKey().hashCode,
+                      title: _title,
+                      remarks: _remarks,
+                      type: _type,
+                      level: _level,
+                      startTime: _startTime,
+                      endTime: _endTime ?? _startTime,
+                      repeatType: _repeatType,
+                    ));
                   }
+                  Navigator.of(context).pop();
+                }
               },
             ),
           ),

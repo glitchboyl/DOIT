@@ -5,11 +5,13 @@ import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'schedule_to_do_list_title.dart';
 import 'simple_to_do_item.dart';
+import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/to_do_list.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
+import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
 
 class SchedulePage extends StatefulWidget {
@@ -57,7 +59,14 @@ class _SchedulePageState extends State<SchedulePage> {
           BuildContext context, ScheduleToDoListType type, int index) =>
       getProvider(context, listen: false).updateSchedule(type, index);
 
-  void onEdited(BuildContext context, ScheduleToDoListType type, int index) {}
+  void onEdited(BuildContext context, ScheduleToDoListType type, int index) =>
+      showBottomDrawer(
+        context: context,
+        builder: (context) => ToDoItemDialog(
+            item: getProvider(context, listen: false)
+                .scheduleToDoListMap[type]!
+                .list[index]),
+      );
 
   void onDeleted(BuildContext context, ScheduleToDoListType type, int index) {
     final provider = getProvider(context, listen: false);
