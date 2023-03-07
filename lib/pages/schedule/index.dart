@@ -8,21 +8,12 @@ import 'simple_to_do_item.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/models/schedule.dart';
-import 'package:doit/models/to_do_list.dart';
-import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
-import 'package:doit/utils/time.dart';
 
-class SchedulePage extends StatefulWidget {
+class SchedulePage extends StatelessWidget {
   const SchedulePage({super.key});
-  @override
-  _SchedulePageState createState() => _SchedulePageState();
 
-  static final appBar = ({Key? key}) => SchedulePageAppBar(key: key);
-}
-
-class _SchedulePageState extends State<SchedulePage> {
   List<Widget> buildWidgets(BuildContext context) {
     final List<Widget> _widgets = [];
     Provider.of<ToDoListProvider>(
@@ -101,4 +92,6 @@ class _SchedulePageState extends State<SchedulePage> {
           ),
         ),
       );
+
+  static final appBar = ({Key? key}) => SchedulePageAppBar(key: key);
 }

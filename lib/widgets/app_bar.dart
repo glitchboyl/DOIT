@@ -7,17 +7,30 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
     super.key,
     this.leading,
     this.title,
-    this.trailing,
+    this.trailings,
     this.backgroundColor = Styles.RegularBaseColor,
   });
 
   final Widget? leading;
   final Widget? title;
-  final Widget? trailing;
+  final List<Widget>? trailings;
   final Color? backgroundColor;
 
   @override
   Size get preferredSize => Size.fromHeight(MEAS.appBarHeight);
+
+  List<Widget> buildTrailings() {
+    final List<Widget> _trailings = [];
+    if (trailings != null) {
+      for (int i = 0; i < trailings!.length; i++) {
+        _trailings.add(trailings![i]);
+        _trailings.add(SizedBox(width: MEAS.appBarIconLength / 2));
+      }
+      _trailings.removeLast();
+    } else
+      _trailings.add(SizedBox.shrink());
+    return _trailings;
+  }
 
   @override
   Widget build(context) => AppBar(
@@ -25,7 +38,7 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
         automaticallyImplyLeading: false,
         title: title,
         centerTitle: true,
-        actions: [trailing ?? SizedBox.shrink()],
+        actions: buildTrailings(),
         backgroundColor: backgroundColor,
         shadowColor: Colors.transparent,
         elevation: 0,

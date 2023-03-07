@@ -51,8 +51,8 @@ class SchedulePageDrawerItem extends StatelessWidget {
 
   static final SVGIcon Function(String) _getDrawerItemIcon =
       (String icon) => SVGIcon(
-            icon: icon,
-            width: MEAS.drawerItemIconWidth,
-            height: MEAS.drawerItemIconHeight,
+            icon,
+            width: MEAS.drawerItemIconLength,
+            height: MEAS.drawerItemIconLength,
           );
 }

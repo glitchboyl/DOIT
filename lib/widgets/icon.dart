@@ -22,7 +22,7 @@ class IconBuilder extends StatelessWidget {
   final String icon;
   final double? iconWidth;
   final double? iconHeight;
-  
+
   @override
   Widget build(BuildContext context) => Container(
         width: width,
@@ -33,7 +33,7 @@ class IconBuilder extends StatelessWidget {
           color: color,
         ),
         child: SVGIcon(
-          icon: icon,
+          icon,
           width: iconWidth,
           height: iconHeight,
         ),

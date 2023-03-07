@@ -3,9 +3,9 @@ import 'package:doit/constants/meas.dart';
 import 'package:doit/widgets/svg_icon.dart';
 
 class SVGIconButton extends StatelessWidget {
-  const SVGIconButton({
+  const SVGIconButton(
+    this.icon, {
     super.key,
-    required this.icon,
     required this.onPressed,
   });
 
@@ -16,9 +16,9 @@ class SVGIconButton extends StatelessWidget {
   Widget build(context) => IconButton(
         padding: EdgeInsets.all(0),
         icon: SVGIcon(
-          icon: icon,
-          width: MEAS.appBarIconWidth,
-          height: MEAS.appBarIconHeight,
+          icon,
+          width: MEAS.appBarIconLength,
+          height: MEAS.appBarIconLength,
         ),
         onPressed: onPressed,
       );

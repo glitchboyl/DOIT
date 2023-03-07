@@ -30,7 +30,7 @@ class BookkeepingListTitle extends StatelessWidget {
               fontWeight: FontWeight.bold,
               lineHeight: Styles.smallTextLineHeight,
             ),
-            Expanded(child: SizedBox.shrink()),
+            Spacer(),
             TextBuilder(
               '收入: ${moneyFormat(incomes)}',
               color: Styles.PrimaryTextColor,

@@ -4,7 +4,7 @@ import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 
 class NotesPageAppBar extends AppBarBuilder {
-  const NotesPageAppBar({Key? key}) : super(key: key);
+  const NotesPageAppBar({super.key});
   @override
   Widget build(BuildContext context) => AppBarBuilder(
         title: TextBuilder(

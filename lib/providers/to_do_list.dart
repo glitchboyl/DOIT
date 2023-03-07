@@ -1,65 +1,24 @@
 import 'dart:async';
 import 'package:doit/utils/time.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/models/schedule.dart';
 import 'db.dart';
 
-final sortByDate =
-    (ToDoItem a, ToDoItem b) => a.startTime.compareTo(b.startTime);
-
-class ToDoListProvider extends ChangeNotifier with DBProvider {
+class ToDoListProvider extends ChangeNotifier {
   final List<ToDoItem> _toDoList = [];
   final Map<ScheduleToDoListType, ScheduleToDoList> _scheduleToDoListMap = {
     ScheduleToDoListType.PastUncompleted: ScheduleToDoList(
       title: '过去',
-      list: [
-        // ToDoItem(
-        //   id: UniqueKey().hashCode,
-        //   title: '健身计划开始。',
-        //   type: ToDoItemType.Life,
-        //   level: ToDoItemLevel.I,
-        //   startTime: DateTime(2022, 7, 10, 19),
-        //   endTime: DateTime(2022, 7, 10, 19),
-        // ),
-      ],
+      list: [],
     ),
     ScheduleToDoListType.TodayUncompleted: ScheduleToDoList(
       title: '今天',
-      list: [
-        // ToDoItem(
-        //   id: UniqueKey().hashCode,
-        //   title: '看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书看书!!!',
-        //   type: ToDoItemType.Study,
-        //   level: ToDoItemLevel.II,
-        //   startTime: DateTime.now(),
-        //   endTime: DateTime.now(),
-        //   repeatType: RepeatType.EveryDay,
-        // ),
-        // ToDoItem(
-        //   id: UniqueKey().hashCode,
-        //   title: '记得写实习报告!!!!',
-        //   type: ToDoItemType.Study,
-        //   level: ToDoItemLevel.I,
-        //   startTime: DateTime(2023, 2, 10, 9),
-        //   endTime: DateTime(2023, 2, 17, 9),
-        // ),
-      ],
+      list: [],
     ),
     ScheduleToDoListType.TodayCompleted: ScheduleToDoList(
       title: '已完成',
-      list: [
-        // ToDoItem(
-        //   id: UniqueKey().hashCode,
-        //   title: '整理需求文档',
-        //   type: ToDoItemType.Study,
-        //   level: ToDoItemLevel.II,
-        //   startTime: DateTime(2023, 3, 2, 8),
-        //   endTime: DateTime(2023, 3, 2, 8),
-        //   completeTime: DateTime.now(),
-        // ),
-      ],
+      list: [],
     ),
   };
 
@@ -67,11 +26,8 @@ class ToDoListProvider extends ChangeNotifier with DBProvider {
   Map<ScheduleToDoListType, ScheduleToDoList> get scheduleToDoListMap =>
       _scheduleToDoListMap;
 
-  Future<void> getData() async {
-    final db = await getDBHelper();
-
-    final List<Map<String, dynamic>> maps = await db.query('to_do_list');
-
+  Future<void> get() async {
+    final maps = await DBHelper.get('to_do_list');
     _toDoList.addAll(List.generate(
       maps.length,
       (i) {
@@ -159,36 +115,17 @@ class ToDoListProvider extends ChangeNotifier with DBProvider {
     }
     _toDoList.add(item);
 
-    final db = await getDBHelper();
-
-    await db.insert(
-      'to_do_list',
-      item.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await DBHelper.insert('to_do_list', item);
     notifyListeners();
   }
 
   Future<void> update(ToDoItem item) async {
-    final db = await getDBHelper();
-
-    await db.update(
-      'to_do_list',
-      item.toMap(),
-      where: 'id = ?',
-      whereArgs: [item.id],
-    );
+    await DBHelper.update('to_do_list', item);
     notifyListeners();
   }
 
   Future<void> delete(int id) async {
-    final db = await getDBHelper();
-
-    await db.delete(
-      'to_do_list',
-      where: 'id = ?',
-      whereArgs: [id],
-    );
+    await DBHelper.delete('to_do_list', id);
     notifyListeners();
   }
 }

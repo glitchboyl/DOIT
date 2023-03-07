@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'app_bar.dart';
 import 'text.dart';
+import 'text_button.dart';
 import 'svg_icon.dart';
 import 'to_do_item_calendar_switch_button.dart';
 import 'calendar_item.dart';
@@ -109,24 +110,21 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                 ),
               ],
             ),
-            trailing: TextButton(
-              style: TextButton.styleFrom(
-                splashFactory: NoSplash.splashFactory,
-              ),
-              child: TextBuilder(
+            trailings: [
+              TextButtonBuilder(
                 '确定',
                 color: Styles.PrimaryColor,
                 fontSize: Styles.textSize,
                 lineHeight: Styles.textLineHeight,
+                onPressed: () => {
+                  widget.onConfirmed(
+                    _startTime,
+                    _endTime,
+                  ),
+                  Navigator.of(context).pop(),
+                },
               ),
-              onPressed: () => {
-                widget.onConfirmed(
-                  _startTime,
-                  _endTime,
-                ),
-                Navigator.of(context).pop(),
-              },
-            ),
+            ],
           ),
           Container(
             margin: EdgeInsets.symmetric(vertical: 12.h),
@@ -136,9 +134,9 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                 firstDay.isBefore(_focusedDay)
                     ? GestureDetector(
                         child: SVGIcon(
-                          icon: 'assets/images/triangle.svg',
-                          width: MEAS.arrowWidth,
-                          height: MEAS.arrowHeight,
+                          'assets/images/triangle.svg',
+                          width: MEAS.arrowLength,
+                          height: MEAS.arrowLength,
                         ),
                         onTap: () => {
                           setState(
@@ -154,8 +152,8 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                         },
                       )
                     : SizedBox(
-                        width: MEAS.arrowWidth,
-                        height: MEAS.arrowHeight,
+                        width: MEAS.arrowLength,
+                        height: MEAS.arrowLength,
                       ),
                 Container(
                   margin: EdgeInsets.symmetric(horizontal: 10.w),
@@ -172,9 +170,9 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                         child: RotatedBox(
                           quarterTurns: 2,
                           child: SVGIcon(
-                            icon: 'assets/images/triangle.svg',
-                            width: MEAS.arrowWidth,
-                            height: MEAS.arrowHeight,
+                            'assets/images/triangle.svg',
+                            width: MEAS.arrowLength,
+                            height: MEAS.arrowLength,
                           ),
                         ),
                         onTap: () => {
@@ -191,8 +189,8 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                         },
                       )
                     : SizedBox(
-                        width: MEAS.arrowWidth,
-                        height: MEAS.arrowHeight,
+                        width: MEAS.arrowLength,
+                        height: MEAS.arrowLength,
                       ),
               ],
             ),
@@ -328,9 +326,9 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                       ? (_endTime != null ? _endTime! : _startTime)
                       : _startTime),
                   icon: SVGIcon(
-                    icon: 'assets/images/time.svg',
-                    width: MEAS.simpleToDoItemOperationIconWidth,
-                    height: MEAS.simpleToDoItemOperationIconWidth,
+                    'assets/images/time.svg',
+                    width: MEAS.simpleToDoItemOperationIconLength,
+                    height: MEAS.simpleToDoItemOperationIconLength,
                   ),
                   onPressed: () => {
                     showBottomDrawer(
@@ -339,6 +337,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                         _toggle
                             ? (_endTime != null ? _endTime! : _startTime)
                             : _startTime,
+                        mode: CupertinoDatePickerMode.time,
                         onConfirmed: (time) => setState(() {
                           if (_toggle)
                             _endTime = time;

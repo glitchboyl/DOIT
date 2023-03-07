@@ -10,7 +10,7 @@ class SchedulePageAppBar extends AppBarBuilder {
   Widget build(BuildContext context) => AppBarBuilder(
         leading: Builder(builder: (BuildContext context) {
           return SVGIconButton(
-            icon: 'assets/images/menu.svg',
+            'assets/images/menu.svg',
             onPressed: () => {Scaffold.of(context).openDrawer()},
           );
         }),
@@ -21,9 +21,11 @@ class SchedulePageAppBar extends AppBarBuilder {
           lineHeight: Styles.largeTextLineHeight,
           fontWeight: FontWeight.bold,
         ),
-        trailing: SVGIconButton(
-          icon: 'assets/images/quadrant.svg',
-          onPressed: () => {},
-        ),
+        trailings: [
+          SVGIconButton(
+            'assets/images/quadrant.svg',
+            onPressed: () => {},
+          )
+        ],
       );
 }

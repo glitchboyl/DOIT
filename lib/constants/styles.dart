@@ -55,6 +55,9 @@ abstract class Styles {
   static double drawerItemTextSize = 16.sp;
   static double drawerItemTextLineHeight = 22.sp;
 
+  static double noteTitleSize = 16.sp;
+  static double noteTitleLineHeight = 24.sp;
+
   static double statisticTextSize = 20.sp;
   static double statisticTextLineHeight = 32.sp;
 }

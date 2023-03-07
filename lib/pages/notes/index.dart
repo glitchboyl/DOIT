@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'note_item.dart';
-import 'package:doit/models/note_item.dart';
+import 'package:doit/models/note.dart';
+import 'package:doit/providers/note.dart';
 
 class NotesPage extends StatefulWidget {
   const NotesPage({super.key});
@@ -14,23 +15,26 @@ class NotesPage extends StatefulWidget {
 }
 
 class _NotesPageState extends State<NotesPage> {
-  List<NoteItem> mockList = [
-    NoteItem(
-      id: UniqueKey(),
-      title: '芜湖',
-      body: '什么玩意',
-      images: ['assets/images/test_1.jpeg'],
-      publishTime: DateTime(2023, 2, 26),
-    ),
-    NoteItem(
-      id: UniqueKey(),
-      title: 'The Pursuit of Happyness',
-      body:
-          'I’m the type of person, if you ask me a question, and I don’t know the answer, I’m gonna to tell you that I don’t know. ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo',
-      images: ['assets/images/test_2.jpeg'],
-      publishTime: DateTime(2022, 1, 25),
-    ),
-  ];
+  NoteProvider getProvider(BuildContext context, {bool listen = true}) =>
+      Provider.of<NoteProvider>(
+        context,
+        listen: listen,
+      );
+
+  List<Widget> buildWidgets(BuildContext context) {
+    final List<Widget> _widgets = [];
+    Provider.of<NoteProvider>(
+      context,
+      listen: false,
+    ).noteList.forEach((note) {
+      _widgets.add(
+        NoteItemWidget(
+          note,
+        ),
+      );
+    });
+    return _widgets;
+  }
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -40,19 +44,14 @@ class _NotesPageState extends State<NotesPage> {
             left: 16.w,
             right: 16.w,
           ),
-          child: CustomScrollView(
-            slivers: [
-              SliverSafeArea(
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) => NoteItemWidget(
-                      mockList[index],
-                    ),
-                    childCount: mockList.length,
-                  ),
-                ),
-              ),
-            ],
+          child: Consumer<NoteProvider>(
+            builder: (context, provider, _) {
+              final _widgets = buildWidgets(context);
+              return ListView.builder(
+                itemBuilder: (context, index) => _widgets[index],
+                itemCount: _widgets.length,
+              );
+            },
           ),
         ),
       );

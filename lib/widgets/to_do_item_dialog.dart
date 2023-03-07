@@ -5,26 +5,18 @@ import 'app_bar.dart';
 import 'text.dart';
 import 'svg_icon.dart';
 import 'svg_icon_button.dart';
-import 'to_do_item_dialog_input.dart';
+import 'input.dart';
 import 'to_do_item_calendar.dart';
 import 'bottom_drawer_select.dart';
 import 'bottom_drawer_item.dart';
 import 'icon.dart';
+import 'parts.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
-
-UnderlineInputBorder titleBorder = UnderlineInputBorder(
-  borderSide: BorderSide(color: Styles.BackgroundColor, width: 2.h),
-);
-UnderlineInputBorder remarksBorder = UnderlineInputBorder(
-  borderSide: BorderSide(
-    color: Colors.transparent,
-  ),
-);
 
 class ToDoItemDialog extends StatefulWidget {
   const ToDoItemDialog({super.key, this.item});
@@ -34,7 +26,7 @@ class ToDoItemDialog extends StatefulWidget {
 }
 
 class _ToDoItemDialogState extends State<ToDoItemDialog> {
-  bool _sendActived = false;
+  bool _publishActived = false;
   String _title = '';
   String _remarks = '';
   late DateTime _startTime;
@@ -49,7 +41,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
   void initState() {
     super.initState();
     if (widget.item != null) {
-      _sendActived = true;
+      _publishActived = true;
       _title = widget.item!.title;
       _remarks = widget.item!.remarks;
       _startTime = widget.item!.startTime;
@@ -73,37 +65,39 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
               lineHeight: Styles.largeTextLineHeight,
               fontWeight: FontWeight.bold,
             ),
-            trailing: SVGIconButton(
-              icon: 'assets/images/send${_sendActived ? '' : '_disabled'}.svg',
-              onPressed: () {
-                if (_sendActived) {
-                  final _provider =
-                      Provider.of<ToDoListProvider>(context, listen: false);
-                  if (widget.item != null) {
-                    widget.item!.title = _title;
-                    widget.item!.remarks = _remarks;
-                    widget.item!.type = _type;
-                    widget.item!.level = _level;
-                    widget.item!.startTime = _startTime;
-                    widget.item!.endTime = _endTime ?? _startTime;
-                    widget.item!.repeatType = _repeatType;
-                    _provider.update(widget.item!);
-                  } else {
-                    _provider.insert(ToDoItem(
-                      id: UniqueKey().hashCode,
-                      title: _title,
-                      remarks: _remarks,
-                      type: _type,
-                      level: _level,
-                      startTime: _startTime,
-                      endTime: _endTime ?? _startTime,
-                      repeatType: _repeatType,
-                    ));
+            trailings: [
+              SVGIconButton(
+                'assets/images/publish${_publishActived ? '' : '_disabled'}.svg',
+                onPressed: () {
+                  if (_publishActived) {
+                    final _provider =
+                        Provider.of<ToDoListProvider>(context, listen: false);
+                    if (widget.item != null) {
+                      widget.item!.title = _title;
+                      widget.item!.remarks = _remarks;
+                      widget.item!.type = _type;
+                      widget.item!.level = _level;
+                      widget.item!.startTime = _startTime;
+                      widget.item!.endTime = _endTime ?? _startTime;
+                      widget.item!.repeatType = _repeatType;
+                      _provider.update(widget.item!);
+                    } else {
+                      _provider.insert(ToDoItem(
+                        id: UniqueKey().hashCode,
+                        title: _title,
+                        remarks: _remarks,
+                        type: _type,
+                        level: _level,
+                        startTime: _startTime,
+                        endTime: _endTime ?? _startTime,
+                        repeatType: _repeatType,
+                      ));
+                    }
+                    Navigator.of(context).pop();
                   }
-                  Navigator.of(context).pop();
-                }
-              },
-            ),
+                },
+              ),
+            ],
           ),
           Container(
             padding: EdgeInsets.only(
@@ -114,24 +108,29 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
             ),
             child: Column(
               children: [
-                ToDoItemDialogInput(
+                Input(
                   initialValue: _title,
-                  height: MEAS.toDoItemDialogTitleInputHeight,
+                  height: MEAS.titleInputHeight,
+                  fontSize: Styles.textSize,
+                  lineHeight: Styles.textLineHeight,
                   hintText: '有新日程吗，快记录下来吧…',
                   maxLength: 50,
+                  maxLines: 1,
                   autofocus: true,
                   border: titleBorder,
                   onChanged: (value) => setState(() {
                     _title = value;
-                    _sendActived = validate();
+                    _publishActived = validate();
                   }),
                 ),
-                ToDoItemDialogInput(
+                Input(
                   initialValue: _remarks,
                   height: MEAS.toDoItemDialogRemarksInputHeight,
+                  color: Styles.PrimaryTextColor,
                   hintText: '有额外要记下的事情吗？',
                   maxLength: 150,
-                  border: remarksBorder,
+                  maxLines: 3,
+                  border: bodyBorder,
                   onChanged: (value) => _remarks = value,
                 ),
                 SizedBox(height: 12.h),
@@ -142,9 +141,9 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                       child: Row(
                         children: [
                           SVGIcon(
-                            icon: 'assets/images/date.svg',
-                            width: MEAS.simpleToDoItemOperationIconWidth,
-                            height: MEAS.simpleToDoItemOperationIconHeight,
+                            'assets/images/date.svg',
+                            width: MEAS.simpleToDoItemOperationIconLength,
+                            height: MEAS.simpleToDoItemOperationIconLength,
                           ),
                           SizedBox(width: 6.w),
                           TextBuilder(
@@ -169,16 +168,16 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                     ),
                     GestureDetector(
                       child: IconBuilder(
-                        width: MEAS.toDoItemPropertyWidth,
-                        height: MEAS.toDoItemPropertyWidth,
+                        width: MEAS.toDoItemPropertyLength,
+                        height: MEAS.toDoItemPropertyLength,
                         margin: EdgeInsets.only(
                           left: 20.w,
                         ),
                         borderRadius: BorderRadius.circular(50.r),
                         color: toDoItemLevelMap[_level]!.color,
                         icon: toDoItemLevelMap[_level]!.icon,
-                        iconWidth: MEAS.toDoItemPropertyIconWidth,
-                        iconHeight: MEAS.toDoItemPropertyIconHeight,
+                        iconWidth: MEAS.toDoItemPropertyIconLength,
+                        iconHeight: MEAS.toDoItemPropertyIconLength,
                       ),
                       onTap: () => showBottomDrawer(
                         context: context,
@@ -189,13 +188,13 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                             key: ValueKey(level),
                             title: toDoItemLevelMap[level]!.text,
                             icon: IconBuilder(
-                              width: MEAS.toDoItemPropertyWidth,
-                              height: MEAS.toDoItemPropertyWidth,
+                              width: MEAS.toDoItemPropertyLength,
+                              height: MEAS.toDoItemPropertyLength,
                               borderRadius: BorderRadius.circular(50.r),
                               color: toDoItemLevelMap[level]!.color,
                               icon: toDoItemLevelMap[level]!.icon,
-                              iconWidth: MEAS.toDoItemPropertyIconWidth,
-                              iconHeight: MEAS.toDoItemPropertyIconHeight,
+                              iconWidth: MEAS.toDoItemPropertyIconLength,
+                              iconHeight: MEAS.toDoItemPropertyIconLength,
                             ),
                           ),
                           onSelected: (level, index) => {
@@ -209,16 +208,16 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                     ),
                     GestureDetector(
                       child: IconBuilder(
-                        width: MEAS.toDoItemPropertyWidth,
-                        height: MEAS.toDoItemPropertyWidth,
+                        width: MEAS.toDoItemPropertyLength,
+                        height: MEAS.toDoItemPropertyLength,
                         margin: EdgeInsets.only(
                           left: 20.w,
                         ),
                         borderRadius: BorderRadius.circular(6.r),
                         color: toDoItemTypeMap[_type]!.color,
                         icon: toDoItemTypeMap[_type]!.icon,
-                        iconWidth: MEAS.toDoItemPropertyIconWidth,
-                        iconHeight: MEAS.toDoItemPropertyIconHeight,
+                        iconWidth: MEAS.toDoItemPropertyIconLength,
+                        iconHeight: MEAS.toDoItemPropertyIconLength,
                       ),
                       onTap: () => showBottomDrawer(
                         context: context,
@@ -229,13 +228,13 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                             key: ValueKey(type),
                             title: toDoItemTypeMap[type]!.text,
                             icon: IconBuilder(
-                              width: MEAS.toDoItemPropertyWidth,
-                              height: MEAS.toDoItemPropertyWidth,
+                              width: MEAS.toDoItemPropertyLength,
+                              height: MEAS.toDoItemPropertyLength,
                               borderRadius: BorderRadius.circular(6.r),
                               color: toDoItemTypeMap[type]!.color,
                               icon: toDoItemTypeMap[type]!.icon,
-                              iconWidth: MEAS.toDoItemPropertyIconWidth,
-                              iconHeight: MEAS.toDoItemPropertyIconHeight,
+                              iconWidth: MEAS.toDoItemPropertyIconLength,
+                              iconHeight: MEAS.toDoItemPropertyIconLength,
                             ),
                           ),
                           onSelected: (type, index) => {

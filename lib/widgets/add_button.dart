@@ -17,17 +17,16 @@ class AddButton extends StatelessWidget {
   @override
   Widget build(context) => InteractiveButton(
         fixedSize: Size(
-          MEAS.addButtonWidth,
-          MEAS.addButtonHeight,
+          MEAS.addButtonLength,
+          MEAS.addButtonLength,
         ),
         color: Styles.PrimaryColor,
         activedColor: Styles.PrimaryDeepColor,
         shadowColor: Styles.AddButtonShadowColor,
         elevation: 24.w,
         shape: const CircleBorder(),
-        child: const SVGIcon(
-          icon: 'assets/images/add_to_do_item.svg',
-        ),
+        child: const SVGIcon('assets/images/add.svg',
+            color: Styles.RegularBaseColor),
         onPressed: () {
           String currentPage = currentPageKey.toString();
           if (currentPage == Keys.SchedulePage.toString() ||
@@ -37,6 +36,7 @@ class AddButton extends StatelessWidget {
               builder: (context) => ToDoItemDialog(),
             );
           } else if (currentPage == Keys.NotesPage.toString()) {
+            Navigator.pushNamed(context, '/note_publish');
           } else if (currentPage == Keys.BookkeepingPage.toString()) {
             print('qweqwe');
           }

@@ -86,6 +86,7 @@ const toDoItemLevelMap = {
     text: '不重要不紧急',
   ),
 };
+
 class ToDoItem {
   ToDoItem({
     required this.id,
@@ -159,3 +160,6 @@ class ToDoItem {
     }
   }
 }
+
+final sortByDate =
+    (ToDoItem a, ToDoItem b) => a.startTime.compareTo(b.startTime);

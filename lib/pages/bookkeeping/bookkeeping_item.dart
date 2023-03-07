@@ -26,8 +26,8 @@ class BookkeepingItemWidget extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              width: MEAS.bookkeepingItemTypeWidth,
-              height: MEAS.bookkeepingItemTypeHeight,
+              width: MEAS.bookkeepingItemTypeLength,
+              height: MEAS.bookkeepingItemTypeLength,
               margin: EdgeInsets.only(
                 right: 8.w,
               ),
@@ -36,10 +36,9 @@ class BookkeepingItemWidget extends StatelessWidget {
                 color: Styles.BackgroundColor,
               ),
               child: SVGIcon(
-                icon:
-                    'assets/images/${item.type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
-                width: MEAS.bookkeepingItemTypeIconWidth,
-                height: MEAS.bookkeepingItemTypeIconHeight,
+                'assets/images/${item.type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
+                width: MEAS.bookkeepingItemTypeIconLength,
+                height: MEAS.bookkeepingItemTypeIconLength,
               ),
             ),
             Column(
@@ -59,7 +58,7 @@ class BookkeepingItemWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(child: SizedBox.shrink()),
+            Spacer(),
             TextBuilder(
               '${item.type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(item.amount)}',
               color: item.type == BookkeepingItemType.Incomes

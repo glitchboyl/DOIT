@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/widgets/text.dart';
@@ -51,16 +50,16 @@ class ToDoItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         IconBuilder(
-                          width: MEAS.toDoItemLevelWidth,
-                          height: MEAS.toDoItemLevelWidth,
+                          width: MEAS.toDoItemLevelLength,
+                          height: MEAS.toDoItemLevelLength,
                           margin: EdgeInsets.only(
                             right: 4.w,
                           ),
                           borderRadius: BorderRadius.circular(50.r),
                           color: item.levelColor,
                           icon: item.levelIcon,
-                          iconWidth: MEAS.toDoItemLevelIconWidth,
-                          iconHeight: MEAS.toDoItemLevelIconHeight,
+                          iconWidth: MEAS.toDoItemLevelIconLength,
+                          iconHeight: MEAS.toDoItemLevelIconLength,
                         ),
                         TextBuilder(
                           item.levelText,
@@ -68,20 +67,18 @@ class ToDoItemWidget extends StatelessWidget {
                           fontSize: Styles.smallTextSize,
                           lineHeight: Styles.smallTextLineHeight,
                         ),
-                        Expanded(
-                          child: SizedBox.shrink(),
-                        ),
+                        Spacer(),
                         IconBuilder(
-                          width: MEAS.toDoItemTypeWidth,
-                          height: MEAS.toDoItemTypeHeight,
+                          width: MEAS.toDoItemTypeLength,
+                          height: MEAS.toDoItemTypeLength,
                           margin: EdgeInsets.only(
                             right: 4.w,
                           ),
                           borderRadius: BorderRadius.circular(4.r),
                           color: item.typeColor,
                           icon: item.typeIcon,
-                          iconWidth: MEAS.toDoItemTypeIconWidth,
-                          iconHeight: MEAS.toDoItemTypeIconHeight,
+                          iconWidth: MEAS.toDoItemTypeIconLength,
+                          iconHeight: MEAS.toDoItemTypeIconLength,
                         ),
                         TextBuilder(
                           item.typeText,

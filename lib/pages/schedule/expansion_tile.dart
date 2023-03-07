@@ -83,9 +83,9 @@ class _ExpansionTileState extends State<ExpansionTileBuilder>
                   RotationTransition(
                     turns: _iconTurns,
                     child: SVGIcon(
-                      icon: 'assets/images/arrow.svg',
-                      width: MEAS.arrowWidth,
-                      height: MEAS.arrowHeight,
+                      'assets/images/arrow.svg',
+                      width: MEAS.arrowLength,
+                      height: MEAS.arrowLength,
                     ),
                   ),
                   SizedBox(width: 16.w)

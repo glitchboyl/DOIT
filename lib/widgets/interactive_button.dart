@@ -57,7 +57,6 @@ class _InteractiveButtonState extends State<InteractiveButton> {
             foregroundColor: _buttonColor,
             shadowColor: widget.shadowColor ?? Colors.transparent,
             elevation: widget.elevation,
-            splashFactory: NoSplash.splashFactory,
             shape: widget.shape,
           ),
           child: widget.child,

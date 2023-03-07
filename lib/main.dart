@@ -3,13 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'pages/note/index.dart';
+import 'pages/note_publish/index.dart';
 import 'pages/schedule/drawer.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/add_button.dart';
 import 'widgets/bottom_navigation_bar.dart';
 import 'widgets/svg_icon.dart';
-import 'providers/to_do_list.dart';
 import 'providers/db.dart';
+import 'providers/to_do_list.dart';
+import 'providers/note.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
@@ -19,10 +22,16 @@ import 'constants/keys.dart';
 
 void main() async {
   final _toDoListProvider = ToDoListProvider();
-  await connectDB([_toDoListProvider]);
+  final _noteProvider = NoteProvider();
+  await connectDB();
+  _toDoListProvider.get();
+  _noteProvider.get();
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => _toDoListProvider,
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => _toDoListProvider),
+        ChangeNotifierProvider(create: (context) => _noteProvider),
+      ],
       child: DOITApp(),
     ),
   );
@@ -52,14 +61,14 @@ class _DOITAppState extends State<DOITApp> {
       _navigationBarItems.add(
         BottomNavigationBarItem(
           icon: SVGIcon(
-            icon: page.icon,
-            width: MEAS.bottomNavigationBarIconWidth,
-            height: MEAS.bottomNavigationBarIconHeight,
+            page.icon,
+            width: MEAS.bottomNavigationBarIconLength,
+            height: MEAS.bottomNavigationBarIconLength,
           ),
           activeIcon: SVGIcon(
-            icon: page.activeIcon,
-            width: MEAS.bottomNavigationBarIconWidth,
-            height: MEAS.bottomNavigationBarIconHeight,
+            page.activeIcon,
+            width: MEAS.bottomNavigationBarIconLength,
+            height: MEAS.bottomNavigationBarIconLength,
           ),
           label: '',
         ),
@@ -79,6 +88,10 @@ class _DOITAppState extends State<DOITApp> {
             fontFamily: 'Barlow',
             highlightColor: Colors.transparent,
             splashColor: Colors.transparent,
+            applyElevationOverlayColor: false,
+            splashFactory: NoSplash.splashFactory,
+            scaffoldBackgroundColor: Styles.BackgroundColor,
+            primaryColor: Styles.PrimaryColor,
           ),
           themeMode: ThemeMode.light,
           home: Scaffold(
@@ -99,7 +112,6 @@ class _DOITAppState extends State<DOITApp> {
             ),
             floatingActionButtonAnimator: FABAnimator(),
             resizeToAvoidBottomInset: false,
-            backgroundColor: Styles.BackgroundColor,
             bottomNavigationBar: BottomNavigationBarBuilder(
               items: _navigationBarItems,
               currentIndex: _currentIndex,
@@ -111,6 +123,10 @@ class _DOITAppState extends State<DOITApp> {
               },
             ),
           ),
+          routes: {
+            '/note': (context) => NotePage(),
+            '/note_publish': (context) => NotePublishPage(),
+          },
         ),
       );
 }

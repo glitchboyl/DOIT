@@ -55,8 +55,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: MEAS.simpleToDoItemTypeWidth,
-                  height: MEAS.simpleToDoItemTypeHeight,
+                  width: MEAS.simpleToDoItemTypeLength,
+                  height: MEAS.simpleToDoItemTypeLength,
                   margin: EdgeInsets.symmetric(
                     horizontal: 12.w,
                   ),
@@ -65,9 +65,9 @@ class SimpleToDoItemWidget extends StatelessWidget {
                     color: item.typeColor,
                   ),
                   child: SVGIcon(
-                    icon: item.typeIcon,
-                    width: MEAS.simpleToDoItemTypeIconWidth,
-                    height: MEAS.simpleToDoItemTypeIconHeight,
+                    item.typeIcon,
+                    width: MEAS.simpleToDoItemTypeIconLength,
+                    height: MEAS.simpleToDoItemTypeIconLength,
                   ),
                 ),
                 Expanded(
@@ -133,10 +133,9 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   ),
                   alignment: Alignment.centerRight,
                   child: SVGIcon(
-                    icon:
-                        'assets/images/${item.completeTime != null ? 'resume' : 'complete'}_to_do_item.svg',
-                    width: MEAS.simpleToDoItemOperationIconWidth,
-                    height: MEAS.simpleToDoItemOperationIconHeight,
+                    'assets/images/${item.completeTime != null ? 'resume' : 'complete'}_to_do_item.svg',
+                    width: MEAS.simpleToDoItemOperationIconLength,
+                    height: MEAS.simpleToDoItemOperationIconLength,
                   ),
                 ),
               ),
@@ -150,9 +149,10 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 key: ValueKey(item.id.toString() + '_EDIT'),
                 color: Styles.PrimaryColor,
                 child: SVGIcon(
-                  icon: 'assets/images/edit_to_do_item.svg',
-                  width: MEAS.simpleToDoItemOperationIconWidth,
-                  height: MEAS.simpleToDoItemOperationIconHeight,
+                  'assets/images/edit.svg',
+                  color: Styles.RegularBaseColor,
+                  width: MEAS.simpleToDoItemOperationIconLength,
+                  height: MEAS.simpleToDoItemOperationIconLength,
                 ),
                 onPressed: (context) => onEdited(context),
                 autoClose: true,
@@ -161,9 +161,10 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 key: ValueKey(item.id.toString() + '_DELETE'),
                 color: Styles.DangerousColor,
                 child: SVGIcon(
-                  icon: 'assets/images/delete_to_do_item.svg',
-                  width: MEAS.simpleToDoItemOperationIconWidth,
-                  height: MEAS.simpleToDoItemOperationIconHeight,
+                  'assets/images/trash.svg',
+                  color: Styles.RegularBaseColor,
+                  width: MEAS.simpleToDoItemOperationIconLength,
+                  height: MEAS.simpleToDoItemOperationIconLength,
                 ),
                 onPressed: (context) => onDeleted(context),
                 autoClose: true,

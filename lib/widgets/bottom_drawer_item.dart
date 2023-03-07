@@ -35,7 +35,7 @@ class BottomDrawerItem extends StatelessWidget {
               fontSize: Styles.textSize,
               lineHeight: Styles.textLineHeight,
             ),
-            Expanded(child: SizedBox.shrink()),
+            Spacer(),
             if (value != null)
               TextBuilder(
                 value!,
@@ -48,9 +48,9 @@ class BottomDrawerItem extends StatelessWidget {
               RotatedBox(
                 quarterTurns: -1,
                 child: SVGIcon(
-                  icon: 'assets/images/arrow.svg',
-                  width: MEAS.arrowWidth,
-                  height: MEAS.arrowHeight,
+                  'assets/images/arrow.svg',
+                  width: MEAS.arrowLength,
+                  height: MEAS.arrowLength,
                 ),
               ),
             ],
