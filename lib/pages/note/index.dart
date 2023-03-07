@@ -1,10 +1,10 @@
-import 'package:doit/utils/time.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/providers/note.dart';
+import 'package:doit/utils/time.dart';
 import 'package:doit/constants/styles.dart';
 
 class NotePage extends StatelessWidget {
@@ -16,9 +16,15 @@ class NotePage extends StatelessWidget {
         Provider.of<NoteProvider>(context, listen: false).focusedNote!;
     if (focusedNote.images.length > 0) {
       _widgets.add(
-        Image.memory(
-          focusedNote.images[0],
-          fit: BoxFit.cover,
+        Container(
+          constraints: BoxConstraints(
+            minHeight: 211.h,
+            maxHeight: 469.h,
+          ),
+          child: Image.memory(
+            focusedNote.images[0],
+            fit: BoxFit.contain,
+          ),
         ),
       );
     }
@@ -63,15 +69,17 @@ class NotePage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final _widgets = buildWidgets(context);
-    return Scaffold(
-      appBar: NotesPageAppBar(),
-      body: ListView.builder(
-        itemBuilder: (context, index) => _widgets[index],
-        itemCount: _widgets.length,
-      ),
-      backgroundColor: Styles.RegularBaseColor,
-    );
-  }
+  Widget build(BuildContext context) => Scaffold(
+        appBar: NotesPageAppBar(),
+        body: Consumer<NoteProvider>(
+          builder: (context, provider, _) {
+            final _widgets = buildWidgets(context);
+            return ListView.builder(
+              itemBuilder: (context, index) => _widgets[index],
+              itemCount: _widgets.length,
+            );
+          },
+        ),
+        backgroundColor: Styles.RegularBaseColor,
+      );
 }

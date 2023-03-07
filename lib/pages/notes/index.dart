@@ -22,7 +22,9 @@ class _NotesPageState extends State<NotesPage> {
       );
 
   List<Widget> buildWidgets(BuildContext context) {
-    final List<Widget> _widgets = [];
+    final List<Widget> _widgets = [
+      SizedBox(height: 14.h),
+    ];
     Provider.of<NoteProvider>(
       context,
       listen: false,
@@ -40,7 +42,6 @@ class _NotesPageState extends State<NotesPage> {
   Widget build(BuildContext context) => SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 14.h,
             left: 16.w,
             right: 16.w,
           ),

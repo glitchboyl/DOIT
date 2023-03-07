@@ -1,9 +1,9 @@
-import 'package:doit/providers/note.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/note.dart';
+import 'package:doit/providers/note.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
@@ -30,7 +30,7 @@ class NoteItemWidget extends StatelessWidget {
         lineHeight: Styles.smallTextLineHeight,
       ),
     ];
-    if (note.images!.length > 0 || note.body.trim() != '') {
+    if (note.images.length > 0 || note.body.trim() != '') {
       _widgets.add(
         SizedBox(height: 12.h),
       );
@@ -41,11 +41,17 @@ class NoteItemWidget extends StatelessWidget {
           height: MEAS.noteItemQuotesLength,
         ),
       );
-      if (note.images!.length > 0) {
+      if (note.images.length > 0) {
         _widgets.add(
           Container(
             margin: EdgeInsets.only(top: 10.h),
+            constraints: BoxConstraints(
+              minWidth: 319.w,
+              minHeight: 180.h,
+              maxHeight: 399.h,
+            ),
             decoration: BoxDecoration(
+              color: Styles.BackgroundColor,
               borderRadius: BorderRadius.circular(8.r),
             ),
             clipBehavior: Clip.antiAlias,

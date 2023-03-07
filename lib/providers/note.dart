@@ -44,7 +44,7 @@ class NoteProvider extends ChangeNotifier with DBHelper {
     notifyListeners();
   }
 
-  void focus(Note note) => _focusedNote = note;
+  void focus(Note? note) => _focusedNote = note;
 
   Future<void> insert(Note note) async {
     await DBHelper.insert('note_list', note);
@@ -58,8 +58,9 @@ class NoteProvider extends ChangeNotifier with DBHelper {
     notifyListeners();
   }
 
-  Future<void> delete(int id) async {
-    await DBHelper.delete('note_list', id);
+  Future<void> delete(Note note) async {
+    _noteList.remove(note);
+    await DBHelper.delete('note_list', note.id);
     notifyListeners();
   }
 }

@@ -22,12 +22,12 @@ class NotePublishPage extends StatefulWidget {
 }
 
 class _NotePublishPageState extends State<NotePublishPage> {
-  bool _publishActived = false;
   String _title = '';
   String _body = '';
   List<Uint8List> _images = [];
   List<XFile> _temporaryImages = [];
   late final Note? _focusedNote;
+  bool _publishActived = false;
 
   bool validate() => _title.trim() != '';
 
@@ -48,6 +48,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
       _title = _focusedNote!.title;
       _body = _focusedNote?.body ?? '';
       _images = [..._focusedNote!.images];
+      _publishActived = true;
     }
   }
 
@@ -142,14 +143,18 @@ class _NotePublishPageState extends State<NotePublishPage> {
             ),
           ],
         ),
-        body: ListView(
-          children: [
+        body: () {
+          final _widgets = [
             Container(
               height: MEAS.notePublishImageLength,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: buildImagesRow(),
-              ),
+              child: () {
+                final _imagesRow = buildImagesRow();
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) => _imagesRow[index],
+                  itemCount: _imagesRow.length,
+                );
+              }(),
             ),
             Container(
               padding: EdgeInsets.only(
@@ -201,8 +206,12 @@ class _NotePublishPageState extends State<NotePublishPage> {
                 ],
               ),
             )
-          ],
-        ),
+          ];
+          return ListView.builder(
+            itemBuilder: (context, index) => _widgets[index],
+            itemCount: _widgets.length,
+          );
+        }(),
         backgroundColor: Styles.RegularBaseColor,
       );
 }

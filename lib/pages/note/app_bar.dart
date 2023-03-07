@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:provider/provider.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
+import 'package:doit/providers/note.dart';
+import 'package:doit/utils/show_confirm_dialog.dart';
 
 class NotesPageAppBar extends AppBarBuilder {
   const NotesPageAppBar({super.key});
@@ -13,11 +16,25 @@ class NotesPageAppBar extends AppBarBuilder {
         trailings: [
           SVGIconButton(
             'assets/images/edit.svg',
-            onPressed: () => {},
+            onPressed: () => Navigator.pushNamed(context, '/note_publish'),
           ),
           SVGIconButton(
             'assets/images/trash.svg',
-            onPressed: () => {},
+            onPressed: () {
+              final _provider =
+                  Provider.of<NoteProvider>(context, listen: false);
+              showConfirmDialog(
+                context: context,
+                content: '确定要删除这篇随记吗？',
+                danger: true,
+                onConfirm: (context) async => {
+                  await _provider.delete(_provider.focusedNote!),
+                  Navigator.of(context).pop(),
+                  // toast
+                  Navigator.of(context).pop(),
+                },
+              );
+            },
           ),
         ],
       );
