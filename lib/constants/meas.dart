@@ -14,7 +14,7 @@ abstract class MEAS {
   static double simpleToDoItemLevelHeight = 12.w;
   static double simpleToDoItemTypeLength = 24.w;
   static double simpleToDoItemTypeIconLength = 18.w;
-  static double simpleToDoItemOperationIconLength = 20.w;
+  static double itemOperationIconLength = 20.w;
 
   static double toDoItemLevelLength = 12.w;
   static double toDoItemLevelIconLength = 10.w;

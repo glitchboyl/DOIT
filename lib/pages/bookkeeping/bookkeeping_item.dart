@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/widgets/text.dart';
+import 'package:doit/widgets/icon.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/utils/time.dart';
@@ -15,7 +16,7 @@ class BookkeepingItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        key: item.id,
+        key: ValueKey(item.id),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12.r),
@@ -25,21 +26,17 @@ class BookkeepingItemWidget extends StatelessWidget {
         padding: EdgeInsets.all(12.w),
         child: Row(
           children: [
-            Container(
+            IconBuilder(
+              'assets/images/${item.type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
               width: MEAS.bookkeepingItemTypeLength,
               height: MEAS.bookkeepingItemTypeLength,
               margin: EdgeInsets.only(
                 right: 8.w,
               ),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8.r),
-                color: Styles.BackgroundColor,
-              ),
-              child: SVGIcon(
-                'assets/images/${item.type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
-                width: MEAS.bookkeepingItemTypeIconLength,
-                height: MEAS.bookkeepingItemTypeIconLength,
-              ),
+              borderRadius: BorderRadius.circular(8.r),
+              color: Styles.BackgroundColor,
+              iconWidth: MEAS.bookkeepingItemTypeIconLength,
+              iconHeight: MEAS.bookkeepingItemTypeIconLength,
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

@@ -14,17 +14,27 @@ class BookkeepingItem {
     required this.time,
   });
 
-  final Key id;
+  final int id;
   final String title;
   final double amount;
   final BookkeepingItemType type;
   final DateTime time;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'title': title,
+      'amount': amount,
+      'type': BookkeepingItemType.values.indexOf(type),
+      'time': time.millisecondsSinceEpoch,
+    };
+  }
 }
 
 final Map<DateTime, List<BookkeepingItem>> bookkeepingMap = {
   DateTime(2023, 3, 1): [
     BookkeepingItem(
-      id: UniqueKey(),
+      id: UniqueKey().hashCode,
       title: 'ass we can',
       amount: 100,
       type: BookkeepingItemType.Incomes,
@@ -33,7 +43,7 @@ final Map<DateTime, List<BookkeepingItem>> bookkeepingMap = {
   ],
   DateTime(2023, 3, 2): [
     BookkeepingItem(
-      id: UniqueKey(),
+      id: UniqueKey().hashCode,
       title: 'boy next door',
       amount: 100,
       type: BookkeepingItemType.Expenses,
@@ -42,7 +52,7 @@ final Map<DateTime, List<BookkeepingItem>> bookkeepingMap = {
   ],
   DateTime.now(): [
     BookkeepingItem(
-      id: UniqueKey(),
+      id: UniqueKey().hashCode,
       title: 'thank you sir',
       amount: 100,
       type: BookkeepingItemType.Incomes,
@@ -50,3 +60,6 @@ final Map<DateTime, List<BookkeepingItem>> bookkeepingMap = {
     ),
   ]
 };
+
+final sortByTime =
+    (BookkeepingItem a, BookkeepingItem b) => a.time.compareTo(b.time);

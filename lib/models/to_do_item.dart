@@ -161,5 +161,9 @@ class ToDoItem {
   }
 }
 
-final sortByDate =
+final sortByStartTime =
     (ToDoItem a, ToDoItem b) => a.startTime.compareTo(b.startTime);
+
+final sortByLevel = (ToDoItem a, ToDoItem b) => ToDoItemLevel.values
+    .indexOf(a.level)
+    .compareTo(ToDoItemLevel.values.indexOf(b.level));

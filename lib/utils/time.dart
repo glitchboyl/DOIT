@@ -37,7 +37,10 @@ String getDateTime(DateTime time) {
   return "${!time.isSameYear(nowTime) ? time.year.toString() + ' ' : ''}${fillDateZero(month)}.${fillDateZero(day)}";
 }
 
-String getToDoItemTime(
+String getTimeText(DateTime time) =>
+    "${time.isSameDay(nowTime) ? '今天' : getDateTime(time)} ${getClockTime(time)}";
+
+String getToDoItemTimeText(
   DateTime startTime,
   DateTime endTime,
 ) {
@@ -45,8 +48,7 @@ String getToDoItemTime(
   if (startTime.isAfter(endTime)) {
     endTime = startTime;
   }
-  timeText +=
-      "${startTime.isSameDay(nowTime) ? '今天' : getDateTime(startTime)} ${getClockTime(startTime)}";
+  timeText += getTimeText(startTime);
   if (startTime != endTime) {
     timeText +=
         " - ${endTime.isSameDay(startTime) ? '' : endTime.isSameDay(nowTime) ? '今天' : getDateTime(endTime)} ${getClockTime(endTime)}";

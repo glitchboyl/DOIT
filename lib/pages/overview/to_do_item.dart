@@ -50,6 +50,7 @@ class ToDoItemWidget extends StatelessWidget {
                     Row(
                       children: [
                         IconBuilder(
+                          item.levelIcon,
                           width: MEAS.toDoItemLevelLength,
                           height: MEAS.toDoItemLevelLength,
                           margin: EdgeInsets.only(
@@ -57,7 +58,6 @@ class ToDoItemWidget extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.circular(50.r),
                           color: item.levelColor,
-                          icon: item.levelIcon,
                           iconWidth: MEAS.toDoItemLevelIconLength,
                           iconHeight: MEAS.toDoItemLevelIconLength,
                         ),
@@ -69,6 +69,7 @@ class ToDoItemWidget extends StatelessWidget {
                         ),
                         Spacer(),
                         IconBuilder(
+                          item.typeIcon,
                           width: MEAS.toDoItemTypeLength,
                           height: MEAS.toDoItemTypeLength,
                           margin: EdgeInsets.only(
@@ -76,7 +77,6 @@ class ToDoItemWidget extends StatelessWidget {
                           ),
                           borderRadius: BorderRadius.circular(4.r),
                           color: item.typeColor,
-                          icon: item.typeIcon,
                           iconWidth: MEAS.toDoItemTypeIconLength,
                           iconHeight: MEAS.toDoItemTypeIconLength,
                         ),

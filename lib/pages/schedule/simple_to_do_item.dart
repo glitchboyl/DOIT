@@ -87,7 +87,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                       ),
                       SizedBox(height: 2.h),
                       TextBuilder(
-                        getToDoItemTime(
+                        getToDoItemTimeText(
                           item.startTime,
                           item.endTime,
                         ),
@@ -134,8 +134,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: SVGIcon(
                     'assets/images/${item.completeTime != null ? 'resume' : 'complete'}_to_do_item.svg',
-                    width: MEAS.simpleToDoItemOperationIconLength,
-                    height: MEAS.simpleToDoItemOperationIconLength,
+                    width: MEAS.itemOperationIconLength,
+                    height: MEAS.itemOperationIconLength,
                   ),
                 ),
               ),
@@ -151,8 +151,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 child: SVGIcon(
                   'assets/images/edit.svg',
                   color: Styles.RegularBaseColor,
-                  width: MEAS.simpleToDoItemOperationIconLength,
-                  height: MEAS.simpleToDoItemOperationIconLength,
+                  width: MEAS.itemOperationIconLength,
+                  height: MEAS.itemOperationIconLength,
                 ),
                 onPressed: (context) => onEdited(context),
                 autoClose: true,
@@ -163,8 +163,8 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 child: SVGIcon(
                   'assets/images/trash.svg',
                   color: Styles.RegularBaseColor,
-                  width: MEAS.simpleToDoItemOperationIconLength,
-                  height: MEAS.simpleToDoItemOperationIconLength,
+                  width: MEAS.itemOperationIconLength,
+                  height: MEAS.itemOperationIconLength,
                 ),
                 onPressed: (context) => onDeleted(context),
                 autoClose: true,

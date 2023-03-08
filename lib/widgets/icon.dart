@@ -2,14 +2,14 @@ import 'package:doit/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 
 class IconBuilder extends StatelessWidget {
-  const IconBuilder({
+  const IconBuilder(
+    this.icon, {
     super.key,
     this.width,
     this.height,
     this.margin,
     this.borderRadius,
     this.color,
-    required this.icon,
     this.iconWidth,
     this.iconHeight,
   });

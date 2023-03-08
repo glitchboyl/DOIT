@@ -8,16 +8,16 @@ import 'db.dart';
 class ToDoListProvider extends ChangeNotifier {
   final List<ToDoItem> _toDoList = [];
   final Map<ScheduleToDoListType, ScheduleToDoList> _scheduleToDoListMap = {
-    ScheduleToDoListType.PastUncompleted: ScheduleToDoList(
-      title: '过去',
-      list: [],
-    ),
     ScheduleToDoListType.TodayUncompleted: ScheduleToDoList(
       title: '今天',
       list: [],
     ),
+    ScheduleToDoListType.PastUncompleted: ScheduleToDoList(
+      title: '过去',
+      list: [],
+    ),
     ScheduleToDoListType.TodayCompleted: ScheduleToDoList(
-      title: '已完成',
+      title: '今天已完成',
       list: [],
     ),
   };
@@ -47,7 +47,8 @@ class ToDoListProvider extends ChangeNotifier {
         );
       },
     ));
-    _toDoList.sort(sortByDate);
+    _toDoList.sort(sortByStartTime);
+    _toDoList.sort(sortByLevel);
     for (int i = 0; i < _toDoList.length; i++) {
       if (_toDoList[i].completeTime == null) {
         if (_toDoList[i].startTime.isSameDay(nowTime)) {
@@ -79,7 +80,8 @@ class ToDoListProvider extends ChangeNotifier {
           final list =
               _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!.list;
           list.add(toDoItem);
-          list.sort(sortByDate);
+          list.sort(sortByStartTime);
+          list.sort(sortByLevel);
         } else {
           toDoItem.completeTime = null;
           final list = (scheduleToDoListMap[
@@ -88,7 +90,8 @@ class ToDoListProvider extends ChangeNotifier {
                       : ScheduleToDoListType.PastUncompleted])!
               .list;
           list.add(toDoItem);
-          list.sort(sortByDate);
+          list.sort(sortByStartTime);
+          list.sort(sortByLevel);
         }
         update(toDoItem);
       },
@@ -106,12 +109,14 @@ class ToDoListProvider extends ChangeNotifier {
       final list =
           _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!.list;
       list.add(item);
-      list.sort(sortByDate);
+      list.sort(sortByStartTime);
+      list.sort(sortByLevel);
     } else if (item.startTime.isSameDay(nowTime)) {
       final list =
           _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!.list;
       list.add(item);
-      list.sort(sortByDate);
+      list.sort(sortByStartTime);
+      list.sort(sortByLevel);
     }
     _toDoList.add(item);
 

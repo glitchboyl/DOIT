@@ -58,6 +58,6 @@ abstract class Styles {
   static double noteTitleSize = 16.sp;
   static double noteTitleLineHeight = 24.sp;
 
-  static double statisticTextSize = 20.sp;
-  static double statisticTextLineHeight = 32.sp;
+  static double amountTextSize = 20.sp;
+  static double amountTextLineHeight = 32.sp;
 }

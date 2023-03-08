@@ -6,12 +6,14 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
   const AppBarBuilder({
     super.key,
     this.leading,
+    this.leadingWidth,
     this.title,
     this.trailings,
     this.backgroundColor = Styles.RegularBaseColor,
   });
 
   final Widget? leading;
+  final double? leadingWidth;
   final Widget? title;
   final List<Widget>? trailings;
   final Color? backgroundColor;
@@ -35,6 +37,7 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(context) => AppBar(
         leading: leading,
+        leadingWidth: leadingWidth,
         automaticallyImplyLeading: false,
         title: title,
         centerTitle: true,

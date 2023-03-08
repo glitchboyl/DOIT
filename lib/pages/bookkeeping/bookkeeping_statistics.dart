@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/text.dart';
 import 'statistic.dart';
@@ -17,13 +17,17 @@ class BookkeepingStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Positioned(
-        // bottom: MediaQuery.of(context).padding.top,
-        bottom: 0,
+        top: MediaQuery.of(context).padding.top,
         left: 16.w,
         child: Container(
           width: MEAS.bookkeepingStatisticsWidth,
           decoration: BoxDecoration(
-            color: Styles.RegularBaseColor,
+            color: Colors.transparent,
+            image: DecorationImage(
+              image: AssetImage('assets/images/bookkeeping_statistics_bg.png'),
+              alignment: Alignment.topCenter,
+              fit: BoxFit.cover,
+            ),
             borderRadius: BorderRadius.all(Radius.circular(12.r)),
             boxShadow: [
               BoxShadow(
@@ -33,6 +37,7 @@ class BookkeepingStatistics extends StatelessWidget {
               ),
             ],
           ),
+          clipBehavior: Clip.antiAlias,
           child: Column(
             children: [
               Container(
@@ -44,11 +49,11 @@ class BookkeepingStatistics extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: TextBuilder(
                   '2023.2月',
-                  fontSize: Styles.largeTextSize,
-                  lineHeight: Styles.largeTextLineHeight,
+                  fontSize: Styles.textSize,
+                  lineHeight: Styles.textLineHeight,
                 ),
               ),
-              SizedBox(height: 4.h),
+              SizedBox(height: 10.h),
               Row(
                 children: [
                   Statistic(title: '收入', amount: incomes),

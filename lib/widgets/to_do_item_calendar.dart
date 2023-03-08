@@ -327,8 +327,8 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                       : _startTime),
                   icon: SVGIcon(
                     'assets/images/time.svg',
-                    width: MEAS.simpleToDoItemOperationIconLength,
-                    height: MEAS.simpleToDoItemOperationIconLength,
+                    width: MEAS.itemOperationIconLength,
+                    height: MEAS.itemOperationIconLength,
                   ),
                   onPressed: () => {
                     showBottomDrawer(

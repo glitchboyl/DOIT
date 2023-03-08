@@ -4,12 +4,13 @@ import 'package:flutter/widgets.dart';
 import 'package:doit/models/note.dart';
 import 'db.dart';
 
-class NoteProvider extends ChangeNotifier with DBHelper {
+class NoteProvider extends ChangeNotifier {
   final List<Note> _noteList = [];
   Note? _focusedNote;
 
   List<Note> get noteList => _noteList;
   Note? get focusedNote => _focusedNote;
+  void focus(Note? note) => _focusedNote = note;
 
   Future<void> get() async {
     final maps = await DBHelper.get('note_list');
@@ -43,8 +44,6 @@ class NoteProvider extends ChangeNotifier with DBHelper {
 
     notifyListeners();
   }
-
-  void focus(Note? note) => _focusedNote = note;
 
   Future<void> insert(Note note) async {
     await DBHelper.insert('note_list', note);

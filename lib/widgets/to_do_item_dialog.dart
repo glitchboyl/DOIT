@@ -56,7 +56,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
 
   @override
   Widget build(context) => Wrap(
-        children: <Widget>[
+        children: [
           AppBarBuilder(
             title: TextBuilder(
               '${widget.item != null ? '编辑' : '添加'}日程',
@@ -142,12 +142,13 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         children: [
                           SVGIcon(
                             'assets/images/date.svg',
-                            width: MEAS.simpleToDoItemOperationIconLength,
-                            height: MEAS.simpleToDoItemOperationIconLength,
+                            width: MEAS.itemOperationIconLength,
+                            height: MEAS.itemOperationIconLength,
                           ),
                           SizedBox(width: 6.w),
                           TextBuilder(
-                            getToDoItemTime(_startTime, _endTime ?? _startTime),
+                            getToDoItemTimeText(
+                                _startTime, _endTime ?? _startTime),
                             color: Styles.PrimaryColor,
                             fontSize: Styles.smallTextSize,
                             lineHeight: Styles.smallTextLineHeight,
@@ -168,6 +169,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                     ),
                     GestureDetector(
                       child: IconBuilder(
+                        toDoItemLevelMap[_level]!.icon,
                         width: MEAS.toDoItemPropertyLength,
                         height: MEAS.toDoItemPropertyLength,
                         margin: EdgeInsets.only(
@@ -175,7 +177,6 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         ),
                         borderRadius: BorderRadius.circular(50.r),
                         color: toDoItemLevelMap[_level]!.color,
-                        icon: toDoItemLevelMap[_level]!.icon,
                         iconWidth: MEAS.toDoItemPropertyIconLength,
                         iconHeight: MEAS.toDoItemPropertyIconLength,
                       ),
@@ -188,11 +189,11 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                             key: ValueKey(level),
                             title: toDoItemLevelMap[level]!.text,
                             icon: IconBuilder(
+                              toDoItemLevelMap[level]!.icon,
                               width: MEAS.toDoItemPropertyLength,
                               height: MEAS.toDoItemPropertyLength,
                               borderRadius: BorderRadius.circular(50.r),
                               color: toDoItemLevelMap[level]!.color,
-                              icon: toDoItemLevelMap[level]!.icon,
                               iconWidth: MEAS.toDoItemPropertyIconLength,
                               iconHeight: MEAS.toDoItemPropertyIconLength,
                             ),
@@ -208,6 +209,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                     ),
                     GestureDetector(
                       child: IconBuilder(
+                        toDoItemTypeMap[_type]!.icon,
                         width: MEAS.toDoItemPropertyLength,
                         height: MEAS.toDoItemPropertyLength,
                         margin: EdgeInsets.only(
@@ -215,7 +217,6 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         ),
                         borderRadius: BorderRadius.circular(6.r),
                         color: toDoItemTypeMap[_type]!.color,
-                        icon: toDoItemTypeMap[_type]!.icon,
                         iconWidth: MEAS.toDoItemPropertyIconLength,
                         iconHeight: MEAS.toDoItemPropertyIconLength,
                       ),
@@ -228,11 +229,11 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                             key: ValueKey(type),
                             title: toDoItemTypeMap[type]!.text,
                             icon: IconBuilder(
+                              toDoItemTypeMap[type]!.icon,
                               width: MEAS.toDoItemPropertyLength,
                               height: MEAS.toDoItemPropertyLength,
                               borderRadius: BorderRadius.circular(6.r),
                               color: toDoItemTypeMap[type]!.color,
-                              icon: toDoItemTypeMap[type]!.icon,
                               iconWidth: MEAS.toDoItemPropertyIconLength,
                               iconHeight: MEAS.toDoItemPropertyIconLength,
                             ),
