@@ -68,7 +68,7 @@ class SchedulePage extends StatelessWidget {
       danger: true,
       onConfirm: (context) => {
         provider.deleteSchedule(type, index),
-        Navigator.of(context).pop(),
+        Navigator.pop(context),
       },
     );
   }

@@ -93,7 +93,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         repeatType: _repeatType,
                       ));
                     }
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
                   }
                 },
               ),

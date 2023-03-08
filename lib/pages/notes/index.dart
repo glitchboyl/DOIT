@@ -3,18 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'note_item.dart';
-import 'package:doit/models/note.dart';
 import 'package:doit/providers/note.dart';
 
-class NotesPage extends StatefulWidget {
+class NotesPage extends StatelessWidget {
   const NotesPage({super.key});
-  @override
-  _NotesPageState createState() => _NotesPageState();
 
-  static final appBar = ({Key? key}) => NotesPageAppBar(key: key);
-}
-
-class _NotesPageState extends State<NotesPage> {
   NoteProvider getProvider(BuildContext context, {bool listen = true}) =>
       Provider.of<NoteProvider>(
         context,
@@ -56,4 +49,5 @@ class _NotesPageState extends State<NotesPage> {
           ),
         ),
       );
+  static final appBar = ({Key? key}) => NotesPageAppBar(key: key);
 }

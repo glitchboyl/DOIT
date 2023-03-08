@@ -121,7 +121,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                     _startTime,
                     _endTime,
                   ),
-                  Navigator.of(context).pop(),
+                  Navigator.pop(context),
                 },
               ),
             ],

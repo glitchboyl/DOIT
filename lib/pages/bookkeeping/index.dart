@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'app_bar.dart';
-import 'bookkeeping_statistics.dart';
+import 'header.dart';
 import 'bookkeeping_list_title.dart';
 import 'bookkeeping_item.dart';
 import 'package:doit/models/bookkeeping_item.dart';
@@ -74,19 +73,7 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
               ),
             ),
           ),
-          Positioned(
-            top: 0,
-            left: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 182.h,
-              child: SvgPicture.asset(
-                'assets/images/bookkeeping_bg.svg',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          BookkeepingStatistics(incomes: 2000.8, expenses: 123.32),
+          BookkeepingHeader(),
         ],
       );
 }

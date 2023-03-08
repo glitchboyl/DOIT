@@ -1,26 +1,21 @@
-import 'dart:io';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/widgets/images_viewer.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
-
-enum ImageItemType {
-  Permanent,
-  Temporary,
-}
 
 class ImageItem extends StatelessWidget {
   const ImageItem(
     this.src, {
     super.key,
-    this.type = ImageItemType.Permanent,
+    this.type = ImageType.Permanent,
     required this.onDismissed,
   });
 
   final src;
-  final ImageItemType type;
+  final ImageType type;
   final void Function() onDismissed;
 
   @override
@@ -33,7 +28,7 @@ class ImageItem extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
-            type == ImageItemType.Permanent
+            type == ImageType.Permanent
                 ? Image.memory(
                     src,
                     width: MEAS.notePublishImageLength,

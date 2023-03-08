@@ -11,7 +11,7 @@ class NotesPageAppBar extends AppBarBuilder {
   Widget build(BuildContext context) => AppBarBuilder(
         leading: SVGIconButton(
           'assets/images/back.svg',
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.pop(context),
         ),
         trailings: [
           SVGIconButton(
@@ -29,9 +29,9 @@ class NotesPageAppBar extends AppBarBuilder {
                 danger: true,
                 onConfirm: (context) async => {
                   await _provider.delete(_provider.focusedNote!),
-                  Navigator.of(context).pop(),
+                  Navigator.pop(context),
                   // toast
-                  Navigator.of(context).pop(),
+                  Navigator.pop(context),
                 },
               );
             },

@@ -61,7 +61,7 @@ class ConfirmDialogBuilder extends StatelessWidget {
                     children: [
                       ConfirmDialogActionButton(
                         text: '取消',
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => Navigator.pop(context),
                       ),
                       VerticalDivider(
                         width: 1.w,

@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/widgets/input.dart';
+import 'package:doit/widgets/images_viewer.dart';
 import 'package:doit/widgets/parts.dart';
 import 'image.dart';
 import 'package:doit/providers/note.dart';
@@ -73,7 +74,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
         ImageItem(
           File(image.path),
           key: ValueKey(image.path),
-          type: ImageItemType.Temporary,
+          type: ImageType.Temporary,
           onDismissed: () => setState(
             () => _temporaryImages.remove(image),
           ),
@@ -105,7 +106,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
         appBar: AppBarBuilder(
           leading: SVGIconButton(
             'assets/images/back.svg',
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: () => Navigator.pop(context),
           ),
           trailings: [
             SVGIconButton(
@@ -136,7 +137,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
                     );
                   }
                   // toast('${isPublished ? '发布' : '编辑'}成功')
-                  Navigator.of(context).pop();
+                  Navigator.pop(context);
                   if (isPublished) Navigator.pushNamed(context, '/note');
                 }
               },
@@ -145,6 +146,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
         ),
         body: () {
           final _widgets = [
+            SizedBox(height: 12.h),
             Container(
               height: MEAS.notePublishImageLength,
               child: () {

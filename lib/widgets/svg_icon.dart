@@ -27,7 +27,7 @@ class SVGIcon extends StatelessWidget {
                 : null,
             width: width,
             height: height,
-            fit: BoxFit.cover,
+            fit: BoxFit.contain,
           ),
         ),
       );

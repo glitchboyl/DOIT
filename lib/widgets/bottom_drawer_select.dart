@@ -27,7 +27,7 @@ class BottomDrawerSelect<T> extends StatelessWidget {
           child: itemBuilder(item, i),
           onTap: () => {
             onSelected(item, i),
-            Navigator.of(context).pop(),
+            Navigator.pop(context),
           },
         ),
       );

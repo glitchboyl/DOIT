@@ -17,7 +17,8 @@ class BookkeepingStatistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Positioned(
-        top: MediaQuery.of(context).padding.top,
+        // bottom: MediaQuery.of(context).padding.top,
+        bottom: 0,
         left: 16.w,
         child: Container(
           width: MEAS.bookkeepingStatisticsWidth,

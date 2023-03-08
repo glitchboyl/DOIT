@@ -38,7 +38,7 @@ class TimePicker extends StatelessWidget {
                 lineHeight: Styles.textLineHeight,
                 onPressed: () => {
                   onConfirmed(_time),
-                  Navigator.of(context).pop(),
+                  Navigator.pop(context),
                 },
               ),
             ],
