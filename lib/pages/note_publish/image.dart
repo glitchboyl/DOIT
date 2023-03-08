@@ -1,8 +1,11 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/widgets/transition_route.dart';
 import 'package:doit/widgets/images_viewer.dart';
+import 'package:doit/utils/loading_toast.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -28,19 +31,42 @@ class ImageItem extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         child: Stack(
           children: [
-            type == ImageType.Permanent
-                ? Image.memory(
-                    src,
-                    width: MEAS.notePublishImageLength,
-                    height: MEAS.notePublishImageLength,
-                    fit: BoxFit.cover,
-                  )
-                : Image.file(
-                    src,
-                    width: MEAS.notePublishImageLength,
-                    height: MEAS.notePublishImageLength,
-                    fit: BoxFit.cover,
+            GestureDetector(
+              onTap: () => Navigator.push(
+                context,
+                TransitionRouteBuilder(
+                  ImagesViewer(
+                    images: [
+                      ImageView(
+                        src,
+                        type: type,
+                      ),
+                    ],
+                    initialIndex: 0,
+                    tag: '_${src.toString()}',
                   ),
+                ),
+              ),
+              child: Hero(
+                tag: '_${src.toString()}',
+                child: type == ImageType.Permanent
+                    ? Image.memory(
+                        src,
+                        width: MEAS.notePublishImageLength,
+                        height: MEAS.notePublishImageLength,
+                        fit: BoxFit.cover,
+                        //                        frameBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        //   return Center(child: child);
+                        // },
+                      )
+                    : Image.file(
+                        src,
+                        width: MEAS.notePublishImageLength,
+                        height: MEAS.notePublishImageLength,
+                        fit: BoxFit.cover,
+                      ),
+              ),
+            ),
             Positioned(
               top: MEAS.notePublishImageDismissIconGap,
               right: MEAS.notePublishImageDismissIconGap,
@@ -90,8 +116,17 @@ class ImageUploader extends StatelessWidget {
           ),
         ),
         onTap: () async {
-          final images = await _imagePicker.pickMultiImage();
-          if (images.length > 0) onUploaded(images);
+          try {
+            Future.delayed(
+              const Duration(milliseconds: 500),
+              () => LoadingToast.show(context, text: '等待上传中...'),
+            );
+            final images = await _imagePicker.pickMultiImage();
+            LoadingToast.close(context);
+            onUploaded(images);
+          } on PlatformException catch (e) {
+            print(e.toString());
+          }
         },
       );
 }

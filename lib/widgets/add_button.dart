@@ -6,6 +6,7 @@ import 'to_do_item_dialog.dart';
 import 'svg_icon.dart';
 import 'package:doit/providers/note.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
+import 'package:doit/utils/loading_toast.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/keys.dart';
@@ -40,7 +41,7 @@ class AddButton extends StatelessWidget {
             Provider.of<NoteProvider>(context, listen: false).focus(null);
             Navigator.pushNamed(context, '/note_publish');
           } else if (currentPage == Keys.BookkeepingPage.toString()) {
-            print('qweqwe');
+            
           }
         },
       );

@@ -84,16 +84,14 @@ class _NotePublishPageState extends State<NotePublishPage> {
     if (restImagesCount > 0) {
       _imagesRowWidgets.add(
         ImageUploader(
-          onUploaded: (images) => {
-            setState(
-              () => _temporaryImages.addAll(
-                images.sublist(
-                  0,
-                  min(restImagesCount, images.length),
-                ),
+          onUploaded: (images) => setState(
+            () => _temporaryImages.addAll(
+              images.sublist(
+                0,
+                min(restImagesCount, images.length),
               ),
-            )
-          },
+            ),
+          ),
         ),
       );
     }

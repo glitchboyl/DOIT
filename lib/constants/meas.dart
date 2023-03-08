@@ -56,4 +56,8 @@ abstract class MEAS {
   static double bookkeepingStatisticsWidth = 343.w;
   static double bookkeepingItemTypeLength = 24.w;
   static double bookkeepingItemTypeIconLength = 18.w;
+
+  static double loadingToastLength = 104.w;
+  static double loadingToastIconLength = 24.w;
+  static double loadingToastRadius = 12.r;
 }

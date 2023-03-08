@@ -11,26 +11,7 @@ import 'package:doit/providers/note.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/styles.dart';
 
-class NotePage extends StatefulWidget {
-  const NotePage({super.key});
-  @override
-  _NotePageState createState() => _NotePageState();
-}
-
-class _NotePageState extends State<NotePage>
-    with AutomaticKeepAliveClientMixin<NotePage> {
-  PageController _noteImagesPageController = PageController(keepPage: true);
-  int _imagesBoxPage = 0;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    _noteImagesPageController = PageController(
-      initialPage: _imagesBoxPage,
-      keepPage: true,
-    );
-  }
-
+class NotePage extends StatelessWidget {
   Future<List<Widget>> buildWidgets(BuildContext context) async {
     final List<Widget> _widgets = [];
     final focusedNote =
@@ -76,7 +57,10 @@ class _NotePageState extends State<NotePage>
                 ),
               ),
             ),
-            child: Hero(tag: focusedNote.images[i], child: image),
+            child: Hero(
+              tag: focusedNote.images[i],
+              child: image,
+            ),
           ),
         );
       }
@@ -90,17 +74,6 @@ class _NotePageState extends State<NotePage>
             itemBuilder: (context, i) => _images[i],
             itemCount: _images.length,
           ),
-
-          // Hero(
-          //   tag: 'image_view',
-          //   child:
-          //   PageView(
-          //     key: ValueKey('123'),
-          //     children: _images,
-          //     controller: _noteImagesPageController,
-          //     onPageChanged: (page) => _imagesBoxPage = page,
-          //   ),
-          // ),
         ),
       );
     }
@@ -140,29 +113,22 @@ class _NotePageState extends State<NotePage>
         ),
       ),
     );
-
     return _widgets;
   }
 
   @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return Scaffold(
-      appBar: NotesPageAppBar(),
-      body: Consumer<NoteProvider>(
-        builder: (context, provider, _) => FutureBuilder<List<Widget>>(
-          future: buildWidgets(context),
-          builder: (context, snapshot) => ListView.builder(
-            itemBuilder: (context, index) => snapshot.data![index],
-            itemCount: snapshot.data!.length,
+  Widget build(BuildContext context) => Scaffold(
+        appBar: NotesPageAppBar(),
+        body: Consumer<NoteProvider>(
+          builder: (context, provider, _) => FutureBuilder<List<Widget>>(
+            future: buildWidgets(context),
+            builder: (context, snapshot) => ListView.builder(
+              itemBuilder: (context, index) => snapshot.data![index],
+              itemCount: snapshot.data!.length,
+            ),
+            initialData: [],
           ),
-          initialData: [],
         ),
-      ),
-      backgroundColor: Styles.RegularBaseColor,
-    );
-  }
-
-  @override
-  bool get wantKeepAlive => true;
+        backgroundColor: Styles.RegularBaseColor,
+      );
 }

@@ -24,8 +24,8 @@ class NotesPageAppBar extends AppBarBuilder {
               final _provider =
                   Provider.of<NoteProvider>(context, listen: false);
               showConfirmDialog(
+                '确定要删除这篇随记吗？',
                 context: context,
-                content: '确定要删除这篇随记吗？',
                 danger: true,
                 onConfirm: (context) async => {
                   await _provider.delete(_provider.focusedNote!),

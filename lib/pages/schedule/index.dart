@@ -62,9 +62,8 @@ class SchedulePage extends StatelessWidget {
   void onDeleted(BuildContext context, ScheduleToDoListType type, int index) {
     final provider = getProvider(context, listen: false);
     showConfirmDialog(
+      '确定要删除"${provider.scheduleToDoListMap[type]!.list[index].title}"吗？',
       context: context,
-      content:
-          '确定要删除"${provider.scheduleToDoListMap[type]!.list[index].title}"吗？',
       danger: true,
       onConfirm: (context) => {
         provider.deleteSchedule(type, index),

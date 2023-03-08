@@ -6,14 +6,14 @@ import 'confirm_dialog_action_button.dart';
 import 'package:doit/constants/styles.dart';
 
 class ConfirmDialogBuilder extends StatelessWidget {
-  const ConfirmDialogBuilder({
+  const ConfirmDialogBuilder(
+    this.text, {
     super.key,
-    required this.content,
     required this.onConfirm,
     this.danger = false,
   });
 
-  final String content;
+  final String text;
   final void Function(BuildContext context) onConfirm;
   final bool? danger;
 
@@ -40,7 +40,7 @@ class ConfirmDialogBuilder extends StatelessWidget {
                     child: Padding(
                       padding: EdgeInsets.all(16.w),
                       child: TextBuilder(
-                        content,
+                        text,
                         color: Styles.PrimaryTextColor,
                         fontSize: Styles.smallTextSize,
                         lineHeight: Styles.confirmDialogContentLineHeight,

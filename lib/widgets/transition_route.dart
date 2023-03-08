@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 //自定义的路由方法
 class TransitionRouteBuilder extends PageRouteBuilder {
   final Widget widget;
-  TransitionRouteBuilder(this.widget)
-      : super(
-          transitionDuration: const Duration(milliseconds: 300),
+  @override
+  bool get opaque => false;
+  TransitionRouteBuilder(
+    this.widget, {
+    Duration transitionDuration = const Duration(milliseconds: 300),
+  }) : super(
+          transitionDuration: transitionDuration,
           //页面的构造器
           pageBuilder: (
             BuildContext context,
