@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:doit/widgets/images_viewer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'package:doit/widgets/text.dart';
@@ -67,8 +66,8 @@ class NotePage extends StatelessWidget {
       _widgets.add(
         Container(
           constraints: BoxConstraints(
-            minHeight: 211.h,
-            maxHeight: min(imageBoxHeight, 469.h),
+            minHeight: 211,
+            maxHeight: min(imageBoxHeight, 469),
           ),
           child: PageView.builder(
             itemBuilder: (context, i) => _images[i],
@@ -80,10 +79,10 @@ class NotePage extends StatelessWidget {
     _widgets.add(
       Container(
         padding: EdgeInsets.only(
-          top: 16.h,
-          left: 24.w,
-          right: 24.w,
-          bottom: 24.h,
+          top: 16,
+          left: 24,
+          right: 24,
+          bottom: 24,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,14 +94,14 @@ class NotePage extends StatelessWidget {
               lineHeight: Styles.noteTitleLineHeight,
               fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 4.h),
+            SizedBox(height: 4),
             TextBuilder(
               getDateTime(focusedNote.publishTime),
               color: Styles.SecondaryTextColor,
               fontSize: Styles.smallTextSize,
               lineHeight: Styles.smallTextLineHeight,
             ),
-            SizedBox(height: 20.h),
+            SizedBox(height: 20),
             TextBuilder(
               focusedNote.body,
               color: Styles.PrimaryTextColor,

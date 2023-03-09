@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
@@ -13,7 +12,7 @@ class Statistic extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Expanded(
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12.h),
+          padding: EdgeInsets.symmetric(vertical: 12),
           child: Column(
             children: [
               TextBuilder(
@@ -22,7 +21,7 @@ class Statistic extends StatelessWidget {
                 fontSize: Styles.smallTextSize,
                 lineHeight: Styles.smallTextLineHeight,
               ),
-              SizedBox(height: 10.h),
+              SizedBox(height: 10),
               TextBuilder(
                 moneyFormat(amount),
                 color: Styles.PrimaryTextColor,

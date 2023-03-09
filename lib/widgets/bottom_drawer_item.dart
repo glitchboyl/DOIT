@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
@@ -22,12 +21,12 @@ class BottomDrawerItem extends StatelessWidget {
   final void Function()? onPressed;
 
   Widget buildWidget() => SizedBox(
-        height: 50.h,
+        height: 50,
         child: Row(
           children: [
             if (icon != null) ...[
               icon!,
-              SizedBox(width: 10.w),
+              SizedBox(width: 10),
             ],
             TextBuilder(
               title,
@@ -44,7 +43,7 @@ class BottomDrawerItem extends StatelessWidget {
                 lineHeight: Styles.textLineHeight,
               ),
             if (onPressed != null && !hideArrow) ...[
-              SizedBox(width: 10.w),
+              SizedBox(width: 10),
               RotatedBox(
                 quarterTurns: -1,
                 child: SVGIcon(

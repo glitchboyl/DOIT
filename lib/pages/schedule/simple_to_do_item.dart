@@ -1,9 +1,8 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
-import 'simple_to_do_item_action.dart';
+import '../../widgets/slidable_action.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
@@ -29,18 +28,18 @@ class SimpleToDoItemWidget extends StatelessWidget {
         key: ValueKey(item.id),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: BorderRadius.circular(12),
           color: Styles.RegularBaseColor,
         ),
-        margin: EdgeInsets.only(top: 10.w),
+        margin: EdgeInsets.only(top: 10),
         child: Slidable(
           key: ValueKey(item.id.toString() + '_SLIDABLE'),
           groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
           child: Container(
             padding: EdgeInsets.only(
-              top: 12.h,
-              bottom: 12.h,
-              right: 8.w,
+              top: 12,
+              bottom: 12,
+              right: 8,
             ),
             child: Row(
               children: [
@@ -49,7 +48,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   height: MEAS.simpleToDoItemLevelHeight,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.horizontal(
-                      right: Radius.circular(2.r),
+                      right: Radius.circular(2),
                     ),
                     color: item.levelColor,
                   ),
@@ -58,10 +57,10 @@ class SimpleToDoItemWidget extends StatelessWidget {
                   width: MEAS.simpleToDoItemTypeLength,
                   height: MEAS.simpleToDoItemTypeLength,
                   margin: EdgeInsets.symmetric(
-                    horizontal: 12.w,
+                    horizontal: 12,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.r),
+                    borderRadius: BorderRadius.circular(8),
                     color: item.typeColor,
                   ),
                   child: SVGIcon(
@@ -85,7 +84,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 2),
                       TextBuilder(
                         getToDoItemTimeText(
                           item.startTime,
@@ -112,7 +111,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
             ),
             extentRatio: 0.5,
             children: [
-              SimpleToDoItemAction(
+              SlidableActionBuilder(
                 key: ValueKey(item.id.toString() + '_CHANGE_STATUS'),
                 color: item.completeTime != null
                     ? Styles.ResumeColor
@@ -129,7 +128,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 child: Container(
                   height: double.infinity,
                   padding: EdgeInsets.only(
-                    right: 16.w,
+                    right: 16,
                   ),
                   alignment: Alignment.centerRight,
                   child: SVGIcon(
@@ -145,7 +144,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
             motion: const ScrollMotion(),
             extentRatio: 0.36,
             children: [
-              SimpleToDoItemAction(
+              SlidableActionBuilder(
                 key: ValueKey(item.id.toString() + '_EDIT'),
                 color: Styles.PrimaryColor,
                 child: SVGIcon(
@@ -157,7 +156,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                 onPressed: (context) => onEdited(context),
                 autoClose: true,
               ),
-              SimpleToDoItemAction(
+              SlidableActionBuilder(
                 key: ValueKey(item.id.toString() + '_DELETE'),
                 color: Styles.DangerousColor,
                 child: SVGIcon(

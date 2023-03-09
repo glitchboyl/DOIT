@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 // import 'expansion_tile.dart';
 import 'drawer_item.dart';
 // import 'package:doit/models/to_do_item.dart';
@@ -16,7 +15,7 @@ class SchedulePageDrawer extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: 56.h,
+              height: 56,
             ),
             // ExpansionTileBuilder(
             //   title: SchedulePageDrawerItem(

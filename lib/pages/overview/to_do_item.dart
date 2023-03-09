@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/widgets/text.dart';
@@ -20,7 +19,7 @@ class ToDoItemWidget extends StatelessWidget {
             Container(
               width: MEAS.toDoListTimelineContainerWidth,
               height: Styles.smallTextLineHeight,
-              margin: EdgeInsets.only(right: 2.w),
+              margin: EdgeInsets.only(right: 2),
               alignment: Alignment.center,
               color: Styles.BackgroundColor,
               child: TextBuilder(
@@ -35,14 +34,14 @@ class ToDoItemWidget extends StatelessWidget {
               child: Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(12.r),
-                    bottomLeft: Radius.circular(12.r),
-                    bottomRight: Radius.circular(12.r),
+                    topRight: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
                   ),
                   color: Styles.RegularBaseColor,
                 ),
-                padding: EdgeInsets.all(12.w),
-                margin: EdgeInsets.only(bottom: 10.h),
+                padding: EdgeInsets.all(12),
+                margin: EdgeInsets.only(bottom: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,9 +53,9 @@ class ToDoItemWidget extends StatelessWidget {
                           width: MEAS.toDoItemLevelLength,
                           height: MEAS.toDoItemLevelLength,
                           margin: EdgeInsets.only(
-                            right: 4.w,
+                            right: 4,
                           ),
-                          borderRadius: BorderRadius.circular(50.r),
+                          borderRadius: BorderRadius.circular(50),
                           color: item.levelColor,
                           iconWidth: MEAS.toDoItemLevelIconLength,
                           iconHeight: MEAS.toDoItemLevelIconLength,
@@ -73,9 +72,9 @@ class ToDoItemWidget extends StatelessWidget {
                           width: MEAS.toDoItemTypeLength,
                           height: MEAS.toDoItemTypeLength,
                           margin: EdgeInsets.only(
-                            right: 4.w,
+                            right: 4,
                           ),
-                          borderRadius: BorderRadius.circular(4.r),
+                          borderRadius: BorderRadius.circular(4),
                           color: item.typeColor,
                           iconWidth: MEAS.toDoItemTypeIconLength,
                           iconHeight: MEAS.toDoItemTypeIconLength,
@@ -88,7 +87,7 @@ class ToDoItemWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8.h),
+                    SizedBox(height: 8),
                     TextBuilder(
                       item.title,
                       color: Styles.PrimaryTextColor,
@@ -96,7 +95,7 @@ class ToDoItemWidget extends StatelessWidget {
                       lineHeight: Styles.textLineHeight,
                     ),
                     if (item.remarks != '') ...[
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 2),
                       TextBuilder(
                         item.remarks,
                         color: Styles.SecondaryTextColor,

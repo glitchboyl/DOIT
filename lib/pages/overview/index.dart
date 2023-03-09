@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/dashed_line.dart';
 import 'app_bar.dart';
@@ -40,9 +39,9 @@ class _OverviewPageState extends State<OverviewPage> {
   Widget build(BuildContext context) => SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-            top: 12.h,
-            left: 18.w,
-            right: 16.w,
+            top: 12,
+            left: 18,
+            right: 16,
           ),
           child: Stack(
             children: [

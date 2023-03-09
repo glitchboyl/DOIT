@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'text_button.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -22,11 +21,11 @@ class ToDoItemCalendarSwitchButton extends StatelessWidget {
         fontSize: Styles.calendarSwitchButtonTextSize,
         lineHeight: Styles.calendarSwitchButtonTextLineHeight,
         padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-          vertical: 2.h,
+          horizontal: 10,
+          vertical: 2,
         ),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusDirectional.all(Radius.circular(8.r)),
+          borderRadius: BorderRadiusDirectional.all(Radius.circular(8)),
         ),
         backgroundColor:
             isActived ? Styles.BackgroundColor : Styles.RegularBaseColor,

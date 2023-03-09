@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'schedule_to_do_list_title.dart';
@@ -14,12 +13,12 @@ import 'package:doit/utils/show_bottom_drawer.dart';
 class SchedulePage extends StatelessWidget {
   const SchedulePage({super.key});
 
-  List<Widget> buildWidgets(BuildContext context) {
+  List<Widget> buildWidgets(
+    BuildContext context,
+    Map<ScheduleToDoListType, ScheduleToDoList> map,
+  ) {
     final List<Widget> _widgets = [];
-    Provider.of<ToDoListProvider>(
-      context,
-      listen: false,
-    ).scheduleToDoListMap.forEach((type, tdl) {
+    map.forEach((type, tdl) {
       if (tdl.list.length > 0) {
         _widgets.add(ScheduleToDoListTitle(
           tdl.title,
@@ -40,23 +39,30 @@ class SchedulePage extends StatelessWidget {
     return _widgets;
   }
 
-  ToDoListProvider getProvider(BuildContext context, {bool listen = true}) =>
+  ToDoListProvider getProvider(
+    BuildContext context, {
+    bool listen = true,
+  }) =>
       Provider.of<ToDoListProvider>(
         context,
         listen: listen,
       );
 
   void onStatusChanged(
-          BuildContext context, ScheduleToDoListType type, int index) =>
+    BuildContext context,
+    ScheduleToDoListType type,
+    int index,
+  ) =>
       getProvider(context, listen: false).updateSchedule(type, index);
 
   void onEdited(BuildContext context, ScheduleToDoListType type, int index) =>
       showBottomDrawer(
         context: context,
         builder: (context) => ToDoItemDialog(
-            item: getProvider(context, listen: false)
-                .scheduleToDoListMap[type]!
-                .list[index]),
+          item: getProvider(context, listen: false)
+              .scheduleToDoListMap[type]!
+              .list[index],
+        ),
       );
 
   void onDeleted(BuildContext context, ScheduleToDoListType type, int index) {
@@ -76,12 +82,13 @@ class SchedulePage extends StatelessWidget {
   Widget build(BuildContext context) => SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(
-            horizontal: 16.w,
+            horizontal: 16,
           ),
           child: SlidableAutoCloseBehavior(
             child: Consumer<ToDoListProvider>(
               builder: (context, provider, _) {
-                final _widgets = buildWidgets(context);
+                final _widgets =
+                    buildWidgets(context, provider.scheduleToDoListMap);
                 return ListView.builder(
                   itemBuilder: (context, index) => _widgets[index],
                   itemCount: _widgets.length,

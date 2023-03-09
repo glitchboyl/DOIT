@@ -1,6 +1,7 @@
+import 'dart:ui';
+
 import 'package:doit/widgets/svg_icon.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/interactive_button.dart';
 import 'package:doit/constants/styles.dart';
@@ -30,14 +31,15 @@ class Calculator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        height: 222.h,
-        margin: EdgeInsets.only(top: 10.h),
+        height: 222,
+        margin: EdgeInsets.only(top: 10, bottom: 12),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
-            crossAxisSpacing: 12.w,
-            mainAxisSpacing: 10.h,
-            childAspectRatio: 2.2,
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 10,
+            childAspectRatio:
+                (MediaQuery.of(context).size.width - 56) / 3 / (192 / 4),
           ),
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.zero,
@@ -46,7 +48,7 @@ class Calculator extends StatelessWidget {
             color: Styles.RegularBaseColor,
             activedColor: Styles.DeactivedColor,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadiusDirectional.all(Radius.circular(8.r)),
+              borderRadius: BorderRadiusDirectional.all(Radius.circular(8)),
             ),
             child: calculatorCells[i] == 'BACKSPACE'
                 ? SVGIcon(

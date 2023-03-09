@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
@@ -19,7 +18,7 @@ class BookkeepingListTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(
-          top: 12.h,
+          top: 12,
         ),
         child: Row(
           children: [
@@ -37,9 +36,9 @@ class BookkeepingListTitle extends StatelessWidget {
               fontSize: Styles.smallTextSize,
               lineHeight: Styles.smallTextLineHeight,
             ),
-            SizedBox(width: 12.w),
+            SizedBox(width: 12),
             TextBuilder(
-              '支出: ${moneyFormat(incomes)}',
+              '支出: ${moneyFormat(expenses)}',
               color: Styles.PrimaryTextColor,
               fontSize: Styles.smallTextSize,
               lineHeight: Styles.smallTextLineHeight,

@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/widgets.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
-import 'package:doit/widgets/time_picker.dart';
+import 'package:doit/widgets/time_picker_drawer.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -31,7 +30,7 @@ class OverviewPageAppBar extends AppBarBuilder {
                 lineHeight: Styles.largeTextLineHeight,
                 fontWeight: FontWeight.bold,
               ),
-              SizedBox(width: 5.w),
+              SizedBox(width: 4),
               SVGIcon(
                 'assets/images/arrow.svg',
                 width: MEAS.arrowLength,
@@ -42,7 +41,7 @@ class OverviewPageAppBar extends AppBarBuilder {
           onTap: () => showBottomDrawer(
             context: context,
             builder: (context) =>
-                TimePicker(DateTime.now(), onConfirmed: (time) => {}),
+                TimePickerDrawer(DateTime.now(), onConfirmed: (time) => {}),
           ),
         ),
       );

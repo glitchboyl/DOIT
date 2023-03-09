@@ -1,6 +1,5 @@
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/constants/meas.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
@@ -88,13 +87,13 @@ class _ExpansionTileState extends State<ExpansionTileBuilder>
                       height: MEAS.arrowLength,
                     ),
                   ),
-                  SizedBox(width: 16.w)
+                  SizedBox(width: 16)
                 ],
               ),
               onTap: _handleTap,
             ),
             Padding(
-              padding: EdgeInsets.only(left: 30.w),
+              padding: EdgeInsets.only(left: 30),
               child: ClipRect(
                 child: Align(
                   alignment: Alignment.center,

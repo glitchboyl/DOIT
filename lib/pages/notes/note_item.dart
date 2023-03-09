@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/note.dart';
@@ -22,7 +21,7 @@ class NoteItemWidget extends StatelessWidget {
         fontSize: Styles.textSize,
         lineHeight: Styles.textLineHeight,
       ),
-      SizedBox(height: 2.h),
+      SizedBox(height: 2),
       TextBuilder(
         getNoteTime(note.publishTime),
         color: Styles.SecondaryTextColor,
@@ -32,7 +31,7 @@ class NoteItemWidget extends StatelessWidget {
     ];
     if (note.images.length > 0 || note.body.trim() != '') {
       _widgets.add(
-        SizedBox(height: 12.h),
+        SizedBox(height: 12),
       );
       _widgets.add(
         SVGIcon(
@@ -44,15 +43,15 @@ class NoteItemWidget extends StatelessWidget {
       if (note.images.length > 0) {
         _widgets.add(
           Container(
-            margin: EdgeInsets.only(top: 10.h),
+            margin: EdgeInsets.only(top: 10),
             constraints: BoxConstraints(
-              minWidth: 319.w,
-              minHeight: 180.h,
-              maxHeight: 399.h,
+              minWidth: 319,
+              minHeight: 180,
+              maxHeight: 399,
             ),
             decoration: BoxDecoration(
               color: Styles.BackgroundColor,
-              borderRadius: BorderRadius.circular(8.r),
+              borderRadius: BorderRadius.circular(8),
             ),
             clipBehavior: Clip.antiAlias,
             child: Image.memory(
@@ -63,7 +62,7 @@ class NoteItemWidget extends StatelessWidget {
         );
       }
       _widgets.add(
-        SizedBox(height: 10.h),
+        SizedBox(height: 10),
       );
       if (note.body.trim() != '') {
         _widgets.add(
@@ -77,7 +76,7 @@ class NoteItemWidget extends StatelessWidget {
           ),
         );
         _widgets.add(
-          SizedBox(height: 10.h),
+          SizedBox(height: 10),
         );
       }
       _widgets.add(
@@ -100,11 +99,11 @@ class NoteItemWidget extends StatelessWidget {
         behavior: HitTestBehavior.translucent,
         child: Container(
           key: ValueKey(note.id),
-          margin: EdgeInsets.only(bottom: 10.h),
-          padding: EdgeInsets.all(12.w),
+          margin: EdgeInsets.only(bottom: 10),
+          padding: EdgeInsets.all(12),
           decoration: BoxDecoration(
             color: Styles.RegularBaseColor,
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(12),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

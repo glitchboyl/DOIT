@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
@@ -37,7 +36,7 @@ class BottomDrawerSelect<T> extends StatelessWidget {
 
   @override
   Widget build(context) => Wrap(
-        children: <Widget>[
+        children: [
           AppBarBuilder(
             title: TextBuilder(
               title,
@@ -47,9 +46,9 @@ class BottomDrawerSelect<T> extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 12.h),
+          SizedBox(height: 12),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             child: Column(
               children: _buildSelectWidgets(context),
             ),

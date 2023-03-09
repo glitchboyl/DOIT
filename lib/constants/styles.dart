@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 abstract class Styles {
   static const Color RegularBaseColor = Colors.white;
   static const Color PrimaryColor = Color(0xFF3A36EE);
@@ -36,28 +34,28 @@ abstract class Styles {
 
   static const Color BookkeepingStatisticsShadowColor = Color(0x0F373655);
 
-  static double textSize = 14.sp;
-  static double textLineHeight = 20.sp;
-  static double smallTextSize = 12.sp;
-  static double smallTextLineHeight = 16.sp;
-  static double largeTextSize = 18.sp;
-  static double largeTextLineHeight = 26.sp;
+  static double textSize = 14;
+  static double textLineHeight = 20;
+  static double smallTextSize = 12;
+  static double smallTextLineHeight = 16;
+  static double largeTextSize = 18;
+  static double largeTextLineHeight = 26;
 
-  static double confirmDialogContentLineHeight = 18.sp;
+  static double confirmDialogContentLineHeight = 18;
 
-  static double dateTextSize = 15.sp;
-  static double dateTextLineHeight = 18.sp;
-  static double dateSubTextSize = 9.sp;
-  static double dateSubTextLineHeight = 12.sp;
-  static double calendarSwitchButtonTextSize = 16.sp;
-  static double calendarSwitchButtonTextLineHeight = 24.sp;
+  static double dateTextSize = 15;
+  static double dateTextLineHeight = 18;
+  static double dateSubTextSize = 9;
+  static double dateSubTextLineHeight = 12;
+  static double calendarSwitchButtonTextSize = 16;
+  static double calendarSwitchButtonTextLineHeight = 24;
 
-  static double drawerItemTextSize = 16.sp;
-  static double drawerItemTextLineHeight = 22.sp;
+  static double drawerItemTextSize = 16;
+  static double drawerItemTextLineHeight = 22;
 
-  static double noteTitleSize = 16.sp;
-  static double noteTitleLineHeight = 24.sp;
+  static double noteTitleSize = 16;
+  static double noteTitleLineHeight = 24;
 
-  static double amountTextSize = 20.sp;
-  static double amountTextLineHeight = 32.sp;
+  static double amountTextSize = 20;
+  static double amountTextLineHeight = 32;
 }

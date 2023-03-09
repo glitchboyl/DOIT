@@ -15,9 +15,9 @@ final Future<void> Function() connectDB = () async => {
           await db.execute(
             'CREATE TABLE note_list(id INTEGER PRIMARY KEY, title TEXT NOT NULL, body TEXT, publishTime INTEGER NOT NULL, image_1 BLOB, image_2 BLOB, image_3 BLOB, image_4 BLOB, image_5 BLOB)',
           );
-          // db.execute(
-          //   'CREATE TABLE bookkeeping_list(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)',
-          // );
+          await db.execute(
+            'CREATE TABLE bookkeeping_list(id INTEGER PRIMARY KEY, title TEXT NOT NULL, amount TEXT NOT NULL, time INTEGER NOT NULL, type INTEGER NOT NULL)',
+          );
         },
         version: 1,
       ),

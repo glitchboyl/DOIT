@@ -3,7 +3,6 @@ import 'package:doit/widgets/transition_route.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 bool toastShowing = false;
 
@@ -34,13 +33,13 @@ abstract class LoadingToast {
                       child: CircularProgressIndicator(
                         color: Styles.RegularBaseColor,
                         backgroundColor: Colors.transparent,
-                        strokeWidth: 2.w,
+                        strokeWidth: 2,
                       ),
                       height: MEAS.loadingToastIconLength,
                       width: MEAS.loadingToastIconLength,
                     ),
                     if (text.trim() != '') ...[
-                      SizedBox(height: 16.h),
+                      SizedBox(height: 16),
                       TextBuilder(
                         text,
                         color: Styles.RegularBaseColor,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/constants/meas.dart';
 
 class CalendarItem extends StatelessWidget {
@@ -17,7 +16,7 @@ class CalendarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         alignment: Alignment.center,
-        margin: EdgeInsets.symmetric(vertical: 1.h, horizontal: 6.w),
+        margin: EdgeInsets.symmetric(vertical: 1, horizontal: 6),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MEAS.calendarItemRadius),
           color: color,
@@ -29,7 +28,7 @@ class CalendarItem extends StatelessWidget {
           children: [
             text,
             if (subText != null) ...[
-              SizedBox(height: 2.h),
+              SizedBox(height: 2),
               subText!,
             ],
           ],

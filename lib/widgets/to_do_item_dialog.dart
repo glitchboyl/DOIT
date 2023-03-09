@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'text.dart';
@@ -49,8 +48,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
       _level = widget.item!.level;
       _type = widget.item!.type;
     } else {
-      final nowTime = DateTime.now();
-      _startTime = nowTime;
+      _startTime = DateTime.now();
     }
   }
 
@@ -101,10 +99,10 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
           ),
           Container(
             padding: EdgeInsets.only(
-              left: 16.w,
-              right: 16.w,
-              top: 12.h,
-              bottom: 18.h,
+              left: 16,
+              right: 16,
+              top: 12,
+              bottom: 18,
             ),
             child: Column(
               children: [
@@ -133,7 +131,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                   border: bodyBorder,
                   onChanged: (value) => _remarks = value,
                 ),
-                SizedBox(height: 12.h),
+                SizedBox(height: 12),
                 Row(
                   children: [
                     GestureDetector(
@@ -145,7 +143,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                             width: MEAS.itemOperationIconLength,
                             height: MEAS.itemOperationIconLength,
                           ),
-                          SizedBox(width: 6.w),
+                          SizedBox(width: 6),
                           TextBuilder(
                             getToDoItemTimeText(
                                 _startTime, _endTime ?? _startTime),
@@ -173,9 +171,9 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         width: MEAS.toDoItemPropertyLength,
                         height: MEAS.toDoItemPropertyLength,
                         margin: EdgeInsets.only(
-                          left: 20.w,
+                          left: 20,
                         ),
-                        borderRadius: BorderRadius.circular(50.r),
+                        borderRadius: BorderRadius.circular(50),
                         color: toDoItemLevelMap[_level]!.color,
                         iconWidth: MEAS.toDoItemPropertyIconLength,
                         iconHeight: MEAS.toDoItemPropertyIconLength,
@@ -192,7 +190,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                               toDoItemLevelMap[level]!.icon,
                               width: MEAS.toDoItemPropertyLength,
                               height: MEAS.toDoItemPropertyLength,
-                              borderRadius: BorderRadius.circular(50.r),
+                              borderRadius: BorderRadius.circular(50),
                               color: toDoItemLevelMap[level]!.color,
                               iconWidth: MEAS.toDoItemPropertyIconLength,
                               iconHeight: MEAS.toDoItemPropertyIconLength,
@@ -213,9 +211,9 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         width: MEAS.toDoItemPropertyLength,
                         height: MEAS.toDoItemPropertyLength,
                         margin: EdgeInsets.only(
-                          left: 20.w,
+                          left: 20,
                         ),
-                        borderRadius: BorderRadius.circular(6.r),
+                        borderRadius: BorderRadius.circular(6),
                         color: toDoItemTypeMap[_type]!.color,
                         iconWidth: MEAS.toDoItemPropertyIconLength,
                         iconHeight: MEAS.toDoItemPropertyIconLength,
@@ -232,7 +230,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                               toDoItemTypeMap[type]!.icon,
                               width: MEAS.toDoItemPropertyLength,
                               height: MEAS.toDoItemPropertyLength,
-                              borderRadius: BorderRadius.circular(6.r),
+                              borderRadius: BorderRadius.circular(6),
                               color: toDoItemTypeMap[type]!.color,
                               iconWidth: MEAS.toDoItemPropertyIconLength,
                               iconHeight: MEAS.toDoItemPropertyIconLength,

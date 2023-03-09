@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'note_item.dart';
@@ -16,7 +15,7 @@ class NotesPage extends StatelessWidget {
 
   List<Widget> buildWidgets(BuildContext context) {
     final List<Widget> _widgets = [
-      SizedBox(height: 14.h),
+      SizedBox(height: 14),
     ];
     Provider.of<NoteProvider>(
       context,
@@ -35,8 +34,8 @@ class NotesPage extends StatelessWidget {
   Widget build(BuildContext context) => SafeArea(
         child: Padding(
           padding: EdgeInsets.only(
-            left: 16.w,
-            right: 16.w,
+            left: 16,
+            right: 16,
           ),
           child: Consumer<NoteProvider>(
             builder: (context, provider, _) {

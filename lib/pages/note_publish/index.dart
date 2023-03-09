@@ -4,7 +4,6 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/widgets/input.dart';
@@ -54,7 +53,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
   }
 
   List<Widget> buildImagesRow() {
-    final List<Widget> _imagesRowWidgets = [SizedBox(width: 16.w)];
+    final List<Widget> _imagesRowWidgets = [SizedBox(width: 16)];
     int i = 0;
     for (i = 0; i < _images.length; i++) {
       final image = _images[i];
@@ -95,7 +94,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
         ),
       );
     }
-    _imagesRowWidgets.add(SizedBox(width: 6.w));
+    _imagesRowWidgets.add(SizedBox(width: 6));
     return _imagesRowWidgets;
   }
 
@@ -144,7 +143,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
         ),
         body: () {
           final _widgets = [
-            SizedBox(height: 12.h),
+            SizedBox(height: 12),
             Container(
               height: MEAS.notePublishImageLength,
               child: () {
@@ -158,10 +157,10 @@ class _NotePublishPageState extends State<NotePublishPage> {
             ),
             Container(
               padding: EdgeInsets.only(
-                top: 12.h,
-                left: 16.w,
-                right: 16.w,
-                bottom: 18.h,
+                top: 12,
+                left: 16,
+                right: 16,
+                bottom: 18,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -185,13 +184,13 @@ class _NotePublishPageState extends State<NotePublishPage> {
                   ),
                   Container(
                     constraints: BoxConstraints(
-                      minHeight: 180.h,
+                      minHeight: 180,
                     ),
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
                           color: Styles.BackgroundColor,
-                          width: 1.2.h,
+                          width: 1.2,
                         ),
                       ),
                     ),

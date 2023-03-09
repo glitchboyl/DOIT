@@ -1,6 +1,5 @@
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/transition_route.dart';
@@ -105,7 +104,7 @@ class ImageUploader extends StatelessWidget {
             borderRadius: BorderRadius.circular(MEAS.notePublishImageRadius),
             border: Border.all(
               color: Styles.BackgroundColor,
-              width: 2.w,
+              width: 2,
             ),
           ),
           clipBehavior: Clip.antiAlias,

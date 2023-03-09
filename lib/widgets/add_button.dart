@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'interactive_button.dart';
 import 'to_do_item_dialog.dart';
@@ -25,7 +24,7 @@ class AddButton extends StatelessWidget {
         color: Styles.PrimaryColor,
         activedColor: Styles.PrimaryDeepColor,
         shadowColor: Styles.AddButtonShadowColor,
-        elevation: 24.w,
+        elevation: 24,
         shape: const CircleBorder(),
         child: const SVGIcon(
           'assets/images/add.svg',
@@ -46,7 +45,7 @@ class AddButton extends StatelessWidget {
             showBottomDrawer(
               context: context,
               builder: (context) => BookkeepingItemDialog(),
-              avoidBottomPadding: true,
+              // avoidBottomPadding: 116,
               backgroundColor: Styles.BackgroundColor,
             );
           }

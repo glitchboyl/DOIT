@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/constants/styles.dart';
 
 class Input extends StatelessWidget {
@@ -37,7 +36,7 @@ class Input extends StatelessWidget {
         initialValue: initialValue,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(
-            vertical: ((height ?? (Styles.smallTextLineHeight + 24.h)) -
+            vertical: ((height ?? (Styles.smallTextLineHeight + 24)) -
                     (lineHeight ?? Styles.smallTextLineHeight)) /
                 2,
           ),

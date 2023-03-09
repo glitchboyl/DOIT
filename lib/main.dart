@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'pages/note/index.dart';
 import 'pages/note_publish/index.dart';
@@ -13,6 +12,7 @@ import 'widgets/svg_icon.dart';
 import 'providers/db.dart';
 import 'providers/to_do_list.dart';
 import 'providers/note.dart';
+import 'providers/bookkeeping.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
@@ -23,14 +23,17 @@ import 'constants/keys.dart';
 void main() async {
   final _toDoListProvider = ToDoListProvider();
   final _noteProvider = NoteProvider();
+  final _bookkeepingProvider = BookkeepingProvider();
   await connectDB();
   _toDoListProvider.get();
   _noteProvider.get();
+  _bookkeepingProvider.get();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => _toDoListProvider),
         ChangeNotifierProvider(create: (context) => _noteProvider),
+        ChangeNotifierProvider(create: (context) => _bookkeepingProvider),
       ],
       child: DOITApp(),
     ),
@@ -79,54 +82,51 @@ class _DOITAppState extends State<DOITApp> {
   }
 
   @override
-  Widget build(context) => ScreenUtilInit(
-        designSize: Size(MEAS.designSizeWidth, MEAS.designSizeHeight),
-        builder: (context, child) => MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            brightness: Brightness.light,
-            fontFamily: 'Barlow',
-            highlightColor: Colors.transparent,
-            splashColor: Colors.transparent,
-            applyElevationOverlayColor: false,
-            splashFactory: NoSplash.splashFactory,
-            scaffoldBackgroundColor: Styles.BackgroundColor,
-            primaryColor: Styles.PrimaryColor,
-          ),
-          themeMode: ThemeMode.light,
-          home: Scaffold(
-            extendBodyBehindAppBar: true,
-            drawerScrimColor: Styles.BarrierColor,
-            appBar: _appBarWidgets[_currentIndex],
-            body: IndexedStack(index: _currentIndex, children: _pageWidgets),
-            drawer: SchedulePageDrawer(),
-            drawerEnableOpenDragGesture: false,
-            floatingActionButton: AddButton(
-              navigation[_currentIndex].id,
-              key: Keys.AddButton,
-            ),
-            floatingActionButtonLocation: FABLocation(
-              location: FloatingActionButtonLocation.endDocked,
-              offsetX: -16.w,
-              offsetY: -MEAS.bottomNavigationBarHeight - MEAS.addButtonBottom,
-            ),
-            floatingActionButtonAnimator: FABAnimator(),
-            resizeToAvoidBottomInset: false,
-            bottomNavigationBar: BottomNavigationBarBuilder(
-              items: _navigationBarItems,
-              currentIndex: _currentIndex,
-              onTap: (int index) {
-                if (_currentIndex != index)
-                  setState(() {
-                    _currentIndex = index;
-                  });
-              },
-            ),
-          ),
-          routes: {
-            '/note': (context) => NotePage(),
-            '/note_publish': (context) => NotePublishPage(),
-          },
+  Widget build(context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          brightness: Brightness.light,
+          fontFamily: 'Barlow',
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          applyElevationOverlayColor: false,
+          splashFactory: NoSplash.splashFactory,
+          scaffoldBackgroundColor: Styles.BackgroundColor,
+          primaryColor: Styles.PrimaryColor,
         ),
+        themeMode: ThemeMode.light,
+        home: Scaffold(
+          extendBodyBehindAppBar: true,
+          drawerScrimColor: Styles.BarrierColor,
+          appBar: _appBarWidgets[_currentIndex],
+          body: IndexedStack(index: _currentIndex, children: _pageWidgets),
+          drawer: SchedulePageDrawer(),
+          drawerEnableOpenDragGesture: false,
+          floatingActionButton: AddButton(
+            navigation[_currentIndex].id,
+            key: Keys.AddButton,
+          ),
+          floatingActionButtonLocation: FABLocation(
+            location: FloatingActionButtonLocation.endDocked,
+            offsetX: -16,
+            offsetY: -MEAS.bottomNavigationBarHeight - MEAS.addButtonBottom,
+          ),
+          floatingActionButtonAnimator: FABAnimator(),
+          resizeToAvoidBottomInset: false,
+          bottomNavigationBar: BottomNavigationBarBuilder(
+            items: _navigationBarItems,
+            currentIndex: _currentIndex,
+            onTap: (int index) {
+              if (_currentIndex != index)
+                setState(() {
+                  _currentIndex = index;
+                });
+            },
+          ),
+        ),
+        routes: {
+          '/note': (context) => NotePage(),
+          '/note_publish': (context) => NotePublishPage(),
+        },
       );
 }

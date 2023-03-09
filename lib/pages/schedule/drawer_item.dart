@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
@@ -22,21 +21,21 @@ class SchedulePageDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
+          padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
           child: Row(
             children: [
               if (icon != null) ...[
                 color != null
                     ? Container(
-                        padding: EdgeInsets.all(1.w),
+                        padding: EdgeInsets.all(1),
                         decoration: BoxDecoration(
                           color: color,
-                          borderRadius: BorderRadius.circular(6.r),
+                          borderRadius: BorderRadius.circular(6),
                         ),
                         child: _getDrawerItemIcon(icon!),
                       )
                     : _getDrawerItemIcon(icon!),
-                SizedBox(width: 10.w),
+                SizedBox(width: 10),
               ],
               TextBuilder(
                 title,

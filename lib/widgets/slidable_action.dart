@@ -1,8 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-class SimpleToDoItemAction extends StatelessWidget {
-  const SimpleToDoItemAction({
+class SlidableActionBuilder extends StatelessWidget {
+  const SlidableActionBuilder({
     super.key,
     required this.color,
     required this.onPressed,

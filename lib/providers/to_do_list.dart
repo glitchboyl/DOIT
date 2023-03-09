@@ -32,7 +32,7 @@ class ToDoListProvider extends ChangeNotifier {
       maps.length,
       (i) {
         final item = maps[i];
-        return ToDoItem(
+        final toDoItem = ToDoItem(
           id: item['id'],
           title: item['title'],
           remarks: item['remarks'],
@@ -45,27 +45,28 @@ class ToDoListProvider extends ChangeNotifier {
               ? DateTime.fromMillisecondsSinceEpoch(item['completeTime'])
               : null,
         );
+        if (toDoItem.completeTime == null) {
+          if (toDoItem.startTime.isSameDay(nowTime)) {
+            _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!
+                .list
+                .add(toDoItem);
+          } else if (toDoItem.startTime.isBefore(nowTime)) {
+            _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!
+                .list
+                .add(toDoItem);
+          }
+        } else if (toDoItem.completeTime!.isSameDay(nowTime)) {
+          _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!
+              .list
+              .add(toDoItem);
+        }
+        return toDoItem;
       },
     ));
-    _toDoList.sort(sortByStartTime);
-    _toDoList.sort(sortByLevel);
-    for (int i = 0; i < _toDoList.length; i++) {
-      if (_toDoList[i].completeTime == null) {
-        if (_toDoList[i].startTime.isSameDay(nowTime)) {
-          _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!
-              .list
-              .add(_toDoList[i]);
-        } else if (_toDoList[i].startTime.isBefore(nowTime)) {
-          _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!
-              .list
-              .add(_toDoList[i]);
-        }
-      } else if (_toDoList[i].completeTime!.isSameDay(nowTime)) {
-        _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!
-            .list
-            .add(_toDoList[i]);
-      }
-    }
+    _scheduleToDoListMap.values.forEach((tdl) {
+      tdl.list.sort(sortByStartTime);
+      tdl.list.sort(sortByLevel);
+    });
     notifyListeners();
   }
 

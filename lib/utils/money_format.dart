@@ -1,6 +1,9 @@
 String moneyFormat(double money) {
   if (money == 0) return '0.00';
   List<String> expansion = (money * 100).toInt().toString().split('');
+  while (expansion.length < 3) {
+    expansion.insert(0, '0');
+  }
   String moneyText = expansion.removeLast();
   moneyText = expansion.removeLast() + moneyText;
   moneyText = "." + moneyText;

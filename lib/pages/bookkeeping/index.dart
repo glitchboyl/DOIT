@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:provider/provider.dart';
 import 'app_bar.dart';
+import 'bookkeeping_item_dialog.dart';
 import 'bookkeeping_statistics.dart';
 import 'bookkeeping_list_title.dart';
 import 'bookkeeping_item.dart';
 import 'package:doit/models/bookkeeping_item.dart';
+import 'package:doit/utils/show_bottom_drawer.dart';
+import 'package:doit/utils/show_confirm_dialog.dart';
+import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/utils/time.dart';
-import 'package:doit/constants/styles.dart';
-import 'package:doit/constants/meas.dart';
 
 class BookkeepingPage extends StatefulWidget {
   const BookkeepingPage({super.key});
@@ -18,44 +21,55 @@ class BookkeepingPage extends StatefulWidget {
 }
 
 class _BookkeepingPageState extends State<BookkeepingPage> {
-  final mockList = [];
-  final List<Widget> _widgets = [SizedBox(height: 20.h)];
-  bool initialized = false;
-
-  @override
-  void initState() {
-    super.initState();
-    buildWidgets();
-  }
-
-  void buildWidgets() {
-    bookkeepingMap.forEach((date, list) {
+  List<Widget> buildWidgets(
+      BuildContext context, BookkeepingProvider provider) {
+    final List<Widget> _widgets = [SizedBox(height: 20)];
+    final bookkeepingDays = provider.bookkeepingListMap.keys.toList();
+    bookkeepingDays
+        .retainWhere((date) => date.isSameMonth(provider.focusedMonth));
+    bookkeepingDays.sort((a, b) => b.compareTo(a));
+    bookkeepingDays.forEach((date) {
+      final list = provider.bookkeepingListMap[date]!;
       _widgets.add(
         BookkeepingListTitle(
           date.isSameDay(nowTime) ? '今天' : getDateTime(date),
           key: ValueKey(date),
-          incomes: 100,
-          expenses: 100,
+          incomes: provider.statisticsMap[date]![0],
+          expenses: provider.statisticsMap[date]![1],
         ),
       );
       for (int i = 0; i < list.length; i++) {
         _widgets.add(
           BookkeepingItemWidget(
             list[i],
-            // date.isSameDay(nowTime) ? '今天' : getDateTime(date),
-            // key: ValueKey(date),
-            // incomes: 100,
-            // expenses: 100,
+            onEdited: (context) => onEdited(context, list[i]),
+            onDeleted: (context) => onDeleted(context, provider, list[i]),
           ),
         );
       }
     });
-    if (!initialized) {
-      setState(() {});
-    } else {
-      initialized = true;
-    }
+    _widgets.add(SizedBox(height: 12));
+    return _widgets;
   }
+
+  void onEdited(BuildContext context, BookkeepingItem item) => showBottomDrawer(
+        context: context,
+        builder: (context) => BookkeepingItemDialog(
+          item: item,
+        ),
+      );
+
+  void onDeleted(BuildContext context, BookkeepingProvider provider,
+          BookkeepingItem item) =>
+      showConfirmDialog(
+        '确定要删除"${item.title}"吗？',
+        context: context,
+        danger: true,
+        onConfirm: (context) => {
+          provider.delete(item),
+          Navigator.pop(context),
+        },
+      );
 
   @override
   Widget build(BuildContext context) => Container(
@@ -63,7 +77,7 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/bookkeeping_bg.png'),
-            alignment: Alignment.topCenter,
+            alignment: Alignment.center,
             fit: BoxFit.cover,
           ),
         ),
@@ -71,16 +85,23 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
           children: [
             SafeArea(
               child: Padding(
-                padding: EdgeInsets.only(top: 116.h, left: 16.w, right: 16.w),
+                padding: EdgeInsets.only(top: 116, left: 16, right: 16),
                 child: Container(
-                  child: ListView.builder(
-                    itemBuilder: (context, index) => _widgets[index],
-                    itemCount: _widgets.length,
+                  child: SlidableAutoCloseBehavior(
+                    child: Consumer<BookkeepingProvider>(
+                      builder: (context, provider, _) {
+                        final _widgets = buildWidgets(context, provider);
+                        return ListView.builder(
+                          itemBuilder: (context, index) => _widgets[index],
+                          itemCount: _widgets.length,
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
             ),
-            BookkeepingStatistics(incomes: 2000.8, expenses: 123.32),
+            BookkeepingStatistics(),
           ],
         ),
       );

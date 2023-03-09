@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -14,7 +13,7 @@ class ScheduleToDoListTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(
-          top: 12.h,
+          top: 12,
         ),
         child: TextBuilder(
           title,
