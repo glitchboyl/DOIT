@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 abstract class Styles {
   static const Color RegularBaseColor = Colors.white;
   static const Color PrimaryColor = Color(0xFF3A36EE);
@@ -27,6 +28,8 @@ abstract class Styles {
   static const Color ResumeColor = Color(0xFFFFD83D);
   static const Color ResumeActivedColor = Color(0xFFD2AA26);
   static const Color AddButtonShadowColor = Color(0x33312DE0);
+
+  static const Color NoteImagesIndicatorBackgroundColor = Color(0x1A373655);
 
   static const Color CalendarDateRangeColor = Color(0xFFF0F0FF);
 
@@ -58,4 +61,10 @@ abstract class Styles {
 
   static double amountTextSize = 20;
   static double amountTextLineHeight = 32;
+
+  static final daysOfWeekTextStyle = TextStyle(
+    color: SecondaryTextColor,
+    fontSize: smallTextSize,
+    height: smallTextLineHeight,
+  );
 }

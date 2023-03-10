@@ -1,4 +1,11 @@
-final calendarTextMap = {
+import 'package:flutter/widgets.dart';
+import 'package:doit/utils/lunar.dart';
+import 'package:doit/utils/festivals.dart';
+import 'package:doit/utils/solar_terms.dart';
+import 'package:doit/utils/time.dart';
+import 'package:doit/constants/styles.dart';
+
+final weekDayTextMap = {
   DateTime.monday: '一',
   DateTime.tuesday: '二',
   DateTime.wednesday: '三',
@@ -22,3 +29,34 @@ const List<String> Months = <String>[
   '11月',
   '12月',
 ];
+
+class DateInfo {
+  const DateInfo({
+    required this.lunar,
+    required this.festival,
+    required this.solarTerm,
+  });
+
+  final LunarDate lunar;
+  final String festival;
+  final String solarTerm;
+}
+
+final firstDay = DateTime(nowTime.year - 10);
+final lastDay = DateTime(nowTime.year + 50);
+final Map<DateTime, DateInfo> calendarMap = () {
+  final Map<DateTime, DateInfo> _calendarMap = {};
+  DateTime _date = firstDay;
+  while (_date.compareTo(lastDay) == -1) {
+    final LunarDate lunar = getLunar(_date);
+    String festival = getDateFestivals(lunar);
+    String solarTerm = getDateSolarTerm(_date);
+    _calendarMap[_date] = DateInfo(
+      lunar: lunar,
+      festival: festival,
+      solarTerm: solarTerm,
+    );
+    _date = _date.add(const Duration(days: 1));
+  }
+  return _calendarMap;
+}();

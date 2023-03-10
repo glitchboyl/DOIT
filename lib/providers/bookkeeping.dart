@@ -117,6 +117,7 @@ class BookkeepingProvider extends ChangeNotifier {
     final typeIndex = BookkeepingItemType.values.indexOf(oldItem.type);
     _statisticsMap[bookkeepingMonth]![typeIndex] -= oldItem.amount;
     _statisticsMap[bookkeepingDay]![typeIndex] -= oldItem.amount;
+    _bookkeepingListMap[bookkeepingDay]!.remove(oldItem);
   }
 
   void focus(DateTime month) => {

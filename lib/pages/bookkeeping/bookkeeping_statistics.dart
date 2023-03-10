@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/widgets/time_picker.dart';
 import 'package:doit/widgets/time_picker_drawer.dart';
 import 'statistic.dart';
 import 'package:doit/providers/bookkeeping.dart';
@@ -76,6 +77,7 @@ class BookkeepingStatistics extends StatelessWidget {
                       context: context,
                       builder: (context) => TimePickerDrawer(
                         focusedMonth,
+                        mode: CupertinoDatePickerMode.ym,
                         onConfirmed: (time) => provider.focus(
                           DateTime(time.year, time.month),
                         ),

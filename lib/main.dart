@@ -117,10 +117,15 @@ class _DOITAppState extends State<DOITApp> {
             items: _navigationBarItems,
             currentIndex: _currentIndex,
             onTap: (int index) {
-              if (_currentIndex != index)
+              if (_currentIndex != index) {
+                Provider.of<ToDoListProvider>(
+                  context,
+                  listen: false,
+                ).currentPage(index);
                 setState(() {
                   _currentIndex = index;
                 });
+              }
             },
           ),
         ),

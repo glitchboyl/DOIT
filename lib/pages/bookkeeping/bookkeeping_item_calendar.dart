@@ -99,7 +99,7 @@ class _BookkeepingItemCalendarState extends State<BookkeepingItemCalendar> {
                       context: context,
                       builder: (context) => TimePickerDrawer(
                         _time,
-                        mode: CupertinoDatePickerMode.dateAndTime,
+                        mode: CupertinoDatePickerMode.time,
                         onConfirmed: (time) => setState(() => _time = time),
                       ),
                     ),

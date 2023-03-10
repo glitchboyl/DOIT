@@ -1,21 +1,13 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'svg_icon.dart';
 import 'text.dart';
 import 'calendar_item.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/lunar.dart';
-import 'package:doit/utils/solar_terms.dart';
-import 'package:doit/utils/festivals.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/calendar.dart';
-
-final daysOfWeekTextStyle = TextStyle(
-  color: Styles.SecondaryTextColor,
-  fontSize: Styles.smallTextSize,
-  height: Styles.smallTextLineHeight / Styles.smallTextSize,
-);
 
 final calendarItemBuilder = ({
   required String text,
@@ -42,8 +34,6 @@ final calendarItemBuilder = ({
           : null,
       color: color,
     );
-final firstDay = DateTime(nowTime.year - 10);
-final lastDay = DateTime(nowTime.year + 50);
 
 class Calendar extends StatefulWidget {
   Calendar({
@@ -163,9 +153,9 @@ class _CalendarState extends State<Calendar> {
               headerVisible: false,
               daysOfWeekStyle: DaysOfWeekStyle(
                 dowTextFormatter: (date, locale) =>
-                    calendarTextMap[date.weekday]!,
-                weekdayStyle: daysOfWeekTextStyle,
-                weekendStyle: daysOfWeekTextStyle,
+                    weekDayTextMap[date.weekday]!,
+                weekdayStyle: Styles.daysOfWeekTextStyle,
+                weekendStyle: Styles.daysOfWeekTextStyle,
               ),
               onCalendarCreated: (controller) => _pageController = controller,
               onPageChanged: (focusedDay) {
@@ -212,9 +202,10 @@ class _CalendarState extends State<Calendar> {
                           )
                         : null,
                 prioritizedBuilder: (context, day, focusedDay) {
-                  final LunarDate lunar = getLunar(day);
-                  String festival = getDateFestivals(lunar);
-                  String solarTerm = getDateSolarTerm(day);
+                  day = DateTime(day.year, day.month, day.day);
+                  final LunarDate lunar = calendarMap[day]!.lunar;
+                  final String festival = calendarMap[day]!.festival;
+                  final String solarTerm = calendarMap[day]!.solarTerm;
                   bool highlight = festival != '' || solarTerm != '';
 
                   return calendarItemBuilder(

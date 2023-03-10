@@ -48,7 +48,10 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
       _level = widget.item!.level;
       _type = widget.item!.type;
     } else {
-      _startTime = DateTime.now();
+      final _provider =
+          Provider.of<ToDoListProvider>(this.context, listen: false);
+      _startTime =
+          _provider.pageIndex == 1 ? _provider.focusedDate : DateTime.now();
     }
   }
 
@@ -80,16 +83,18 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                       widget.item!.repeatType = _repeatType;
                       _provider.update(widget.item!);
                     } else {
-                      _provider.insert(ToDoItem(
-                        id: UniqueKey().hashCode,
-                        title: _title,
-                        remarks: _remarks,
-                        type: _type,
-                        level: _level,
-                        startTime: _startTime,
-                        endTime: _endTime ?? _startTime,
-                        repeatType: _repeatType,
-                      ));
+                      _provider.insert(
+                        ToDoItem(
+                          id: UniqueKey().hashCode,
+                          title: _title,
+                          remarks: _remarks,
+                          type: _type,
+                          level: _level,
+                          startTime: _startTime,
+                          endTime: _endTime ?? _startTime,
+                          repeatType: _repeatType,
+                        ),
+                      );
                     }
                     Navigator.pop(context);
                   }

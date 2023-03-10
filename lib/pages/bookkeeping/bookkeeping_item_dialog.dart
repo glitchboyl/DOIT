@@ -44,6 +44,13 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
       _time = widget.item!.time;
       _type = widget.item!.type;
       _input = _amount.toString().split('');
+      if (_input.contains('.')) {
+        if (_input.indexOf('.') == _input.length - 2 && _input.last == '0') {
+          _input.removeRange(_input.length - 2, _input.length);
+        } else {
+          decimal = true;
+        }
+      }
     } else {
       _time = DateTime.now();
     }

@@ -11,12 +11,14 @@ abstract class MEAS {
   static double simpleToDoItemTypeIconLength = 18;
   static double itemOperationIconLength = 20;
 
+  static double calendarRowHeight = 62;
+
   static double toDoItemLevelLength = 12;
   static double toDoItemLevelIconLength = 10;
   static double toDoItemTypeLength = 12;
   static double toDoItemTypeIconLength = 10;
 
-  static double toDoListTimelineContainerWidth = 32;
+  static double toDoListTimelineContainerWidth = 31;
 
   static double addButtonLength = 52;
   static double addButtonBottom = 48;

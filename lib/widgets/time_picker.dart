@@ -174,14 +174,7 @@ enum CupertinoDatePickerMode {
   ///
   /// Example: ` July | 13 | 2012 `.
   date,
-
-  /// Mode that shows the date as day of the week, month, day of month and
-  /// the time in hour, minute, and (optional) an AM/PM designation.
-  /// The AM/PM designation is shown only if [CupertinoDatePickerBuilder] does not use 24h format.
-  /// Column order is subject to internationalization.
-  ///
-  /// Example: ` Fri Jul 13 | 4 | 14 | PM `
-  dateAndTime,
+  ym,
 }
 
 // Different types of column in CupertinoDatePickerBuilder.
@@ -274,7 +267,7 @@ class CupertinoDatePickerBuilder extends StatefulWidget {
   /// [use24hFormat] decides whether 24 hour format is used. Defaults to false.
   CupertinoDatePickerBuilder({
     super.key,
-    this.mode = CupertinoDatePickerMode.dateAndTime,
+    this.mode = CupertinoDatePickerMode.date,
     required this.onDateTimeChanged,
     DateTime? initialDateTime,
     this.minimumDate,
@@ -293,18 +286,6 @@ class CupertinoDatePickerBuilder extends StatefulWidget {
           'minute interval is not a positive integer factor of 60',
         ) {
     assert(this.initialDateTime != null);
-    assert(
-      mode != CupertinoDatePickerMode.dateAndTime ||
-          minimumDate == null ||
-          !this.initialDateTime.isBefore(minimumDate!),
-      'initial date is before minimum date',
-    );
-    assert(
-      mode != CupertinoDatePickerMode.dateAndTime ||
-          maximumDate == null ||
-          !this.initialDateTime.isAfter(maximumDate!),
-      'initial date is after maximum date',
-    );
     assert(
       mode != CupertinoDatePickerMode.date ||
           (minimumYear >= 1 && this.initialDateTime.year >= minimumYear),
@@ -413,8 +394,8 @@ class CupertinoDatePickerBuilder extends StatefulWidget {
     // state.
     switch (mode) {
       case CupertinoDatePickerMode.time:
-      case CupertinoDatePickerMode.dateAndTime:
         return _CupertinoDatePickerBuilderState();
+      case CupertinoDatePickerMode.ym:
       case CupertinoDatePickerMode.date:
         return _CupertinoDatePickerDateState();
     }
@@ -521,9 +502,8 @@ class _CupertinoDatePickerBuilderState
   // 0 if the current mode does not involve a date.
   int get selectedDayFromInitial {
     switch (widget.mode) {
-      case CupertinoDatePickerMode.dateAndTime:
-        return dateController.hasClients ? dateController.selectedItem : 0;
       case CupertinoDatePickerMode.time:
+      case CupertinoDatePickerMode.ym:
         return 0;
       case CupertinoDatePickerMode.date:
         break;
@@ -1057,21 +1037,6 @@ class _CupertinoDatePickerBuilderState
       }
     }
 
-    // Adds medium date column if the picker's mode is date and time.
-    if (widget.mode == CupertinoDatePickerMode.dateAndTime) {
-      if (localizations.datePickerDateTimeOrder ==
-              DatePickerDateTimeOrder.time_dayPeriod_date ||
-          localizations.datePickerDateTimeOrder ==
-              DatePickerDateTimeOrder.dayPeriod_time_date) {
-        pickerBuilders.add(_buildMediumDatePicker);
-        columnWidths.add(_getEstimatedColumnWidth(_PickerColumnType.date));
-      } else {
-        pickerBuilders.insert(0, _buildMediumDatePicker);
-        columnWidths.insert(
-            0, _getEstimatedColumnWidth(_PickerColumnType.date));
-      }
-    }
-
     final List<Widget> pickers = <Widget>[];
 
     for (int i = 0; i < columnWidths.length; i++) {
@@ -1171,9 +1136,9 @@ class _CupertinoDatePickerDateState extends State<CupertinoDatePickerBuilder> {
   @override
   void initState() {
     super.initState();
-    selectedDay = widget.initialDateTime.day;
     selectedMonth = widget.initialDateTime.month;
     selectedYear = widget.initialDateTime.year;
+    selectedDay = widget.initialDateTime.day;
 
     dayController = FixedExtentScrollController(initialItem: selectedDay - 1);
     monthController =
@@ -1232,6 +1197,53 @@ class _CupertinoDatePickerDateState extends State<CupertinoDatePickerBuilder> {
   // The DateTime of the last day of a given month in a given year.
   // Let `DateTime` handle the year/month overflow.
   DateTime _lastDayInMonth(int year, int month) => DateTime(year, month + 1, 0);
+
+  Widget _buildDayPicker(double offAxisFraction,
+      TransitionBuilder itemPositioningBuilder, Widget selectionOverlay) {
+    final int daysInCurrentMonth =
+        _lastDayInMonth(selectedYear, selectedMonth).day;
+    return NotificationListener<ScrollNotification>(
+      onNotification: (ScrollNotification notification) {
+        if (notification is ScrollStartNotification) {
+          isDayPickerScrolling = true;
+        } else if (notification is ScrollEndNotification) {
+          isDayPickerScrolling = false;
+          _pickerDidStopScrolling();
+        }
+
+        return false;
+      },
+      child: CupertinoPicker(
+        scrollController: dayController,
+        offAxisFraction: offAxisFraction,
+        itemExtent: _kItemExtent,
+        useMagnifier: _kUseMagnifier,
+        magnification: _kMagnification,
+        backgroundColor: widget.backgroundColor,
+        squeeze: _kSqueeze,
+        onSelectedItemChanged: (int index) {
+          selectedDay = index + 1;
+          if (_isCurrentDateValid) {
+            widget.onDateTimeChanged(
+                DateTime(selectedYear, selectedMonth, selectedDay));
+          }
+        },
+        looping: true,
+        selectionOverlay: selectionOverlay,
+        children: List<Widget>.generate(31, (int index) {
+          final int day = index + 1;
+          return itemPositioningBuilder(
+            context,
+            Text(
+              localizations.datePickerDayOfMonth(day),
+              style:
+                  _themeTextStyle(context, isValid: day <= daysInCurrentMonth),
+            ),
+          );
+        }),
+      ),
+    );
+  }
 
   Widget _buildMonthPicker(double offAxisFraction,
       TransitionBuilder itemPositioningBuilder, Widget selectionOverlay) {
@@ -1411,10 +1423,13 @@ class _CupertinoDatePickerDateState extends State<CupertinoDatePickerBuilder> {
     pickerBuilders = <_ColumnBuilder>[
       _buildYearPicker,
       _buildMonthPicker,
+      if (widget.mode == CupertinoDatePickerMode.date) _buildDayPicker,
     ];
     columnWidths = <double>[
       estimatedColumnWidths[_PickerColumnType.year.index]!,
       estimatedColumnWidths[_PickerColumnType.month.index]!,
+      if (widget.mode == CupertinoDatePickerMode.date)
+        estimatedColumnWidths[_PickerColumnType.dayOfMonth.index]!,
     ];
 
     final List<Widget> pickers = <Widget>[];

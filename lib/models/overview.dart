@@ -1,0 +1,4 @@
+enum OverviewMode {
+  Month,
+  Day,
+}
