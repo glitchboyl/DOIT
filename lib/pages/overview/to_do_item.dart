@@ -29,13 +29,13 @@ class ToDoItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: MEAS.toDoListTimelineContainerWidth + 2,
+              width: MediaQuery.of(context).size.width / 7 - 14,
               // height: Styles.smallTextLineHeight,
               margin: EdgeInsets.only(right: 2),
               alignment: Alignment.center,
               color: Styles.BackgroundColor,
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   if (!item.startTime.isSameDay(item.endTime))
@@ -44,6 +44,7 @@ class ToDoItemWidget extends StatelessWidget {
                       color: Styles.PrimaryTextColor,
                       fontSize: Styles.smallTextSize,
                       lineHeight: Styles.smallTextLineHeight,
+                      textAlign: TextAlign.center,
                     ),
                   TextBuilder(
                     // item.startTime != null ? getClockTime(item.startTime!) : '整天',

@@ -76,14 +76,13 @@ class OverviewPage extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(
                         top: MEAS.calendarRowHeight,
-                        left: 20,
+                        left: 16,
                         right: 16,
                       ),
                       child: Stack(
-                        // crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Container(
-                            width: MEAS.toDoListTimelineContainerWidth,
+                            width: MediaQuery.of(context).size.width / 7 - 16,
                             height: MediaQuery.of(context).size.height,
                             alignment: Alignment.center,
                             child: Column(

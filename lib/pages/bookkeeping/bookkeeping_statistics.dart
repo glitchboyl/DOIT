@@ -19,9 +19,9 @@ class BookkeepingStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     return Positioned(
       top: MediaQuery.of(context).padding.top,
-      left: 16,
       child: Container(
-        width: MEAS.bookkeepingStatisticsWidth,
+        width: MediaQuery.of(context).size.width - 32,
+        margin: EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(

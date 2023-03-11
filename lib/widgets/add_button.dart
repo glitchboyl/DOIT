@@ -43,7 +43,7 @@ class AddButton extends StatelessWidget {
             showBottomDrawer(
               context: context,
               builder: (context) => BookkeepingItemDialog(),
-              avoidBottomPadding: 50,
+              avoidBottomPadding: 222,
               backgroundColor: Styles.BackgroundColor,
             );
           }

@@ -18,8 +18,6 @@ abstract class MEAS {
   static double toDoItemTypeLength = 12;
   static double toDoItemTypeIconLength = 10;
 
-  static double toDoListTimelineContainerWidth = 31;
-
   static double addButtonLength = 52;
   static double addButtonBottom = 48;
   static double addButtonIconLength = 16;
@@ -50,7 +48,6 @@ abstract class MEAS {
   static double notePublishImageDismissIconLength = 16;
   static double notePublishImageDismissIconGap = 6;
 
-  static double bookkeepingStatisticsWidth = 343;
   static double bookkeepingItemTypeLength = 24;
   static double bookkeepingItemTypeIconLength = 18;
 
