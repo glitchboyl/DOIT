@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/widgets.dart';
-import 'package:doit/models/note.dart';
 import 'db.dart';
+import 'package:doit/models/note.dart';
 
 class NoteProvider extends ChangeNotifier {
   final List<Note> _noteList = [];
@@ -39,8 +39,9 @@ class NoteProvider extends ChangeNotifier {
             // location: item['location'],
           );
         },
-      ).reversed.toList(),
+      ),
     );
+    _noteList.sort(sortByPublishTime);
 
     notifyListeners();
   }

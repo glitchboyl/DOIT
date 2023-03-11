@@ -96,7 +96,7 @@ class NotePage extends StatelessWidget {
             ),
             SizedBox(height: 4),
             TextBuilder(
-              getDateTime(focusedNote.publishTime),
+              '${getDateTime(focusedNote.publishTime)} ${getClockTime(focusedNote.publishTime)}',
               color: Styles.SecondaryTextColor,
               fontSize: Styles.smallTextSize,
               lineHeight: Styles.smallTextLineHeight,

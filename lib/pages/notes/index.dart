@@ -5,7 +5,11 @@ import 'note_item.dart';
 import 'package:doit/providers/note.dart';
 
 class NotesPage extends StatelessWidget {
-  const NotesPage({super.key});
+  NotesPage({super.key});
+  final List<Widget> _widgets = [
+    SizedBox(height: 14),
+  ];
+  final ScrollController _scrollController = ScrollController();
 
   NoteProvider getProvider(BuildContext context, {bool listen = true}) =>
       Provider.of<NoteProvider>(
@@ -13,21 +17,15 @@ class NotesPage extends StatelessWidget {
         listen: listen,
       );
 
-  List<Widget> buildWidgets(BuildContext context) {
-    final List<Widget> _widgets = [
-      SizedBox(height: 14),
-    ];
-    Provider.of<NoteProvider>(
-      context,
-      listen: false,
-    ).noteList.forEach((note) {
-      _widgets.add(
+  void buildWidgets(BuildContext context, NoteProvider provider) {
+    _widgets.removeRange(1, _widgets.length);
+    provider.noteList.forEach(
+      (note) => _widgets.add(
         NoteItemWidget(
           note,
         ),
-      );
-    });
-    return _widgets;
+      ),
+    );
   }
 
   @override
@@ -39,8 +37,14 @@ class NotesPage extends StatelessWidget {
           ),
           child: Consumer<NoteProvider>(
             builder: (context, provider, _) {
-              final _widgets = buildWidgets(context);
+              if (provider.noteList.length > _widgets.length - 1) {
+                Future.delayed(
+                    const Duration(milliseconds: 1),
+                    () => _scrollController.jumpTo(0));
+              }
+              buildWidgets(context, provider);
               return ListView.builder(
+                controller: _scrollController,
                 itemBuilder: (context, index) => _widgets[index],
                 itemCount: _widgets.length,
               );
@@ -48,5 +52,6 @@ class NotesPage extends StatelessWidget {
           ),
         ),
       );
+
   static final appBar = ({Key? key}) => NotesPageAppBar(key: key);
 }

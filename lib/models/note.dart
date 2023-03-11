@@ -33,3 +33,6 @@ class Note {
     };
   }
 }
+
+final sortByPublishTime =
+    (Note a, Note b) => b.publishTime.compareTo(a.publishTime);
