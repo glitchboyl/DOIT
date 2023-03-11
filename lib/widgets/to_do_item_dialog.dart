@@ -74,6 +74,12 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                     final _provider =
                         Provider.of<ToDoListProvider>(context, listen: false);
                     if (widget.item != null) {
+                      bool isReduced = false;
+                      if (!widget.item!.startTime.isSameDay(_startTime) ||
+                          !widget.item!.endTime.isSameDay(_endTime)) {
+                        isReduced = true;
+                        _provider.reduce(widget.item!);
+                      }
                       widget.item!.title = _title;
                       widget.item!.remarks = _remarks;
                       widget.item!.type = _type;
@@ -81,6 +87,10 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                       widget.item!.startTime = _startTime;
                       widget.item!.endTime = _endTime ?? _startTime;
                       widget.item!.repeatType = _repeatType;
+                      if (isReduced) {
+                        _provider.updateSchedule(widget.item!);
+                        _provider.updateOverviewMap(widget.item!);
+                      }
                       _provider.update(widget.item!);
                     } else {
                       _provider.insert(

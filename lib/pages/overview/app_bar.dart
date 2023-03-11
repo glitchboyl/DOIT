@@ -1,11 +1,10 @@
-import 'package:doit/widgets/time_picker.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/widgets/time_picker.dart';
 import 'package:doit/widgets/time_picker_drawer.dart';
 import 'package:doit/models/overview.dart';
 import 'package:doit/providers/to_do_list.dart';
@@ -13,6 +12,7 @@ import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
+import 'package:doit/constants/keys.dart';
 
 class OverviewPageAppBar extends AppBarBuilder {
   const OverviewPageAppBar({super.key});
@@ -51,13 +51,22 @@ class OverviewPageAppBar extends AppBarBuilder {
                   mode: provider.overviewMode == OverviewMode.Day
                       ? CupertinoDatePickerMode.date
                       : CupertinoDatePickerMode.ym,
-                  onConfirmed: (time) => provider.focusDate(
-                    DateTime(
-                      time.year,
-                      time.month,
-                      time.day,
-                    ),
-                  ),
+                  onConfirmed: (time) {
+                    provider.focusDate(
+                      DateTime(
+                        time.year,
+                        time.month,
+                        provider.overviewMode == OverviewMode.Day ? time.day : 1,
+                      ),
+                    );
+                    if (provider.overviewMode == OverviewMode.Day) {
+                      (Keys.calendarRow.currentState as dynamic)
+                          .updateFocusedIndex();
+                    } else {
+                      (Keys.calendarView.currentState as dynamic)
+                          .updateFocusedDay();
+                    }
+                  },
                 ),
               ),
             ),

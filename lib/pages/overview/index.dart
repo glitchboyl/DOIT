@@ -18,16 +18,13 @@ import 'package:doit/constants/keys.dart';
 class OverviewPage extends StatelessWidget {
   OverviewPage({super.key});
 
-  final _toDoListController = ScrollController();
-
   List<Widget> buildToDoList(BuildContext context, ToDoListProvider provider) {
     final List<Widget> toDoList = [SizedBox(height: 16)];
     (provider.overviewMap[provider.focusedDate] ?? []).forEach(
       (item) => toDoList.add(
         ToDoItemWidget(
           item,
-          onStatusChanged: (context) =>
-              onStatusChanged(context, provider, item),
+          onStatusChanged: (context) => onStatusChanged(provider, item),
           onEdited: (context) => onEdited(context, item),
           onDeleted: (context) => onDeleted(context, provider, item),
         ),
@@ -37,7 +34,6 @@ class OverviewPage extends StatelessWidget {
   }
 
   void onStatusChanged(
-    BuildContext context,
     ToDoListProvider provider,
     ToDoItem item,
   ) =>
@@ -114,7 +110,9 @@ class OverviewPage extends StatelessWidget {
                   ],
                 );
               } else {
-                return CalendarView();
+                return CalendarView(
+                  key: Keys.calendarView,
+                );
               }
             },
           ),

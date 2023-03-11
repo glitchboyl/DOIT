@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'pages/note/index.dart';
 import 'pages/note_publish/index.dart';
-import 'pages/schedule/drawer.dart';
+// import 'pages/schedule/drawer.dart';
 import 'widgets/app_bar.dart';
 import 'widgets/add_button.dart';
 import 'widgets/bottom_navigation_bar.dart';
@@ -97,11 +97,11 @@ class _DOITAppState extends State<DOITApp> {
         themeMode: ThemeMode.light,
         home: Scaffold(
           extendBodyBehindAppBar: true,
-          drawerScrimColor: Styles.BarrierColor,
           appBar: _appBarWidgets[_currentIndex],
           body: IndexedStack(index: _currentIndex, children: _pageWidgets),
-          drawer: SchedulePageDrawer(),
-          drawerEnableOpenDragGesture: false,
+          // drawerScrimColor: Styles.BarrierColor,
+          // drawer: SchedulePageDrawer(),
+          // drawerEnableOpenDragGesture: false,
           floatingActionButton: AddButton(
             navigation[_currentIndex].id,
             key: Keys.AddButton,

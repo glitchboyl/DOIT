@@ -43,13 +43,13 @@ abstract class Styles {
   static double smallTextLineHeight = 16;
   static double largeTextSize = 18;
   static double largeTextLineHeight = 26;
+  static double tinyTextSize = 9;
+  static double tinyTextLineHeight = 12;
 
   static double confirmDialogContentLineHeight = 18;
 
   static double dateTextSize = 15;
   static double dateTextLineHeight = 18;
-  static double dateSubTextSize = 9;
-  static double dateSubTextLineHeight = 12;
   static double calendarSwitchButtonTextSize = 16;
   static double calendarSwitchButtonTextLineHeight = 24;
 
@@ -65,6 +65,6 @@ abstract class Styles {
   static final daysOfWeekTextStyle = TextStyle(
     color: SecondaryTextColor,
     fontSize: smallTextSize,
-    height: smallTextLineHeight,
+    height: smallTextLineHeight / smallTextSize,
   );
 }

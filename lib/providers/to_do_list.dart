@@ -25,11 +25,7 @@ class ToDoListProvider extends ChangeNotifier {
   };
   final Map<DateTime, List<ToDoItem>> _overviewMap = {};
   OverviewMode _overviewMode = OverviewMode.Day;
-  DateTime _focusedDate = DateTime(
-    nowTime.year,
-    nowTime.month,
-    nowTime.day,
-  );
+  DateTime _focusedDate = nowTime.getDayTime();
   int _pageIndex = 0;
 
   List<ToDoItem> get toDoList => _toDoList;
@@ -60,30 +56,8 @@ class ToDoListProvider extends ChangeNotifier {
                 ? DateTime.fromMillisecondsSinceEpoch(item['completeTime'])
                 : null,
           );
-          final startDay = DateTime(
-            toDoItem.startTime.year,
-            toDoItem.startTime.month,
-            toDoItem.startTime.day,
-          );
-          if (overviewMap[startDay] == null) {
-            overviewMap[startDay] = [];
-          }
-          overviewMap[startDay]!.add(toDoItem);
-          if (toDoItem.completeTime == null) {
-            if (toDoItem.startTime.isSameDay(nowTime)) {
-              _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!
-                  .list
-                  .add(toDoItem);
-            } else if (toDoItem.startTime.isBefore(nowTime)) {
-              _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!
-                  .list
-                  .add(toDoItem);
-            }
-          } else if (toDoItem.completeTime!.isSameDay(nowTime)) {
-            _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!
-                .list
-                .add(toDoItem);
-          }
+          updateSchedule(toDoItem);
+          updateOverviewMap(toDoItem);
           return toDoItem;
         },
       ),
@@ -98,7 +72,59 @@ class ToDoListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateSchedule(ScheduleToDoListType type, int index) {
+  void updateSchedule(ToDoItem item) {
+    if (item.completeTime == null) {
+      if (item.startTime.isSameDay(nowTime)) {
+        _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!
+            .list
+            .add(item);
+      } else if (item.startTime.isBefore(nowTime)) {
+        _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!
+            .list
+            .add(item);
+      }
+    } else if (item.completeTime!.isSameDay(nowTime)) {
+      _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!.list.add(item);
+    }
+  }
+
+  void updateOverviewMap(ToDoItem item) {
+    final startDay = item.startTime.getDayTime();
+    final endDay = item.endTime.getDayTime();
+    DateTime _day = startDay;
+    while (_day.compareTo(endDay) < 1) {
+      if (overviewMap[_day] == null) {
+        overviewMap[_day] = [];
+      }
+      overviewMap[_day]!.add(item);
+      overviewMap[_day]!.sort(sortByStartTime);
+      _day = _day.add(const Duration(days: 1));
+    }
+  }
+
+  void reduce(ToDoItem oldItem) {
+    if (oldItem.completeTime == null) {
+      _scheduleToDoListMap[oldItem.startTime.isSameDay(nowTime)
+              ? ScheduleToDoListType.TodayUncompleted
+              : ScheduleToDoListType.PastUncompleted]!
+          .list
+          .remove(oldItem);
+    } else if (oldItem.completeTime != null &&
+        oldItem.completeTime!.isSameDay(nowTime)) {
+      _scheduleToDoListMap[ScheduleToDoListType.TodayCompleted]!
+          .list
+          .remove(oldItem);
+    }
+    final startDay = oldItem.startTime.getDayTime();
+    final endDay = oldItem.endTime.getDayTime();
+    DateTime _day = startDay;
+    while (_day.compareTo(endDay) < 1) {
+      _overviewMap[_day]!.remove(oldItem);
+      _day = _day.add(const Duration(days: 1));
+    }
+  }
+
+  void changeScheduleToDoItemStatus(ScheduleToDoListType type, int index) {
     final ToDoItem toDoItem = _scheduleToDoListMap[type]!.list.removeAt(index);
     notifyListeners();
     Future.delayed(
@@ -127,57 +153,42 @@ class ToDoListProvider extends ChangeNotifier {
     );
   }
 
-  void deleteSchedule(ScheduleToDoListType type, int index) {
-    final ToDoItem toDoItem = _scheduleToDoListMap[type]!.list.removeAt(index);
-    delete(toDoItem);
-  }
-
   Future<void> insert(ToDoItem item) async {
-    if (item.startTime.isBefore(nowTime)) {
-      final list =
-          _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!.list;
-      list.add(item);
-      list.sort(sortByStartTime);
-      list.sort(sortByLevel);
-    } else if (item.startTime.isSameDay(nowTime)) {
+    if (item.startTime.isSameDay(nowTime)) {
       final list =
           _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!.list;
       list.add(item);
       list.sort(sortByStartTime);
       list.sort(sortByLevel);
+    } else if (item.startTime.isBefore(nowTime)) {
+      final list =
+          _scheduleToDoListMap[ScheduleToDoListType.PastUncompleted]!.list;
+      list.add(item);
+      list.sort(sortByStartTime);
+      list.sort(sortByLevel);
     }
-    final startDay = DateTime(
-      item.startTime.year,
-      item.startTime.month,
-      item.startTime.day,
-    );
-    if (overviewMap[startDay] == null) {
-      overviewMap[startDay] = [];
-    }
-    overviewMap[startDay]!.add(item);
+    final startDay = item.startTime.getDayTime();
+    updateOverviewMap(item);
     _toDoList.add(item);
-    overviewMap[startDay]!.sort(sortByStartTime);
     if (_pageIndex == 1 && !_focusedDate.isSameDay(startDay)) {
       _focusedDate = startDay;
-      // Keys.calendarRow.currentState.updateFocusedDate();
-      (Keys.calendarRow.currentState as dynamic).updateFocusedDay();
+      if (_overviewMode == OverviewMode.Day) {
+        (Keys.calendarRow.currentState as dynamic).updateFocusedIndex();
+      } else {
+        (Keys.calendarView.currentState as dynamic).updateFocusedDay();
+      }
     }
     await DBHelper.insert('to_do_list', item);
     notifyListeners();
   }
 
   Future<void> update(ToDoItem item) async {
-    final startDay = DateTime(
-      item.startTime.year,
-      item.startTime.month,
-      item.startTime.day,
-    );
-    overviewMap[startDay]!.sort(sortByStartTime);
     await DBHelper.update('to_do_list', item);
     notifyListeners();
   }
 
   Future<void> delete(ToDoItem item) async {
+    reduce(item);
     _toDoList.remove(item);
     await DBHelper.delete('to_do_list', item.id);
     notifyListeners();

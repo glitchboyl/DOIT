@@ -129,7 +129,7 @@ class ToDoItem {
 
   Color get typeColor => completeTime != null
       ? Styles.DeactivedColor
-      : toDoItemTypeMap[type]?.color ?? Styles.DeactivedColor;
+      : (toDoItemTypeMap[type]?.color ?? Styles.DeactivedColor);
 
   String get typeText =>
       toDoItemTypeMap[type]?.text ?? toDoItemTypeMap[ToDoItemType.Life]!.text;

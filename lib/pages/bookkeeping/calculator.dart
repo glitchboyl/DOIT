@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:doit/widgets/text.dart';

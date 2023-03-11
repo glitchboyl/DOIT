@@ -22,6 +22,12 @@ extension DateTimeExtension on DateTime {
     }
     return i;
   }
+
+  DateTime getDayTime() => DateTime(
+        this.year,
+        this.month,
+        this.day,
+      );
 }
 
 String fillDateZero(int n) => '$n'.padLeft(2, '0');

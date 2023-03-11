@@ -18,4 +18,5 @@ abstract class Keys {
   // static const DrawerItemAllSchedule = ValueKey('DRAWER_ITEM_ALL_SCHEDULE');
   // static final schedulePageAnimatedList = GlobalKey<AnimatedListState>();
   static final calendarRow = GlobalKey();
+  static final calendarView = GlobalKey();
 }

@@ -28,8 +28,8 @@ final calendarItemBuilder = ({
           ? TextBuilder(
               subText,
               color: subTextColor,
-              fontSize: Styles.dateSubTextSize,
-              lineHeight: Styles.dateSubTextLineHeight,
+              fontSize: Styles.tinyTextSize,
+              lineHeight: Styles.tinyTextLineHeight,
             )
           : null,
       color: color,

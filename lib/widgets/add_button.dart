@@ -1,4 +1,3 @@
-import 'package:doit/providers/to_do_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'interactive_button.dart';
@@ -18,10 +17,8 @@ class AddButton extends StatelessWidget {
 
   @override
   Widget build(context) => InteractiveButton(
-        fixedSize: Size(
-          MEAS.addButtonLength,
-          MEAS.addButtonLength,
-        ),
+        width: MEAS.addButtonLength,
+        height: MEAS.addButtonLength,
         color: Styles.PrimaryColor,
         activedColor: Styles.PrimaryDeepColor,
         shadowColor: Styles.AddButtonShadowColor,
@@ -46,7 +43,7 @@ class AddButton extends StatelessWidget {
             showBottomDrawer(
               context: context,
               builder: (context) => BookkeepingItemDialog(),
-              // avoidBottomPadding: 116,
+              avoidBottomPadding: 50,
               backgroundColor: Styles.BackgroundColor,
             );
           }

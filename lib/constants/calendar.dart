@@ -1,9 +1,7 @@
-import 'package:flutter/widgets.dart';
 import 'package:doit/utils/lunar.dart';
 import 'package:doit/utils/festivals.dart';
 import 'package:doit/utils/solar_terms.dart';
 import 'package:doit/utils/time.dart';
-import 'package:doit/constants/styles.dart';
 
 final weekDayTextMap = {
   DateTime.monday: '一',

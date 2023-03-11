@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class InteractiveButton extends StatefulWidget {
   const InteractiveButton({
     super.key,
-    this.fixedSize,
     required this.color,
+    this.width,
+    this.height,
     this.activedColor,
     this.elevation,
     this.shadowColor,
@@ -13,7 +14,8 @@ class InteractiveButton extends StatefulWidget {
     required this.onPressed,
   });
 
-  final Size? fixedSize;
+  final double? width;
+  final double? height;
   final Color color;
   final Color? activedColor;
   final Color? shadowColor;
@@ -36,32 +38,38 @@ class _InteractiveButtonState extends State<InteractiveButton> {
   }
 
   @override
-  Widget build(context) => GestureDetector(
-        onTapDown: (tapDetails) {
-          if (widget.activedColor != null &&
-              widget.activedColor != widget.color) {
+  Widget build(context) => SizedBox(
+        width: widget.width,
+        height: widget.height,
+        child: GestureDetector(
+          onTapDown: (tapDetails) {
+            if (widget.activedColor != null &&
+                widget.activedColor != widget.color) {
+              setState(() {
+                _buttonColor = widget.activedColor!;
+              });
+            }
+          },
+          onTapCancel: () {
             setState(() {
-              _buttonColor = widget.activedColor!;
+              _buttonColor = widget.color;
             });
-          }
-        },
-        onTapCancel: () {
-          setState(() {
-            _buttonColor = widget.color;
-          });
-        },
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            fixedSize: widget.fixedSize,
-            backgroundColor: _buttonColor,
-            foregroundColor: _buttonColor,
-            shadowColor: widget.shadowColor ?? Colors.transparent,
-            elevation: widget.elevation,
-            shape: widget.shape,
-            splashFactory: NoSplash.splashFactory,
+          },
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: _buttonColor,
+              foregroundColor: _buttonColor,
+              shadowColor: widget.shadowColor ?? Colors.transparent,
+              elevation: widget.elevation,
+              shape: widget.shape,
+              splashFactory: NoSplash.splashFactory,
+              alignment: Alignment.center,
+              padding: EdgeInsets.zero,
+            ),
+            clipBehavior: Clip.antiAlias,
+            child: widget.child,
+            onPressed: widget.onPressed,
           ),
-          child: widget.child,
-          onPressed: widget.onPressed,
         ),
       );
 }

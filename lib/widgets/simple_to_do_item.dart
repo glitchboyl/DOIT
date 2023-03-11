@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
-import '../../widgets/slidable_action.dart';
+import 'slidable_action.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
@@ -16,12 +16,14 @@ class SimpleToDoItemWidget extends StatelessWidget {
     required this.onStatusChanged,
     required this.onEdited,
     required this.onDeleted,
+    this.leftActionDismissible = true,
   });
 
   final ToDoItem item;
   final void Function(BuildContext context) onStatusChanged;
   final void Function(BuildContext context) onEdited;
   final void Function(BuildContext context) onDeleted;
+  final bool leftActionDismissible;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -106,10 +108,12 @@ class SimpleToDoItemWidget extends StatelessWidget {
           ),
           startActionPane: ActionPane(
             motion: const ScrollMotion(),
-            dismissible: DismissiblePane(
-              onDismissed: () => onStatusChanged(context),
-            ),
-            extentRatio: 0.5,
+            dismissible: leftActionDismissible
+                ? DismissiblePane(
+                    onDismissed: () => onStatusChanged(context),
+                  )
+                : null,
+            extentRatio: leftActionDismissible ? 0.5 : 0.18,
             children: [
               SlidableActionBuilder(
                 key: ValueKey(item.id.toString() + '_CHANGE_STATUS'),
@@ -117,13 +121,15 @@ class SimpleToDoItemWidget extends StatelessWidget {
                     ? Styles.ResumeColor
                     : Styles.CompleteColor,
                 onPressed: (context) {
-                  Slidable.of(context)?.dismiss(
-                    ResizeRequest(
-                      _kSilde,
-                      () => onStatusChanged(context),
-                    ),
-                    duration: _kSilde,
-                  );
+                  leftActionDismissible
+                      ? Slidable.of(context)?.dismiss(
+                          ResizeRequest(
+                            _kSilde,
+                            () => onStatusChanged(context),
+                          ),
+                          duration: _kSilde,
+                        )
+                      : onStatusChanged(context);
                 },
                 child: Container(
                   height: double.infinity,
@@ -137,6 +143,7 @@ class SimpleToDoItemWidget extends StatelessWidget {
                     height: MEAS.itemOperationIconLength,
                   ),
                 ),
+                autoClose: true,
               ),
             ],
           ),

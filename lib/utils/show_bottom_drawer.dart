@@ -31,8 +31,11 @@ final showBottomDrawer = ({
       },
       child: AnimatedPadding(
         duration: const Duration(milliseconds: 100),
+        curve: Curves.ease,
         padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
+          bottom: MediaQuery.of(context).viewInsets.bottom == 0
+              ? MediaQuery.of(context).viewInsets.bottom
+              : avoidBottomPadding ?? MediaQuery.of(context).viewInsets.bottom,
         ),
         child: SafeArea(
           child: builder(context),

@@ -19,20 +19,20 @@ class CalendarRow extends StatefulWidget {
 class _CalendarRowState extends State<CalendarRow> {
   late final PageController _pageController;
   late final _calendarItems;
-  int _focusedDay = 0;
+  int _focusedIndex = 0;
 
   @override
   void initState() {
     super.initState();
     _calendarItems = calendarMap.entries.toList();
-    getFocusedDay();
+    getFocusedIndex();
     _pageController = PageController(
       viewportFraction: 1 / 7,
-      initialPage: _focusedDay,
+      initialPage: _focusedIndex,
     );
   }
 
-  void getFocusedDay() => _focusedDay = _calendarItems.indexWhere(
+  void getFocusedIndex() => _focusedIndex = _calendarItems.indexWhere(
         (date) => Provider.of<ToDoListProvider>(context, listen: false)
             .focusedDate
             .isSameDay(
@@ -46,9 +46,9 @@ class _CalendarRowState extends State<CalendarRow> {
         curve: Curves.ease,
       );
 
-  void updateFocusedDay() {
-    getFocusedDay();
-    toCalendarItem(_focusedDay);
+  void updateFocusedIndex() {
+    getFocusedIndex();
+    toCalendarItem(_focusedIndex);
   }
 
   @override
@@ -109,23 +109,23 @@ class _CalendarRowState extends State<CalendarRow> {
                         horizontal: 6,
                       ),
                       child: Container(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 4,
-                        ),
+                        alignment: Alignment.center,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             TextBuilder(
                               weekDayTextMap[date.weekday]!,
                               color: Styles.daysOfWeekTextStyle.color,
                               fontSize: Styles.daysOfWeekTextStyle.fontSize,
-                              lineHeight: Styles.daysOfWeekTextStyle.height,
+                              lineHeight: Styles.daysOfWeekTextStyle.height! *
+                                  Styles.daysOfWeekTextStyle.fontSize!,
                             ),
                             SizedBox(
                               height: 6,
                             ),
                             TextBuilder(
                               date.day.toString(),
-                              color: i == _focusedDay
+                              color: i == _focusedIndex
                                   ? Styles.RegularBaseColor
                                   : Styles.PrimaryTextColor,
                               fontSize: Styles.dateTextSize,
@@ -139,13 +139,13 @@ class _CalendarRowState extends State<CalendarRow> {
                               highlight
                                   ? (festival != '' ? festival : solarTerm)
                                   : lunar.day,
-                              color: i == _focusedDay
+                              color: i == _focusedIndex
                                   ? Styles.RegularBaseColor
                                   : highlight
                                       ? Styles.PrimaryColor
                                       : Styles.PrimaryTextColor,
-                              fontSize: Styles.dateSubTextSize,
-                              lineHeight: Styles.dateSubTextLineHeight,
+                              fontSize: Styles.tinyTextSize,
+                              lineHeight: Styles.tinyTextLineHeight,
                             ),
                           ],
                         ),
@@ -154,12 +154,12 @@ class _CalendarRowState extends State<CalendarRow> {
                   );
                 },
                 itemCount: _calendarItems.length,
-                onPageChanged: (day) {
+                onPageChanged: (index) {
                   Provider.of<ToDoListProvider>(context, listen: false)
                       .focusDate(
-                    _calendarItems[day].key,
+                    _calendarItems[index].key,
                   );
-                  setState(() => _focusedDay = day);
+                  setState(() => _focusedIndex = index);
                 },
               ),
             ],
