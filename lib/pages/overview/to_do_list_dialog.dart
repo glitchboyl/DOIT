@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/text.dart';
@@ -17,9 +18,13 @@ import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/calendar.dart';
 
 class ToDoListDialog extends StatelessWidget {
-  const ToDoListDialog({
+  ToDoListDialog({
     super.key,
   });
+
+  final ItemScrollController _scrollController = ItemScrollController();
+  final _positionsListener = ItemPositionsListener.create();
+  int _freshWidgetIndex = 0;
 
   List<Widget> buildWidgets(
     BuildContext context,
@@ -28,6 +33,9 @@ class ToDoListDialog extends StatelessWidget {
     final List<Widget> _widgets = [];
     final toDoList = provider.overviewMap[provider.focusedDate] ?? [];
     for (int i = 0; i < toDoList.length; i++) {
+      if (provider.fresh == toDoList[i]) {
+        _freshWidgetIndex = i;
+      }
       _widgets.add(
         SimpleToDoItemWidget(
           toDoList[i],
@@ -116,7 +124,25 @@ class ToDoListDialog extends StatelessWidget {
             child: Consumer<ToDoListProvider>(
               builder: (context, provider, _) {
                 final _widgets = buildWidgets(context, provider);
-                return ListView.builder(
+                if (provider.fresh != null) {
+                  Future.delayed(
+                    const Duration(milliseconds: 1),
+                    () {
+                      final _itemPositions =
+                          _positionsListener.itemPositions.value.toList();
+                      if (_itemPositions.first.index > _freshWidgetIndex ||
+                          _itemPositions.last.index < _freshWidgetIndex) {
+                        _scrollController.jumpTo(
+                          index: _freshWidgetIndex,
+                        );
+                      }
+                      provider.refresh();
+                    },
+                  );
+                }
+                return ScrollablePositionedList.builder(
+                  itemScrollController: _scrollController,
+                  itemPositionsListener: _positionsListener,
                   itemBuilder: (context, index) => _widgets[index],
                   itemCount: _widgets.length,
                 );

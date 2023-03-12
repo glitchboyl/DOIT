@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:doit/widgets/text.dart';
@@ -19,6 +20,7 @@ class CalendarView extends StatefulWidget {
 
 class _CalendarViewState extends State<CalendarView> {
   late DateTime _focusedDay;
+  bool isDialogActived = false;
 
   @override
   void initState() {
@@ -67,12 +69,14 @@ class _CalendarViewState extends State<CalendarView> {
         },
         onDaySelected: (day, _) {
           if (!_provider.focusedDate.isSameDay(day)) {
-            _provider.focusDate(day);
+            _provider.focusDate(day.getDayTime());
           }
+          isDialogActived = true;
           showBottomDrawer(
             context: context,
             builder: (context) => ToDoListDialog(),
             backgroundColor: Styles.BackgroundColor,
+            onDismissed: () => isDialogActived = false,
           );
         },
         calendarBuilders: CalendarBuilders(
@@ -81,16 +85,42 @@ class _CalendarViewState extends State<CalendarView> {
             if (toDoList == null || toDoList.length == 0) {
               return SizedBox.shrink();
             }
+            final ItemScrollController _scrollController =
+                ItemScrollController();
+            final _positionsListener = ItemPositionsListener.create();
+            if (date.isSameDay(_provider.focusedDate) &&
+                _provider.fresh != null) {
+              Future.delayed(
+                const Duration(milliseconds: 1),
+                () {
+                  final _freshWidgetIndex =
+                      toDoList.indexWhere((item) => item == _provider.fresh);
+                  final _itemPositions =
+                      _positionsListener.itemPositions.value.toList();
+                  if (_freshWidgetIndex != -1 &&
+                      (_itemPositions.first.index > _freshWidgetIndex ||
+                          _itemPositions.last.index < _freshWidgetIndex)) {
+                    _scrollController.jumpTo(
+                      index: _freshWidgetIndex,
+                    );
+                  }
+                  if (!isDialogActived) {
+                    _provider.refresh();
+                  }
+                },
+              );
+            }
             return Container(
               margin: EdgeInsets.only(
                 top: 40,
                 left: 1,
                 right: 1,
               ),
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: toDoList.length,
+              child: ScrollablePositionedList.builder(
+                itemScrollController: _scrollController,
+                itemPositionsListener: _positionsListener,
                 itemBuilder: (context, i) => CalendarViewToDoItem(toDoList[i]),
+                itemCount: toDoList.length,
               ),
             );
           },

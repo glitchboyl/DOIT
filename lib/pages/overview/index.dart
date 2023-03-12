@@ -20,8 +20,8 @@ class OverviewPage extends StatelessWidget {
   OverviewPage({super.key});
 
   final ItemScrollController _scrollController = ItemScrollController();
-  int _freshWidgetIndex = 0;
   final _positionsListener = ItemPositionsListener.create();
+  int _freshWidgetIndex = 0;
 
   List<Widget> buildToDoList(BuildContext context, ToDoListProvider provider) {
     final List<Widget> toDoList = [SizedBox(height: 16)];

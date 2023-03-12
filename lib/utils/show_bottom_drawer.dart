@@ -7,6 +7,7 @@ final showBottomDrawer = ({
   required Widget Function(BuildContext) builder,
   Color backgroundColor = Styles.RegularBaseColor,
   double? avoidBottomPadding,
+  void Function()? onDismissed,
 }) =>
     showModalBottomSheet(
       context: context,
@@ -49,4 +50,6 @@ final showBottomDrawer = ({
           ),
         ),
       ),
+    ).then(
+      (_) => onDismissed != null ? onDismissed() : null,
     );
