@@ -9,12 +9,14 @@ class BookkeepingProvider extends ChangeNotifier {
   final Map<DateTime, List<BookkeepingItem>> _bookkeepingListMap = {};
   final Map<DateTime, List<double>> _statisticsMap = {};
   DateTime _focusedMonth = DateTime(nowTime.year, nowTime.month);
+  BookkeepingItem? _fresh;
 
   List<BookkeepingItem> get bookkeepingList => _bookkeepingList;
   Map<DateTime, List<BookkeepingItem>> get bookkeepingListMap =>
       _bookkeepingListMap;
   Map<DateTime, List<double>> get statisticsMap => _statisticsMap;
   DateTime get focusedMonth => _focusedMonth;
+  BookkeepingItem? get fresh => _fresh;
 
   Future<void> get() async {
     final maps = await DBHelper.get('bookkeeping_list');
@@ -42,6 +44,7 @@ class BookkeepingProvider extends ChangeNotifier {
   }
 
   Future<void> insert(BookkeepingItem item) async {
+    _fresh = item;
     _bookkeepingList.add(item);
     final bookkeepingDay = DateTime(
       item.time.year,
@@ -124,4 +127,6 @@ class BookkeepingProvider extends ChangeNotifier {
         _focusedMonth = month,
         notifyListeners(),
       };
+
+  void refresh() => _fresh = null;
 }

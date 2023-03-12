@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'bookkeeping_item_dialog.dart';
@@ -12,19 +13,20 @@ import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/utils/time.dart';
 
-class BookkeepingPage extends StatefulWidget {
-  const BookkeepingPage({super.key});
-  @override
-  _BookkeepingPageState createState() => _BookkeepingPageState();
+class BookkeepingPage extends StatelessWidget {
+  BookkeepingPage({super.key});
 
-  static final appBar = ({Key? key}) => BookkeepingPageAppBar(key: key);
-}
+  final ItemScrollController _scrollController = ItemScrollController();
+  final _positionsListener = ItemPositionsListener.create();
+  int _freshWidgetIndex = 0;
 
-class _BookkeepingPageState extends State<BookkeepingPage> {
   List<Widget> buildWidgets(
-      BuildContext context, BookkeepingProvider provider) {
+    BuildContext context,
+    BookkeepingProvider provider,
+  ) {
     final List<Widget> _widgets = [SizedBox(height: 20)];
     final bookkeepingDays = provider.bookkeepingListMap.keys.toList();
+    int index = 0;
     bookkeepingDays
         .retainWhere((date) => date.isSameMonth(provider.focusedMonth));
     bookkeepingDays.sort((a, b) => b.compareTo(a));
@@ -38,7 +40,11 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
           expenses: provider.statisticsMap[date]![1],
         ),
       );
+      index++;
       for (int i = 0; i < list.length; i++) {
+        if (provider.fresh == list[i]) {
+          _freshWidgetIndex = index;
+        }
         _widgets.add(
           BookkeepingItemWidget(
             list[i],
@@ -46,6 +52,7 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
             onDeleted: (context) => onDeleted(context, provider, list[i]),
           ),
         );
+        index++;
       }
     });
     _widgets.add(SizedBox(height: 12));
@@ -73,7 +80,6 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
 
   @override
   Widget build(BuildContext context) => Container(
-        // margin: EdgeInsets.only(top: 0),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/bookkeeping_bg.png'),
@@ -91,7 +97,29 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
                     child: Consumer<BookkeepingProvider>(
                       builder: (context, provider, _) {
                         final _widgets = buildWidgets(context, provider);
-                        return ListView.builder(
+                        if (provider.fresh != null) {
+                          Future.delayed(
+                            const Duration(milliseconds: 1),
+                            () {
+                              final _itemPositions = _positionsListener
+                                  .itemPositions.value
+                                  .toList();
+                              if (_itemPositions.first.index >
+                                      _freshWidgetIndex ||
+                                  _itemPositions.last.index <
+                                      _freshWidgetIndex) {
+                                _scrollController.jumpTo(
+                                  index: _freshWidgetIndex,
+                                );
+                              }
+                              provider.refresh();
+                            },
+                          );
+                        }
+
+                        return ScrollablePositionedList.builder(
+                          itemScrollController: _scrollController,
+                          itemPositionsListener: _positionsListener,
                           itemBuilder: (context, index) => _widgets[index],
                           itemCount: _widgets.length,
                         );
@@ -105,4 +133,6 @@ class _BookkeepingPageState extends State<BookkeepingPage> {
           ],
         ),
       );
+
+  static final appBar = ({Key? key}) => BookkeepingPageAppBar(key: key);
 }

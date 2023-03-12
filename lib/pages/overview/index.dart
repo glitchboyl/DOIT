@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/dashed_line.dart';
 import 'app_bar.dart';
@@ -18,17 +19,28 @@ import 'package:doit/constants/keys.dart';
 class OverviewPage extends StatelessWidget {
   OverviewPage({super.key});
 
+  final ItemScrollController _scrollController = ItemScrollController();
+  int _freshWidgetIndex = 0;
+  final _positionsListener = ItemPositionsListener.create();
+
   List<Widget> buildToDoList(BuildContext context, ToDoListProvider provider) {
     final List<Widget> toDoList = [SizedBox(height: 16)];
+    int index = 1;
     (provider.overviewMap[provider.focusedDate] ?? []).forEach(
-      (item) => toDoList.add(
-        ToDoItemWidget(
-          item,
-          onStatusChanged: (context) => onStatusChanged(provider, item),
-          onEdited: (context) => onEdited(context, item),
-          onDeleted: (context) => onDeleted(context, provider, item),
-        ),
-      ),
+      (item) {
+        if (provider.fresh == item) {
+          _freshWidgetIndex = index;
+        }
+        toDoList.add(
+          ToDoItemWidget(
+            item,
+            onStatusChanged: (context) => onStatusChanged(provider, item),
+            onEdited: (context) => onEdited(context, item),
+            onDeleted: (context) => onDeleted(context, provider, item),
+          ),
+        );
+        index++;
+      },
     );
     return toDoList;
   }
@@ -71,6 +83,22 @@ class OverviewPage extends StatelessWidget {
             builder: (context, provider, _) {
               if (provider.overviewMode == OverviewMode.Day) {
                 final _toDoList = buildToDoList(context, provider);
+                if (provider.fresh != null) {
+                  Future.delayed(
+                    const Duration(milliseconds: 1),
+                    () {
+                      final _itemPositions =
+                          _positionsListener.itemPositions.value.toList();
+                      if (_itemPositions.first.index > _freshWidgetIndex ||
+                          _itemPositions.last.index < _freshWidgetIndex) {
+                        _scrollController.jumpTo(
+                          index: _freshWidgetIndex,
+                        );
+                      }
+                      provider.refresh();
+                    },
+                  );
+                }
                 return Stack(
                   children: [
                     Padding(
@@ -95,7 +123,9 @@ class OverviewPage extends StatelessWidget {
                             ),
                           ),
                           SlidableAutoCloseBehavior(
-                            child: ListView.builder(
+                            child: ScrollablePositionedList.builder(
+                              itemScrollController: _scrollController,
+                              itemPositionsListener: _positionsListener,
                               itemBuilder: (context, index) => _toDoList[index],
                               itemCount: _toDoList.length,
                             ),

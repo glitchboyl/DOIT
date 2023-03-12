@@ -27,6 +27,7 @@ class ToDoListProvider extends ChangeNotifier {
   OverviewMode _overviewMode = OverviewMode.Day;
   DateTime _focusedDate = nowTime.getDayTime();
   int _pageIndex = 0;
+  ToDoItem? _fresh;
 
   List<ToDoItem> get toDoList => _toDoList;
   Map<ScheduleToDoListType, ScheduleToDoList> get scheduleToDoListMap =>
@@ -35,6 +36,7 @@ class ToDoListProvider extends ChangeNotifier {
   DateTime get focusedDate => _focusedDate;
   OverviewMode get overviewMode => _overviewMode;
   int get pageIndex => _pageIndex;
+  ToDoItem? get fresh => _fresh;
 
   Future<void> get() async {
     final maps = await DBHelper.get('to_do_list');
@@ -148,12 +150,14 @@ class ToDoListProvider extends ChangeNotifier {
           list.sort(sortByStartTime);
           list.sort(sortByLevel);
         }
+        _fresh = toDoItem;
         update(toDoItem);
       },
     );
   }
 
   Future<void> insert(ToDoItem item) async {
+    _fresh = item;
     if (item.startTime.isSameDay(nowTime)) {
       final list =
           _scheduleToDoListMap[ScheduleToDoListType.TodayUncompleted]!.list;
@@ -207,4 +211,6 @@ class ToDoListProvider extends ChangeNotifier {
       };
 
   void currentPage(int index) => _pageIndex = index;
+
+  void refresh() => _fresh = null;
 }
