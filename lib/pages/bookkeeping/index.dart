@@ -7,6 +7,7 @@ import 'bookkeeping_item_dialog.dart';
 import 'bookkeeping_statistics.dart';
 import 'bookkeeping_list_title.dart';
 import 'bookkeeping_item.dart';
+import 'package:doit/pages/schedule/blank.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
@@ -97,6 +98,7 @@ class BookkeepingPage extends StatelessWidget {
                     child: Consumer<BookkeepingProvider>(
                       builder: (context, provider, _) {
                         final _widgets = buildWidgets(context, provider);
+                        if(_widgets.length == 2) return ScheduleBlank();
                         if (provider.fresh != null) {
                           Future.delayed(
                             const Duration(milliseconds: 1),

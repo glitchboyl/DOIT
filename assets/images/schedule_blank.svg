@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140px" height="140px" viewBox="0 0 140 140" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>doit-blank-schedule@1x</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT-暂无日程" transform="translate(-118.000000, -258.000000)">
+            <g id="doit-blank-schedule" transform="translate(118.000000, 258.000000)">
+                <rect id="矩形" fill="#F7F7FA" x="0" y="0" width="140" height="140"></rect>
+                <text id="放松点" font-family="PangMenZhengDao-3" font-size="44" font-weight="normal" fill="#F0F0FF">
+                    <tspan x="4" y="128">放松点</tspan>
+                </text>
+                <path d="M27,51 L113,51 C113.552285,51 114,51.4477153 114,52 L114,99 C114,105.627417 108.627417,111 102,111 L38,111 C31.372583,111 26,105.627417 26,99 L26,52 C26,51.4477153 26.4477153,51 27,51 Z" id="矩形备份-8" stroke="#373655" fill="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M48,61 L92,61 C94.209139,61 96,62.790861 96,65 L96,71 C96,73.209139 94.209139,75 92,75 L48,75 C45.790861,75 44,73.209139 44,71 L44,65 C44,62.790861 45.790861,61 48,61 Z" id="矩形备份-9" stroke="#3A36EE" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,4"></path>
+                <path d="M44,66 L45,66 C45.5522847,66 46,66.4477153 46,67 L46,69 C46,69.5522847 45.5522847,70 45,70 L44,70 L44,70 L44,66 Z" id="矩形备份-10" stroke="#3A36EE" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M48,81 L92,81 C94.209139,81 96,82.790861 96,85 L96,91 C96,93.209139 94.209139,95 92,95 L48,95 C45.790861,95 44,93.209139 44,91 L44,85 C44,82.790861 45.790861,81 48,81 Z" id="1" stroke="#3A36EE" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,4"></path>
+                <path d="M44,86 L45,86 C45.5522847,86 46,86.4477153 46,87 L46,89 C46,89.5522847 45.5522847,90 45,90 L44,90 L44,90 L44,86 Z" id="矩形备份-12" stroke="#3A36EE" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M38,29 L102,29 C108.627417,29 114,34.372583 114,41 L114,45 L114,45 L26,45 L26,41 C26,34.372583 31.372583,29 38,29 Z" id="矩形备份-13" stroke="#373655" fill="#373655" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+        </g>
+    </g>
+</svg>

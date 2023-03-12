@@ -54,4 +54,6 @@ abstract class MEAS {
   static double loadingToastLength = 104;
   static double loadingToastIconLength = 24;
   static double loadingToastRadius = 12;
+
+  static double blankImageLength = 140;
 }

@@ -1,7 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:doit/utils/time.dart';
 
 class NotificationService {
   //NotificationService a singleton object
@@ -19,7 +18,7 @@ class NotificationService {
 
   Future<void> init() async {
     final AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('@mipmap/ic_launcher');
+        AndroidInitializationSettings('@mipmap/doit_android_icon');
 
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(

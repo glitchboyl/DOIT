@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'note_item.dart';
+import 'package:doit/pages/schedule/blank.dart';
 import 'package:doit/providers/note.dart';
 
 class NotesPage extends StatelessWidget {
@@ -37,12 +38,13 @@ class NotesPage extends StatelessWidget {
           ),
           child: Consumer<NoteProvider>(
             builder: (context, provider, _) {
+              if(provider.noteList.length == 0) return ScheduleBlank();
+              buildWidgets(context, provider);
               if (provider.noteList.length > _widgets.length - 1) {
                 Future.delayed(
                     const Duration(milliseconds: 1),
                     () => _scrollController.jumpTo(0));
               }
-              buildWidgets(context, provider);
               return ListView.builder(
                 controller: _scrollController,
                 itemBuilder: (context, index) => _widgets[index],

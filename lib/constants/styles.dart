@@ -17,7 +17,7 @@ abstract class Styles {
   static const Color ToDoItemLevelIColor = Color(0xFFFF543D);
   static const Color StudyColor = Color(0xFF9470FF);
   static const Color WorkColor = Color(0xFF6B89FF);
-  static const Color LifeColor = Color(0xFF64EDB6);
+  static const Color LifeColor = Color(0xFF17E9DD);
   static const Color HealthColor = Color(0xFFFF6B76);
   static const Color TravelColor = Color(0xFF84ED64);
   static const Color DangerousColor = Color(0xFFFF543D);

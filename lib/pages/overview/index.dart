@@ -7,6 +7,7 @@ import 'app_bar.dart';
 import 'to_do_item.dart';
 import 'calendar_row.dart';
 import 'calendar_view.dart';
+import 'package:doit/pages/schedule/blank.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
@@ -122,14 +123,17 @@ class OverviewPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SlidableAutoCloseBehavior(
-                            child: ScrollablePositionedList.builder(
-                              itemScrollController: _scrollController,
-                              itemPositionsListener: _positionsListener,
-                              itemBuilder: (context, index) => _toDoList[index],
-                              itemCount: _toDoList.length,
-                            ),
-                          ),
+                          _toDoList.length == 1
+                              ? ScheduleBlank()
+                              : SlidableAutoCloseBehavior(
+                                  child: ScrollablePositionedList.builder(
+                                    itemScrollController: _scrollController,
+                                    itemPositionsListener: _positionsListener,
+                                    itemBuilder: (context, index) =>
+                                        _toDoList[index],
+                                    itemCount: _toDoList.length,
+                                  ),
+                                ),
                         ],
                       ),
                     ),

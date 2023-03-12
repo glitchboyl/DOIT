@@ -4,6 +4,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'schedule_to_do_list_title.dart';
+import 'blank.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/widgets/simple_to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
@@ -103,6 +104,9 @@ class SchedulePage extends StatelessWidget {
             child: Consumer<ToDoListProvider>(
               builder: (context, provider, _) {
                 final _widgets = buildWidgets(context, provider);
+
+                if (_widgets.length == 1) return ScheduleBlank();
+
                 if (provider.fresh != null) {
                   Future.delayed(
                     const Duration(milliseconds: 1),
