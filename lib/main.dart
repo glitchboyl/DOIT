@@ -16,11 +16,13 @@ import 'providers/bookkeeping.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
+import 'utils/notification_service.dart';
 import 'constants/styles.dart';
 import 'constants/meas.dart';
 import 'constants/keys.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   final _toDoListProvider = ToDoListProvider();
   final _noteProvider = NoteProvider();
   final _bookkeepingProvider = BookkeepingProvider();
@@ -33,6 +35,7 @@ void main() async {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
+  await notificationService.init();
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

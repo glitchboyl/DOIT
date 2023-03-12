@@ -5,6 +5,7 @@ import 'package:doit/models/to_do_item.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/overview.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/utils/notification_service.dart';
 import 'package:doit/constants/keys.dart';
 
 class ToDoListProvider extends ChangeNotifier {
@@ -182,11 +183,14 @@ class ToDoListProvider extends ChangeNotifier {
         (Keys.calendarView.currentState as dynamic).updateFocusedDay();
       }
     }
+    await setNotification(item);
     await DBHelper.insert('to_do_list', item);
     notifyListeners();
   }
 
   Future<void> update(ToDoItem item) async {
+    await notificationService.cancelNotifications(item.id);
+    await setNotification(item);
     await DBHelper.update('to_do_list', item);
     notifyListeners();
   }
@@ -194,9 +198,18 @@ class ToDoListProvider extends ChangeNotifier {
   Future<void> delete(ToDoItem item) async {
     reduce(item);
     _toDoList.remove(item);
+    await notificationService.cancelNotifications(item.id);
     await DBHelper.delete('to_do_list', item.id);
     notifyListeners();
   }
+
+  Future<void> setNotification(ToDoItem item) async =>
+      await notificationService.scheduleNotifications(
+        item.id,
+        item.title,
+        item.remarks,
+        item.startTime,
+      );
 
   void focusDate(DateTime date) => {
         _focusedDate = date,

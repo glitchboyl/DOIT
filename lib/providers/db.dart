@@ -1,11 +1,9 @@
-import 'package:flutter/widgets.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 late Future<Database> _db;
 
 final Future<void> Function() connectDB = () async => {
-      WidgetsFlutterBinding.ensureInitialized(),
       _db = openDatabase(
         join(await getDatabasesPath(), 'doit_database.db'),
         onCreate: (db, version) async {
