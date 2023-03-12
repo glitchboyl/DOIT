@@ -183,14 +183,18 @@ class ToDoListProvider extends ChangeNotifier {
         (Keys.calendarView.currentState as dynamic).updateFocusedDay();
       }
     }
-    await setNotification(item);
+    if (item.notificationType != NotificationType.None) {
+      await setNotification(item);
+    }
     await DBHelper.insert('to_do_list', item);
     notifyListeners();
   }
 
   Future<void> update(ToDoItem item) async {
     await notificationService.cancelNotifications(item.id);
-    await setNotification(item);
+    if (item.notificationType != NotificationType.None) {
+      await setNotification(item);
+    }
     await DBHelper.update('to_do_list', item);
     notifyListeners();
   }
@@ -203,13 +207,22 @@ class ToDoListProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> setNotification(ToDoItem item) async =>
-      await notificationService.scheduleNotifications(
-        item.id,
-        item.title,
-        item.remarks,
-        item.startTime,
-      );
+  Future<void> setNotification(ToDoItem item) async {
+    final DateTime notifyTime =
+        item.startTime.subtract(notificationTypeMap[item.notificationType]![1]);
+    await (DateTime.now().compareTo(notifyTime) == 1
+        ? notificationService.showNotifications(
+            item.id,
+            item.title,
+            '${getClockTime(item.startTime)} 开始',
+          )
+        : notificationService.scheduleNotifications(
+            item.id,
+            item.title,
+            '${item.notificationType == NotificationType.OneDayEarlier ? '${getDateTime(item.startTime)} ' : ''}${getClockTime(item.startTime)} 开始',
+            notifyTime,
+          ));
+  }
 
   void focusDate(DateTime date) => {
         _focusedDate = date,

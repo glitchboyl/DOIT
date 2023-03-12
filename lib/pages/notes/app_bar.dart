@@ -11,8 +11,8 @@ class NotesPageAppBar extends AppBarBuilder {
           '随记',
           color: Styles.PrimaryTextColor,
           fontWeight: FontWeight.bold,
-          fontSize: Styles.largeTextSize,
-          lineHeight: Styles.largeTextLineHeight,
+          fontSize: Styles.greatTextSize,
+          lineHeight: Styles.greatTextLineHeight,
         ),
       );
 }

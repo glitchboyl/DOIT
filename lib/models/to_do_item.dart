@@ -16,6 +16,15 @@ enum ToDoItemType {
   Travel,
 }
 
+enum NotificationType {
+  None,
+  RightTime,
+  FiveMinutesEarlier,
+  ThirtyMinutesEarlier,
+  OneHourEarlier,
+  OneDayEarlier,
+}
+
 enum RepeatType {
   Never,
   EveryDay,
@@ -87,6 +96,33 @@ const toDoItemLevelMap = {
   ),
 };
 
+const Map<NotificationType, List<dynamic>> notificationTypeMap = {
+  NotificationType.None: [
+    '无',
+    null,
+  ],
+  NotificationType.RightTime: [
+    '准时',
+    0,
+  ],
+  NotificationType.FiveMinutesEarlier: [
+    '提前5分钟',
+    const Duration(minutes: 5),
+  ],
+  NotificationType.ThirtyMinutesEarlier: [
+    '提前30分钟',
+    const Duration(minutes: 30),
+  ],
+  NotificationType.OneHourEarlier: [
+    '提前1小时',
+    const Duration(hours: 1),
+  ],
+  NotificationType.OneDayEarlier: [
+    '提前1天',
+    const Duration(days: 1),
+  ],
+};
+
 class ToDoItem {
   ToDoItem({
     required this.id,
@@ -97,6 +133,7 @@ class ToDoItem {
     required this.startTime,
     required this.endTime,
     this.repeatType = RepeatType.Never,
+    this.notificationType = NotificationType.None,
     this.completeTime,
   });
 
@@ -107,7 +144,8 @@ class ToDoItem {
   ToDoItemLevel level;
   DateTime startTime;
   DateTime endTime;
-  RepeatType? repeatType;
+  RepeatType repeatType;
+  NotificationType notificationType;
   DateTime? completeTime;
 
   Map<String, dynamic> toMap() {
@@ -119,7 +157,8 @@ class ToDoItem {
       'level': ToDoItemLevel.values.indexOf(level),
       'startTime': startTime.millisecondsSinceEpoch,
       'endTime': endTime.millisecondsSinceEpoch,
-      'repeatType': RepeatType.values.indexOf(repeatType!),
+      'repeatType': RepeatType.values.indexOf(repeatType),
+      'notificationType': NotificationType.values.indexOf(notificationType),
       'completeTime': completeTime?.millisecondsSinceEpoch,
     };
   }

@@ -56,14 +56,13 @@ class NotificationService {
     presentAlert: true,
     presentBadge: true,
     presentSound: true,
-    subtitle: 'ass we can',
   );
 
-  Future<void> showNotifications() async {
+  Future<void> showNotifications(int id, String title, String body) async {
     await flutterLocalNotificationsPlugin.show(
-      0,
-      "Notification Title",
-      "This is the Notification Body!",
+      id,
+      title,
+      body,
       NotificationDetails(
         android: _androidNotificationDetails,
         iOS: _iosNotificationDetails,

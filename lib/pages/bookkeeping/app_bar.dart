@@ -11,8 +11,8 @@ class BookkeepingPageAppBar extends AppBarBuilder {
           '记账',
           color: Styles.RegularBaseColor,
           fontWeight: FontWeight.bold,
-          fontSize: Styles.largeTextSize,
-          lineHeight: Styles.largeTextLineHeight,
+          fontSize: Styles.greatTextSize,
+          lineHeight: Styles.greatTextLineHeight,
         ),
         backgroundColor: Colors.transparent,
       );

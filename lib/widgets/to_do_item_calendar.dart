@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'app_bar.dart';
+import 'bottom_drawer_select.dart';
 import 'text_button.dart';
 import 'svg_icon.dart';
 import 'to_do_item_calendar_switch_button.dart';
@@ -7,6 +8,7 @@ import 'calendar.dart';
 import 'bottom_drawer_item.dart';
 import 'time_picker_drawer.dart';
 import 'time_picker.dart';
+import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/styles.dart';
@@ -17,13 +19,16 @@ class ToDoItemCalendar extends StatefulWidget {
     super.key,
     this.startTime,
     this.endTime,
+    this.notificationType = NotificationType.None,
     required this.onConfirmed,
   });
   final DateTime? startTime;
   final DateTime? endTime;
+  final NotificationType notificationType;
   final void Function(
     DateTime startTime,
     DateTime? endTime,
+    NotificationType notificationType,
   ) onConfirmed;
 
   @override
@@ -34,14 +39,16 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
   late DateTime _startTime;
   late DateTime? _endTime;
   late DateTime _focusedDay;
+  late NotificationType _notificationType;
   bool _toggle = false;
 
   @override
   void initState() {
     super.initState();
-    _startTime = widget.startTime ?? nowTime;
+    _startTime = widget.startTime ?? DateTime.now();
     _endTime = widget.endTime;
     _focusedDay = _startTime;
+    _notificationType = widget.notificationType;
   }
 
   @override
@@ -80,6 +87,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                   widget.onConfirmed(
                     _startTime,
                     _endTime,
+                    _notificationType,
                   ),
                   Navigator.pop(context),
                 },
@@ -137,23 +145,54 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                     width: MEAS.itemOperationIconLength,
                     height: MEAS.itemOperationIconLength,
                   ),
-                  onPressed: () => {
-                    showBottomDrawer(
-                      context: context,
-                      builder: (context) => TimePickerDrawer(
-                        _toggle
-                            ? (_endTime != null ? _endTime! : _startTime)
-                            : _startTime,
-                        mode: CupertinoDatePickerMode.time,
-                        onConfirmed: (time) => setState(() {
+                  onPressed: () => showBottomDrawer(
+                    context: context,
+                    builder: (context) => TimePickerDrawer(
+                      _toggle
+                          ? (_endTime != null ? _endTime! : _startTime)
+                          : _startTime,
+                      mode: CupertinoDatePickerMode.time,
+                      onConfirmed: (time) => setState(
+                        () {
                           if (_toggle)
                             _endTime = time;
                           else
                             _startTime = time;
-                        }),
+                        },
                       ),
                     ),
-                  },
+                  ),
+                ),
+                BottomDrawerItem(
+                  title: '提醒',
+                  value: notificationTypeMap[_notificationType]![0],
+                  icon: SVGIcon(
+                    'assets/images/notification.svg',
+                    width: MEAS.itemOperationIconLength,
+                    height: MEAS.itemOperationIconLength,
+                  ),
+                  onPressed: () => showBottomDrawer(
+                    context: context,
+                    builder: (context) => BottomDrawerSelect<NotificationType>(
+                      title: '提醒',
+                      selectList: NotificationType.values,
+                      itemBuilder: (type, index) => BottomDrawerItem(
+                        key: ValueKey(type),
+                        title: notificationTypeMap[type]![0],
+                        icon: SVGIcon(
+                          'assets/images/radio${type == _notificationType ? '_checked' : ''}.svg',
+                          width: 20,
+                          height: 20,
+                        ),
+                      ),
+                      onSelected: (type, index) => {
+                        if (_notificationType != type)
+                          setState(() {
+                            _notificationType = type;
+                          })
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),

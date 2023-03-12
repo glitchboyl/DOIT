@@ -40,8 +40,8 @@ class SchedulePageDrawerItem extends StatelessWidget {
               TextBuilder(
                 title,
                 color: Styles.PrimaryTextColor,
-                fontSize: Styles.drawerItemTextSize,
-                lineHeight: Styles.drawerItemTextLineHeight,
+                fontSize: Styles.largeTextSize,
+                lineHeight: Styles.largeTextLineHeight,
               ),
             ],
           ),

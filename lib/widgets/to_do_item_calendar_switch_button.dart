@@ -18,8 +18,8 @@ class ToDoItemCalendarSwitchButton extends StatelessWidget {
   Widget build(BuildContext context) => TextButtonBuilder(
         text,
         color: isActived ? Styles.PrimaryColor : Styles.PrimaryTextColor,
-        fontSize: Styles.calendarSwitchButtonTextSize,
-        lineHeight: Styles.calendarSwitchButtonTextLineHeight,
+        fontSize: Styles.largeTextSize,
+        lineHeight: Styles.largeTextLineHeight,
         padding: EdgeInsets.symmetric(
           horizontal: 10,
           vertical: 2,

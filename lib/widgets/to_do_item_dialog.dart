@@ -33,6 +33,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
   ToDoItemLevel _level = ToDoItemLevel.IV;
   ToDoItemType _type = ToDoItemType.Life;
   RepeatType _repeatType = RepeatType.Never;
+  NotificationType _notificationType = NotificationType.None;
 
   bool validate() => _title.trim() != '';
 
@@ -47,6 +48,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
       _endTime = widget.item!.endTime;
       _level = widget.item!.level;
       _type = widget.item!.type;
+      _notificationType = widget.item!.notificationType;
     } else {
       final _provider =
           Provider.of<ToDoListProvider>(this.context, listen: false);
@@ -87,6 +89,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                       widget.item!.startTime = _startTime;
                       widget.item!.endTime = _endTime ?? _startTime;
                       widget.item!.repeatType = _repeatType;
+                      widget.item!.notificationType = _notificationType;
                       if (isReduced) {
                         _provider.updateSchedule(widget.item!);
                         _provider.updateOverviewMap(widget.item!);
@@ -103,6 +106,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                           startTime: _startTime,
                           endTime: _endTime ?? _startTime,
                           repeatType: _repeatType,
+                          notificationType: _notificationType,
                         ),
                       );
                     }
@@ -173,10 +177,15 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         builder: (context) => ToDoItemCalendar(
                           startTime: _startTime,
                           endTime: _endTime,
-                          onConfirmed: (startTime, endTime) => setState(() {
-                            _startTime = startTime;
-                            _endTime = endTime ?? startTime;
-                          }),
+                          notificationType: _notificationType,
+                          onConfirmed: (startTime, endTime, notificationType) =>
+                              setState(
+                            () => {
+                              _startTime = startTime,
+                              _endTime = endTime ?? startTime,
+                              _notificationType = notificationType,
+                            },
+                          ),
                         ),
                       ),
                     ),

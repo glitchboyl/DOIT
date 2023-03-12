@@ -32,8 +32,8 @@ class OverviewPageAppBar extends AppBarBuilder {
                   TextBuilder(
                     '${!provider.focusedDate.isSameYear(nowTime) ? '${provider.focusedDate.year}.' : ''}${provider.focusedDate.month}月',
                     color: Styles.PrimaryTextColor,
-                    fontSize: Styles.largeTextSize,
-                    lineHeight: Styles.largeTextLineHeight,
+                    fontSize: Styles.greatTextSize,
+                    lineHeight: Styles.greatTextLineHeight,
                     fontWeight: FontWeight.bold,
                   ),
                   SizedBox(width: 4),

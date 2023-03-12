@@ -57,8 +57,8 @@ class Calculator extends StatelessWidget {
                 : TextBuilder(
                     calculatorCells[i],
                     color: Styles.PrimaryTextColor,
-                    fontSize: Styles.largeTextSize,
-                    lineHeight: Styles.largeTextLineHeight,
+                    fontSize: Styles.greatTextSize,
+                    lineHeight: Styles.greatTextLineHeight,
                     fontWeight: FontWeight.bold,
                   ),
             onPressed: () => onInput(calculatorCells[i]),

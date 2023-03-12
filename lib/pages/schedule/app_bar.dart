@@ -15,8 +15,8 @@ class SchedulePageAppBar extends AppBarBuilder {
         title: TextBuilder(
           'DO IT',
           color: Styles.PrimaryTextColor,
-          fontSize: Styles.largeTextSize,
-          lineHeight: Styles.largeTextLineHeight,
+          fontSize: Styles.greatTextSize,
+          lineHeight: Styles.greatTextLineHeight,
           fontWeight: FontWeight.bold,
         ),
         // trailings: [

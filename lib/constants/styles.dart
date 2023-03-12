@@ -37,27 +37,21 @@ abstract class Styles {
 
   static const Color BookkeepingStatisticsShadowColor = Color(0x0F373655);
 
-  static double textSize = 14;
-  static double textLineHeight = 20;
-  static double smallTextSize = 12;
-  static double smallTextLineHeight = 16;
-  static double largeTextSize = 18;
-  static double largeTextLineHeight = 26;
   static double tinyTextSize = 9;
   static double tinyTextLineHeight = 12;
+  static double smallTextSize = 12;
+  static double smallTextLineHeight = 16;
+  static double textSize = 14;
+  static double textLineHeight = 20;
+  static double largeTextSize = 16;
+  static double largeTextLineHeight = 24;
+  static double greatTextSize = 18;
+  static double greatTextLineHeight = 26;
 
   static double confirmDialogContentLineHeight = 18;
 
   static double dateTextSize = 15;
   static double dateTextLineHeight = 18;
-  static double calendarSwitchButtonTextSize = 16;
-  static double calendarSwitchButtonTextLineHeight = 24;
-
-  static double drawerItemTextSize = 16;
-  static double drawerItemTextLineHeight = 22;
-
-  static double noteTitleSize = 16;
-  static double noteTitleLineHeight = 24;
 
   static double amountTextSize = 20;
   static double amountTextLineHeight = 32;

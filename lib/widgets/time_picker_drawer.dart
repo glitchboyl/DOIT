@@ -26,8 +26,8 @@ class TimePickerDrawer extends StatelessWidget {
             title: TextBuilder(
               '选择时间',
               color: Styles.PrimaryTextColor,
-              fontSize: Styles.textSize,
-              lineHeight: Styles.textLineHeight,
+              fontSize: Styles.largeTextSize,
+              lineHeight: Styles.largeTextLineHeight,
               fontWeight: FontWeight.bold,
             ),
             trailings: [
