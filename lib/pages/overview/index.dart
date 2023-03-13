@@ -111,7 +111,7 @@ class OverviewPage extends StatelessWidget {
                       child: Stack(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width / 7 - 16,
+                            width: (MediaQuery.of(context).size.width - 20) / 7 - 12,
                             height: MediaQuery.of(context).size.height,
                             alignment: Alignment.center,
                             child: Column(

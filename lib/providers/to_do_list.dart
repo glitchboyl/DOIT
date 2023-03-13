@@ -55,6 +55,7 @@ class ToDoListProvider extends ChangeNotifier {
             startTime: DateTime.fromMillisecondsSinceEpoch(item['startTime']),
             endTime: DateTime.fromMillisecondsSinceEpoch(item['endTime']),
             repeatType: RepeatType.values[item['repeatType']],
+            notificationType: NotificationType.values[item['notificationType']],
             completeTime: item['completeTime'] != null
                 ? DateTime.fromMillisecondsSinceEpoch(item['completeTime'])
                 : null,

@@ -49,7 +49,7 @@ class NotificationService {
     channelDescription: 'channel description',
     playSound: true,
     priority: Priority.high,
-    importance: Importance.high,
+    importance: Importance.max,
   );
   IOSNotificationDetails _iosNotificationDetails = IOSNotificationDetails(
     presentAlert: true,
@@ -57,45 +57,51 @@ class NotificationService {
     presentSound: true,
   );
 
-  Future<void> showNotifications(int id, String title, String body) async {
-    await flutterLocalNotificationsPlugin.show(
-      id,
-      title,
-      body,
-      NotificationDetails(
-        android: _androidNotificationDetails,
-        iOS: _iosNotificationDetails,
-      ),
-    );
-  }
+  Future<void> showNotifications(int id, String title, String body) async =>
+      await flutterLocalNotificationsPlugin
+          .show(
+        id,
+        title,
+        body,
+        NotificationDetails(
+          android: _androidNotificationDetails,
+          iOS: _iosNotificationDetails,
+        ),
+      )
+          .catchError(
+        (err) {
+          print('Error: $err'); // Prints 401.
+        },
+        test: (error) {
+          return error is int && error >= 400;
+        },
+      );
 
   Future<void> scheduleNotifications(
     int id,
     String title,
     String body,
     DateTime scheduledDate,
-  ) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      id,
-      title,
-      body,
-      tz.TZDateTime.from(
-        scheduledDate,
-        tz.local,
-      ),
-      NotificationDetails(
-        android: _androidNotificationDetails,
-        iOS: _iosNotificationDetails,
-      ),
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
-  }
+  ) async =>
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        id,
+        title,
+        body,
+        tz.TZDateTime.from(
+          scheduledDate,
+          tz.local,
+        ),
+        NotificationDetails(
+          android: _androidNotificationDetails,
+          iOS: _iosNotificationDetails,
+        ),
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
 
-  Future<void> cancelNotifications(int id) async {
-    await flutterLocalNotificationsPlugin.cancel(id);
-  }
+  Future<void> cancelNotifications(int id) async =>
+      await flutterLocalNotificationsPlugin.cancel(id);
 
   // Future<void> cancelAllNotifications() async {
   //   await flutterLocalNotificationsPlugin.cancelAll();
