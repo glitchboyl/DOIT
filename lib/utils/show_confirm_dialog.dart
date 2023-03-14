@@ -5,16 +5,18 @@ import 'package:doit/constants/styles.dart';
 final showConfirmDialog = (
   String text, {
   required BuildContext context,
+  confirmText = '确定',
   required void Function(BuildContext) onConfirm,
-  bool? danger,
+  bool danger = false,
 }) =>
     showDialog(
       context: context,
       builder: (context) => ConfirmDialogBuilder(
         text,
-        key: UniqueKey(),
+        confirmText: confirmText,
         onConfirm: onConfirm,
         danger: danger,
+        key: UniqueKey(),
       ),
       barrierDismissible: false,
       barrierColor: Styles.BarrierColor,

@@ -56,7 +56,9 @@ class OverviewPageAppBar extends AppBarBuilder {
                       DateTime(
                         time.year,
                         time.month,
-                        provider.overviewMode == OverviewMode.Day ? time.day : 1,
+                        provider.overviewMode == OverviewMode.Day
+                            ? time.day
+                            : 1,
                       ),
                     );
                     if (provider.overviewMode == OverviewMode.Day) {

@@ -27,8 +27,8 @@ class ConfirmDialogActionButton extends StatelessWidget {
           child: TextBuilder(
             text,
             color: textColor,
-            fontSize: Styles.greatTextSize,
-            lineHeight: Styles.greatTextLineHeight,
+            fontSize: Styles.largeTextSize,
+            lineHeight: Styles.largeTextLineHeight,
           ),
           onPressed: onPressed,
         ),

@@ -8,13 +8,15 @@ class ConfirmDialogBuilder extends StatelessWidget {
   const ConfirmDialogBuilder(
     this.text, {
     super.key,
+    this.confirmText = '确定',
     required this.onConfirm,
     this.danger = false,
   });
 
   final String text;
+  final String confirmText;
   final void Function(BuildContext context) onConfirm;
-  final bool? danger;
+  final bool danger;
 
   @override
   Widget build(BuildContext context) => Dialog(
@@ -68,8 +70,8 @@ class ConfirmDialogBuilder extends StatelessWidget {
                         color: Styles.DeactivedDeepColor,
                       ),
                       ConfirmDialogActionButton(
-                        text: '删除',
-                        textColor: danger!
+                        text: confirmText,
+                        textColor: danger
                             ? Styles.DangerousColor
                             : Styles.PrimaryColor,
                         onPressed: () => onConfirm(context),

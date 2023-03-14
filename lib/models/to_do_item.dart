@@ -103,7 +103,7 @@ const Map<NotificationType, List<dynamic>> notificationTypeMap = {
   ],
   NotificationType.RightTime: [
     '准时',
-    0,
+    const Duration(seconds: 0),
   ],
   NotificationType.FiveMinutesEarlier: [
     '提前5分钟',

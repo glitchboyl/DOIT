@@ -31,31 +31,33 @@ class BookkeepingPage extends StatelessWidget {
     bookkeepingDays
         .retainWhere((date) => date.isSameMonth(provider.focusedMonth));
     bookkeepingDays.sort((a, b) => b.compareTo(a));
-    bookkeepingDays.forEach((date) {
-      final list = provider.bookkeepingListMap[date]!;
-      _widgets.add(
-        BookkeepingListTitle(
-          date.isSameDay(nowTime) ? '今天' : getDateTime(date),
-          key: ValueKey(date),
-          incomes: provider.statisticsMap[date]![0],
-          expenses: provider.statisticsMap[date]![1],
-        ),
-      );
-      index++;
-      for (int i = 0; i < list.length; i++) {
-        if (provider.fresh == list[i]) {
-          _freshWidgetIndex = index;
-        }
+    bookkeepingDays.forEach(
+      (date) {
+        final list = provider.bookkeepingListMap[date]!;
         _widgets.add(
-          BookkeepingItemWidget(
-            list[i],
-            onEdited: (context) => onEdited(context, list[i]),
-            onDeleted: (context) => onDeleted(context, provider, list[i]),
+          BookkeepingListTitle(
+            date.isSameDay(nowTime) ? '今天' : getDateTime(date),
+            key: ValueKey(date),
+            incomes: provider.statisticsMap[date]![0],
+            expenses: provider.statisticsMap[date]![1],
           ),
         );
         index++;
-      }
-    });
+        for (int i = 0; i < list.length; i++) {
+          if (provider.fresh == list[i]) {
+            _freshWidgetIndex = index;
+          }
+          _widgets.add(
+            BookkeepingItemWidget(
+              list[i],
+              onEdited: (context) => onEdited(context, list[i]),
+              onDeleted: (context) => onDeleted(context, provider, list[i]),
+            ),
+          );
+          index++;
+        }
+      },
+    );
     _widgets.add(SizedBox(height: 12));
     return _widgets;
   }
@@ -98,7 +100,7 @@ class BookkeepingPage extends StatelessWidget {
                     child: Consumer<BookkeepingProvider>(
                       builder: (context, provider, _) {
                         final _widgets = buildWidgets(context, provider);
-                        if(_widgets.length == 2) return ScheduleBlank();
+                        if (_widgets.length == 2) return ScheduleBlank();
                         if (provider.fresh != null) {
                           Future.delayed(
                             const Duration(milliseconds: 1),

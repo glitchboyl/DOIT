@@ -17,7 +17,7 @@ class CalendarViewToDoItem extends StatelessWidget {
         margin: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(2),
-          color: item.typeColor.withOpacity(0.32),
+          color: item.typeColor.withOpacity(0.16),
         ),
         child: Row(
           children: [

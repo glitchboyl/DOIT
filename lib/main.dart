@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:provider/provider.dart';
 import 'pages/note/index.dart';
 import 'pages/note_publish/index.dart';
@@ -16,7 +17,6 @@ import 'providers/bookkeeping.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
-import 'utils/notification_service.dart';
 import 'constants/styles.dart';
 import 'constants/meas.dart';
 import 'constants/keys.dart';
@@ -31,11 +31,23 @@ void main() async {
   _noteProvider.get();
   _bookkeepingProvider.get();
   if (Platform.isAndroid) {
-    SystemUiOverlayStyle systemUiOverlayStyle =
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    );
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
-  await notificationService.init();
+  AwesomeNotifications().initialize(
+    'resource://drawable/launcher_icon',
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic Notifications',
+        channelDescription: 'Basic Notifications',
+        importance: NotificationImportance.High,
+        channelShowBadge: true,
+      ),
+    ],
+  );
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -66,6 +78,14 @@ class _DOITAppState extends State<DOITApp> {
   @override
   void initState() {
     super.initState();
+    AwesomeNotifications().actionStream.listen((notification) {
+      if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
+        AwesomeNotifications().getGlobalBadgeCounter().then(
+              (value) =>
+                  AwesomeNotifications().setGlobalBadgeCounter(value - 1),
+            );
+      }
+    });
     for (int i = 0; i < navigation.length; i++) {
       final page = navigation[i];
       _navigationBarItems.add(
@@ -86,6 +106,13 @@ class _DOITAppState extends State<DOITApp> {
       _appBarWidgets.add(page.appBar());
       _pageWidgets.add(page.widget());
     }
+  }
+
+  @override
+  void dispose() {
+    AwesomeNotifications().actionSink.close();
+    AwesomeNotifications().createdSink.close();
+    super.dispose();
   }
 
   @override

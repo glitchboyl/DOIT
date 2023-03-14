@@ -25,7 +25,8 @@ class ScheduleBlank extends StatelessWidget {
               fontSize: Styles.textSize,
               lineHeight: Styles.textLineHeight,
               fontWeight: FontWeight.bold,
-            )
+            ),
+            SizedBox(height: 48),
           ],
         ),
       );

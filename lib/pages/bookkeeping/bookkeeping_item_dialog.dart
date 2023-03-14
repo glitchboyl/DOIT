@@ -146,39 +146,43 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
                   ),
                   child: Row(
                     children: [
-                      SizedBox(
-                        width: 12,
-                      ),
                       GestureDetector(
-                        child: Wrap(
-                          runAlignment: WrapAlignment.center,
-                          crossAxisAlignment: WrapCrossAlignment.center,
-                          children: [
-                            SVGIcon(
-                              'assets/images/${_type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
-                              width: MEAS.bookkeepingItemTypeIconLength,
-                              height: MEAS.bookkeepingItemTypeIconLength,
-                            ),
-                            SizedBox(
-                              width: 4,
-                            ),
-                            TextBuilder(
-                              _type == BookkeepingItemType.Incomes
-                                  ? '收入'
-                                  : '支出',
-                              fontSize: Styles.smallTextSize,
-                              lineHeight: Styles.smallTextLineHeight,
-                            ),
-                          ],
+                        behavior: HitTestBehavior.translucent,
+                        child: Container(
+                          height: double.infinity,
+                          child: Wrap(
+                            runAlignment: WrapAlignment.center,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: 12,
+                              ),
+                              SVGIcon(
+                                'assets/images/${_type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
+                                width: MEAS.bookkeepingItemTypeIconLength,
+                                height: MEAS.bookkeepingItemTypeIconLength,
+                              ),
+                              SizedBox(
+                                width: 4,
+                              ),
+                              TextBuilder(
+                                _type == BookkeepingItemType.Incomes
+                                    ? '收入'
+                                    : '支出',
+                                fontSize: Styles.smallTextSize,
+                                lineHeight: Styles.smallTextLineHeight,
+                              ),
+                              SizedBox(
+                                width: 12,
+                              ),
+                            ],
+                          ),
                         ),
                         onTap: () => setState(
                           () => _type = (_type == BookkeepingItemType.Incomes)
                               ? BookkeepingItemType.Expenses
                               : BookkeepingItemType.Incomes,
                         ),
-                      ),
-                      SizedBox(
-                        width: 12,
                       ),
                       SizedBox(
                         height: 12,

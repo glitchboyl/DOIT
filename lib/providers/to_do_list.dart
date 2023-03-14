@@ -5,7 +5,7 @@ import 'package:doit/models/to_do_item.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/overview.dart';
 import 'package:doit/utils/time.dart';
-import 'package:doit/utils/notification_service.dart';
+import 'package:doit/utils/notification.dart';
 import 'package:doit/constants/keys.dart';
 
 class ToDoListProvider extends ChangeNotifier {
@@ -192,7 +192,7 @@ class ToDoListProvider extends ChangeNotifier {
   }
 
   Future<void> update(ToDoItem item) async {
-    await notificationService.cancelNotifications(item.id);
+    await cancelScheduledNotification(item.id);
     if (item.notificationType != NotificationType.None) {
       await setNotification(item);
     }
@@ -203,7 +203,7 @@ class ToDoListProvider extends ChangeNotifier {
   Future<void> delete(ToDoItem item) async {
     reduce(item);
     _toDoList.remove(item);
-    await notificationService.cancelNotifications(item.id);
+    await cancelScheduledNotification(item.id);
     await DBHelper.delete('to_do_list', item.id);
     notifyListeners();
   }
@@ -211,18 +211,13 @@ class ToDoListProvider extends ChangeNotifier {
   Future<void> setNotification(ToDoItem item) async {
     final DateTime notifyTime =
         item.startTime.subtract(notificationTypeMap[item.notificationType]![1]);
-    await (DateTime.now().compareTo(notifyTime) == 1
-        ? notificationService.showNotifications(
-            item.id,
-            item.title,
-            '${getClockTime(item.startTime)} 开始',
-          )
-        : notificationService.scheduleNotifications(
-            item.id,
-            item.title,
-            '${item.notificationType == NotificationType.OneDayEarlier ? '${getDateTime(item.startTime)} ' : ''}${getClockTime(item.startTime)} 开始',
-            notifyTime,
-          ));
+    await creatNotification(
+      item.id,
+      item.title,
+      '${item.notificationType == NotificationType.OneDayEarlier ? '${getDateTime(item.startTime)} ' : ''}${getClockTime(item.startTime)} 开始',
+      scheduleTime:
+          DateTime.now().compareTo(notifyTime) == 1 ? null : notifyTime,
+    );
   }
 
   void focusDate(DateTime date) => {

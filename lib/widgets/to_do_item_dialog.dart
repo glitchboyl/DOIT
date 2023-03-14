@@ -1,3 +1,4 @@
+import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
@@ -12,6 +13,7 @@ import 'icon.dart';
 import 'parts.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
+import 'package:doit/utils/notification.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/constants/styles.dart';
@@ -52,8 +54,13 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
     } else {
       final _provider =
           Provider.of<ToDoListProvider>(this.context, listen: false);
-      _startTime =
-          _provider.pageIndex == 1 ? _provider.focusedDate : DateTime.now();
+      _startTime = _provider.pageIndex == 1
+          ? _provider.focusedDate.add(
+              const Duration(
+                hours: 8,
+              ),
+            )
+          : DateTime.now();
     }
   }
 
@@ -71,10 +78,13 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
             trailings: [
               SVGIconButton(
                 'assets/images/publish${_publishActived ? '' : '_disabled'}.svg',
-                onPressed: () {
+                onPressed: () async {
                   if (_publishActived) {
                     final _provider =
                         Provider.of<ToDoListProvider>(context, listen: false);
+                    if (_notificationType != NotificationType.None) {
+                      await authorizeNotification(context);
+                    }
                     if (widget.item != null) {
                       bool isReduced = false;
                       if (!widget.item!.startTime.isSameDay(_startTime) ||

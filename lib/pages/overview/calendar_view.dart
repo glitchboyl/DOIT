@@ -69,7 +69,9 @@ class _CalendarViewState extends State<CalendarView> {
         },
         onDaySelected: (day, _) {
           if (!_provider.focusedDate.isSameDay(day)) {
-            _provider.focusDate(day.getDayTime());
+            _provider.focusDate(
+              day.getDayTime(),
+            );
           }
           isDialogActived = true;
           showBottomDrawer(
