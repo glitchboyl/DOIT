@@ -7,8 +7,8 @@ import 'app_bar.dart';
 import 'to_do_item.dart';
 import 'calendar_row.dart';
 import 'calendar_view.dart';
-import 'package:doit/pages/schedule/blank.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
+import 'package:doit/widgets/blank.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/models/overview.dart';
@@ -111,7 +111,9 @@ class OverviewPage extends StatelessWidget {
                       child: Stack(
                         children: [
                           Container(
-                            width: (MediaQuery.of(context).size.width - 20) / 7 - 12,
+                            width:
+                                (MediaQuery.of(context).size.width - 20) / 7 -
+                                    12,
                             height: MediaQuery.of(context).size.height,
                             alignment: Alignment.center,
                             child: Column(
@@ -124,7 +126,10 @@ class OverviewPage extends StatelessWidget {
                             ),
                           ),
                           _toDoList.length == 1
-                              ? ScheduleBlank()
+                              ? Blank(
+                                  '没有安排就是最好的安排',
+                                  'assets/images/schedule_blank.svg',
+                                )
                               : SlidableAutoCloseBehavior(
                                   child: ScrollablePositionedList.builder(
                                     itemScrollController: _scrollController,

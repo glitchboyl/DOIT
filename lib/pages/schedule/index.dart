@@ -4,9 +4,9 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
 import 'schedule_to_do_list_title.dart';
-import 'blank.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/widgets/simple_to_do_item.dart';
+import 'package:doit/widgets/blank.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/to_do_item.dart';
@@ -105,7 +105,12 @@ class SchedulePage extends StatelessWidget {
               builder: (context, provider, _) {
                 final _widgets = buildWidgets(context, provider);
 
-                if (_widgets.length == 1) return ScheduleBlank();
+                if (_widgets.length == 1) {
+                  return Blank(
+                    '没有安排就是最好的安排',
+                    'assets/images/schedule_blank.svg',
+                  );
+                }
 
                 if (provider.fresh != null) {
                   Future.delayed(

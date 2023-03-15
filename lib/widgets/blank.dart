@@ -4,8 +4,15 @@ import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
-class ScheduleBlank extends StatelessWidget {
-  const ScheduleBlank({super.key});
+class Blank extends StatelessWidget {
+  const Blank(
+    this.text,
+    this.image, {
+    super.key,
+  });
+
+  final String text;
+  final String image;
 
   @override
   Widget build(BuildContext context) => Container(
@@ -14,19 +21,19 @@ class ScheduleBlank extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SVGIcon(
-              'assets/images/schedule_blank.svg',
+              image,
               width: MEAS.blankImageLength,
               height: MEAS.blankImageLength,
             ),
             SizedBox(height: 24),
             TextBuilder(
-              '没有安排就是最好的安排',
+              text,
               color: Styles.PrimaryTextColor,
               fontSize: Styles.textSize,
               lineHeight: Styles.textLineHeight,
               fontWeight: FontWeight.bold,
             ),
-            SizedBox(height: 48),
+            SizedBox(height: 88),
           ],
         ),
       );
