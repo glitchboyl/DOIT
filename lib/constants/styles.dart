@@ -29,6 +29,17 @@ abstract class Styles {
   static const Color ResumeActivedColor = Color(0xFFD2AA26);
   static const Color AddButtonShadowColor = Color(0x33312DE0);
 
+  static const Color BookkeepingBonusColor = Color(0xFFFFBB71);
+  static const Color BookkeepingPartTimeJobColor = Color(0xFF78E5FA);
+  static const Color BookkeepingFinancingColor = Color(0xFF78E5FA);
+  static const Color BookkeepingGameColor = Color(0xFFFF9174);
+  static const Color BookkeepingFoodAndDrinkColor = Color(0xFFB9EB71);
+  static const Color BookkeepingShoppingColor = Color(0xFFFFDFCB);
+  static const Color BookkeepingTrafficColor = Color(0xFF6CADFF);
+  static const Color BookkeepingCommunicationColor = Color(0xFFB8ADEE);
+  static const Color BookkeepingHousingColor = Color(0xFF97BFCF);
+  static const Color BookkeepingOtherColor = Color(0xFFDBE9EF);
+
   static const Color NoteImagesIndicatorBackgroundColor = Color(0x1A373655);
 
   static const Color CalendarDateRangeColor = Color(0xFFF0F0FF);

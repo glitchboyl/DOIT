@@ -31,6 +31,7 @@ class BookkeepingProvider extends ChangeNotifier {
             amount: double.tryParse(item['amount']) ?? 0,
             time: DateTime.fromMillisecondsSinceEpoch(item['time']),
             type: BookkeepingItemType.values[item['type']],
+            category: BookkeepingItemCategory.values[item['category']],
           );
           statistic(bookkeepingItem);
           return bookkeepingItem;

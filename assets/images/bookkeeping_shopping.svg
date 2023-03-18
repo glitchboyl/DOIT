@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范" transform="translate(-46.000000, -788.000000)">
+            <g id="doit-icon-shopping" transform="translate(46.000000, 788.000000)">
+                <rect id="矩形" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="20" height="20"></rect>
+                <path d="M5,3 L15,3 C15.5522847,3 16,3.44771525 16,4 L16,15 C16,16.1045695 15.1045695,17 14,17 L6,17 C4.8954305,17 4,16.1045695 4,15 L4,4 C4,3.44771525 4.44771525,3 5,3 Z" id="矩形" fill="#B8BBCC"></path>
+                <path d="M12,5.2 C12.4418278,5.2 12.8,5.5581722 12.8,6 L12.8,11 C12.8,11.4418278 12.4418278,11.8 12,11.8 C11.5581722,11.8 11.2,11.4418278 11.2,11 L11.2,6 C11.2,5.5581722 11.5581722,5.2 12,5.2 Z" id="路径" fill="#3A36EE" fill-rule="nonzero"></path>
+                <path d="M12,4.2 C12.4418278,4.2 12.8,4.5581722 12.8,5 L12.8,7 C12.8,8.5463973 11.5463973,9.8 10,9.8 C8.4536027,9.8 7.2,8.5463973 7.2,7 L7.2,5 C7.2,4.5581722 7.5581722,4.2 8,4.2 C8.4418278,4.2 8.8,4.5581722 8.8,5 L8.8,7 C8.8,7.6627417 9.3372583,8.2 10,8.2 C10.6627417,8.2 11.2,7.6627417 11.2,7 L11.2,5 C11.2,4.5581722 11.5581722,4.2 12,4.2 Z" id="路径" fill="#F7F7FA" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

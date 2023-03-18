@@ -68,6 +68,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
   Widget build(context) => Wrap(
         children: [
           AppBarBuilder(
+            height: MEAS.dialogAppBarHeight,
             title: TextBuilder(
               '${widget.item != null ? '编辑' : '添加'}日程',
               color: Styles.PrimaryTextColor,

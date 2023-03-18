@@ -10,6 +10,7 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
     this.title,
     this.trailings,
     this.backgroundColor = Styles.RegularBaseColor,
+    this.height = MEAS.appBarHeight,
   });
 
   final Widget? leading;
@@ -17,6 +18,7 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
   final Widget? title;
   final List<Widget>? trailings;
   final Color? backgroundColor;
+  final double height;
 
   @override
   Size get preferredSize => Size.fromHeight(MEAS.appBarHeight);
@@ -45,6 +47,6 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: backgroundColor,
         shadowColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: MEAS.appBarHeight,
+        toolbarHeight: height,
       );
 }

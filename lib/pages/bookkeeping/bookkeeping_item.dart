@@ -38,7 +38,7 @@ class BookkeepingItemWidget extends StatelessWidget {
             child: Row(
               children: [
                 IconBuilder(
-                  'assets/images/${item.type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
+                  BookkeepingItemCategoryMap[item.category]!.icon,
                   width: MEAS.bookkeepingItemTypeLength,
                   height: MEAS.bookkeepingItemTypeLength,
                   margin: EdgeInsets.only(

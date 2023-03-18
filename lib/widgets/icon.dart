@@ -8,6 +8,7 @@ class IconBuilder extends StatelessWidget {
     this.width,
     this.height,
     this.margin,
+    this.border,
     this.borderRadius,
     this.color,
     this.iconWidth,
@@ -17,6 +18,7 @@ class IconBuilder extends StatelessWidget {
   final double? width;
   final double? height;
   final EdgeInsetsGeometry? margin;
+  final BoxBorder? border;
   final BorderRadiusGeometry? borderRadius;
   final Color? color;
   final String icon;
@@ -29,6 +31,7 @@ class IconBuilder extends StatelessWidget {
         height: height,
         margin: margin,
         decoration: BoxDecoration(
+          border: border,
           borderRadius: borderRadius,
           color: color,
         ),

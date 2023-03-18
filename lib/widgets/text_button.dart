@@ -11,7 +11,7 @@ class TextButtonBuilder extends StatelessWidget {
     this.fontSize,
     this.lineHeight,
     this.fontWeight,
-    this.padding,
+    this.padding = EdgeInsets.zero,
     this.shape,
     this.backgroundColor = Styles.RegularBaseColor,
   });

@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'property.dart';
 import 'package:doit/constants/styles.dart';
 
 enum ToDoItemLevel {
@@ -33,40 +34,28 @@ enum RepeatType {
   EveryYear,
 }
 
-class ToDoItemProperty {
-  const ToDoItemProperty({
-    required this.icon,
-    this.color = Styles.DeactivedColor,
-    required this.text,
-  });
-
-  final String icon;
-  final Color color;
-  final String text;
-}
-
 const toDoItemTypeMap = {
-  ToDoItemType.Study: ToDoItemProperty(
+  ToDoItemType.Study: Property(
     icon: 'assets/images/study.svg',
     color: Styles.StudyColor,
     text: '学习',
   ),
-  ToDoItemType.Work: ToDoItemProperty(
+  ToDoItemType.Work: Property(
     icon: 'assets/images/work.svg',
     color: Styles.WorkColor,
     text: '工作',
   ),
-  ToDoItemType.Life: ToDoItemProperty(
+  ToDoItemType.Life: Property(
     icon: 'assets/images/life.svg',
     color: Styles.LifeColor,
     text: '生活',
   ),
-  ToDoItemType.Health: ToDoItemProperty(
+  ToDoItemType.Health: Property(
     icon: 'assets/images/health.svg',
     color: Styles.HealthColor,
     text: '健康',
   ),
-  ToDoItemType.Travel: ToDoItemProperty(
+  ToDoItemType.Travel: Property(
     icon: 'assets/images/travel.svg',
     color: Styles.TravelColor,
     text: '旅行',
@@ -74,22 +63,22 @@ const toDoItemTypeMap = {
 };
 
 const toDoItemLevelMap = {
-  ToDoItemLevel.I: ToDoItemProperty(
+  ToDoItemLevel.I: Property(
     icon: 'assets/images/level_I.svg',
     color: Styles.ToDoItemLevelIColor,
     text: '重要且紧急',
   ),
-  ToDoItemLevel.II: ToDoItemProperty(
+  ToDoItemLevel.II: Property(
     icon: 'assets/images/level_I.svg',
     color: Styles.ToDoItemLevelIIColor,
     text: '重要不紧急',
   ),
-  ToDoItemLevel.III: ToDoItemProperty(
+  ToDoItemLevel.III: Property(
     icon: 'assets/images/level_III.svg',
     color: Styles.ToDoItemLevelIIIColor,
     text: '不重要紧急',
   ),
-  ToDoItemLevel.IV: ToDoItemProperty(
+  ToDoItemLevel.IV: Property(
     icon: 'assets/images/level_IV.svg',
     color: Styles.ToDoItemLevelIVColor,
     text: '不重要不紧急',

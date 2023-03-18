@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'bookkeeping_item_calendar.dart';
+import 'bookkeeping_item_category.dart';
 import 'calculator.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/text.dart';
@@ -8,6 +9,7 @@ import 'package:doit/widgets/text_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/input.dart';
 import 'package:doit/widgets/parts.dart';
+import 'package:doit/widgets/switch_button.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/utils/time.dart';
@@ -29,6 +31,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
   double _amount = 0;
   late DateTime _time;
   BookkeepingItemType _type = BookkeepingItemType.Expenses;
+  late BookkeepingItemCategory _category;
   bool decimal = false;
   List<String> _input = [];
 
@@ -43,6 +46,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
       _title = widget.item!.title;
       _time = widget.item!.time;
       _type = widget.item!.type;
+      _category = widget.item!.category;
       _input = _amount.toString().split('');
       if (_input.contains('.')) {
         if (_input.indexOf('.') == _input.length - 2 && _input.last == '0') {
@@ -53,6 +57,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
       }
     } else {
       _time = DateTime.now();
+      _category = BookkeepingItemCategoryList[_type]![0];
     }
   }
 
@@ -60,6 +65,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
   Widget build(BuildContext context) => Wrap(
         children: [
           AppBarBuilder(
+            height: MEAS.dialogAppBarHeight,
             leadingWidth: 160,
             leading: GestureDetector(
               child: Wrap(
@@ -102,13 +108,16 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
                 fontWeight: FontWeight.bold,
                 onPressed: () {
                   if (_isActived) {
-                    final _provider = Provider.of<BookkeepingProvider>(context,
-                        listen: false);
+                    final _provider = Provider.of<BookkeepingProvider>(
+                      context,
+                      listen: false,
+                    );
                     if (widget.item != null) {
                       _provider.reduce(widget.item!);
                       widget.item!.title = _title;
                       widget.item!.amount = _amount;
                       widget.item!.type = _type;
+                      widget.item!.category = _category;
                       widget.item!.time = _time;
                       _provider.update(widget.item!);
                     } else {
@@ -117,9 +126,10 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
                           id: UniqueKey().hashCode,
                           title: _title.trim() != ''
                               ? _title
-                              : '一笔${_type == BookkeepingItemType.Incomes ? '收入' : '支出'}',
+                              : BookkeepingItemCategoryMap[_category]!.text,
                           amount: _amount,
                           type: _type,
+                          category: _category,
                           time: _time,
                         ),
                       );
@@ -129,6 +139,86 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
                 },
               ),
             ],
+          ),
+          Container(
+            color: Styles.RegularBaseColor,
+            width: double.infinity,
+            height: 292,
+            child: Column(
+              children: [
+                Wrap(
+                  children: [
+                    SwitchButton(
+                      '收入',
+                      isActived: _type == BookkeepingItemType.Incomes,
+                      onPressed: () {
+                        if (_type != BookkeepingItemType.Incomes)
+                          setState(
+                            () => {
+                              _type = BookkeepingItemType.Incomes,
+                              _category =
+                                  BookkeepingItemCategoryList[_type]![0],
+                            },
+                          );
+                      },
+                    ),
+                    SizedBox(width: 12),
+                    SwitchButton(
+                      '支出',
+                      isActived: _type == BookkeepingItemType.Expenses,
+                      onPressed: () {
+                        if (_type != BookkeepingItemType.Expenses)
+                          setState(
+                            () => {
+                              _type = BookkeepingItemType.Expenses,
+                              _category =
+                                  BookkeepingItemCategoryList[_type]![0],
+                            },
+                          );
+                      },
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      top: 8,
+                      left: 16,
+                      right: 16,
+                      bottom: 12,
+                    ),
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 5,
+                        crossAxisSpacing: 26,
+                        mainAxisSpacing: 10,
+                        childAspectRatio:
+                            (MediaQuery.of(context).size.width - 136) / 5 / 68,
+                      ),
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.zero,
+                      itemCount: BookkeepingItemCategoryList[_type]!.length,
+                      itemBuilder: (context, i) {
+                        final category = BookkeepingItemCategoryList[_type]![i];
+                        return BookkeepingItemCategoryWidget(
+                          key: ValueKey('$_type:$category'),
+                          isActived: category == _category,
+                          icon: BookkeepingItemCategoryMap[category]!.icon,
+                          text: BookkeepingItemCategoryMap[category]!.text,
+                          onTap: () {
+                            if (category != _category) {
+                              setState(
+                                () => _category = category,
+                              );
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           Container(
             padding: EdgeInsets.only(
@@ -146,68 +236,10 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
                   ),
                   child: Row(
                     children: [
-                      GestureDetector(
-                        behavior: HitTestBehavior.translucent,
-                        child: Container(
-                          height: double.infinity,
-                          child: Wrap(
-                            runAlignment: WrapAlignment.center,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 12,
-                              ),
-                              SVGIcon(
-                                'assets/images/${_type == BookkeepingItemType.Incomes ? 'incomes' : 'expenses'}.svg',
-                                width: MEAS.bookkeepingItemTypeIconLength,
-                                height: MEAS.bookkeepingItemTypeIconLength,
-                              ),
-                              SizedBox(
-                                width: 4,
-                              ),
-                              TextBuilder(
-                                _type == BookkeepingItemType.Incomes
-                                    ? '收入'
-                                    : '支出',
-                                fontSize: Styles.smallTextSize,
-                                lineHeight: Styles.smallTextLineHeight,
-                              ),
-                              SizedBox(
-                                width: 12,
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () => setState(
-                          () => _type = (_type == BookkeepingItemType.Incomes)
-                              ? BookkeepingItemType.Expenses
-                              : BookkeepingItemType.Incomes,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 12,
-                        child: VerticalDivider(
-                          width: 1,
-                          thickness: 0.5,
-                          color: Styles.DeactivedDeepColor,
-                        ),
-                      ),
-                      SizedBox(
-                        width: 12,
-                      ),
-                      Expanded(
-                        child: TextBuilder(
-                          moneyFormat(_amount),
-                          color: Styles.PrimaryTextColor,
-                          fontSize: Styles.amountTextSize,
-                          lineHeight: Styles.amountTextLineHeight,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
                       Container(
-                        width: 120,
+                        width: 160,
                         padding: EdgeInsets.only(
-                          left: 8,
+                          left: 12,
                           right: 12,
                         ),
                         child: Input(
@@ -221,6 +253,19 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
                           border: bodyBorder,
                           onChanged: (value) => _title = value,
                         ),
+                      ),
+                      Expanded(
+                        child: TextBuilder(
+                          moneyFormat(_amount),
+                          color: Styles.PrimaryTextColor,
+                          fontSize: Styles.amountTextSize,
+                          lineHeight: Styles.amountTextLineHeight,
+                          fontWeight: FontWeight.bold,
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 12,
                       ),
                     ],
                   ),

@@ -4,8 +4,7 @@ import 'text.dart';
 import 'text_button.dart';
 import 'time_picker.dart';
 import 'package:doit/constants/styles.dart';
-
-// ignore: must_be_immutable
+import 'package:doit/constants/meas.dart';
 class TimePickerDrawer extends StatelessWidget {
   TimePickerDrawer(
     this.time, {
@@ -23,6 +22,7 @@ class TimePickerDrawer extends StatelessWidget {
   Widget build(context) => Wrap(
         children: [
           AppBarBuilder(
+            height: MEAS.dialogAppBarHeight,
             title: TextBuilder(
               '选择时间',
               color: Styles.PrimaryTextColor,

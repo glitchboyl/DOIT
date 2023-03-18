@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范" transform="translate(-222.000000, -756.000000)">
+            <g id="doit-icon-communication" transform="translate(222.000000, 756.000000)">
+                <rect id="矩形" fill-opacity="0" fill="#FFFFFF" x="0" y="0" width="20" height="20"></rect>
+                <path d="M7,2 L13,2 C14.1045695,2 15,2.8954305 15,4 L15,16 C15,17.1045695 14.1045695,18 13,18 L7,18 C5.8954305,18 5,17.1045695 5,16 L5,4 C5,2.8954305 5.8954305,2 7,2 Z" id="矩形" fill="#B8BBCC"></path>
+                <path d="M10.5,3 C10.7761424,3 11,3.22385763 11,3.5 C11,3.77614237 10.7761424,4 10.5,4 L9.5,4 C9.22385763,4 9,3.77614237 9,3.5 C9,3.22385763 9.22385763,3 9.5,3 L10.5,3 Z" id="直线" fill="#3A36EE" fill-rule="nonzero"></path>
+                <path d="M11.5,16 C11.7761424,16 12,16.2238576 12,16.5 C12,16.7761424 11.7761424,17 11.5,17 L8.5,17 C8.22385763,17 8,16.7761424 8,16.5 C8,16.2238576 8.22385763,16 8.5,16 L11.5,16 Z" id="直线" fill="#F7F7FA" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

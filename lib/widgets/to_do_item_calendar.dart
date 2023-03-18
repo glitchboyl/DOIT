@@ -3,7 +3,7 @@ import 'app_bar.dart';
 import 'bottom_drawer_select.dart';
 import 'text_button.dart';
 import 'svg_icon.dart';
-import 'to_do_item_calendar_switch_button.dart';
+import 'switch_button.dart';
 import 'calendar.dart';
 import 'bottom_drawer_item.dart';
 import 'time_picker_drawer.dart';
@@ -55,9 +55,10 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
   Widget build(context) => Wrap(
         children: [
           AppBarBuilder(
+            height: MEAS.dialogAppBarHeight,
             title: Wrap(
               children: [
-                ToDoItemCalendarSwitchButton(
+                SwitchButton(
                   '开始',
                   isActived: !_toggle,
                   onPressed: () => setState(() {
@@ -66,7 +67,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                   }),
                 ),
                 SizedBox(width: 12),
-                ToDoItemCalendarSwitchButton(
+                SwitchButton(
                   '结束',
                   isActived: _toggle,
                   onPressed: () => setState(() {

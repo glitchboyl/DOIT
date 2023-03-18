@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
+import 'package:doit/constants/meas.dart';
 
 class BottomDrawerSelect<T> extends StatelessWidget {
   const BottomDrawerSelect({
@@ -38,6 +39,7 @@ class BottomDrawerSelect<T> extends StatelessWidget {
   Widget build(context) => Wrap(
         children: [
           AppBarBuilder(
+            height: MEAS.dialogAppBarHeight,
             title: TextBuilder(
               title,
               color: Styles.PrimaryTextColor,

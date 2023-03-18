@@ -41,6 +41,7 @@ class _BookkeepingItemCalendarState extends State<BookkeepingItemCalendar> {
   Widget build(context) => Wrap(
         children: [
           AppBarBuilder(
+            height: MEAS.dialogAppBarHeight,
             title: TextBuilder(
               '选择时间',
               color: Styles.PrimaryTextColor,

@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'text_button.dart';
 import 'package:doit/constants/styles.dart';
 
-class ToDoItemCalendarSwitchButton extends StatelessWidget {
-  const ToDoItemCalendarSwitchButton(
+class SwitchButton extends StatelessWidget {
+  const SwitchButton(
     this.text, {
     super.key,
     required this.onPressed,
