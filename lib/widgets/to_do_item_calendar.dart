@@ -1,9 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'app_bar.dart';
 import 'bottom_drawer_select.dart';
 import 'text_button.dart';
 import 'svg_icon.dart';
-import 'switch_button.dart';
 import 'calendar.dart';
 import 'bottom_drawer_item.dart';
 import 'time_picker_drawer.dart';
@@ -35,16 +34,19 @@ class ToDoItemCalendar extends StatefulWidget {
   _ToDoItemCalendarState createState() => _ToDoItemCalendarState();
 }
 
-class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
+class _ToDoItemCalendarState extends State<ToDoItemCalendar>
+    with SingleTickerProviderStateMixin {
   late DateTime _startTime;
   late DateTime? _endTime;
   late DateTime _focusedDay;
   late NotificationType _notificationType;
-  bool _toggle = false;
+  late TabController _tabController;
+  int _calendarIndex = 0;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(length: 2, vsync: this);
     _startTime = widget.startTime ?? DateTime.now();
     _endTime = widget.endTime;
     _focusedDay = _startTime;
@@ -56,26 +58,44 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
         children: [
           AppBarBuilder(
             height: MEAS.dialogAppBarHeight,
-            title: Wrap(
-              children: [
-                SwitchButton(
-                  '开始',
-                  isActived: !_toggle,
-                  onPressed: () => setState(() {
-                    _focusedDay = _startTime;
-                    _toggle = !_toggle;
-                  }),
+            title: Container(
+              width: 120,
+              height: 28,
+              child: TabBar(
+                controller: _tabController,
+                labelStyle: TextStyle(
+                  fontSize: Styles.textSize,
                 ),
-                SizedBox(width: 12),
-                SwitchButton(
-                  '结束',
-                  isActived: _toggle,
-                  onPressed: () => setState(() {
-                    _focusedDay = _endTime ?? _startTime;
-                    _toggle = !_toggle;
-                  }),
+                indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    8,
+                  ),
+                  color: Styles.BackgroundColor,
                 ),
-              ],
+                labelPadding: EdgeInsets.zero,
+                labelColor: Styles.PrimaryColor,
+                unselectedLabelColor: Styles.PrimaryTextColor,
+                tabs: [
+                  Tab(
+                    text: '开始',
+                  ),
+                  Tab(
+                    text: '结束',
+                  ),
+                ],
+                onTap: (index) {
+                  if (index != _calendarIndex) {
+                    setState(
+                      () => {
+                        _calendarIndex = index,
+                        _focusedDay = _calendarIndex == 0
+                            ? _startTime
+                            : (_endTime ?? _startTime),
+                      },
+                    );
+                  }
+                },
+              ),
             ),
             trailings: [
               TextButtonBuilder(
@@ -104,7 +124,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
             ),
             onDaySelected: (day, _) => setState(
               () {
-                if (_toggle) {
+                if (_calendarIndex == 1) {
                   _endTime = DateTime(
                     day.year,
                     day.month,
@@ -138,7 +158,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
               children: [
                 BottomDrawerItem(
                   title: '时间',
-                  value: getClockTime(_toggle
+                  value: getClockTime(_calendarIndex == 1
                       ? (_endTime != null ? _endTime! : _startTime)
                       : _startTime),
                   icon: SVGIcon(
@@ -149,13 +169,13 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar> {
                   onPressed: () => showBottomDrawer(
                     context: context,
                     builder: (context) => TimePickerDrawer(
-                      _toggle
+                      _calendarIndex == 1
                           ? (_endTime != null ? _endTime! : _startTime)
                           : _startTime,
                       mode: CupertinoDatePickerMode.time,
                       onConfirmed: (time) => setState(
                         () {
-                          if (_toggle)
+                          if (_calendarIndex == 1)
                             _endTime = time;
                           else
                             _startTime = time;

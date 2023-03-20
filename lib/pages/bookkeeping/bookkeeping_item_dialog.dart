@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'bookkeeping_item_calendar.dart';
 import 'bookkeeping_item_category.dart';
@@ -9,7 +9,6 @@ import 'package:doit/widgets/text_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/input.dart';
 import 'package:doit/widgets/parts.dart';
-import 'package:doit/widgets/switch_button.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/utils/time.dart';
@@ -25,7 +24,8 @@ class BookkeepingItemDialog extends StatefulWidget {
   _BookkeepingItemDialogState createState() => _BookkeepingItemDialogState();
 }
 
-class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
+class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
+    with SingleTickerProviderStateMixin {
   bool _isActived = false;
   String _title = '';
   double _amount = 0;
@@ -34,12 +34,14 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
   late BookkeepingItemCategory _category;
   bool decimal = false;
   List<String> _input = [];
+  late TabController _tabController;
 
   bool validate() => _amount != 0;
 
   @override
   void initState() {
     super.initState();
+    _tabController = TabController(initialIndex: 1, length: 2, vsync: this);
     if (widget.item != null) {
       _isActived = true;
       _amount = widget.item!.amount;
@@ -143,49 +145,59 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog> {
           Container(
             color: Styles.RegularBaseColor,
             width: double.infinity,
-            height: 292,
+            height: 280,
             child: Column(
               children: [
-                Wrap(
-                  children: [
-                    SwitchButton(
-                      '收入',
-                      isActived: _type == BookkeepingItemType.Incomes,
-                      onPressed: () {
-                        if (_type != BookkeepingItemType.Incomes)
-                          setState(
-                            () => {
-                              _type = BookkeepingItemType.Incomes,
-                              _category =
-                                  BookkeepingItemCategoryList[_type]![0],
-                            },
-                          );
-                      },
+                Container(
+                  width: 96,
+                  height: 28,
+                  child: TabBar(
+                    controller: _tabController,
+                    labelStyle: TextStyle(
+                      fontSize: Styles.smallTextSize,
                     ),
-                    SizedBox(width: 12),
-                    SwitchButton(
-                      '支出',
-                      isActived: _type == BookkeepingItemType.Expenses,
-                      onPressed: () {
-                        if (_type != BookkeepingItemType.Expenses)
-                          setState(
-                            () => {
-                              _type = BookkeepingItemType.Expenses,
-                              _category =
-                                  BookkeepingItemCategoryList[_type]![0],
-                            },
-                          );
-                      },
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        8,
+                      ),
+                      color: Styles.BackgroundColor,
                     ),
-                  ],
+                    labelPadding: EdgeInsets.zero,
+                    labelColor: Styles.PrimaryColor,
+                    unselectedLabelColor: Styles.PrimaryTextColor,
+                    tabs: [
+                      Tab(
+                        text: '收入',
+                      ),
+                      Tab(
+                        text: '支出',
+                      ),
+                    ],
+                    onTap: (index) {
+                      if (index == 0 && _type != BookkeepingItemType.Incomes) {
+                        setState(
+                          () => {
+                            _type = BookkeepingItemType.Incomes,
+                            _category = BookkeepingItemCategoryList[_type]![0],
+                          },
+                        );
+                      } else if (index == 1 &&
+                          _type != BookkeepingItemType.Expenses) {
+                        setState(
+                          () => {
+                            _type = BookkeepingItemType.Expenses,
+                            _category = BookkeepingItemCategoryList[_type]![0],
+                          },
+                        );
+                      }
+                    },
+                  ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 8,
-                      left: 16,
-                      right: 16,
-                      bottom: 12,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 16,
                     ),
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

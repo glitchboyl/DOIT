@@ -5,7 +5,7 @@ import 'package:doit/models/to_do_item.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/overview.dart';
 import 'package:doit/utils/time.dart';
-import 'package:doit/utils/notification.dart';
+import 'package:doit/utils/notification_service.dart';
 import 'package:doit/constants/keys.dart';
 
 class ToDoListProvider extends ChangeNotifier {
@@ -218,6 +218,7 @@ class ToDoListProvider extends ChangeNotifier {
       scheduleTime:
           DateTime.now().compareTo(notifyTime) == 1 ? null : notifyTime,
     );
+    print('asdasd');
   }
 
   void focusDate(DateTime date) => {

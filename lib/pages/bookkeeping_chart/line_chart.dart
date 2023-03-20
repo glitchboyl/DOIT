@@ -10,31 +10,40 @@ class BookkeepingLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Container(
-        color: Styles.RegularBaseColor,
         width: double.infinity,
         height: 192,
+        margin: EdgeInsets.only(top: 12),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Styles.RegularBaseColor,
+        ),
         child: LineChart(
-          sampleData1,
+          chartData,
           swapAnimationDuration: const Duration(milliseconds: 250),
         ),
       );
 
-  LineChartData get sampleData1 => LineChartData(
-        lineTouchData: lineTouchData1,
+  LineChartData get chartData => LineChartData(
+        lineTouchData: lineTouchData,
         gridData: gridData,
-        titlesData: titlesData1,
+        titlesData: titlesData,
         borderData: borderData,
-        lineBarsData: lineBarsData1,
+        lineBarsData: lineBarsData,
         minX: 0,
         maxY: 4,
         maxX: 14,
         minY: 0,
       );
 
-  LineTouchData get lineTouchData1 => LineTouchData(
+  LineTouchData get lineTouchData => LineTouchData(
         handleBuiltInTouches: true,
         touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Styles.BackgroundColor.withOpacity(0.8),
+          tooltipBgColor: Styles.BackgroundColor.withOpacity(0.9),
+          tooltipPadding: EdgeInsets.symmetric(
+            horizontal: 10,
+            vertical: 6,
+          ),
           getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
             return touchedBarSpots.map((barSpot) {
               final flSpot = barSpot;
@@ -42,43 +51,26 @@ class BookkeepingLineChart extends StatelessWidget {
                 return null;
               }
 
-              TextAlign textAlign;
-              switch (flSpot.x.toInt()) {
-                case 1:
-                  textAlign = TextAlign.left;
-                  break;
-                case 5:
-                  textAlign = TextAlign.right;
-                  break;
-                default:
-                  textAlign = TextAlign.center;
-              }
-
               return LineTooltipItem(
-                'ass we can',
-                TextStyle(),
+                '2022\n',
+                TextStyle(
+                  color: Styles.PrimaryColor,
+                  fontSize: Styles.tinyTextSize,
+                  height: Styles.tinyTextLineHeight / Styles.tinyTextSize,
+                ),
                 children: [
                   TextSpan(
-                    text: flSpot.y.toString(),
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                    ),
-                  ),
-                  // const TextSpan(
-                  //   text: 'calories',
-                  //   style: TextStyle(
-                  //     fontWeight: FontWeight.normal,
-                  //   ),
-                  // ),
+                      // text: flSpot.y.toString(),
+                      text: '收入：478,971.74'),
                 ],
-                textAlign: textAlign,
+                textAlign: TextAlign.left,
               );
             }).toList();
           },
         ),
       );
 
-  FlTitlesData get titlesData1 => FlTitlesData(
+  FlTitlesData get titlesData => FlTitlesData(
         bottomTitles: AxisTitles(
           sideTitles: bottomTitles,
         ),
@@ -93,8 +85,8 @@ class BookkeepingLineChart extends StatelessWidget {
         ),
       );
 
-  List<LineChartBarData> get lineBarsData1 => [
-        lineChartBarData1_1,
+  List<LineChartBarData> get lineBarsData => [
+        lineChartBarData,
       ];
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -180,7 +172,7 @@ class BookkeepingLineChart extends StatelessWidget {
 
   SideTitles get bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 32,
+        reservedSize: 14,
         interval: 1,
         getTitlesWidget: bottomTitleWidgets,
       );
@@ -197,7 +189,7 @@ class BookkeepingLineChart extends StatelessWidget {
         ),
       );
 
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
+  LineChartBarData get lineChartBarData => LineChartBarData(
         isCurved: true,
         color: Styles.PrimaryColor,
         barWidth: 6,
@@ -209,8 +201,8 @@ class BookkeepingLineChart extends StatelessWidget {
           FlSpot(3, 2.5),
           FlSpot(5, 1.4),
           FlSpot(7, 3.4),
-          FlSpot(10, 2),
-          FlSpot(12, 2.2),
+          FlSpot(9, 2),
+          FlSpot(11, 2.2),
           FlSpot(13, 1.8),
         ],
       );
