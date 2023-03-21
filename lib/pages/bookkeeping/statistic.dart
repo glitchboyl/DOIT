@@ -1,12 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:doit/widgets/text.dart';
+import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
 
 class Statistic extends StatelessWidget {
-  const Statistic({super.key, required this.title, required this.amount});
+  const Statistic({
+    super.key,
+    required this.type,
+    required this.amount,
+  });
 
-  final String title;
+  final BookkeepingItemType type;
   final double amount;
 
   @override
@@ -16,14 +21,14 @@ class Statistic extends StatelessWidget {
           child: Column(
             children: [
               TextBuilder(
-                title,
+                type == BookkeepingItemType.Incomes ? '收入' : '支出',
                 color: Styles.PrimaryTextColor,
                 fontSize: Styles.smallTextSize,
                 lineHeight: Styles.smallTextLineHeight,
               ),
               SizedBox(height: 10),
               TextBuilder(
-                moneyFormat(amount),
+                '${type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(amount)}',
                 color: Styles.PrimaryTextColor,
                 fontWeight: FontWeight.bold,
                 fontSize: Styles.amountTextSize,

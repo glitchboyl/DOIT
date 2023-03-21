@@ -174,18 +174,10 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                       ),
                     ],
                     onTap: (index) {
-                      if (index == 0 && _type != BookkeepingItemType.Incomes) {
+                      if (index != _type.index) {
                         setState(
                           () => {
-                            _type = BookkeepingItemType.Incomes,
-                            _category = BookkeepingItemCategoryList[_type]![0],
-                          },
-                        );
-                      } else if (index == 1 &&
-                          _type != BookkeepingItemType.Expenses) {
-                        setState(
-                          () => {
-                            _type = BookkeepingItemType.Expenses,
+                            _type = BookkeepingItemType.values[index],
                             _category = BookkeepingItemCategoryList[_type]![0],
                           },
                         );

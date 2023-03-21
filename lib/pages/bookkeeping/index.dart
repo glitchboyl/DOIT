@@ -8,6 +8,7 @@ import 'bookkeeping_statistics.dart';
 import 'bookkeeping_list_title.dart';
 import 'bookkeeping_item.dart';
 import 'package:doit/widgets/blank.dart';
+import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
@@ -34,12 +35,16 @@ class BookkeepingPage extends StatelessWidget {
     bookkeepingDays.forEach(
       (date) {
         final list = provider.bookkeepingListMap[date]!;
+        final incomes = getAllStatisticsSum(provider
+            .statisticsMap[BookkeepingStatisticType.Day]?[date]?[0].values);
+        final expenses = getAllStatisticsSum(provider
+            .statisticsMap[BookkeepingStatisticType.Day]?[date]?[1].values);
         _widgets.add(
           BookkeepingListTitle(
             date.isSameDay(nowTime) ? '今天' : getDateTime(date),
             key: ValueKey(date),
-            incomes: provider.statisticsMap[date]![0],
-            expenses: provider.statisticsMap[date]![1],
+            incomes: incomes,
+            expenses: expenses,
           ),
         );
         index++;

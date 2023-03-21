@@ -142,12 +142,12 @@ class ToDoItem {
       'id': id,
       'title': title,
       'remarks': remarks,
-      'type': ToDoItemType.values.indexOf(type),
-      'level': ToDoItemLevel.values.indexOf(level),
+      'type': type.index,
+      'level': level.index,
       'startTime': startTime.millisecondsSinceEpoch,
       'endTime': endTime.millisecondsSinceEpoch,
-      'repeatType': RepeatType.values.indexOf(repeatType),
-      'notificationType': NotificationType.values.indexOf(notificationType),
+      'repeatType': repeatType.index,
+      'notificationType': notificationType.index,
       'completeTime': completeTime?.millisecondsSinceEpoch,
     };
   }

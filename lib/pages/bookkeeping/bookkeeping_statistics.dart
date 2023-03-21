@@ -6,6 +6,8 @@ import 'package:doit/widgets/time_picker.dart';
 import 'package:doit/widgets/time_picker_drawer.dart';
 import 'statistic.dart';
 import 'package:doit/providers/bookkeeping.dart';
+import 'package:doit/models/bookkeeping.dart';
+import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -42,7 +44,8 @@ class BookkeepingStatistics extends StatelessWidget {
         child: Consumer<BookkeepingProvider>(
           builder: (context, provider, _) {
             final focusedMonth = provider.focusedMonth;
-            final statistic = provider.statisticsMap[focusedMonth];
+            final statistic = provider
+                .statisticsMap[BookkeepingStatisticType.Month]?[focusedMonth];
             return Column(
               children: [
                 Container(
@@ -89,12 +92,12 @@ class BookkeepingStatistics extends StatelessWidget {
                 Row(
                   children: [
                     Statistic(
-                      title: '收入',
-                      amount: statistic != null ? statistic[0] : 0,
+                      type: BookkeepingItemType.Incomes,
+                      amount: getAllStatisticsSum(statistic?[0].values),
                     ),
                     Statistic(
-                      title: '支出',
-                      amount: statistic != null ? statistic[1] : 0,
+                      type: BookkeepingItemType.Expenses,
+                      amount: getAllStatisticsSum(statistic?[1].values),
                     ),
                   ],
                 ),

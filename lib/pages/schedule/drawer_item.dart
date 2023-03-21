@@ -43,6 +43,22 @@ class SchedulePageDrawerItem extends StatelessWidget {
                 fontSize: Styles.largeTextSize,
                 lineHeight: Styles.largeTextLineHeight,
               ),
+              if (onTap == null) ...[
+                SizedBox(width: 10),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 6),
+                  decoration: BoxDecoration(
+                    color: Styles.BackgroundColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: TextBuilder(
+                    '施工中',
+                    color: Styles.PrimaryTextColor,
+                    fontSize: Styles.smallTextSize,
+                    lineHeight: Styles.smallTextLineHeight,
+                  ),
+                ),
+              ]
             ],
           ),
         ),

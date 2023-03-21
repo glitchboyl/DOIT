@@ -28,6 +28,9 @@ const List<String> Months = <String>[
   '12月',
 ];
 
+final firstDay = DateTime(nowTime.year - 10);
+final lastDay = DateTime(nowTime.year + 50);
+
 class DateInfo {
   const DateInfo({
     required this.lunar,
@@ -40,8 +43,6 @@ class DateInfo {
   final String solarTerm;
 }
 
-final firstDay = DateTime(nowTime.year - 10);
-final lastDay = DateTime(nowTime.year + 50);
 final Map<DateTime, DateInfo> calendarMap = () {
   final Map<DateTime, DateInfo> _calendarMap = {};
   DateTime _date = firstDay;

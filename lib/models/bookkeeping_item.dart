@@ -148,8 +148,8 @@ class BookkeepingItem {
       'id': id,
       'title': title,
       'amount': amount.toString(),
-      'type': BookkeepingItemType.values.indexOf(type),
-      'category': BookkeepingItemCategory.values.indexOf(category),
+      'type': type.index,
+      'category': category.index,
       'time': time.millisecondsSinceEpoch,
     };
   }
@@ -157,3 +157,10 @@ class BookkeepingItem {
 
 final sortByTime =
     (BookkeepingItem a, BookkeepingItem b) => a.time.compareTo(b.time);
+
+final getAllStatisticsSum = (Iterable<double>? statistics) =>
+    statistics?.fold<double>(
+      0,
+      (a, b) => a + b,
+    ) ??
+    0;

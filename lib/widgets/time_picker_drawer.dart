@@ -3,16 +3,21 @@ import 'app_bar.dart';
 import 'text.dart';
 import 'text_button.dart';
 import 'time_picker.dart';
+import 'package:doit/constants/calendar.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
+
 class TimePickerDrawer extends StatelessWidget {
   TimePickerDrawer(
     this.time, {
     super.key,
+    this.title = '选择时间',
     required this.onConfirmed,
     this.mode = CupertinoDatePickerMode.date,
   });
+
   final DateTime time;
+  final String title;
   final void Function(DateTime time) onConfirmed;
   final CupertinoDatePickerMode mode;
 
@@ -24,7 +29,7 @@ class TimePickerDrawer extends StatelessWidget {
           AppBarBuilder(
             height: MEAS.dialogAppBarHeight,
             title: TextBuilder(
-              '选择时间',
+              title,
               color: Styles.PrimaryTextColor,
               fontSize: Styles.largeTextSize,
               lineHeight: Styles.largeTextLineHeight,
@@ -49,6 +54,8 @@ class TimePickerDrawer extends StatelessWidget {
             height: 192,
             child: CupertinoDatePickerBuilder(
               initialDateTime: time,
+              minimumDate: firstDay,
+              maximumDate: lastDay,
               mode: mode,
               use24hFormat: true,
               onDateTimeChanged: (DateTime newTime) => _time = newTime,

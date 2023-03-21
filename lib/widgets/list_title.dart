@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 
-class ScheduleToDoListTitle extends StatelessWidget {
-  const ScheduleToDoListTitle(
+class ListTitle extends StatelessWidget {
+  const ListTitle(
     this.title, {
     super.key,
   });

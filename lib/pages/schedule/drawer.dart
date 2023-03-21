@@ -50,17 +50,22 @@ class SchedulePageDrawer extends StatelessWidget {
             SchedulePageDrawerItem(
               icon: 'assets/images/statistics.svg',
               title: '日程统计',
-              onTap: () => {},
             ),
             SchedulePageDrawerItem(
               icon: 'assets/images/anniversary.svg',
               title: '纪念日',
-              onTap: () => {},
+            ),
+            // SchedulePageDrawerItem(
+            //   icon: 'assets/images/bin.svg',
+            //   title: '废纸篓',
+            // ),
+            SchedulePageDrawerItem(
+              icon: 'assets/images/contact_us.svg',
+              title: '联系我们',
             ),
             SchedulePageDrawerItem(
-              icon: 'assets/images/bin.svg',
-              title: '废纸篓',
-              onTap: () => {},
+              icon: 'assets/images/dark_mode.svg',
+              title: '暗夜模式',
             ),
           ],
         ),

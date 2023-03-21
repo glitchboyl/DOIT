@@ -3,7 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
-import 'schedule_to_do_list_title.dart';
+import 'package:doit/widgets/list_title.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/widgets/simple_to_do_item.dart';
 import 'package:doit/widgets/blank.dart';
@@ -30,7 +30,7 @@ class SchedulePage extends StatelessWidget {
       (type, tdl) {
         if (tdl.list.length > 0) {
           _widgets.add(
-            ScheduleToDoListTitle(
+            ListTitle(
               tdl.title,
               key: ValueKey(type),
             ),

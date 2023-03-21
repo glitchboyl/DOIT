@@ -65,14 +65,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.7.8"
-  device_calendar:
-    dependency: "direct main"
-    description:
-      name: device_calendar
-      sha256: ff10736e53bffa3f0982668ed2affd61abb5f2b3a3c1bba7797ea29d4f616c1e
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "4.2.0"
   dotted_line:
     dependency: "direct main"
     description:
@@ -142,14 +134,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.0.0"
-  flutter_native_timezone:
-    dependency: transitive
-    description:
-      name: flutter_native_timezone
-      sha256: ed7bfb982f036243de1c068e269182a877100c994f05143c8b26a325e28c1b02
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -368,14 +352,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.9.1"
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: ec76d38910b6f1c854ce1353c62d37e7ef82b53dc5ab048c25400d35970776d1
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "6.0.2"
   sqflite:
     dependency: "direct main"
     description:

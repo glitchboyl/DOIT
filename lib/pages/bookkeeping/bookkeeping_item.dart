@@ -1,11 +1,9 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:doit/models/bookkeeping_item.dart';
-import 'package:doit/widgets/text.dart';
-import 'package:doit/widgets/icon.dart';
+import 'package:doit/widgets/bookkeeping_data_row.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/slidable_action.dart';
-import 'package:doit/utils/money_format.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -33,51 +31,12 @@ class BookkeepingItemWidget extends StatelessWidget {
         child: Slidable(
           key: ValueKey(item.id.toString() + '_SLIDABLE'),
           groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
-          child: Container(
-            padding: EdgeInsets.all(12),
-            child: Row(
-              children: [
-                IconBuilder(
-                  BookkeepingItemCategoryMap[item.category]!.icon,
-                  width: MEAS.bookkeepingItemTypeLength,
-                  height: MEAS.bookkeepingItemTypeLength,
-                  margin: EdgeInsets.only(
-                    right: 8,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                  color: Styles.BackgroundColor,
-                  iconWidth: MEAS.bookkeepingItemTypeIconLength,
-                  iconHeight: MEAS.bookkeepingItemTypeIconLength,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextBuilder(
-                      item.title,
-                      color: Styles.PrimaryTextColor,
-                      fontSize: Styles.textSize,
-                      lineHeight: Styles.textLineHeight,
-                    ),
-                    TextBuilder(
-                      getClockTime(item.time),
-                      color: Styles.SecondaryTextColor,
-                      fontSize: Styles.smallTextSize,
-                      lineHeight: Styles.smallTextLineHeight,
-                    ),
-                  ],
-                ),
-                Spacer(),
-                TextBuilder(
-                  '${item.type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(item.amount)}',
-                  color: item.type == BookkeepingItemType.Incomes
-                      ? Styles.PrimaryColor
-                      : Styles.DangerousColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: Styles.textSize,
-                  lineHeight: Styles.textLineHeight,
-                ),
-              ],
-            ),
+          child: BookkeepingDataRow(
+            icon: BookkeepingItemCategoryMap[item.category]!.icon,
+            title: item.title,
+            subTitle: getClockTime(item.time),
+            amount: item.amount,
+            type: item.type,
           ),
           endActionPane: ActionPane(
             motion: const ScrollMotion(),

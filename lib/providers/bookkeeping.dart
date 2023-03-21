@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/widgets.dart';
+import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'db.dart';
 import 'package:doit/utils/time.dart';
@@ -7,14 +8,22 @@ import 'package:doit/utils/time.dart';
 class BookkeepingProvider extends ChangeNotifier {
   final List<BookkeepingItem> _bookkeepingList = [];
   final Map<DateTime, List<BookkeepingItem>> _bookkeepingListMap = {};
-  final Map<DateTime, List<double>> _statisticsMap = {};
+  final Map<BookkeepingStatisticType,
+          Map<DateTime, List<Map<BookkeepingItemCategory, double>>>>
+      _statisticsMap = {
+    BookkeepingStatisticType.Day: {},
+    BookkeepingStatisticType.Month: {},
+    BookkeepingStatisticType.Year: {},
+  };
   DateTime _focusedMonth = DateTime(nowTime.year, nowTime.month);
   BookkeepingItem? _fresh;
 
   List<BookkeepingItem> get bookkeepingList => _bookkeepingList;
   Map<DateTime, List<BookkeepingItem>> get bookkeepingListMap =>
       _bookkeepingListMap;
-  Map<DateTime, List<double>> get statisticsMap => _statisticsMap;
+  Map<BookkeepingStatisticType,
+          Map<DateTime, List<Map<BookkeepingItemCategory, double>>>>
+      get statisticsMap => _statisticsMap;
   DateTime get focusedMonth => _focusedMonth;
   BookkeepingItem? get fresh => _fresh;
 
@@ -84,8 +93,11 @@ class BookkeepingProvider extends ChangeNotifier {
   }
 
   void statistic(BookkeepingItem item) {
-    final bookkeepingMonth = DateTime(
+    final bookkeepingYear = DateTime(
       item.time.year,
+    );
+    final bookkeepingMonth = DateTime(
+      bookkeepingYear.year,
       item.time.month,
     );
     final bookkeepingDay = DateTime(
@@ -93,24 +105,73 @@ class BookkeepingProvider extends ChangeNotifier {
       bookkeepingMonth.month,
       item.time.day,
     );
-    final typeIndex = BookkeepingItemType.values.indexOf(item.type);
+
     if (_bookkeepingListMap[bookkeepingDay] == null) {
       _bookkeepingListMap[bookkeepingDay] = [];
     }
     _bookkeepingListMap[bookkeepingDay]!.add(item);
-    if (_statisticsMap[bookkeepingMonth] == null) {
-      _statisticsMap[bookkeepingMonth] = [0, 0];
+
+    // statistic day
+    if (_statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay] == null) {
+      _statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay] = [{}, {}];
     }
-    _statisticsMap[bookkeepingMonth]![typeIndex] += item.amount;
-    if (_statisticsMap[bookkeepingDay] == null) {
-      _statisticsMap[bookkeepingDay] = [0, 0];
+    if (_statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay]![
+            item.type.index][item.category] ==
+        null) {
+      _statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay]![
+          item.type.index][item.category] = 0;
     }
-    _statisticsMap[bookkeepingDay]![typeIndex] += item.amount;
+    _statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay]![item.type
+        .index][item.category] = _statisticsMap[BookkeepingStatisticType.Day]![
+            bookkeepingDay]![item.type.index][item.category]! +
+        item.amount;
+
+    // statistic month
+    if (_statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth] ==
+        null) {
+      _statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth] = [
+        {},
+        {}
+      ];
+    }
+    if (_statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth]![
+            item.type.index][item.category] ==
+        null) {
+      _statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth]![
+          item.type.index][item.category] = 0;
+    }
+    _statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth]![
+            item.type.index][item.category] =
+        _statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth]![
+                item.type.index][item.category]! +
+            item.amount;
+
+    // statistic year
+    if (_statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear] ==
+        null) {
+      _statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear] = [
+        {},
+        {}
+      ];
+    }
+    if (_statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear]![
+            item.type.index][item.category] ==
+        null) {
+      _statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear]![
+          item.type.index][item.category] = 0;
+    }
+    _statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear]![item.type
+        .index][item.category] = _statisticsMap[BookkeepingStatisticType.Year]![
+            bookkeepingYear]![item.type.index][item.category]! +
+        item.amount;
   }
 
   void reduce(BookkeepingItem oldItem) {
-    final bookkeepingMonth = DateTime(
+    final bookkeepingYear = DateTime(
       oldItem.time.year,
+    );
+    final bookkeepingMonth = DateTime(
+      bookkeepingYear.year,
       oldItem.time.month,
     );
     final bookkeepingDay = DateTime(
@@ -118,9 +179,28 @@ class BookkeepingProvider extends ChangeNotifier {
       bookkeepingMonth.month,
       oldItem.time.day,
     );
-    final typeIndex = BookkeepingItemType.values.indexOf(oldItem.type);
-    _statisticsMap[bookkeepingMonth]![typeIndex] -= oldItem.amount;
-    _statisticsMap[bookkeepingDay]![typeIndex] -= oldItem.amount;
+
+    // reduce day
+    _statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay]![
+            oldItem.type.index][oldItem.category] =
+        _statisticsMap[BookkeepingStatisticType.Day]![bookkeepingDay]![
+                oldItem.type.index][oldItem.category]! -
+            oldItem.amount;
+
+    // reduce month
+    _statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth]![
+            oldItem.type.index][oldItem.category] =
+        _statisticsMap[BookkeepingStatisticType.Month]![bookkeepingMonth]![
+                oldItem.type.index][oldItem.category]! -
+            oldItem.amount;
+
+    // reduce year
+    _statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear]![
+            oldItem.type.index][oldItem.category] =
+        _statisticsMap[BookkeepingStatisticType.Year]![bookkeepingYear]![
+                oldItem.type.index][oldItem.category]! -
+            oldItem.amount;
+
     _bookkeepingListMap[bookkeepingDay]!.remove(oldItem);
   }
 
