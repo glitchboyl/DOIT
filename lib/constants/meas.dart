@@ -49,8 +49,8 @@ abstract class MEAS {
   static const double notePublishImageDismissIconLength = 16;
   static const double notePublishImageDismissIconGap = 6;
 
-  static const double bookkeepingItemTypeLength = 24;
-  static const double bookkeepingItemTypeIconLength = 18;
+  static const double bookkeepingItemTypeLength = 32;
+  static const double bookkeepingItemTypeIconLength = 20;
   static const double bookkeepingItemDialogCategoryLength = 48;
   static const double bookkeepingItemDialogCategoryIconLength = 32;
 
