@@ -218,7 +218,6 @@ class ToDoListProvider extends ChangeNotifier {
       scheduleTime:
           DateTime.now().compareTo(notifyTime) == 1 ? null : notifyTime,
     );
-    print('asdasd');
   }
 
   void focusDate(DateTime date) => {

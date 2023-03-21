@@ -267,7 +267,11 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
                     ListTitle(
                       '分类统计',
                     ),
-                    PieChartSample2(),
+                    BookkeepingCategoryChart(
+                      focusedTime: _focusedTime,
+                      type: _type,
+                      viewType: _viewType,
+                    ),
                     SizedBox(height: 18),
                   ],
                 ),

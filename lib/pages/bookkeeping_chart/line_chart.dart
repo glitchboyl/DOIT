@@ -38,7 +38,6 @@ class BookkeepingLineChart extends StatelessWidget {
         maxX: _maxX,
         minY: 0,
         maxY: _maxY,
-        
       );
 
   LineTouchData get lineTouchData => LineTouchData(
@@ -193,28 +192,28 @@ class BookkeepingLineChart extends StatelessWidget {
         }
         break;
       case BookkeepingChartViewType.Year:
-        var _focusedTime = DateTime(focusedTime.year);
+        var _focusedMonth = DateTime(focusedTime.year);
         for (int i = 0; i < 12; i++) {
           _calculations.add([
             double.parse((13 / 11 * i + 0.5).toStringAsFixed(2)),
             getAllStatisticsSum(
-              statisticsMap[BookkeepingStatisticType.Month]?[_focusedTime]
+              statisticsMap[BookkeepingStatisticType.Month]?[_focusedMonth]
                       ?[type.index]
                   .values,
             ),
-            '${_focusedTime.month}月',
-            '${_focusedTime.year}.${_focusedTime.month}月',
+            '${_focusedMonth.month}月',
+            '${_focusedMonth.year}.${_focusedMonth.month}月',
           ]);
           if (_calculations.last[1] > _peakAmount) {
             _peakAmount = _calculations.last[1];
           }
-          _focusedTime = DateTime(_focusedTime.year, _focusedTime.month + 1);
+          _focusedMonth = DateTime(_focusedMonth.year, _focusedMonth.month + 1);
         }
         break;
       case BookkeepingChartViewType.Month:
-        var _focusedTime = DateTime(focusedTime.year, focusedTime.month);
+        var _focusedDay = DateTime(focusedTime.year, focusedTime.month);
         final daysOfMonth =
-            DateTime(focusedTime.year, focusedTime.month + 1, 0).day;
+            DateTime(_focusedDay.year, _focusedDay.month + 1, 0).day;
         for (int i = 0; i < daysOfMonth; i++) {
           _calculations.add([
             double.parse(
@@ -225,57 +224,57 @@ class BookkeepingLineChart extends StatelessWidget {
                   .toStringAsFixed(2),
             ),
             getAllStatisticsSum(
-              statisticsMap[BookkeepingStatisticType.Day]?[_focusedTime]
+              statisticsMap[BookkeepingStatisticType.Day]?[_focusedDay]
                       ?[type.index]
                   .values,
             ),
             (i % 5 == 0 || i == daysOfMonth - 1)
-                ? fillDateZero(_focusedTime.day)
+                ? fillDateZero(_focusedDay.day)
                 : '',
-            '${!_focusedTime.isSameYear(nowTime) ? '${nowTime.year}.' : ''}${fillDateZero(_focusedTime.month)}.${fillDateZero(_focusedTime.day)}',
+            '${!_focusedDay.isSameYear(nowTime) ? '${nowTime.year}.' : ''}${fillDateZero(_focusedDay.month)}.${fillDateZero(_focusedDay.day)}',
           ]);
           if (_calculations.last[1] > _peakAmount) {
             _peakAmount = _calculations.last[1];
           }
-          _focusedTime = _focusedTime.add(const Duration(days: 1));
+          _focusedDay = _focusedDay.add(const Duration(days: 1));
         }
         break;
       case BookkeepingChartViewType.Week:
       default:
-        var _focusedTime =
+        var _focusedDay =
             focusedTime.subtract(Duration(days: focusedTime.weekday - 1));
         for (int i = 0; i < 7; i++) {
           _calculations.add([
             double.parse((0.5 + i * (_maxX - 1) / 6).toStringAsFixed(2)),
             getAllStatisticsSum(
-              statisticsMap[BookkeepingStatisticType.Day]?[_focusedTime]
+              statisticsMap[BookkeepingStatisticType.Day]?[_focusedDay]
                       ?[type.index]
                   .values,
             ),
-            weekDayTextMap[_focusedTime.weekday],
-            '${!_focusedTime.isSameYear(nowTime) ? '${nowTime.year}.' : ''}${fillDateZero(_focusedTime.month)}.${fillDateZero(_focusedTime.day)}',
+            weekDayTextMap[_focusedDay.weekday],
+            '${!_focusedDay.isSameYear(nowTime) ? '${nowTime.year}.' : ''}${fillDateZero(_focusedDay.month)}.${fillDateZero(_focusedDay.day)}',
           ]);
           if (_calculations.last[1] > _peakAmount) {
             _peakAmount = _calculations.last[1];
           }
-          _focusedTime = _focusedTime.add(const Duration(days: 1));
+          _focusedDay = _focusedDay.add(const Duration(days: 1));
         }
         break;
     }
     if (_peakAmount < 100) {
       _peakAmount = 100;
     } else {
-      final _peakAmountString = _peakAmount.truncate().toString();
-      int _firstDigit = int.parse(_peakAmountString[0]);
-      int _secondDigit = int.parse(_peakAmountString[1]);
+      final peakAmountString = _peakAmount.truncate().toString();
+      int _firstDigit = int.parse(peakAmountString[0]);
+      int _secondDigit = int.parse(peakAmountString[1]);
       if (_secondDigit >= 5) {
         _firstDigit++;
         _secondDigit = 0;
       } else {
         _secondDigit = 5;
       }
-      _peakAmount = (_firstDigit * pow(10, _peakAmountString.length - 1) +
-              _secondDigit * pow(10, _peakAmountString.length - 2))
+      _peakAmount = (_firstDigit * pow(10, peakAmountString.length - 1) +
+              _secondDigit * pow(10, peakAmountString.length - 2))
           .toDouble();
     }
   }
