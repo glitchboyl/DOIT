@@ -260,7 +260,7 @@ String toChineseMonth(int month) {
   if (month > 12 || month < 1) {
     return '';
   }
-  var s = lunarMonthChinese[month - 1];
+  String s = lunarMonthChinese[month - 1];
   s += "\u6708";
   return s;
 }
@@ -299,7 +299,7 @@ LunarDate getLunar(DateTime solarDate) {
   //   return -1;
   // }
   int i, temp = 0;
-  var offset = (DateTime.utc(
+  int offset = (DateTime.utc(
             solarDate.year,
             solarDate.month,
             solarDate.day,
@@ -317,7 +317,7 @@ LunarDate getLunar(DateTime solarDate) {
 
   int year = i;
   int leap = leapMonth(i);
-  var isLeap = false;
+  bool isLeap = false;
 
   for (i = 1; i < 13 && offset > 0; i++) {
     if (leap > 0 && i == leap + 1 && isLeap == false) {

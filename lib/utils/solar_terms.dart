@@ -242,20 +242,20 @@ String getDateSolarTerm(DateTime solarDate) {
   return term;
 }
 
-getSolarTerm(year, n) {
+int getSolarTerm(year, n) {
   if (year < 1900 || year > 2100) {
     return -1;
   }
   if (n < 1 || n > 24) {
     return -1;
   }
-  var _table = allYearsSolarTermsInfo[year - 1900];
+  String _table = allYearsSolarTermsInfo[year - 1900];
   int i;
-  var _info = [];
+  List<String> _info = [];
   for (i = 0; i < _table.length; i += 5) {
     _info.add(int.parse("0x${_table.substring(i, i + 5)}").toString());
   }
-  var _calDay = [];
+  List<String> _calDay = [];
   for (i = 0; i < _info.length; i++) {
     _calDay.add(_info[i].substring(0, 1));
     _calDay.add(_info[i].substring(1, 3));
