@@ -11,17 +11,35 @@ class TimePickerDrawer extends StatelessWidget {
   TimePickerDrawer(
     this.time, {
     super.key,
-    this.title = '选择时间',
+    this.title,
     required this.onConfirmed,
     this.mode = CupertinoDatePickerMode.date,
   });
 
   final DateTime time;
-  final String title;
+  final String? title;
   final void Function(DateTime time) onConfirmed;
   final CupertinoDatePickerMode mode;
 
   late DateTime _time = time;
+
+  String getTitle() {
+    if (title != null) {
+      return title!;
+    }
+    switch (mode) {
+      case CupertinoDatePickerMode.year:
+        return '选择年份';
+      case CupertinoDatePickerMode.ym:
+        return '选择月份';
+      case CupertinoDatePickerMode.week:
+        return '选择周';
+      case CupertinoDatePickerMode.date:
+        return '选择日期';
+      default:
+        return '选择时间';
+    }
+  }
 
   @override
   Widget build(context) => Wrap(
@@ -29,7 +47,7 @@ class TimePickerDrawer extends StatelessWidget {
           AppBarBuilder(
             height: MEAS.dialogAppBarHeight,
             title: TextBuilder(
-              title,
+              getTitle(),
               color: Styles.PrimaryTextColor,
               fontSize: Styles.largeTextSize,
               lineHeight: Styles.largeTextLineHeight,
