@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/constants/styles.dart';
@@ -40,15 +41,29 @@ class ImagesViewer extends StatelessWidget {
         onLongPress: () => {
           showCupertinoModalPopup<void>(
             context: context,
-            builder: (BuildContext context) => CupertinoActionSheet(
-              actions: <CupertinoActionSheetAction>[
+            builder: (ctx) => CupertinoActionSheet(
+              actions: [
                 CupertinoActionSheetAction(
                   isDefaultAction: true,
-                  onPressed: () => {
-                    print(controller.page),
-                    Navigator.pop(context),
-                    Toast.show(context, text: '保存成功'),
-                    
+                  onPressed: () async {
+                    Navigator.pop(ctx);
+                    Toast.show(
+                      context,
+                      text: '保存中...',
+                      loading: true,
+                    );
+                    final result = await ImageGallerySaver.saveImage(
+                      images[int.parse(controller.page!.toStringAsFixed(0))]
+                          .src,
+                    );
+                    Toast.close();
+                    Future.delayed(
+                      const Duration(milliseconds: 100),
+                      () => Toast.show(
+                        context,
+                        text: '保存${result['isSuccess'] ? '成功' : '失败'}',
+                      ),
+                    );
                   },
                   child: TextBuilder(
                     '保存图片',
