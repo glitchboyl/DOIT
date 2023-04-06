@@ -11,6 +11,7 @@ import 'package:doit/widgets/images_viewer.dart';
 import 'package:doit/widgets/parts.dart';
 import 'image.dart';
 import 'package:doit/providers/note.dart';
+import 'package:doit/utils/toast.dart';
 import 'package:doit/models/note.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -133,7 +134,10 @@ class _NotePublishPageState extends State<NotePublishPage> {
                       ),
                     );
                   }
-                  // toast('${isPublished ? '发布' : '编辑'}成功')
+                  Toast.show(
+                    context,
+                    text: '${isPublished ? '发布' : '编辑'}成功',
+                  );
                   Navigator.pop(context);
                   if (isPublished) Navigator.pushNamed(context, '/note');
                 }

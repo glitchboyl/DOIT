@@ -33,6 +33,7 @@ class TextBuilder extends StatelessWidget {
               : 1,
           fontWeight: fontWeight,
           leadingDistribution: TextLeadingDistribution.even,
+          decoration: TextDecoration.none,
         ),
         maxLines: maxLines,
         overflow: overflow,

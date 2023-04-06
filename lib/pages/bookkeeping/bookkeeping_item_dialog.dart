@@ -12,6 +12,7 @@ import 'package:doit/widgets/parts.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
@@ -136,6 +137,13 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                         ),
                       );
                     }
+                    Future.delayed(
+                      const Duration(milliseconds: 100),
+                      () => Toast.show(
+                        context,
+                        text: '${widget.item != null ? '编辑' : '新增'}成功',
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                 },

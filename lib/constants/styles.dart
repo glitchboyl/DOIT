@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 abstract class Styles {
-  static const Color RegularBaseColor = Colors.white;
+  static const Color RegularBaseColor = Color(0xFFFFFFFF);
   static const Color PrimaryColor = Color(0xFF3A36EE);
   static const Color PrimaryLightColor = Color(0xFF5753FC);
   static const Color PrimaryDeepColor = Color(0xFF2224C6);

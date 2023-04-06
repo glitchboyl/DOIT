@@ -19,4 +19,6 @@ abstract class Keys {
   // static final schedulePageAnimatedList = GlobalKey<AnimatedListState>();
   static final calendarRow = GlobalKey();
   static final calendarView = GlobalKey();
+
+  static final toast = GlobalKey();
 }

@@ -54,7 +54,8 @@ abstract class MEAS {
   static const double bookkeepingItemDialogCategoryLength = 48;
   static const double bookkeepingItemDialogCategoryIconLength = 32;
 
-  static const double loadingToastLength = 104;
+  static const double toastLength = 52;
+  static const double loadingToastLength = toastLength * 2;
   static const double loadingToastIconLength = 24;
   static const double loadingToastRadius = 12;
 

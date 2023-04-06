@@ -10,6 +10,7 @@ import 'bookkeeping_item.dart';
 import 'package:doit/widgets/blank.dart';
 import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/models/bookkeeping_item.dart';
+import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/providers/bookkeeping.dart';
@@ -82,6 +83,13 @@ class BookkeepingPage extends StatelessWidget {
         danger: true,
         onConfirm: (context) => {
           provider.delete(item),
+          Future.delayed(
+            const Duration(milliseconds: 100),
+            () => Toast.show(
+              context,
+              text: '删除成功',
+            ),
+          ),
           Navigator.pop(context),
         },
       );

@@ -13,7 +13,8 @@ import 'parts.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/notification_service.dart';
-import 'package:doit/utils/local_calendar_service.dart';
+import 'package:doit/utils/toast.dart';
+// import 'package:doit/utils/local_calendar_service.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/constants/styles.dart';
@@ -122,6 +123,13 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                         ),
                       );
                     }
+                    Future.delayed(
+                      const Duration(milliseconds: 100),
+                      () => Toast.show(
+                        context,
+                        text: '${widget.item != null ? '编辑' : '创建'}成功',
+                      ),
+                    );
                     Navigator.pop(context);
                   }
                 },

@@ -11,6 +11,7 @@ import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/constants/styles.dart';
@@ -77,6 +78,13 @@ class ToDoListDialog extends StatelessWidget {
         danger: true,
         onConfirm: (context) => {
           provider.delete(item),
+          Future.delayed(
+            const Duration(milliseconds: 100),
+            () => Toast.show(
+              context,
+              text: '删除成功',
+            ),
+          ),
           Navigator.pop(context),
         },
       );

@@ -46,8 +46,10 @@ class NotesPage extends StatelessWidget {
               }
               buildWidgets(context, provider);
               if (provider.noteList.length > _widgets.length - 1) {
-                Future.delayed(const Duration(milliseconds: 1),
-                    () => _scrollController.jumpTo(0));
+                Future.delayed(
+                  const Duration(milliseconds: 1),
+                  () => _scrollController.jumpTo(0),
+                );
               }
               return ListView.builder(
                 controller: _scrollController,

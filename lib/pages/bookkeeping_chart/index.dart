@@ -23,7 +23,7 @@ class BookkeepingChartPage extends StatefulWidget {
 
 class _BookkeepingChartPageState extends State<BookkeepingChartPage>
     with TickerProviderStateMixin {
-  BookkeepingItemType _type = BookkeepingItemType.Incomes;
+  BookkeepingItemType _type = BookkeepingItemType.Expenses;
   late TabController _tabController;
   late TabController _typeTabController;
   BookkeepingChartViewType _viewType = BookkeepingChartViewType.Week;
@@ -32,8 +32,15 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-    _typeTabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(
+      length: 4,
+      vsync: this,
+    );
+    _typeTabController = TabController(
+      length: 2,
+      initialIndex: _type.index,
+      vsync: this,
+    );
     _focusedTime = initialFocusedTime();
   }
 

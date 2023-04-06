@@ -34,6 +34,8 @@
 	<string>用于在随记中上传图片</string>
 	<key>NSCameraUsageDescription</key>
 	<string>用于在随记中拍照上传</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>用于保存图片</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>用于在日历增加日程提醒</string>
 	<key>UISupportedInterfaceOrientations</key>

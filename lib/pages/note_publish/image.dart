@@ -4,7 +4,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/transition_route.dart';
 import 'package:doit/widgets/images_viewer.dart';
-import 'package:doit/utils/loading_toast.dart';
+import 'package:doit/utils/toast.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -118,10 +118,14 @@ class ImageUploader extends StatelessWidget {
           try {
             Future.delayed(
               const Duration(milliseconds: 500),
-              () => LoadingToast.show(context, text: '等待上传中...'),
+              () => Toast.show(
+                context,
+                text: '等待上传中...',
+                loading: true,
+              ),
             );
             final images = await _imagePicker.pickMultiImage();
-            LoadingToast.close(context);
+            Toast.close();
             onUploaded(images);
           } on PlatformException catch (e) {
             print(e.toString());

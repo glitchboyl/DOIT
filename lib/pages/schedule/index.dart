@@ -10,6 +10,7 @@ import 'package:doit/widgets/blank.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/to_do_item.dart';
+import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 
@@ -89,6 +90,13 @@ class SchedulePage extends StatelessWidget {
       danger: true,
       onConfirm: (context) => {
         provider.delete(item),
+        Future.delayed(
+          const Duration(milliseconds: 100),
+          () => Toast.show(
+            context,
+            text: '删除成功',
+          ),
+        ),
         Navigator.pop(context),
       },
     );
