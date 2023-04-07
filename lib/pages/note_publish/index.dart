@@ -13,6 +13,7 @@ import 'image.dart';
 import 'package:doit/providers/note.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/models/note.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -103,12 +104,12 @@ class _NotePublishPageState extends State<NotePublishPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBarBuilder(
           leading: SVGIconButton(
-            'assets/images/back.svg',
+            Ico.Back,
             onPressed: () => Navigator.pop(context),
           ),
           trailings: [
             SVGIconButton(
-              'assets/images/publish${_publishActived ? '' : '_disabled'}.svg',
+              _publishActived ? Ico.Publish : Ico.PublishDisabled,
               onPressed: () async {
                 if (_publishActived) {
                   final _provider = getProvider(this.context, listen: false);

@@ -9,6 +9,8 @@ import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
+import 'package:doit/constants/images.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -27,7 +29,7 @@ class BookkeepingStatistics extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.transparent,
           image: DecorationImage(
-            image: AssetImage('assets/images/bookkeeping_statistics_bg.png'),
+            image: AssetImage(Images.BookkeepingStatisticsBackground),
             alignment: Alignment.topCenter,
             fit: BoxFit.cover,
           ),
@@ -69,7 +71,7 @@ class BookkeepingStatistics extends StatelessWidget {
                         RotatedBox(
                           quarterTurns: -1,
                           child: SVGIcon(
-                            'assets/images/triangle.svg',
+                            Ico.Triangle,
                             width: MEAS.arrowLength,
                             height: MEAS.arrowLength,
                           ),

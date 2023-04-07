@@ -14,6 +14,7 @@ import 'package:doit/utils/time.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/calendar.dart';
@@ -112,7 +113,7 @@ class ToDoListDialog extends StatelessWidget {
               elevation: 0,
               shape: const CircleBorder(),
               child: SVGIcon(
-                'assets/images/add.svg',
+                Ico.Add,
                 color: Styles.RegularBaseColor,
                 width: MEAS.itemOperationIconLength,
                 height: MEAS.itemOperationIconLength,

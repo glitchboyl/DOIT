@@ -4,6 +4,7 @@ import 'package:doit/pages/overview/index.dart';
 import 'package:doit/pages/notes/index.dart';
 import 'package:doit/pages/bookkeeping/index.dart';
 import 'package:doit/widgets/app_bar.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/keys.dart';
 
 class Navigation {
@@ -25,29 +26,29 @@ class Navigation {
 List<Navigation> navigation = [
   Navigation(
     id: Keys.SchedulePage,
-    icon: 'assets/images/schedule.svg',
-    activeIcon: 'assets/images/schedule_actived.svg',
+    icon: Ico.Schedule,
+    activeIcon: Ico.ScheduleActived,
     appBar: () => SchedulePage.appBar(key: Keys.SchedulePage),
     widget: () => SchedulePage(key: Keys.SchedulePage),
   ),
   Navigation(
     id: Keys.OverviewPage,
-    icon: 'assets/images/overview.svg',
-    activeIcon: 'assets/images/overview_actived.svg',
+    icon: Ico.Overview,
+    activeIcon: Ico.OverviewActived,
     appBar: () => OverviewPage.appBar(key: Keys.OverviewPage),
     widget: () => OverviewPage(key: Keys.OverviewPage),
   ),
   Navigation(
     id: Keys.NotesPage,
-    icon: 'assets/images/notes.svg',
-    activeIcon: 'assets/images/notes_actived.svg',
+    icon: Ico.Notes,
+    activeIcon: Ico.NotesActived,
     appBar: () => NotesPage.appBar(key: Keys.NotesPage),
     widget: () => NotesPage(key: Keys.NotesPage),
   ),
   Navigation(
     id: Keys.BookkeepingPage,
-    icon: 'assets/images/bookkeeping.svg',
-    activeIcon: 'assets/images/bookkeeping_actived.svg',
+    icon: Ico.Bookkeeping,
+    activeIcon: Ico.BookkeepingActived,
     appBar: () => BookkeepingPage.appBar(key: Keys.OverviewPage),
     widget: () => BookkeepingPage(key: Keys.BookkeepingPage),
   ),

@@ -1,5 +1,6 @@
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/meas.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
@@ -82,7 +83,7 @@ class _ExpansionTileState extends State<ExpansionTileBuilder>
                   RotationTransition(
                     turns: _iconTurns,
                     child: SVGIcon(
-                      'assets/images/arrow.svg',
+                      Ico.Arrow,
                       width: MEAS.arrowLength,
                       height: MEAS.arrowLength,
                     ),

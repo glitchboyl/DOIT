@@ -6,6 +6,7 @@ import 'package:doit/widgets/slidable_action.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -156,7 +157,9 @@ class ToDoItemWidget extends StatelessWidget {
                           ),
                           alignment: Alignment.centerRight,
                           child: SVGIcon(
-                            'assets/images/${item.completeTime != null ? 'resume' : 'complete'}_to_do_item.svg',
+                            item.completeTime != null
+                                ? Ico.Resume
+                                : Ico.Complete,
                             width: MEAS.itemOperationIconLength,
                             height: MEAS.itemOperationIconLength,
                           ),
@@ -173,7 +176,7 @@ class ToDoItemWidget extends StatelessWidget {
                         key: ValueKey(item.id.toString() + '_EDIT'),
                         color: Styles.PrimaryColor,
                         child: SVGIcon(
-                          'assets/images/edit.svg',
+                          Ico.Edit,
                           color: Styles.RegularBaseColor,
                           width: MEAS.itemOperationIconLength,
                           height: MEAS.itemOperationIconLength,
@@ -185,7 +188,7 @@ class ToDoItemWidget extends StatelessWidget {
                         key: ValueKey(item.id.toString() + '_DELETE'),
                         color: Styles.DangerousColor,
                         child: SVGIcon(
-                          'assets/images/trash.svg',
+                          Ico.Trash,
                           color: Styles.RegularBaseColor,
                           width: MEAS.itemOperationIconLength,
                           height: MEAS.itemOperationIconLength,

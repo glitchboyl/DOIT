@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'property.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 
 enum ToDoItemLevel {
@@ -36,27 +37,27 @@ enum RepeatType {
 
 const toDoItemTypeMap = {
   ToDoItemType.Study: Property(
-    icon: 'assets/images/study.svg',
+    icon: Ico.Study,
     color: Styles.StudyColor,
     text: '学习',
   ),
   ToDoItemType.Work: Property(
-    icon: 'assets/images/work.svg',
+    icon: Ico.Work,
     color: Styles.WorkColor,
     text: '工作',
   ),
   ToDoItemType.Life: Property(
-    icon: 'assets/images/life.svg',
+    icon: Ico.Life,
     color: Styles.LifeColor,
     text: '生活',
   ),
   ToDoItemType.Health: Property(
-    icon: 'assets/images/health.svg',
+    icon: Ico.Health,
     color: Styles.HealthColor,
     text: '健康',
   ),
   ToDoItemType.Travel: Property(
-    icon: 'assets/images/travel.svg',
+    icon: Ico.Travel,
     color: Styles.TravelColor,
     text: '旅行',
   ),
@@ -64,22 +65,22 @@ const toDoItemTypeMap = {
 
 const toDoItemLevelMap = {
   ToDoItemLevel.I: Property(
-    icon: 'assets/images/level_I.svg',
+    icon: Ico.LevelI,
     color: Styles.ToDoItemLevelIColor,
     text: '重要且紧急',
   ),
   ToDoItemLevel.II: Property(
-    icon: 'assets/images/level_I.svg',
+    icon: Ico.LevelII,
     color: Styles.ToDoItemLevelIIColor,
     text: '重要不紧急',
   ),
   ToDoItemLevel.III: Property(
-    icon: 'assets/images/level_III.svg',
+    icon: Ico.LevelIII,
     color: Styles.ToDoItemLevelIIIColor,
     text: '不重要紧急',
   ),
   ToDoItemLevel.IV: Property(
-    icon: 'assets/images/level_IV.svg',
+    icon: Ico.LevelIV,
     color: Styles.ToDoItemLevelIVColor,
     text: '不重要不紧急',
   ),

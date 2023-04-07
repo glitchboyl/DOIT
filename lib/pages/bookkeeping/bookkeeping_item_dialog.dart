@@ -15,6 +15,7 @@ import 'package:doit/utils/time.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/money_format.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -77,7 +78,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                 children: [
                   SizedBox(width: 16),
                   SVGIcon(
-                    'assets/images/date.svg',
+                    Ico.Date,
                     width: MEAS.itemOperationIconLength,
                     height: MEAS.itemOperationIconLength,
                   ),

@@ -2,6 +2,7 @@ import 'package:doit/widgets/svg_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/interactive_button.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -50,7 +51,7 @@ class Calculator extends StatelessWidget {
             ),
             child: calculatorCells[i] == 'BACKSPACE'
                 ? SVGIcon(
-                    'assets/images/backspace.svg',
+                    Ico.Backspace,
                     width: MEAS.itemOperationIconLength,
                     height: MEAS.itemOperationIconLength,
                   )

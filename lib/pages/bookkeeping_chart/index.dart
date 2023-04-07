@@ -12,6 +12,7 @@ import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -95,7 +96,7 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBarBuilder(
           leading: SVGIconButton(
-            'assets/images/back.svg',
+            Ico.Back,
             onPressed: () => Navigator.pop(context),
           ),
           title: TextBuilder(
@@ -187,7 +188,7 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
                               RotatedBox(
                                 quarterTurns: -1,
                                 child: SVGIcon(
-                                  'assets/images/triangle.svg',
+                                  Ico.Triangle,
                                   width: MEAS.arrowLength,
                                   height: MEAS.arrowLength,
                                 ),

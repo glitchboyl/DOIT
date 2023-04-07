@@ -15,6 +15,7 @@ import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/models/overview.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/keys.dart';
 
@@ -136,7 +137,7 @@ class OverviewPage extends StatelessWidget {
                           _toDoList.length == 1
                               ? Blank(
                                   '没有安排就是最好的安排',
-                                  'assets/images/schedule_blank.svg',
+                                  Ico.ScheduleBlank,
                                 )
                               : SlidableAutoCloseBehavior(
                                   child: ScrollablePositionedList.builder(

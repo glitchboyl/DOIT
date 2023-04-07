@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'drawer_item.dart';
 // import 'package:doit/models/to_do_item.dart';
 // import 'package:doit/constants/styles.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/meas.dart';
 // import 'package:doit/constants/keys.dart';
 
@@ -19,7 +20,7 @@ class SchedulePageDrawer extends StatelessWidget {
             ),
             // ExpansionTileBuilder(
             //   title: SchedulePageDrawerItem(
-            //     icon: 'assets/images/schedule_sort.svg',
+            //     icon: Ico.ScheduleSort,
             //     title: '我的日程',
             //     // onTap: () => {
             //     //   print(ExpansionTileBuilder.of(context)),
@@ -29,7 +30,7 @@ class SchedulePageDrawer extends StatelessWidget {
             //   children: [
             //     SchedulePageDrawerItem(
             //       key: Keys.DrawerItemAllSchedule,
-            //       icon: 'assets/images/all.svg',
+            //       icon: Ico.AllSchedule,
             //       title: '全部日程',
             //       color: Styles.PrimaryTextColor,
             //       onTap: () => {},
@@ -48,23 +49,23 @@ class SchedulePageDrawer extends StatelessWidget {
             //   ],
             // ),
             SchedulePageDrawerItem(
-              icon: 'assets/images/statistics.svg',
+              icon: Ico.ScheduleStatistics,
               title: '日程统计',
             ),
             SchedulePageDrawerItem(
-              icon: 'assets/images/anniversary.svg',
+              icon: Ico.Anniversary,
               title: '纪念日',
             ),
             // SchedulePageDrawerItem(
-            //   icon: 'assets/images/bin.svg',
+            //   icon: Ico.Bin,
             //   title: '废纸篓',
             // ),
             SchedulePageDrawerItem(
-              icon: 'assets/images/contact_us.svg',
+              icon: Ico.ContactUs,
               title: '联系我们',
             ),
             SchedulePageDrawerItem(
-              icon: 'assets/images/dark_mode.svg',
+              icon: Ico.DarkMode,
               title: '暗夜模式',
             ),
           ],

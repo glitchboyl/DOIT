@@ -10,6 +10,7 @@ import 'time_picker.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -162,7 +163,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar>
                       ? (_endTime != null ? _endTime! : _startTime)
                       : _startTime),
                   icon: SVGIcon(
-                    'assets/images/time.svg',
+                    Ico.Time,
                     width: MEAS.itemOperationIconLength,
                     height: MEAS.itemOperationIconLength,
                   ),
@@ -188,7 +189,7 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar>
                   title: '提醒',
                   value: notificationTypeMap[_notificationType]![0],
                   icon: SVGIcon(
-                    'assets/images/notification.svg',
+                    Ico.Notification,
                     width: MEAS.itemOperationIconLength,
                     height: MEAS.itemOperationIconLength,
                   ),
@@ -201,7 +202,9 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar>
                         key: ValueKey(type),
                         title: notificationTypeMap[type]![0],
                         icon: SVGIcon(
-                          'assets/images/radio${type == _notificationType ? '_checked' : ''}.svg',
+                          type == _notificationType
+                              ? Ico.RadioChecked
+                              : Ico.Radio,
                           width: 20,
                           height: 20,
                         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -47,7 +48,7 @@ class BottomDrawerItem extends StatelessWidget {
               RotatedBox(
                 quarterTurns: -1,
                 child: SVGIcon(
-                  'assets/images/arrow.svg',
+                  Ico.Arrow,
                   width: MEAS.arrowLength,
                   height: MEAS.arrowLength,
                 ),

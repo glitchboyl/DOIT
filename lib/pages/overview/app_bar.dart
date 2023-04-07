@@ -10,6 +10,7 @@ import 'package:doit/models/overview.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/keys.dart';
@@ -21,7 +22,9 @@ class OverviewPageAppBar extends AppBarBuilder {
         child: Consumer<ToDoListProvider>(
           builder: (context, provider, _) => AppBarBuilder(
             leading: SVGIconButton(
-              'assets/images/overview_by_${provider.overviewMode == OverviewMode.Day ? 'day' : 'month'}.svg',
+              provider.overviewMode == OverviewMode.Day
+                  ? Ico.OverviewByDay
+                  : Ico.OverviewByMonth,
               onPressed: provider.toggleOverviewMode,
             ),
             title: GestureDetector(
@@ -38,7 +41,7 @@ class OverviewPageAppBar extends AppBarBuilder {
                   ),
                   SizedBox(width: 4),
                   SVGIcon(
-                    'assets/images/arrow.svg',
+                    Ico.Arrow,
                     width: MEAS.arrowLength,
                     height: MEAS.arrowLength,
                   ),

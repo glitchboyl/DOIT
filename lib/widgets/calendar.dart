@@ -5,6 +5,7 @@ import 'text.dart';
 import 'calendar_item.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/lunar.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/calendar.dart';
@@ -75,7 +76,7 @@ class _CalendarState extends State<Calendar> {
                 firstDay.isBefore(widget.focusedDay ?? _focusedDay)
                     ? GestureDetector(
                         child: SVGIcon(
-                          'assets/images/triangle.svg',
+                          Ico.Triangle,
                           width: MEAS.arrowLength,
                           height: MEAS.arrowLength,
                         ),
@@ -111,7 +112,7 @@ class _CalendarState extends State<Calendar> {
                         child: RotatedBox(
                           quarterTurns: 2,
                           child: SVGIcon(
-                            'assets/images/triangle.svg',
+                            Ico.Triangle,
                             width: MEAS.arrowLength,
                             height: MEAS.arrowLength,
                           ),

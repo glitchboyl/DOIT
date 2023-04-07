@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 
 class SchedulePageAppBar extends AppBarBuilder {
@@ -9,7 +10,7 @@ class SchedulePageAppBar extends AppBarBuilder {
   @override
   Widget build(BuildContext context) => AppBarBuilder(
         leading: SVGIconButton(
-          'assets/images/menu.svg',
+          Ico.Menu,
           onPressed: () => Scaffold.of(context).openDrawer(),
         ),
         title: TextBuilder(
@@ -21,7 +22,7 @@ class SchedulePageAppBar extends AppBarBuilder {
         ),
         // trailings: [
         //   SVGIconButton(
-        //     'assets/images/quadrant.svg',
+        //     Ico.Quadrant,
         //     onPressed: () => {},
         //   )
         // ],

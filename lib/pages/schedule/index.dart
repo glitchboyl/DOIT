@@ -13,6 +13,7 @@ import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
+import 'package:doit/constants/icons.dart';
 
 class SchedulePage extends StatelessWidget {
   SchedulePage({super.key});
@@ -116,7 +117,7 @@ class SchedulePage extends StatelessWidget {
                 if (_widgets.length == 1) {
                   return Blank(
                     '没有安排就是最好的安排',
-                    'assets/images/schedule_blank.svg',
+                    Ico.ScheduleBlank,
                   );
                 }
 

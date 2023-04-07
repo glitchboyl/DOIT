@@ -5,6 +5,7 @@ import 'package:doit/models/note.dart';
 import 'package:doit/providers/note.dart';
 import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -35,7 +36,7 @@ class NoteItemWidget extends StatelessWidget {
       );
       _widgets.add(
         SVGIcon(
-          'assets/images/opening_quotes.svg',
+          Ico.OpeningQuotes,
           width: MEAS.noteItemQuotesLength,
           height: MEAS.noteItemQuotesLength,
         ),
@@ -83,7 +84,7 @@ class NoteItemWidget extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: SVGIcon(
-            'assets/images/closing_quotes.svg',
+            Ico.ClosingQuotes,
             width: MEAS.noteItemQuotesLength,
             height: MEAS.noteItemQuotesLength,
           ),

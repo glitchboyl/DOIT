@@ -1,7 +1,7 @@
 name: doit
 description: For cllynn
 publish_to: "none" 
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
   sdk: ">=2.17.0 <3.0.0"
@@ -37,6 +37,7 @@ flutter_icons:
 flutter:
   assets:
     - assets/images/
+    - assets/icons/
 
   fonts:
     - family: Barlow

@@ -5,22 +5,23 @@ import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/providers/note.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
+import 'package:doit/constants/icons.dart';
 
 class NotesPageAppBar extends AppBarBuilder {
   const NotesPageAppBar({super.key});
   @override
   Widget build(BuildContext context) => AppBarBuilder(
         leading: SVGIconButton(
-          'assets/images/back.svg',
+          Ico.Back,
           onPressed: () => Navigator.pop(context),
         ),
         trailings: [
           SVGIconButton(
-            'assets/images/edit.svg',
+            Ico.Edit,
             onPressed: () => Navigator.pushNamed(context, '/note_publish'),
           ),
           SVGIconButton(
-            'assets/images/trash.svg',
+            Ico.Trash,
             onPressed: () {
               final _provider =
                   Provider.of<NoteProvider>(context, listen: false);

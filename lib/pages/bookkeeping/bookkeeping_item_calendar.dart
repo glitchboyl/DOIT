@@ -9,6 +9,7 @@ import 'package:doit/widgets/time_picker_drawer.dart';
 import 'package:doit/widgets/time_picker.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -91,7 +92,7 @@ class _BookkeepingItemCalendarState extends State<BookkeepingItemCalendar> {
                   title: '时间',
                   value: getClockTime(_time),
                   icon: SVGIcon(
-                    'assets/images/time.svg',
+                    Ico.Time,
                     width: MEAS.itemOperationIconLength,
                     height: MEAS.itemOperationIconLength,
                   ),

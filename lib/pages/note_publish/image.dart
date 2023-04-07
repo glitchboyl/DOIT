@@ -5,6 +5,7 @@ import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/transition_route.dart';
 import 'package:doit/widgets/images_viewer.dart';
 import 'package:doit/utils/toast.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -72,7 +73,7 @@ class ImageItem extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 child: SVGIcon(
-                  'assets/images/cross.svg',
+                  Ico.Cross,
                   width: MEAS.notePublishImageDismissIconLength,
                   height: MEAS.notePublishImageDismissIconLength,
                 ),
@@ -109,7 +110,7 @@ class ImageUploader extends StatelessWidget {
           ),
           clipBehavior: Clip.antiAlias,
           child: SVGIcon(
-            'assets/images/add.svg',
+            Ico.Add,
             width: MEAS.notePublishImageUploaderIconLength,
             height: MEAS.notePublishImageUploaderIconLength,
           ),

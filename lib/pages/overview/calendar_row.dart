@@ -4,6 +4,7 @@ import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/calendar.dart';
@@ -85,7 +86,7 @@ class _CalendarRowState extends State<CalendarRow> {
                 child: RotatedBox(
                   quarterTurns: -1,
                   child: SVGIcon(
-                    'assets/images/triangle.svg',
+                    Ico.Triangle,
                     width: MEAS.arrowLength,
                     height: MEAS.arrowLength,
                     color: Styles.PrimaryColor,

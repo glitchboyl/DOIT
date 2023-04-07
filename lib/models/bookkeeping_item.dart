@@ -1,5 +1,6 @@
 import 'property.dart';
 import 'package:doit/constants/styles.dart';
+import 'package:doit/constants/icons.dart';
 
 enum BookkeepingItemType {
   Incomes,
@@ -50,77 +51,77 @@ const BookkeepingItemCategoryList = {
 
 const BookkeepingItemCategoryMap = {
   BookkeepingItemCategory.Salary: Property(
-    icon: 'assets/images/bookkeeping_salary.svg',
+    icon: Ico.BookkeepingSalary,
     color: Styles.WorkColor,
     text: '工资',
   ),
   BookkeepingItemCategory.Bonus: Property(
-    icon: 'assets/images/bookkeeping_bonus.svg',
+    icon: Ico.BookkeepingBonus,
     color: Styles.BookkeepingBonusColor,
     text: '奖金',
   ),
   BookkeepingItemCategory.PartTimeJob: Property(
-    icon: 'assets/images/bookkeeping_part_time_job.svg',
+    icon: Ico.BookkeepingPartTimeJob,
     color: Styles.BookkeepingPartTimeJobColor,
     text: '兼职',
   ),
   BookkeepingItemCategory.Financing: Property(
-    icon: 'assets/images/bookkeeping_financing.svg',
+    icon: Ico.BookkeepingFinancing,
     color: Styles.BookkeepingFinancingColor,
     text: '理财',
   ),
   BookkeepingItemCategory.Study: Property(
-    icon: 'assets/images/bookkeeping_study.svg',
+    icon: Ico.BookkeepingStudy,
     color: Styles.StudyColor,
     text: '学习',
   ),
   BookkeepingItemCategory.FoodAndDrink: Property(
-    icon: 'assets/images/bookkeeping_food_and_drink.svg',
+    icon: Ico.BookkeepingFoodAndDrink,
     color: Styles.BookkeepingFoodAndDrinkColor,
     text: '饮食',
   ),
   BookkeepingItemCategory.Daily: Property(
-    icon: 'assets/images/bookkeeping_daily.svg',
+    icon: Ico.BookkeepingDaily,
     color: Styles.LifeColor,
     text: '日用',
   ),
   BookkeepingItemCategory.Game: Property(
-    icon: 'assets/images/bookkeeping_game.svg',
+    icon: Ico.BookkeepingGame,
     color: Styles.BookkeepingGameColor,
     text: '游戏',
   ),
   BookkeepingItemCategory.Shopping: Property(
-    icon: 'assets/images/bookkeeping_shopping.svg',
+    icon: Ico.BookkeepingShopping,
     color: Styles.BookkeepingShoppingColor,
     text: '购物',
   ),
   BookkeepingItemCategory.Leisure: Property(
-    icon: 'assets/images/bookkeeping_leisure.svg',
+    icon: Ico.BookkeepingLeisure,
     color: Styles.TravelColor,
     text: '休闲',
   ),
   BookkeepingItemCategory.Traffic: Property(
-    icon: 'assets/images/bookkeeping_traffic.svg',
+    icon: Ico.BookkeepingTraffic,
     color: Styles.BookkeepingTrafficColor,
     text: '交通',
   ),
   BookkeepingItemCategory.Communication: Property(
-    icon: 'assets/images/bookkeeping_communication.svg',
+    icon: Ico.BookkeepingCommunication,
     color: Styles.BookkeepingCommunicationColor,
     text: '通讯',
   ),
   BookkeepingItemCategory.Housing: Property(
-    icon: 'assets/images/bookkeeping_housing.svg',
+    icon: Ico.BookkeepingHousing,
     color: Styles.BookkeepingHousingColor,
     text: '住房',
   ),
   BookkeepingItemCategory.Health: Property(
-    icon: 'assets/images/bookkeeping_health.svg',
+    icon: Ico.BookkeepingHealth,
     color: Styles.HealthColor,
     text: '医疗',
   ),
   BookkeepingItemCategory.Other: Property(
-    icon: 'assets/images/bookkeeping_other.svg',
+    icon: Ico.BookkeepingOther,
     color: Styles.BookkeepingOtherColor,
     text: '其他',
   ),

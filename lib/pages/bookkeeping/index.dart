@@ -15,6 +15,8 @@ import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/providers/bookkeeping.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/constants/icons.dart';
+import 'package:doit/constants/images.dart';
 
 class BookkeepingPage extends StatelessWidget {
   BookkeepingPage({super.key});
@@ -98,7 +100,7 @@ class BookkeepingPage extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/bookkeeping_bg.png'),
+            image: AssetImage(Images.BookkeepingBackground),
             alignment: Alignment.center,
             fit: BoxFit.cover,
           ),
@@ -116,7 +118,7 @@ class BookkeepingPage extends StatelessWidget {
                         if (_widgets.length == 2) {
                           return Blank(
                             '增添一笔生活的痕迹吧',
-                            'assets/images/bookkeeping_blank.svg',
+                            Ico.BookkeepingBlank,
                           );
                         }
                         if (provider.fresh != null) {

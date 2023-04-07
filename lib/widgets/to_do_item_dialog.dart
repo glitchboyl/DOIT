@@ -17,6 +17,7 @@ import 'package:doit/utils/toast.dart';
 // import 'package:doit/utils/local_calendar_service.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -79,7 +80,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
             ),
             trailings: [
               SVGIconButton(
-                'assets/images/publish${_publishActived ? '' : '_disabled'}.svg',
+                _publishActived ? Ico.Publish : Ico.PublishDisabled,
                 onPressed: () async {
                   if (_publishActived) {
                     final _provider =
@@ -178,7 +179,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                       child: Row(
                         children: [
                           SVGIcon(
-                            'assets/images/date.svg',
+                            Ico.Date,
                             width: MEAS.itemOperationIconLength,
                             height: MEAS.itemOperationIconLength,
                           ),

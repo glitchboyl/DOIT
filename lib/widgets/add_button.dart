@@ -7,6 +7,7 @@ import 'svg_icon.dart';
 import 'package:doit/pages/bookkeeping/bookkeeping_item_dialog.dart';
 import 'package:doit/providers/note.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
+import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 import 'package:doit/constants/keys.dart';
@@ -26,7 +27,7 @@ class AddButton extends StatelessWidget {
         elevation: 24,
         shape: const CircleBorder(),
         child: const SVGIcon(
-          'assets/images/add.svg',
+          Ico.Add,
           color: Styles.RegularBaseColor,
         ),
         onPressed: () {
