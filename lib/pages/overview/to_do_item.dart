@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/icon.dart';
 import 'package:doit/widgets/slidable_action.dart';
 import 'package:doit/widgets/svg_icon.dart';
@@ -24,184 +23,183 @@ class ToDoItemWidget extends StatelessWidget {
   final void Function(BuildContext context) onDeleted;
 
   @override
-  Widget build(BuildContext context) => Container(
-        key: ValueKey(item.id),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width / 7 - 14,
-              // height: Styles.smallTextLineHeight,
-              margin: EdgeInsets.only(right: 2),
-              alignment: Alignment.center,
-              color: Styles.BackgroundColor,
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  if (!item.startTime.isSameDay(item.endTime))
-                    TextBuilder(
-                      getDateTime(item.startTime),
-                      color: Styles.PrimaryTextColor,
-                      fontSize: Styles.smallTextSize,
-                      lineHeight: Styles.smallTextLineHeight,
-                      textAlign: TextAlign.center,
-                    ),
-                  TextBuilder(
-                    // item.startTime != null ? getClockTime(item.startTime!) : '整天',
-                    getClockTime(item.startTime),
-                    color: Styles.PrimaryTextColor,
-                    fontSize: Styles.smallTextSize,
-                    lineHeight: Styles.smallTextLineHeight,
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      key: ValueKey(item.id),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width / 7 - 14,
+            // height: Styles.SmallTextLineHeight,
+            margin: EdgeInsets.only(right: 2),
+            alignment: Alignment.center,
+            color: colorScheme.backgroundColor,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (!item.startTime.isSameDay(item.endTime))
+                  Text(
+                    getDateTime(item.startTime),
+                    style: TextStyles.smallTextStyle,
+                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(12),
-                    bottomLeft: Radius.circular(12),
-                    bottomRight: Radius.circular(12),
-                  ),
-                  color: Styles.RegularBaseColor,
+                Text(
+                  // item.startTime != null ? getClockTime(item.startTime!) : '整天',
+                  getClockTime(item.startTime),
+
+                  style: TextStyles.smallTextStyle,
                 ),
-                margin: EdgeInsets.only(bottom: 10),
-                clipBehavior: Clip.antiAlias,
-                child: Slidable(
-                  key: ValueKey(item.id.toString() + '_SLIDABLE'),
-                  groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
-                  child: Container(
-                    padding: EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            IconBuilder(
-                              item.levelIcon,
-                              width: MEAS.toDoItemLevelLength,
-                              height: MEAS.toDoItemLevelLength,
-                              margin: EdgeInsets.only(
-                                right: 4,
-                              ),
-                              borderRadius: BorderRadius.circular(50),
-                              color: item.levelColor,
-                              iconWidth: MEAS.toDoItemLevelIconLength,
-                              iconHeight: MEAS.toDoItemLevelIconLength,
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(12),
+                  bottomLeft: Radius.circular(12),
+                  bottomRight: Radius.circular(12),
+                ),
+                color: colorScheme.regularBaseColor,
+              ),
+              margin: EdgeInsets.only(bottom: 10),
+              clipBehavior: Clip.antiAlias,
+              child: Slidable(
+                key: ValueKey(item.id.toString() + '_SLIDABLE'),
+                groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
+                child: Container(
+                  padding: EdgeInsets.all(12),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          IconBuilder(
+                            item.levelIcon,
+                            width: MEAS.toDoItemLevelLength,
+                            height: MEAS.toDoItemLevelLength,
+                            margin: EdgeInsets.only(
+                              right: 4,
                             ),
-                            TextBuilder(
-                              item.levelText,
-                              color: Styles.PrimaryTextColor,
-                              fontSize: Styles.smallTextSize,
-                              lineHeight: Styles.smallTextLineHeight,
+                            borderRadius: BorderRadius.circular(50),
+                            color: item.levelColor(context),
+                            iconWidth: MEAS.toDoItemLevelIconLength,
+                            iconHeight: MEAS.toDoItemLevelIconLength,
+                          ),
+                          Text(
+                            item.levelText,
+                            style: TextStyles.smallTextStyle,
+                          ),
+                          Spacer(),
+                          IconBuilder(
+                            item.typeIcon,
+                            width: MEAS.toDoItemTypeLength,
+                            height: MEAS.toDoItemTypeLength,
+                            margin: EdgeInsets.only(
+                              right: 4,
                             ),
-                            Spacer(),
-                            IconBuilder(
-                              item.typeIcon,
-                              width: MEAS.toDoItemTypeLength,
-                              height: MEAS.toDoItemTypeLength,
-                              margin: EdgeInsets.only(
-                                right: 4,
-                              ),
-                              borderRadius: BorderRadius.circular(4),
-                              color: item.typeColor,
-                              iconWidth: MEAS.toDoItemTypeIconLength,
-                              iconHeight: MEAS.toDoItemTypeIconLength,
-                            ),
-                            TextBuilder(
-                              item.typeText,
-                              color: Styles.PrimaryTextColor,
-                              fontSize: Styles.smallTextSize,
-                              lineHeight: Styles.smallTextLineHeight,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        TextBuilder(
-                          item.title,
-                          color: Styles.PrimaryTextColor,
-                          fontSize: Styles.textSize,
-                          lineHeight: Styles.textLineHeight,
-                        ),
-                        if (item.remarks != '') ...[
-                          SizedBox(height: 2),
-                          TextBuilder(
-                            item.remarks,
-                            color: Styles.SecondaryTextColor,
-                            fontSize: Styles.smallTextSize,
-                            lineHeight: Styles.smallTextLineHeight,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                            borderRadius: BorderRadius.circular(4),
+                            color: item.typeColor(context),
+                            iconWidth: MEAS.toDoItemTypeIconLength,
+                            iconHeight: MEAS.toDoItemTypeIconLength,
+                          ),
+                          Text(
+                            item.typeText,
+                            style: TextStyles.smallTextStyle,
                           ),
                         ],
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        item.title,
+                        style: TextStyles.regularTextStyle,
+                      ),
+                      if (item.remarks != '') ...[
+                        SizedBox(height: 2),
+                        Text(
+                          item.remarks,
+                          style: TextStyles.smallTextStyle.copyWith(
+                            color: colorScheme.secondaryTextColor,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
-                    ),
-                  ),
-                  startActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    extentRatio: 0.18,
-                    children: [
-                      SlidableActionBuilder(
-                        key: ValueKey(item.id.toString() + '_CHANGE_STATUS'),
-                        color: item.completeTime != null
-                            ? Styles.ResumeColor
-                            : Styles.CompleteColor,
-                        onPressed: onStatusChanged,
-                        child: Container(
-                          height: double.infinity,
-                          padding: EdgeInsets.only(
-                            right: 16,
-                          ),
-                          alignment: Alignment.centerRight,
-                          child: SVGIcon(
-                            item.completeTime != null
-                                ? Ico.Resume
-                                : Ico.Complete,
-                            width: MEAS.itemOperationIconLength,
-                            height: MEAS.itemOperationIconLength,
-                          ),
-                        ),
-                        autoClose: true,
-                      ),
-                    ],
-                  ),
-                  endActionPane: ActionPane(
-                    motion: const ScrollMotion(),
-                    extentRatio: 0.36,
-                    children: [
-                      SlidableActionBuilder(
-                        key: ValueKey(item.id.toString() + '_EDIT'),
-                        color: Styles.PrimaryColor,
-                        child: SVGIcon(
-                          Ico.Edit,
-                          color: Styles.RegularBaseColor,
-                          width: MEAS.itemOperationIconLength,
-                          height: MEAS.itemOperationIconLength,
-                        ),
-                        onPressed: onEdited,
-                        autoClose: true,
-                      ),
-                      SlidableActionBuilder(
-                        key: ValueKey(item.id.toString() + '_DELETE'),
-                        color: Styles.DangerousColor,
-                        child: SVGIcon(
-                          Ico.Trash,
-                          color: Styles.RegularBaseColor,
-                          width: MEAS.itemOperationIconLength,
-                          height: MEAS.itemOperationIconLength,
-                        ),
-                        onPressed: onDeleted,
-                        autoClose: true,
-                      ),
                     ],
                   ),
                 ),
+                startActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  extentRatio: 0.18,
+                  children: [
+                    SlidableActionBuilder(
+                      key: ValueKey(item.id.toString() + '_CHANGE_STATUS'),
+                      color: item.completeTime != null
+                          ? colorScheme.resumeColor
+                          : colorScheme.completeColor,
+                      onPressed: onStatusChanged,
+                      child: Container(
+                        height: double.infinity,
+                        padding: EdgeInsets.only(
+                          right: 16,
+                        ),
+                        alignment: Alignment.centerRight,
+                        child: SVGIcon(
+                          item.completeTime != null
+                              ? isDarkMode
+                                  ? Ico.ResumeDark
+                                  : Ico.Resume
+                              : isDarkMode
+                                  ? Ico.CompleteDark
+                                  : Ico.Complete,
+                          width: MEAS.itemOperationIconLength,
+                          height: MEAS.itemOperationIconLength,
+                        ),
+                      ),
+                      autoClose: true,
+                    ),
+                  ],
+                ),
+                endActionPane: ActionPane(
+                  motion: const ScrollMotion(),
+                  extentRatio: 0.36,
+                  children: [
+                    SlidableActionBuilder(
+                      key: ValueKey(item.id.toString() + '_EDIT'),
+                      color: colorScheme.primaryColor,
+                      child: SVGIcon(
+                        isDarkMode ? Ico.EditDark : Ico.Edit,
+                        color: colorScheme.regularBaseColor,
+                        width: MEAS.itemOperationIconLength,
+                        height: MEAS.itemOperationIconLength,
+                      ),
+                      onPressed: onEdited,
+                      autoClose: true,
+                    ),
+                    SlidableActionBuilder(
+                      key: ValueKey(item.id.toString() + '_DELETE'),
+                      color: colorScheme.dangerousColor,
+                      child: SVGIcon(
+                        isDarkMode ? Ico.TrashDark : Ico.Trash,
+                        color: colorScheme.regularBaseColor,
+                        width: MEAS.itemOperationIconLength,
+                        height: MEAS.itemOperationIconLength,
+                      ),
+                      onPressed: onDeleted,
+                      autoClose: true,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 }

@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:doit/widgets/text.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/constants/styles.dart';
 
 class ListTitle extends StatelessWidget {
@@ -15,12 +14,12 @@ class ListTitle extends StatelessWidget {
         margin: EdgeInsets.only(
           top: 12,
         ),
-        child: TextBuilder(
+        child: Text(
           title,
-          color: Styles.PrimaryTextColor,
-          fontSize: Styles.smallTextSize,
-          lineHeight: Styles.smallTextLineHeight,
-          fontWeight: FontWeight.bold,
+          style: TextStyles.smallTextStyle.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primaryTextColor,
+          ),
         ),
       );
 }

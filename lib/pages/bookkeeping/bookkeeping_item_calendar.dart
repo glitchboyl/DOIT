@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/widgets/app_bar.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/text_button.dart';
 import 'package:doit/widgets/bottom_drawer_item.dart';
 import 'package:doit/widgets/calendar.dart';
@@ -43,20 +42,19 @@ class _BookkeepingItemCalendarState extends State<BookkeepingItemCalendar> {
         children: [
           AppBarBuilder(
             height: MEAS.dialogAppBarHeight,
-            title: TextBuilder(
+            title: Text(
               '选择时间',
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.largeTextSize,
-              lineHeight: Styles.largeTextLineHeight,
-              fontWeight: FontWeight.bold,
+              style: TextStyles.largeTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             trailings: [
               TextButtonBuilder(
                 '确定',
-                color: Styles.PrimaryColor,
-                fontSize: Styles.textSize,
-                lineHeight: Styles.textLineHeight,
-                fontWeight: FontWeight.bold,
+                style: TextStyles.regularTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
                 onPressed: () => {
                   widget.onConfirmed(_time),
                   Navigator.pop(context),

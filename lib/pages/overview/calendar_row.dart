@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/providers/to_do_list.dart';
 import 'package:doit/utils/time.dart';
@@ -53,118 +52,118 @@ class _CalendarRowState extends State<CalendarRow> {
   }
 
   @override
-  Widget build(BuildContext context) => Container(
-        height: MEAS.calendarRowHeight,
-        padding: EdgeInsets.symmetric(
-          horizontal: 10,
-        ),
-        color: Styles.RegularBaseColor,
-        child: LayoutBuilder(
-          builder: (context, constraints) => Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                bottom: -2,
-                left: 0,
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      height: MEAS.calendarRowHeight,
+      padding: EdgeInsets.symmetric(
+        horizontal: 10,
+      ),
+      color: colorScheme.regularBaseColor,
+      child: LayoutBuilder(
+        builder: (context, constraints) => Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Positioned(
+              bottom: -2,
+              left: 0,
+              child: Container(
+                width: constraints.maxWidth / 7,
+                padding: EdgeInsets.symmetric(
+                  horizontal: 6,
+                ),
+                height: 42,
                 child: Container(
-                  width: constraints.maxWidth / 7,
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 6,
+                  decoration: BoxDecoration(
+                    color: colorScheme.primaryColor,
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  height: 42,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Styles.PrimaryColor,
-                      borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+            ),
+            Positioned(
+              bottom: -MEAS.arrowLength - 2,
+              left: constraints.maxWidth / 14 - MEAS.arrowLength / 2,
+              child: RotatedBox(
+                quarterTurns: -1,
+                child: SVGIcon(
+                  Ico.Triangle,
+                  width: MEAS.arrowLength,
+                  height: MEAS.arrowLength,
+                  color: colorScheme.primaryColor,
+                ),
+              ),
+            ),
+            PageView.builder(
+              padEnds: false,
+              controller: _pageController,
+              itemBuilder: (context, i) {
+                final date = _calendarItems[i].key;
+                final lunar = _calendarItems[i].value.lunar;
+                final festival = _calendarItems[i].value.festival;
+                final solarTerm = _calendarItems[i].value.solarTerm;
+                bool highlight = festival != '' || solarTerm != '';
+                return GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () => toCalendarItem(i),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 6,
                     ),
-                  ),
-                ),
-              ),
-              Positioned(
-                bottom: -MEAS.arrowLength - 2,
-                left: constraints.maxWidth / 14 - MEAS.arrowLength / 2,
-                child: RotatedBox(
-                  quarterTurns: -1,
-                  child: SVGIcon(
-                    Ico.Triangle,
-                    width: MEAS.arrowLength,
-                    height: MEAS.arrowLength,
-                    color: Styles.PrimaryColor,
-                  ),
-                ),
-              ),
-              PageView.builder(
-                padEnds: false,
-                controller: _pageController,
-                itemBuilder: (context, i) {
-                  final date = _calendarItems[i].key;
-                  final lunar = _calendarItems[i].value.lunar;
-                  final festival = _calendarItems[i].value.festival;
-                  final solarTerm = _calendarItems[i].value.solarTerm;
-                  bool highlight = festival != '' || solarTerm != '';
-                  return GestureDetector(
-                    behavior: HitTestBehavior.translucent,
-                    onTap: () => toCalendarItem(i),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 6,
-                      ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextBuilder(
-                              weekDayTextMap[date.weekday]!,
-                              color: Styles.daysOfWeekTextStyle.color,
-                              fontSize: Styles.daysOfWeekTextStyle.fontSize,
-                              lineHeight: Styles.daysOfWeekTextStyle.height! *
-                                  Styles.daysOfWeekTextStyle.fontSize!,
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            weekDayTextMap[date.weekday]!,
+                            style: TextStyles.smallTextStyle.copyWith(
+                              color: colorScheme.secondaryTextColor,
                             ),
-                            SizedBox(
-                              height: 6,
-                            ),
-                            TextBuilder(
-                              date.day.toString(),
+                          ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            date.day.toString(),
+                            style: TextStyles.dateTextStyle.copyWith(
                               color: i == _focusedIndex
-                                  ? Styles.RegularBaseColor
-                                  : Styles.PrimaryTextColor,
-                              fontSize: Styles.dateTextSize,
-                              lineHeight: Styles.dateTextLineHeight,
-                              fontWeight: FontWeight.bold,
+                                  ? colorScheme.regularBaseColor
+                                  : colorScheme.primaryTextColor,
                             ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            TextBuilder(
-                              highlight
-                                  ? (festival != '' ? festival : solarTerm)
-                                  : lunar.day,
+                          ),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          Text(
+                            highlight
+                                ? (festival != '' ? festival : solarTerm)
+                                : lunar.day,
+                            style: TextStyles.tinyTextStyle.copyWith(
                               color: i == _focusedIndex
-                                  ? Styles.RegularBaseColor
+                                  ? colorScheme.regularBaseColor
                                   : highlight
-                                      ? Styles.PrimaryColor
-                                      : Styles.PrimaryTextColor,
-                              fontSize: Styles.tinyTextSize,
-                              lineHeight: Styles.tinyTextLineHeight,
+                                      ? colorScheme.primaryColor
+                                      : colorScheme.primaryTextColor,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
-                  );
-                },
-                itemCount: _calendarItems.length,
-                onPageChanged: (index) {
-                  Provider.of<ToDoListProvider>(context, listen: false)
-                      .focusDate(
-                    _calendarItems[index].key,
-                  );
-                  setState(() => _focusedIndex = index);
-                },
-              ),
-            ],
-          ),
+                  ),
+                );
+              },
+              itemCount: _calendarItems.length,
+              onPageChanged: (index) {
+                Provider.of<ToDoListProvider>(context, listen: false).focusDate(
+                  _calendarItems[index].key,
+                );
+                setState(() => _focusedIndex = index);
+              },
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

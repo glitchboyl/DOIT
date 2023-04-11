@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/note.dart';
 import 'package:doit/providers/note.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
@@ -13,21 +13,20 @@ class NoteItemWidget extends StatelessWidget {
   const NoteItemWidget(this.note);
   final Note note;
 
-  List<Widget> buildWidgets() {
+  List<Widget> buildWidgets(ColorScheme colorScheme) {
     final List<Widget> _widgets = [
-      TextBuilder(
+      Text(
         note.title,
-        color: Styles.PrimaryTextColor,
-        fontWeight: FontWeight.bold,
-        fontSize: Styles.textSize,
-        lineHeight: Styles.textLineHeight,
+        style: TextStyles.regularTextStyle.copyWith(
+          fontWeight: FontWeight.bold,
+        ),
       ),
       SizedBox(height: 2),
-      TextBuilder(
+      Text(
         getNoteTime(note.publishTime),
-        color: Styles.SecondaryTextColor,
-        fontSize: Styles.smallTextSize,
-        lineHeight: Styles.smallTextLineHeight,
+        style: TextStyles.smallTextStyle.copyWith(
+          color: colorScheme.secondaryTextColor,
+        ),
       ),
     ];
     if (note.images.length > 0 || note.body.trim() != '') {
@@ -51,7 +50,7 @@ class NoteItemWidget extends StatelessWidget {
               maxHeight: 399,
             ),
             decoration: BoxDecoration(
-              color: Styles.BackgroundColor,
+              color: colorScheme.backgroundColor,
               borderRadius: BorderRadius.circular(8),
             ),
             clipBehavior: Clip.antiAlias,
@@ -67,11 +66,9 @@ class NoteItemWidget extends StatelessWidget {
       );
       if (note.body.trim() != '') {
         _widgets.add(
-          TextBuilder(
+          Text(
             note.body,
-            color: Styles.PrimaryTextColor,
-            fontSize: Styles.smallTextSize,
-            lineHeight: Styles.smallTextLineHeight,
+            style: TextStyles.smallTextStyle,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
@@ -96,24 +93,27 @@ class NoteItemWidget extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        child: Container(
-          key: ValueKey(note.id),
-          margin: EdgeInsets.only(bottom: 10),
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Styles.RegularBaseColor,
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: buildWidgets(),
-          ),
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      child: Container(
+        key: ValueKey(note.id),
+        margin: EdgeInsets.only(bottom: 10),
+        padding: EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: colorScheme.regularBaseColor,
+          borderRadius: BorderRadius.circular(12),
         ),
-        onTap: () => {
-          Provider.of<NoteProvider>(context, listen: false).focus(note),
-          Navigator.pushNamed(context, '/note'),
-        },
-      );
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: buildWidgets(colorScheme),
+        ),
+      ),
+      onTap: () => {
+        Provider.of<NoteProvider>(context, listen: false).focus(note),
+        Navigator.pushNamed(context, '/note'),
+      },
+    );
+  }
 }

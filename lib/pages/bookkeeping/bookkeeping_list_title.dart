@@ -1,5 +1,4 @@
 import 'package:flutter/widgets.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -22,26 +21,21 @@ class BookkeepingListTitle extends StatelessWidget {
         ),
         child: Row(
           children: [
-            TextBuilder(
+            Text(
               timeText,
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.smallTextSize,
-              fontWeight: FontWeight.bold,
-              lineHeight: Styles.smallTextLineHeight,
+              style: TextStyles.smallTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Spacer(),
-            TextBuilder(
+            Text(
               '收入: ${moneyFormat(incomes)}',
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.smallTextSize,
-              lineHeight: Styles.smallTextLineHeight,
+              style: TextStyles.smallTextStyle,
             ),
             SizedBox(width: 12),
-            TextBuilder(
+            Text(
               '支出: ${moneyFormat(expenses)}',
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.smallTextSize,
-              lineHeight: Styles.smallTextLineHeight,
+              style: TextStyles.smallTextStyle,
             ),
           ],
         ),

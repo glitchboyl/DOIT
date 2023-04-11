@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:doit/widgets/text.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
@@ -21,7 +20,7 @@ class BottomDrawerItem extends StatelessWidget {
   final bool hideArrow;
   final void Function()? onPressed;
 
-  Widget buildWidget() => SizedBox(
+  Widget buildWidget(BuildContext context) => SizedBox(
         height: 50,
         child: Row(
           children: [
@@ -29,26 +28,24 @@ class BottomDrawerItem extends StatelessWidget {
               icon!,
               SizedBox(width: 10),
             ],
-            TextBuilder(
+            Text(
               title,
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.textSize,
-              lineHeight: Styles.textLineHeight,
+              style: TextStyles.regularTextStyle,
             ),
             Spacer(),
             if (value != null)
-              TextBuilder(
+              Text(
                 value!,
-                color: Styles.PrimaryTextColor,
-                fontSize: Styles.textSize,
-                lineHeight: Styles.textLineHeight,
+                style: TextStyles.regularTextStyle,
               ),
             if (onPressed != null && !hideArrow) ...[
               SizedBox(width: 10),
               RotatedBox(
                 quarterTurns: -1,
                 child: SVGIcon(
-                  Ico.Arrow,
+                  Theme.of(context).brightness == Brightness.dark
+                      ? Ico.ArrowDark
+                      : Ico.Arrow,
                   width: MEAS.arrowLength,
                   height: MEAS.arrowLength,
                 ),
@@ -61,9 +58,9 @@ class BottomDrawerItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) => onPressed != null
       ? GestureDetector(
-          child: buildWidget(),
+          child: buildWidget(context),
           behavior: HitTestBehavior.translucent,
           onTap: onPressed,
         )
-      : buildWidget();
+      : buildWidget(context);
 }

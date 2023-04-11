@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="DOIT视觉规范-暗夜模式" transform="translate(-222.000000, -724.000000)">
+            <g id="doit-icon-backspace" transform="translate(222.000000, 724.000000)">
+                <path d="M7.45277845,5 L16,5 C17.1045695,5 18,5.8954305 18,7 L18,13 C18,14.1045695 17.1045695,15 16,15 L7.45277845,15 C6.8912639,15 6.35561354,14.7639523 5.97672082,14.3495384 L3.23386368,11.3495384 C2.53527384,10.5854558 2.53527384,9.41454423 3.23386368,8.6504616 L5.97672082,5.6504616 C6.35561354,5.23604769 6.8912639,5 7.45277845,5 Z" id="矩形" stroke="#EBEDF5" stroke-width="1.6"></path>
+                <path d="M10,12 C10,12 11.3333333,10.6666667 14,8 M10,8 L14,12" id="形状结合" stroke="#ABAFC2" stroke-width="2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -4,7 +4,6 @@ import 'package:doit/widgets/images_viewer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'app_bar.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/transition_route.dart';
 import 'package:doit/providers/note.dart';
 import 'package:doit/utils/time.dart';
@@ -87,26 +86,25 @@ class NotePage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextBuilder(
+            Text(
               focusedNote.title,
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.largeTextSize,
-              lineHeight: Styles.largeTextLineHeight,
-              fontWeight: FontWeight.bold,
+              style: TextStyles.largeTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 4),
-            TextBuilder(
+            Text(
               '${getDateTime(focusedNote.publishTime)} ${getClockTime(focusedNote.publishTime)}',
-              color: Styles.SecondaryTextColor,
-              fontSize: Styles.smallTextSize,
-              lineHeight: Styles.smallTextLineHeight,
+              style: TextStyles.smallTextStyle.copyWith(
+                color: Theme.of(context).colorScheme.secondaryTextColor,
+              ),
             ),
             SizedBox(height: 20),
-            TextBuilder(
+            Text(
               focusedNote.body,
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.textSize,
-              lineHeight: Styles.largeTextLineHeight,
+              style: TextStyles.largeTextStyle.copyWith(
+                fontSize: TextStyles.RegularTextSize,
+              ),
             ),
           ],
         ),
@@ -128,6 +126,6 @@ class NotePage extends StatelessWidget {
             initialData: [],
           ),
         ),
-        backgroundColor: Styles.RegularBaseColor,
+        backgroundColor: Theme.of(context).colorScheme.regularBaseColor,
       );
 }

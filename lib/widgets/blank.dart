@@ -1,4 +1,3 @@
-import 'package:doit/widgets/text.dart';
 import 'package:flutter/widgets.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
@@ -26,12 +25,11 @@ class Blank extends StatelessWidget {
               height: MEAS.blankImageLength,
             ),
             SizedBox(height: 24),
-            TextBuilder(
+            Text(
               text,
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.textSize,
-              lineHeight: Styles.textLineHeight,
-              fontWeight: FontWeight.bold,
+              style: TextStyles.regularTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             SizedBox(height: 88),
           ],

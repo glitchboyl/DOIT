@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <defs>
+        <path d="M5,15 L16,15 L16,16 C16,16.5522847 15.5522847,17 15,17 L5,17 C4.44771525,17 4,16.5522847 4,16 C4,15.4477153 4.44771525,15 5,15 Z" id="path-1"></path>
+        <filter x="-1.2%" y="-22.5%" width="102.5%" height="130.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="-0.3" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feColorMatrix values="0 0 0 0 0.9216   0 0 0 0 0.928   0 0 0 0 0.96  0 0 0 1 0" type="matrix" in="shadowOffsetOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范-暗夜模式" transform="translate(-90.000000, -756.000000)">
+            <g id="doit-icon-study" transform="translate(90.000000, 756.000000)">
+                <path d="M5.5,3 L15,3 C15.5522847,3 16,3.44771525 16,4 L16,16 C16,16.5522847 15.5522847,17 15,17 L5,17 C4.44771525,17 4,16.5522847 4,16 L4,4.5 C4,3.67157288 4.67157288,3 5.5,3 Z" id="矩形" fill="#8C91A3"></path>
+                <path d="M11,3 L13,3 L13,5.29289322 C13,5.45465368 12.8688672,5.58578644 12.7071068,5.58578644 C12.6294267,5.58578644 12.5549281,5.55492813 12.5,5.5 L12.212132,5.21213204 C12.0949748,5.09497475 11.9050252,5.09497475 11.787868,5.21213204 L11.5,5.5 C11.3856181,5.61438192 11.2001684,5.61438192 11.0857864,5.5 C11.0308583,5.44507187 11,5.37057333 11,5.29289322 L11,3 Z" id="矩形" fill="#5B58F5"></path>
+                <g id="矩形">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#5B58F5" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

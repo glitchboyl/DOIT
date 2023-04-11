@@ -1,8 +1,7 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:doit/widgets/text.dart';
 import 'calendar_view_to_do_item.dart';
 import 'to_do_list_dialog.dart';
 import 'package:doit/providers/to_do_list.dart';
@@ -39,8 +38,13 @@ class _CalendarViewState extends State<CalendarView> {
   @override
   Widget build(BuildContext context) {
     final _provider = Provider.of<ToDoListProvider>(context, listen: false);
+    final colorScheme = Theme.of(context).colorScheme;
+    final daysOfWeekTextStyle = TextStyles.smallTextStyle.copyWith(
+      color: colorScheme.secondaryTextColor,
+    );
+
     return Container(
-      color: Styles.RegularBaseColor,
+      color: colorScheme.regularBaseColor,
       child: TableCalendar(
         firstDay: firstDay,
         lastDay: lastDay,
@@ -54,10 +58,10 @@ class _CalendarViewState extends State<CalendarView> {
         shouldFillViewport: true,
         daysOfWeekStyle: DaysOfWeekStyle(
           dowTextFormatter: (date, locale) => weekDayTextMap[date.weekday]!,
-          weekdayStyle: Styles.daysOfWeekTextStyle,
-          weekendStyle: Styles.daysOfWeekTextStyle,
+          weekdayStyle: daysOfWeekTextStyle,
+          weekendStyle: daysOfWeekTextStyle,
           decoration: BoxDecoration(
-            color: Styles.RegularBaseColor,
+            color: colorScheme.regularBaseColor,
           ),
         ),
         calendarStyle: CalendarStyle(
@@ -77,7 +81,7 @@ class _CalendarViewState extends State<CalendarView> {
           showBottomDrawer(
             context: context,
             builder: (context) => ToDoListDialog(),
-            backgroundColor: Styles.BackgroundColor,
+            backgroundColor: colorScheme.backgroundColor,
             onDismissed: () => isDialogActived = false,
           );
         },
@@ -138,7 +142,7 @@ class _CalendarViewState extends State<CalendarView> {
               height: double.infinity,
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: Styles.BackgroundColor,
+                  color: colorScheme.backgroundColor,
                   width: 1,
                 ),
               ),
@@ -150,38 +154,37 @@ class _CalendarViewState extends State<CalendarView> {
                       height: 40,
                       margin: EdgeInsets.symmetric(horizontal: 6),
                       decoration: BoxDecoration(
-                        color: Styles.PrimaryColor,
+                        color: colorScheme.primaryColor,
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   Column(
                     children: [
                       SizedBox(height: 4),
-                      TextBuilder(
+                      Text(
                         day.day.toString(),
-                        color: day.isSameDay(_provider.focusedDate)
-                            ? Styles.RegularBaseColor
-                            : day.isSameMonth(focusedDay)
-                                ? Styles.PrimaryTextColor
-                                : Styles.DeactivedDeepColor,
-                        fontSize: Styles.dateTextSize,
-                        lineHeight: Styles.dateTextLineHeight,
-                        fontWeight: FontWeight.bold,
+                        style: TextStyles.dateTextStyle.copyWith(
+                          color: day.isSameDay(_provider.focusedDate)
+                              ? colorScheme.regularBaseColor
+                              : day.isSameMonth(focusedDay)
+                                  ? colorScheme.primaryTextColor
+                                  : colorScheme.deactivedDeepColor,
+                        ),
                       ),
                       SizedBox(height: 2),
-                      TextBuilder(
+                      Text(
                         highlight
                             ? (festival != '' ? festival : solarTerm)
                             : lunar.day,
-                        color: day.isSameDay(_provider.focusedDate)
-                            ? Styles.RegularBaseColor
-                            : day.isSameMonth(focusedDay)
-                                ? highlight
-                                    ? Styles.PrimaryColor
-                                    : Styles.PrimaryTextColor
-                                : Styles.DeactivedDeepColor,
-                        fontSize: Styles.tinyTextSize,
-                        lineHeight: Styles.tinyTextLineHeight,
+                        style: TextStyles.tinyTextStyle.copyWith(
+                          color: day.isSameDay(_provider.focusedDate)
+                              ? colorScheme.regularBaseColor
+                              : day.isSameMonth(focusedDay)
+                                  ? highlight
+                                      ? colorScheme.primaryColor
+                                      : colorScheme.primaryTextColor
+                                  : colorScheme.deactivedDeepColor,
+                        ),
                       ),
                     ],
                   ),

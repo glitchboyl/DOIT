@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -15,9 +16,11 @@ import 'providers/db.dart';
 import 'providers/to_do_list.dart';
 import 'providers/note.dart';
 import 'providers/bookkeeping.dart';
+import 'providers/theme.dart';
 import 'models/navigation.dart';
 import 'models/floating_action_button_location.dart';
 import 'models/floating_action_button_animator.dart';
+import 'constants/themes.dart';
 import 'constants/styles.dart';
 import 'constants/meas.dart';
 import 'constants/keys.dart';
@@ -27,6 +30,7 @@ void main() async {
   final _toDoListProvider = ToDoListProvider();
   final _noteProvider = NoteProvider();
   final _bookkeepingProvider = BookkeepingProvider();
+  final _themeProvider = ThemeProvider();
   await connectDB();
   _toDoListProvider.get();
   _noteProvider.get();
@@ -59,6 +63,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => _toDoListProvider),
         ChangeNotifierProvider(create: (context) => _noteProvider),
         ChangeNotifierProvider(create: (context) => _bookkeepingProvider),
+        ChangeNotifierProvider(create: (context) => _themeProvider),
       ],
       child: DOITApp(),
     ),
@@ -70,7 +75,7 @@ class DOITApp extends StatefulWidget {
   _DOITAppState createState() => _DOITAppState();
 }
 
-class _DOITAppState extends State<DOITApp> {
+class _DOITAppState extends State<DOITApp> with WidgetsBindingObserver {
   int _currentIndex = 0;
   List<BottomNavigationBarItem> _navigationBarItems = [];
   final List<AppBarBuilder> _appBarWidgets = [];
@@ -79,6 +84,7 @@ class _DOITAppState extends State<DOITApp> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     AwesomeNotifications().actionStream.listen((notification) {
       if (notification.channelKey == 'basic_channel' && Platform.isIOS) {
         AwesomeNotifications().getGlobalBadgeCounter().then(
@@ -92,12 +98,12 @@ class _DOITAppState extends State<DOITApp> {
       _navigationBarItems.add(
         BottomNavigationBarItem(
           icon: SVGIcon(
-            page.icon,
+            page.icon(context),
             width: MEAS.bottomNavigationBarIconLength,
             height: MEAS.bottomNavigationBarIconLength,
           ),
           activeIcon: SVGIcon(
-            page.activeIcon,
+            page.activeIcon(context),
             width: MEAS.bottomNavigationBarIconLength,
             height: MEAS.bottomNavigationBarIconLength,
           ),
@@ -106,6 +112,22 @@ class _DOITAppState extends State<DOITApp> {
       );
       _appBarWidgets.add(page.appBar());
       _pageWidgets.add(page.widget());
+    }
+  }
+
+  @override
+  didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    final themeProvider = Provider.of<ThemeProvider>(context, listen: false);
+    final platformBrightness =
+        SchedulerBinding.instance.window.platformBrightness;
+    if (themeProvider.themeMode == ThemeMode.system &&
+        Theme.of(context).brightness != platformBrightness) {
+      themeProvider.changeTheme(
+        platformBrightness == Brightness.dark
+            ? ThemeMode.dark
+            : ThemeMode.light,
+      );
     }
   }
 
@@ -119,22 +141,16 @@ class _DOITAppState extends State<DOITApp> {
   @override
   Widget build(context) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          brightness: Brightness.light,
-          fontFamily: 'Barlow',
-          highlightColor: Colors.transparent,
-          splashColor: Colors.transparent,
-          applyElevationOverlayColor: false,
-          splashFactory: NoSplash.splashFactory,
-          scaffoldBackgroundColor: Styles.BackgroundColor,
-          primaryColor: Styles.PrimaryColor,
-        ),
-        themeMode: ThemeMode.light,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: Provider.of<ThemeProvider>(
+          context,
+        ).themeMode,
         home: Scaffold(
           extendBodyBehindAppBar: true,
           appBar: _appBarWidgets[_currentIndex],
           body: IndexedStack(index: _currentIndex, children: _pageWidgets),
-          drawerScrimColor: Styles.BarrierColor,
+          drawerScrimColor: Theme.of(context).colorScheme.barrierColor,
           drawer: SchedulePageDrawer(),
           drawerEnableOpenDragGesture: false,
           floatingActionButton: AddButton(
@@ -157,9 +173,9 @@ class _DOITAppState extends State<DOITApp> {
                   context,
                   listen: false,
                 ).currentPage(index);
-                setState(() {
-                  _currentIndex = index;
-                });
+                setState(
+                  () => _currentIndex = index,
+                );
               }
             },
           ),

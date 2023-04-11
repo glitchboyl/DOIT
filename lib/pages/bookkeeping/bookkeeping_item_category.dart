@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/widgets/icon.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -19,37 +18,42 @@ class BookkeepingItemCategoryWidget extends StatelessWidget {
   final void Function() onTap;
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        behavior: HitTestBehavior.translucent,
-        child: Wrap(
-          alignment: WrapAlignment.center,
-          children: [
-            IconBuilder(
-              icon,
-              width: MEAS.bookkeepingItemDialogCategoryLength,
-              height: MEAS.bookkeepingItemDialogCategoryLength,
-              margin: EdgeInsets.only(
-                bottom: 4,
-              ),
-              color: Styles.BackgroundColor,
-              border: isActived
-                  ? Border.all(
-                      color: Styles.PrimaryColor,
-                      width: 2,
-                    )
-                  : null,
-              borderRadius: BorderRadius.circular(16),
-              iconWidth: MEAS.bookkeepingItemDialogCategoryIconLength,
-              iconHeight: MEAS.bookkeepingItemDialogCategoryIconLength,
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        children: [
+          IconBuilder(
+            icon,
+            width: MEAS.bookkeepingItemDialogCategoryLength,
+            height: MEAS.bookkeepingItemDialogCategoryLength,
+            margin: EdgeInsets.only(
+              bottom: 4,
             ),
-            TextBuilder(
-              text,
-              color: isActived ? Styles.PrimaryColor : Styles.PrimaryTextColor,
-              fontSize: Styles.smallTextSize,
-              lineHeight: Styles.smallTextLineHeight,
+            color: colorScheme.backgroundColor,
+            border: isActived
+                ? Border.all(
+                    color: colorScheme.primaryColor,
+                    width: 2,
+                  )
+                : null,
+            borderRadius: BorderRadius.circular(16),
+            iconWidth: MEAS.bookkeepingItemDialogCategoryIconLength,
+            iconHeight: MEAS.bookkeepingItemDialogCategoryIconLength,
+          ),
+          Text(
+            text,
+            style: TextStyles.smallTextStyle.copyWith(
+              color: isActived
+                  ? colorScheme.primaryColor
+                  : colorScheme.primaryTextColor,
             ),
-          ],
-        ),
-        onTap: onTap,
-      );
+          ),
+        ],
+      ),
+      onTap: onTap,
+    );
+  }
 }

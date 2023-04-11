@@ -1,3 +1,4 @@
+import 'package:doit/constants/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -9,7 +10,7 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
     this.leadingWidth,
     this.title,
     this.trailings,
-    this.backgroundColor = Styles.RegularBaseColor,
+    this.backgroundColor,
     this.height = MEAS.appBarHeight,
   });
 
@@ -44,7 +45,8 @@ class AppBarBuilder extends StatelessWidget implements PreferredSizeWidget {
         title: title,
         centerTitle: true,
         actions: buildTrailings(),
-        backgroundColor: backgroundColor,
+        backgroundColor:
+            backgroundColor ?? Theme.of(context).colorScheme.regularBaseColor,
         shadowColor: Colors.transparent,
         elevation: 0,
         toolbarHeight: height,

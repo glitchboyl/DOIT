@@ -17,8 +17,8 @@ class Navigation {
   });
 
   final Key id;
-  final String icon;
-  final String activeIcon;
+  final String Function(BuildContext) icon;
+  final String Function(BuildContext) activeIcon;
   final AppBarBuilder Function() appBar;
   final Widget Function() widget;
 }
@@ -26,29 +26,45 @@ class Navigation {
 List<Navigation> navigation = [
   Navigation(
     id: Keys.SchedulePage,
-    icon: Ico.Schedule,
-    activeIcon: Ico.ScheduleActived,
+    icon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.ScheduleDark
+        : Ico.Schedule,
+    activeIcon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.ScheduleActivedDark
+        : Ico.ScheduleActived,
     appBar: () => SchedulePage.appBar(key: Keys.SchedulePage),
     widget: () => SchedulePage(key: Keys.SchedulePage),
   ),
   Navigation(
     id: Keys.OverviewPage,
-    icon: Ico.Overview,
-    activeIcon: Ico.OverviewActived,
+    icon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.OverviewDark
+        : Ico.Overview,
+    activeIcon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.OverviewActivedDark
+        : Ico.OverviewActived,
     appBar: () => OverviewPage.appBar(key: Keys.OverviewPage),
     widget: () => OverviewPage(key: Keys.OverviewPage),
   ),
   Navigation(
     id: Keys.NotesPage,
-    icon: Ico.Notes,
-    activeIcon: Ico.NotesActived,
+    icon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.NotesDark
+        : Ico.Notes,
+    activeIcon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.NotesActivedDark
+        : Ico.NotesActived,
     appBar: () => NotesPage.appBar(key: Keys.NotesPage),
     widget: () => NotesPage(key: Keys.NotesPage),
   ),
   Navigation(
     id: Keys.BookkeepingPage,
-    icon: Ico.Bookkeeping,
-    activeIcon: Ico.BookkeepingActived,
+    icon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.BookkeepingDark
+        : Ico.Bookkeeping,
+    activeIcon: (context) => Theme.of(context).brightness == Brightness.dark
+        ? Ico.BookkeepingActivedDark
+        : Ico.BookkeepingActived,
     appBar: () => BookkeepingPage.appBar(key: Keys.OverviewPage),
     widget: () => BookkeepingPage(key: Keys.BookkeepingPage),
   ),

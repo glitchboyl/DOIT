@@ -113,7 +113,6 @@ class SchedulePage extends StatelessWidget {
             child: Consumer<ToDoListProvider>(
               builder: (context, provider, _) {
                 final _widgets = buildWidgets(context, provider);
-
                 if (_widgets.length == 1) {
                   return Blank(
                     '没有安排就是最好的安排',

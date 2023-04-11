@@ -1,9 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/widgets/app_bar.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/simple_to_do_item.dart';
 import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/widgets/interactive_button.dart';
@@ -93,33 +92,34 @@ class ToDoListDialog extends StatelessWidget {
   @override
   Widget build(context) {
     final _provider = Provider.of<ToDoListProvider>(context);
+    final colorScheme = Theme.of(context).colorScheme;
     return Wrap(
       children: [
         AppBarBuilder(
-          title: TextBuilder(
+          title: Text(
             '${getDateTime(_provider.focusedDate)} 周${weekDayTextMap[_provider.focusedDate.weekday]}',
-            color: Styles.PrimaryTextColor,
-            fontSize: Styles.largeTextSize,
-            lineHeight: Styles.largeTextLineHeight,
-            fontWeight: FontWeight.bold,
+            style: TextStyles.largeTextStyle.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           trailings: [
             InteractiveButton(
               width: 32,
               height: 32,
-              color: Styles.PrimaryColor,
-              activedColor: Styles.PrimaryDeepColor,
-              shadowColor: Styles.AddButtonShadowColor,
+              color: colorScheme.primaryColor,
+              activedColor: colorScheme.primaryDeepColor,
+              shadowColor: colorScheme.addButtonShadowColor,
               elevation: 0,
               shape: const CircleBorder(),
               child: SVGIcon(
                 Ico.Add,
-                color: Styles.RegularBaseColor,
+                color: colorScheme.regularBaseColor,
                 width: MEAS.itemOperationIconLength,
                 height: MEAS.itemOperationIconLength,
               ),
               onPressed: () => showBottomDrawer(
                 context: context,
+                backgroundColor: colorScheme.regularBaseColor,
                 builder: (context) => ToDoItemDialog(),
               ),
             ),

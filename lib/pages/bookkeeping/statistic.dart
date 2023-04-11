@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:doit/widgets/text.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/utils/money_format.dart';
 import 'package:doit/constants/styles.dart';
@@ -20,19 +19,14 @@ class Statistic extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 12),
           child: Column(
             children: [
-              TextBuilder(
+              Text(
                 type == BookkeepingItemType.Incomes ? '收入' : '支出',
-                color: Styles.PrimaryTextColor,
-                fontSize: Styles.smallTextSize,
-                lineHeight: Styles.smallTextLineHeight,
+                style: TextStyles.smallTextStyle,
               ),
               SizedBox(height: 10),
-              TextBuilder(
+              Text(
                 '${type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(amount)}',
-                color: Styles.PrimaryTextColor,
-                fontWeight: FontWeight.bold,
-                fontSize: Styles.amountTextSize,
-                lineHeight: Styles.amountTextLineHeight,
+                style: TextStyles.amountTextStyle,
               ),
             ],
           ),

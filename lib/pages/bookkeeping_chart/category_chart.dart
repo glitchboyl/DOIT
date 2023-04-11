@@ -137,16 +137,16 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
     _totalAmount = getAllStatisticsSum(_statistics.values);
   }
 
-  List<PieChartSectionData> showingSections() {
+  List<PieChartSectionData> showingSections(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     if (_statistics.length == 0) {
       return [
         PieChartSectionData(
-          color: Styles.BackgroundColor,
+          color: colorScheme.backgroundColor,
           value: 100,
           title: '',
-          titleStyle: TextStyle(
-            fontSize: Styles.smallTextSize,
-            color: Styles.PrimaryTextColor,
+          titleStyle: TextStyles.smallTextStyle.copyWith(
+            color: colorScheme.primaryTextColor,
           ),
         )
       ];
@@ -154,18 +154,17 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
     int i = 0;
     return _statistics.keys.map((categoryType) {
       final isTouched = i++ == _touchedIndex;
-      final fontSize = isTouched ? Styles.amountTextSize : Styles.smallTextSize;
-      final radius = isTouched ? 60.0 : 50.0;
       final percentage = double.parse(
           (_statistics[categoryType]! / _totalAmount * 100).toStringAsFixed(0));
       return PieChartSectionData(
-        color: BookkeepingItemCategoryMap[categoryType]!.color,
+        color: bookkeepingItemCategoryMap[categoryType]!.color(context),
         value: percentage,
         title: '${percentage.toInt()}%',
-        radius: radius,
+        radius: isTouched ? 60.0 : 50.0,
         titleStyle: TextStyle(
-          fontSize: fontSize,
-          color: Styles.PrimaryTextColor,
+          fontSize:
+              isTouched ? TextStyles.AmountTextSize : TextStyles.SmallTextSize,
+          color: colorScheme.primaryTextColor,
           // shadows: shadows,
         ),
       );
@@ -177,7 +176,7 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
     return Container(
       margin: EdgeInsets.only(top: 12),
       decoration: BoxDecoration(
-        color: Styles.RegularBaseColor,
+        color: Theme.of(context).colorScheme.regularBaseColor,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -206,7 +205,7 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
                 ),
                 sectionsSpace: 2,
                 centerSpaceRadius: 64,
-                sections: showingSections(),
+                sections: showingSections(context),
               ),
             ),
           ),
@@ -215,8 +214,8 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
                 (_statistics[categoryType]! / _totalAmount * 100)
                     .toStringAsFixed(0));
             return BookkeepingDataRow(
-              icon: BookkeepingItemCategoryMap[categoryType]!.icon,
-              title: BookkeepingItemCategoryMap[categoryType]!.text,
+              icon: bookkeepingItemCategoryMap[categoryType]!.icon,
+              title: bookkeepingItemCategoryMap[categoryType]!.text,
               subTitle: '${percentage.toInt()}%',
               amount: _statistics[categoryType]!,
               type: _type,

@@ -15,24 +15,27 @@ class BottomNavigationBarBuilder extends StatelessWidget {
   final void Function(int) onTap;
 
   @override
-  Widget build(BuildContext context) => Container(
-        color: Styles.RegularBaseColor,
-        child: SafeArea(
-          child: SizedBox(
-            height: MEAS.bottomNavigationBarHeight,
-            child: BottomNavigationBar(
-              elevation: 0,
-              selectedFontSize: 0,
-              unselectedFontSize: 0,
-              showSelectedLabels: false,
-              showUnselectedLabels: false,
-              type: BottomNavigationBarType.fixed,
-              backgroundColor: Styles.RegularBaseColor,
-              items: items,
-              currentIndex: currentIndex,
-              onTap: onTap,
-            ),
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Container(
+      color: colorScheme.regularBaseColor,
+      child: SafeArea(
+        child: SizedBox(
+          height: MEAS.bottomNavigationBarHeight,
+          child: BottomNavigationBar(
+            elevation: 0,
+            selectedFontSize: 0,
+            unselectedFontSize: 0,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: colorScheme.regularBaseColor,
+            items: items,
+            currentIndex: currentIndex,
+            onTap: onTap,
           ),
         ),
-      );
+      ),
+    );
+  }
 }

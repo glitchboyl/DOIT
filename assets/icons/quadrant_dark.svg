@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="DOIT视觉规范-暗夜模式" transform="translate(-88.000000, -495.000000)" stroke-width="2">
+            <g id="doit-icon-four" transform="translate(88.000000, 495.000000)">
+                <rect id="矩形" stroke="#EBEDF5" x="4" y="4" width="6" height="6" rx="2"></rect>
+                <rect id="矩形" stroke="#EBEDF5" x="4" y="14" width="6" height="6" rx="2"></rect>
+                <rect id="矩形" stroke="#EBEDF5" x="14" y="4" width="6" height="6" rx="2"></rect>
+                <rect id="矩形" stroke="#5B58F5" fill="#5B58F5" x="14" y="14" width="6" height="6" rx="2"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

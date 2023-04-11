@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'app_bar.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
 
@@ -40,12 +39,11 @@ class BottomDrawerSelect<T> extends StatelessWidget {
         children: [
           AppBarBuilder(
             height: MEAS.dialogAppBarHeight,
-            title: TextBuilder(
+            title: Text(
               title,
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.largeTextSize,
-              lineHeight: Styles.largeTextLineHeight,
-              fontWeight: FontWeight.bold,
+              style: TextStyles.largeTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           SizedBox(height: 12),

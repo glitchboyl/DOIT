@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/transition_route.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -15,6 +14,7 @@ abstract class Toast {
     String text = '',
     bool loading = false,
   }) async {
+    final colorScheme = Theme.of(context).colorScheme;
     _isLoadingToast = loading;
     if (!_toastShowing) {
       _toastShowing = true;
@@ -23,7 +23,7 @@ abstract class Toast {
         height: loading ? MEAS.loadingToastLength : MEAS.toastLength,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(MEAS.loadingToastRadius),
-          color: Styles.PrimaryTextColor,
+          color: colorScheme.primaryTextColor,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -31,7 +31,7 @@ abstract class Toast {
             if (loading) ...[
               SizedBox(
                 child: CircularProgressIndicator(
-                  color: Styles.RegularBaseColor,
+                  color: colorScheme.regularBaseColor,
                   backgroundColor: Colors.transparent,
                   strokeWidth: 2,
                 ),
@@ -41,11 +41,11 @@ abstract class Toast {
               SizedBox(height: 16),
             ],
             if (text.trim() != '')
-              TextBuilder(
+              Text(
                 text,
-                color: Styles.RegularBaseColor,
-                fontSize: Styles.textSize,
-                lineHeight: Styles.textLineHeight,
+                style: TextStyles.regularTextStyle.copyWith(
+                  color: colorScheme.regularBaseColor,
+                ),
               ),
           ],
         ),

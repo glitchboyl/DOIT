@@ -19,5 +19,5 @@ final showConfirmDialog = (
         key: UniqueKey(),
       ),
       barrierDismissible: false,
-      barrierColor: Styles.BarrierColor,
+      barrierColor: Theme.of(context).colorScheme.barrierColor,
     );

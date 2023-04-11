@@ -3,7 +3,6 @@ import 'package:doit/utils/time.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/providers/bookkeeping.dart';
@@ -28,49 +27,50 @@ class BookkeepingLineChart extends StatelessWidget {
   final List _calculations = [];
   double _peakAmount = 0;
 
-  LineChartData get chartData => LineChartData(
-        lineTouchData: lineTouchData,
+  LineChartData chartData(BuildContext context) => LineChartData(
+        lineTouchData: lineTouchData(context),
         gridData: gridData,
         titlesData: titlesData,
-        borderData: borderData,
-        lineBarsData: lineBarsData,
+        borderData: borderData(context),
+        lineBarsData: lineBarsData(context),
         minX: 0,
         maxX: _maxX,
         minY: 0,
         maxY: _maxY,
       );
 
-  LineTouchData get lineTouchData => LineTouchData(
-        handleBuiltInTouches: true,
-        touchTooltipData: LineTouchTooltipData(
-          tooltipBgColor: Styles.BackgroundColor.withOpacity(0.9),
-          tooltipPadding: EdgeInsets.symmetric(
-            horizontal: 10,
-            vertical: 6,
-          ),
-          getTooltipItems: (List<LineBarSpot> touchedBarSpots) =>
-              touchedBarSpots.map((barSpot) {
-            final spot = _calculations.firstWhere((c) => c[0] == barSpot.x);
-            return LineTooltipItem(
-              '${spot[3]}\n',
-              TextStyle(
-                color: type == BookkeepingItemType.Incomes
-                    ? Styles.PrimaryColor
-                    : Styles.DangerousColor,
-                fontSize: Styles.tinyTextSize,
-                height: Styles.tinyTextLineHeight / Styles.tinyTextSize,
-              ),
-              children: [
-                TextSpan(
-                  text:
-                      '${type == BookkeepingItemType.Incomes ? '收入' : '支出'}：${moneyFormat(spot[1])}',
-                ),
-              ],
-              textAlign: TextAlign.left,
-            );
-          }).toList(),
+  LineTouchData lineTouchData(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return LineTouchData(
+      handleBuiltInTouches: true,
+      touchTooltipData: LineTouchTooltipData(
+        tooltipBgColor: colorScheme.backgroundColor.withOpacity(0.9),
+        tooltipPadding: EdgeInsets.symmetric(
+          horizontal: 10,
+          vertical: 6,
         ),
-      );
+        getTooltipItems: (List<LineBarSpot> touchedBarSpots) =>
+            touchedBarSpots.map((barSpot) {
+          final spot = _calculations.firstWhere((c) => c[0] == barSpot.x);
+          return LineTooltipItem(
+            '${spot[3]}\n',
+            TextStyles.tinyTextStyle.copyWith(
+              color: type == BookkeepingItemType.Incomes
+                  ? colorScheme.primaryColor
+                  : colorScheme.dangerousColor,
+            ),
+            children: [
+              TextSpan(
+                text:
+                    '${type == BookkeepingItemType.Incomes ? '收入' : '支出'}：${moneyFormat(spot[1])}',
+              ),
+            ],
+            textAlign: TextAlign.left,
+          );
+        }).toList(),
+      ),
+    );
+  }
 
   FlTitlesData get titlesData => FlTitlesData(
         bottomTitles: AxisTitles(
@@ -87,16 +87,14 @@ class BookkeepingLineChart extends StatelessWidget {
         ),
       );
 
-  List<LineChartBarData> get lineBarsData => [
-        lineChartBarData,
+  List<LineChartBarData> lineBarsData(BuildContext context) => [
+        lineChartBarData(context),
       ];
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    return TextBuilder(
+    return Text(
       (_peakAmount / _maxY * value.toInt()).truncate().toString(),
-      color: Styles.PrimaryTextColor,
-      fontSize: Styles.tinyTextSize,
-      lineHeight: Styles.tinyTextLineHeight,
+      style: TextStyles.tinyTextStyle,
     );
   }
 
@@ -116,11 +114,9 @@ class BookkeepingLineChart extends StatelessWidget {
       return SideTitleWidget(
         axisSide: meta.axisSide,
         space: 4,
-        child: TextBuilder(
+        child: Text(
           _calculations[index][2],
-          color: Styles.PrimaryTextColor,
-          fontSize: Styles.tinyTextSize,
-          lineHeight: Styles.tinyTextLineHeight,
+          style: TextStyles.tinyTextStyle,
         ),
       );
     }
@@ -136,35 +132,38 @@ class BookkeepingLineChart extends StatelessWidget {
 
   FlGridData get gridData => FlGridData(show: false);
 
-  FlBorderData get borderData => FlBorderData(
+  FlBorderData borderData(BuildContext context) => FlBorderData(
         show: true,
         border: Border(
           bottom: BorderSide(
             width: 2,
-            color: Styles.DeactivedColor,
+            color: Theme.of(context).colorScheme.deactivedColor,
           ),
         ),
       );
 
-  LineChartBarData get lineChartBarData => LineChartBarData(
-        isCurved: true,
-        color: type == BookkeepingItemType.Incomes
-            ? Styles.PrimaryColor
-            : Styles.DangerousColor,
-        barWidth: 6,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        preventCurveOverShooting: true,
-        spots: _calculations
-            .map<FlSpot>(
-              (e) => FlSpot(
-                e[0],
-                e[1] / _peakAmount * 4,
-              ),
-            )
-            .toList(),
-      );
+  LineChartBarData lineChartBarData(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return LineChartBarData(
+      isCurved: true,
+      color: type == BookkeepingItemType.Incomes
+          ? colorScheme.primaryColor
+          : colorScheme.dangerousColor,
+      barWidth: 6,
+      isStrokeCapRound: true,
+      dotData: FlDotData(show: false),
+      belowBarData: BarAreaData(show: false),
+      preventCurveOverShooting: true,
+      spots: _calculations
+          .map<FlSpot>(
+            (e) => FlSpot(
+              e[0],
+              e[1] / _peakAmount * 4,
+            ),
+          )
+          .toList(),
+    );
+  }
 
   void calculate(BuildContext context) {
     final statisticsMap = Provider.of<BookkeepingProvider>(
@@ -317,23 +316,22 @@ class BookkeepingLineChart extends StatelessWidget {
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Styles.RegularBaseColor,
+        color: Theme.of(context).colorScheme.regularBaseColor,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextBuilder(
+          Text(
             getSummaryText(),
-            color: Styles.PrimaryTextColor,
-            fontWeight: FontWeight.bold,
-            fontSize: Styles.smallTextSize,
-            lineHeight: Styles.smallTextLineHeight,
+            style: TextStyles.smallTextStyle.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
           ),
           SizedBox(height: 16),
           Expanded(
             child: LineChart(
-              chartData,
+              chartData(context),
               swapAnimationDuration: const Duration(milliseconds: 250),
             ),
           )

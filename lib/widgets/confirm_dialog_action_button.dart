@@ -1,5 +1,4 @@
-import 'package:flutter/widgets.dart';
-import 'package:doit/widgets/text.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/widgets/interactive_button.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -7,7 +6,7 @@ class ConfirmDialogActionButton extends StatelessWidget {
   const ConfirmDialogActionButton({
     super.key,
     required this.text,
-    this.textColor = Styles.SecondaryTextColor,
+    this.textColor,
     required this.onPressed,
   });
 
@@ -16,21 +15,24 @@ class ConfirmDialogActionButton extends StatelessWidget {
   final void Function() onPressed;
 
   @override
-  Widget build(BuildContext context) => Expanded(
-        flex: 1,
-        child: InteractiveButton(
-          color: Styles.BackgroundColor,
-          activedColor: Styles.DialogActionActivedColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadiusDirectional.all(Radius.circular(0)),
-          ),
-          child: TextBuilder(
-            text,
-            color: textColor,
-            fontSize: Styles.largeTextSize,
-            lineHeight: Styles.largeTextLineHeight,
-          ),
-          onPressed: onPressed,
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Expanded(
+      flex: 1,
+      child: InteractiveButton(
+        color: colorScheme.backgroundColor,
+        activedColor: colorScheme.dialogActionActivedColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusDirectional.all(Radius.circular(0)),
         ),
-      );
+        child: Text(
+          text,
+          style: TextStyles.largeTextStyle.copyWith(
+            color: textColor ?? colorScheme.secondaryTextColor,
+          ),
+        ),
+        onPressed: onPressed,
+      ),
+    );
+  }
 }

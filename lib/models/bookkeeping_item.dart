@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'property.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/icons.dart';
@@ -49,80 +50,110 @@ const BookkeepingItemCategoryList = {
   ],
 };
 
-const BookkeepingItemCategoryMap = {
+final bookkeepingItemCategoryMap = {
   BookkeepingItemCategory.Salary: Property(
     icon: Ico.BookkeepingSalary,
-    color: Styles.WorkColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.WorkColor
+        : LightStyles.WorkColor,
     text: '工资',
   ),
   BookkeepingItemCategory.Bonus: Property(
     icon: Ico.BookkeepingBonus,
-    color: Styles.BookkeepingBonusColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingBonusColor
+        : LightStyles.BookkeepingBonusColor,
     text: '奖金',
   ),
   BookkeepingItemCategory.PartTimeJob: Property(
     icon: Ico.BookkeepingPartTimeJob,
-    color: Styles.BookkeepingPartTimeJobColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingPartTimeJobColor
+        : LightStyles.BookkeepingPartTimeJobColor,
     text: '兼职',
   ),
   BookkeepingItemCategory.Financing: Property(
     icon: Ico.BookkeepingFinancing,
-    color: Styles.BookkeepingFinancingColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingFinancingColor
+        : LightStyles.BookkeepingFinancingColor,
     text: '理财',
   ),
   BookkeepingItemCategory.Study: Property(
     icon: Ico.BookkeepingStudy,
-    color: Styles.StudyColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.StudyColor
+        : LightStyles.StudyColor,
     text: '学习',
   ),
   BookkeepingItemCategory.FoodAndDrink: Property(
     icon: Ico.BookkeepingFoodAndDrink,
-    color: Styles.BookkeepingFoodAndDrinkColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingFoodAndDrinkColor
+        : LightStyles.BookkeepingFoodAndDrinkColor,
     text: '饮食',
   ),
   BookkeepingItemCategory.Daily: Property(
     icon: Ico.BookkeepingDaily,
-    color: Styles.LifeColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.LifeColor
+        : LightStyles.LifeColor,
     text: '日用',
   ),
   BookkeepingItemCategory.Game: Property(
     icon: Ico.BookkeepingGame,
-    color: Styles.BookkeepingGameColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingGameColor
+        : LightStyles.BookkeepingGameColor,
     text: '游戏',
   ),
   BookkeepingItemCategory.Shopping: Property(
     icon: Ico.BookkeepingShopping,
-    color: Styles.BookkeepingShoppingColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingShoppingColor
+        : LightStyles.BookkeepingShoppingColor,
     text: '购物',
   ),
   BookkeepingItemCategory.Leisure: Property(
     icon: Ico.BookkeepingLeisure,
-    color: Styles.TravelColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.TravelColor
+        : LightStyles.TravelColor,
     text: '休闲',
   ),
   BookkeepingItemCategory.Traffic: Property(
     icon: Ico.BookkeepingTraffic,
-    color: Styles.BookkeepingTrafficColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingTrafficColor
+        : LightStyles.BookkeepingTrafficColor,
     text: '交通',
   ),
   BookkeepingItemCategory.Communication: Property(
     icon: Ico.BookkeepingCommunication,
-    color: Styles.BookkeepingCommunicationColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingCommunicationColor
+        : LightStyles.BookkeepingCommunicationColor,
     text: '通讯',
   ),
   BookkeepingItemCategory.Housing: Property(
     icon: Ico.BookkeepingHousing,
-    color: Styles.BookkeepingHousingColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingHousingColor
+        : LightStyles.BookkeepingHousingColor,
     text: '住房',
   ),
   BookkeepingItemCategory.Health: Property(
     icon: Ico.BookkeepingHealth,
-    color: Styles.HealthColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.HealthColor
+        : LightStyles.HealthColor,
     text: '医疗',
   ),
   BookkeepingItemCategory.Other: Property(
     icon: Ico.BookkeepingOther,
-    color: Styles.BookkeepingOtherColor,
+    color: (context) => Theme.of(context).brightness == Brightness.dark
+        ? DarkStyles.BookkeepingOtherColor
+        : LightStyles.BookkeepingOtherColor,
     text: '其他',
   ),
 };

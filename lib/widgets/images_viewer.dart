@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -38,7 +38,8 @@ class ImagesViewer extends StatelessWidget {
         onTap: () => {
           Navigator.pop(context),
         },
-        onLongPress: () => {
+        onLongPress: () {
+          final colorScheme = Theme.of(context).colorScheme;
           showCupertinoModalPopup<void>(
             context: context,
             builder: (ctx) => CupertinoActionSheet(
@@ -65,28 +66,28 @@ class ImagesViewer extends StatelessWidget {
                       ),
                     );
                   },
-                  child: TextBuilder(
+                  child: Text(
                     '保存图片',
-                    color: Styles.PrimaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: Styles.largeTextSize,
-                    lineHeight: Styles.largeTextLineHeight,
+                    style: TextStyles.largeTextStyle.copyWith(
+                      color: colorScheme.primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 CupertinoActionSheetAction(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: TextBuilder(
+                  child: Text(
                     '取消',
-                    color: Styles.PrimaryColor,
-                    fontSize: Styles.largeTextSize,
-                    lineHeight: Styles.largeTextLineHeight,
+                    style: TextStyles.largeTextStyle.copyWith(
+                      color: colorScheme.primaryColor,
+                    ),
                   ),
                 ),
               ],
             ),
-          )
+          );
         },
         child: Container(
           color: Color(0xFF000000),

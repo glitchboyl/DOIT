@@ -1,6 +1,5 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'app_bar.dart';
-import 'text.dart';
 import 'text_button.dart';
 import 'time_picker.dart';
 import 'package:doit/constants/calendar.dart';
@@ -46,20 +45,19 @@ class TimePickerDrawer extends StatelessWidget {
         children: [
           AppBarBuilder(
             height: MEAS.dialogAppBarHeight,
-            title: TextBuilder(
+            title: Text(
               getTitle(),
-              color: Styles.PrimaryTextColor,
-              fontSize: Styles.largeTextSize,
-              lineHeight: Styles.largeTextLineHeight,
-              fontWeight: FontWeight.bold,
+              style: TextStyles.largeTextStyle.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             trailings: [
               TextButtonBuilder(
                 '确定',
-                color: Styles.PrimaryColor,
-                fontSize: Styles.textSize,
-                lineHeight: Styles.textLineHeight,
-                fontWeight: FontWeight.bold,
+                style: TextStyles.regularTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
                 onPressed: () => {
                   onConfirmed(_time),
                   Navigator.pop(context),

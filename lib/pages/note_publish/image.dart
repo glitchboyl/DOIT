@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/transition_route.dart';
@@ -25,7 +25,7 @@ class ImageItem extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         margin: EdgeInsets.only(right: MEAS.notePublishImageMarginRight),
         decoration: BoxDecoration(
-          color: Styles.BackgroundColor,
+          color: Theme.of(context).colorScheme.backgroundColor,
           borderRadius: BorderRadius.circular(MEAS.notePublishImageRadius),
         ),
         clipBehavior: Clip.antiAlias,
@@ -104,7 +104,7 @@ class ImageUploader extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MEAS.notePublishImageRadius),
             border: Border.all(
-              color: Styles.BackgroundColor,
+              color: Theme.of(context).colorScheme.backgroundColor,
               width: 2,
             ),
           ),

@@ -101,121 +101,131 @@ class _NotePublishPageState extends State<NotePublishPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBarBuilder(
-          leading: SVGIconButton(
-            Ico.Back,
-            onPressed: () => Navigator.pop(context),
-          ),
-          trailings: [
-            SVGIconButton(
-              _publishActived ? Ico.Publish : Ico.PublishDisabled,
-              onPressed: () async {
-                if (_publishActived) {
-                  final _provider = getProvider(this.context, listen: false);
-                  final bool isPublished = _provider.focusedNote == null;
-                  for (int i = 0; i < _temporaryImages.length; i++) {
-                    final Uint8List image =
-                        await _temporaryImages[i].readAsBytes();
-                    _images.add(image);
-                  }
-                  if (_provider.focusedNote != null) {
-                    _provider.focusedNote!.title = _title;
-                    _provider.focusedNote!.body = _body;
-                    _provider.focusedNote!.images = _images;
-                    await _provider.update(_provider.focusedNote!);
-                  } else {
-                    await _provider.insert(
-                      Note(
-                        id: UniqueKey().hashCode,
-                        title: _title,
-                        body: _body,
-                        images: _images,
-                        publishTime: DateTime.now(),
-                      ),
-                    );
-                  }
-                  Toast.show(
-                    context,
-                    text: '${isPublished ? '发布' : '编辑'}成功',
-                  );
-                  Navigator.pop(context);
-                  if (isPublished) Navigator.pushNamed(context, '/note');
-                }
-              },
-            ),
-          ],
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Scaffold(
+      appBar: AppBarBuilder(
+        leading: SVGIconButton(
+          isDarkMode ? Ico.BackDark : Ico.Back,
+          onPressed: () => Navigator.pop(context),
         ),
-        body: () {
-          final _widgets = [
-            SizedBox(height: 12),
-            Container(
-              height: MEAS.notePublishImageLength,
-              child: () {
-                final _imagesRow = buildImagesRow();
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => _imagesRow[index],
-                  itemCount: _imagesRow.length,
+        trailings: [
+          SVGIconButton(
+            _publishActived
+                ? isDarkMode
+                    ? Ico.PublishDark
+                    : Ico.Publish
+                : isDarkMode
+                    ? Ico.PublishDisabledDark
+                    : Ico.PublishDisabled,
+            onPressed: () async {
+              if (_publishActived) {
+                final _provider = getProvider(this.context, listen: false);
+                final bool isPublished = _provider.focusedNote == null;
+                for (int i = 0; i < _temporaryImages.length; i++) {
+                  final Uint8List image =
+                      await _temporaryImages[i].readAsBytes();
+                  _images.add(image);
+                }
+                if (_provider.focusedNote != null) {
+                  _provider.focusedNote!.title = _title;
+                  _provider.focusedNote!.body = _body;
+                  _provider.focusedNote!.images = _images;
+                  await _provider.update(_provider.focusedNote!);
+                } else {
+                  await _provider.insert(
+                    Note(
+                      id: UniqueKey().hashCode,
+                      title: _title,
+                      body: _body,
+                      images: _images,
+                      publishTime: DateTime.now(),
+                    ),
+                  );
+                }
+                Toast.show(
+                  context,
+                  text: '${isPublished ? '发布' : '编辑'}成功',
                 );
-              }(),
+                Navigator.pop(context);
+                if (isPublished) Navigator.pushNamed(context, '/note');
+              }
+            },
+          ),
+        ],
+      ),
+      body: () {
+        final _widgets = [
+          SizedBox(height: 12),
+          Container(
+            height: MEAS.notePublishImageLength,
+            child: () {
+              final _imagesRow = buildImagesRow();
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) => _imagesRow[index],
+                itemCount: _imagesRow.length,
+              );
+            }(),
+          ),
+          Container(
+            padding: EdgeInsets.only(
+              top: 12,
+              left: 16,
+              right: 16,
+              bottom: 18,
             ),
-            Container(
-              padding: EdgeInsets.only(
-                top: 12,
-                left: 16,
-                right: 16,
-                bottom: 18,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Input(
-                    initialValue: _title,
-                    height: MEAS.titleInputHeight,
-                    fontSize: Styles.textSize,
-                    lineHeight: Styles.textLineHeight,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Input(
+                  initialValue: _title,
+                  style: TextStyles.regularTextStyle.copyWith(
                     fontWeight: FontWeight.bold,
-                    hintText: '在这一刻，要写点什么呢~',
-                    border: titleBorder,
-                    maxLines: 1,
-                    autofocus: true,
-                    onChanged: (value) => setState(
-                      () {
-                        _title = value;
-                        _publishActived = validate();
-                      },
-                    ),
                   ),
-                  Container(
-                    constraints: BoxConstraints(
-                      minHeight: 180,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Styles.BackgroundColor,
-                          width: 1.2,
-                        ),
+                  hintText: '在这一刻，要写点什么呢~',
+                  border: titleBorder,
+                  maxLines: 1,
+                  autofocus: true,
+                  onChanged: (value) => setState(
+                    () {
+                      _title = value;
+                      _publishActived = validate();
+                    },
+                  ),
+                ),
+                Container(
+                  constraints: BoxConstraints(
+                    minHeight: 180,
+                  ),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: colorScheme.backgroundColor,
+                        width: 1.2,
                       ),
                     ),
-                    child: Input(
-                      initialValue: _body,
-                      hintText: '记下这一刻…',
-                      border: bodyBorder,
-                      autofocus: true,
-                      onChanged: (body) => _body = body,
-                    ),
                   ),
-                ],
-              ),
-            )
-          ];
-          return ListView.builder(
-            itemBuilder: (context, index) => _widgets[index],
-            itemCount: _widgets.length,
-          );
-        }(),
-        backgroundColor: Styles.RegularBaseColor,
-      );
+                  child: Input(
+                    initialValue: _body,
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    hintText: '记下这一刻…',
+                    border: bodyBorder,
+                    autofocus: true,
+                    onChanged: (body) => _body = body,
+                  ),
+                ),
+              ],
+            ),
+          )
+        ];
+        return ListView.builder(
+          itemBuilder: (context, index) => _widgets[index],
+          itemCount: _widgets.length,
+        );
+      }(),
+      backgroundColor: colorScheme.regularBaseColor,
+    );
+  }
 }

@@ -55,172 +55,175 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar>
   }
 
   @override
-  Widget build(context) => Wrap(
-        children: [
-          AppBarBuilder(
-            height: MEAS.dialogAppBarHeight,
-            title: Container(
-              width: 120,
-              height: 28,
-              child: TabBar(
-                controller: _tabController,
-                labelStyle: TextStyle(
-                  fontSize: Styles.textSize,
-                ),
-                indicator: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    8,
-                  ),
-                  color: Styles.BackgroundColor,
-                ),
-                labelPadding: EdgeInsets.zero,
-                labelColor: Styles.PrimaryColor,
-                unselectedLabelColor: Styles.PrimaryTextColor,
-                tabs: [
-                  Tab(
-                    text: '开始',
-                  ),
-                  Tab(
-                    text: '结束',
-                  ),
-                ],
-                onTap: (index) {
-                  if (index != _calendarIndex) {
-                    setState(
-                      () => {
-                        _calendarIndex = index,
-                        _focusedDay = _calendarIndex == 0
-                            ? _startTime
-                            : (_endTime ?? _startTime),
-                      },
-                    );
-                  }
-                },
+  Widget build(context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Wrap(
+      children: [
+        AppBarBuilder(
+          height: MEAS.dialogAppBarHeight,
+          title: Container(
+            width: 120,
+            height: 28,
+            child: TabBar(
+              controller: _tabController,
+              labelStyle: TextStyle(
+                fontSize: TextStyles.RegularTextSize,
               ),
-            ),
-            trailings: [
-              TextButtonBuilder(
-                '确定',
-                color: Styles.PrimaryColor,
-                fontSize: Styles.textSize,
-                lineHeight: Styles.textLineHeight,
-                fontWeight: FontWeight.bold,
-                onPressed: () => {
-                  widget.onConfirmed(
-                    _startTime,
-                    _endTime,
-                    _notificationType,
-                  ),
-                  Navigator.pop(context),
-                },
+              indicator: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  8,
+                ),
+                color: colorScheme.backgroundColor,
               ),
-            ],
-          ),
-          Calendar(
-            startTime: _startTime,
-            endTime: _endTime,
-            focusedDay: _focusedDay,
-            onPageChanged: (focusedDay) => setState(
-              () => _focusedDay = focusedDay,
-            ),
-            onDaySelected: (day, _) => setState(
-              () {
-                if (_calendarIndex == 1) {
-                  _endTime = DateTime(
-                    day.year,
-                    day.month,
-                    day.day,
-                    _endTime != null ? _endTime!.hour : _startTime.hour,
-                    _endTime != null ? _endTime!.minute : _startTime.minute,
+              labelPadding: EdgeInsets.zero,
+              labelColor: colorScheme.primaryColor,
+              unselectedLabelColor: colorScheme.primaryTextColor,
+              tabs: [
+                Tab(
+                  text: '开始',
+                ),
+                Tab(
+                  text: '结束',
+                ),
+              ],
+              onTap: (index) {
+                if (index != _calendarIndex) {
+                  setState(
+                    () => {
+                      _calendarIndex = index,
+                      _focusedDay = _calendarIndex == 0
+                          ? _startTime
+                          : (_endTime ?? _startTime),
+                    },
                   );
-                  if (_endTime!.isBefore(_startTime)) _startTime = _endTime!;
-                } else {
-                  _startTime = DateTime(
-                    day.year,
-                    day.month,
-                    day.day,
-                    _startTime.hour,
-                    _startTime.minute,
-                  );
-                  if (_endTime != null && _startTime.isAfter(_endTime!))
-                    _endTime = null;
                 }
               },
             ),
           ),
-          Container(
-            padding: EdgeInsets.only(
-              top: 12,
-              left: 16,
-              right: 16,
-              bottom: 18,
-            ),
-            child: Column(
-              children: [
-                BottomDrawerItem(
-                  title: '时间',
-                  value: getClockTime(_calendarIndex == 1
-                      ? (_endTime != null ? _endTime! : _startTime)
-                      : _startTime),
-                  icon: SVGIcon(
-                    Ico.Time,
-                    width: MEAS.itemOperationIconLength,
-                    height: MEAS.itemOperationIconLength,
-                  ),
-                  onPressed: () => showBottomDrawer(
-                    context: context,
-                    builder: (context) => TimePickerDrawer(
-                      _calendarIndex == 1
-                          ? (_endTime != null ? _endTime! : _startTime)
-                          : _startTime,
-                      mode: CupertinoDatePickerMode.time,
-                      onConfirmed: (time) => setState(
-                        () {
-                          if (_calendarIndex == 1)
-                            _endTime = time;
-                          else
-                            _startTime = time;
-                        },
-                      ),
-                    ),
-                  ),
+          trailings: [
+            TextButtonBuilder(
+              '确定',
+              style: TextStyles.regularTextStyle.copyWith(
+                color: colorScheme.primaryColor,
+                fontWeight: FontWeight.bold,
+              ),
+              onPressed: () => {
+                widget.onConfirmed(
+                  _startTime,
+                  _endTime,
+                  _notificationType,
                 ),
-                BottomDrawerItem(
-                  title: '提醒',
-                  value: notificationTypeMap[_notificationType]![0],
-                  icon: SVGIcon(
-                    Ico.Notification,
-                    width: MEAS.itemOperationIconLength,
-                    height: MEAS.itemOperationIconLength,
-                  ),
-                  onPressed: () => showBottomDrawer(
-                    context: context,
-                    builder: (context) => BottomDrawerSelect<NotificationType>(
-                      title: '提醒',
-                      selectList: NotificationType.values,
-                      itemBuilder: (type, index) => BottomDrawerItem(
-                        key: ValueKey(type),
-                        title: notificationTypeMap[type]![0],
-                        icon: SVGIcon(
-                          type == _notificationType
-                              ? Ico.RadioChecked
-                              : Ico.Radio,
-                          width: 20,
-                          height: 20,
-                        ),
-                      ),
-                      onSelected: (type, index) => {
-                        if (_notificationType != type)
-                          setState(() {
-                            _notificationType = type;
-                          })
+                Navigator.pop(context),
+              },
+            ),
+          ],
+        ),
+        Calendar(
+          startTime: _startTime,
+          endTime: _endTime,
+          focusedDay: _focusedDay,
+          onPageChanged: (focusedDay) => setState(
+            () => _focusedDay = focusedDay,
+          ),
+          onDaySelected: (day, _) => setState(
+            () {
+              if (_calendarIndex == 1) {
+                _endTime = DateTime(
+                  day.year,
+                  day.month,
+                  day.day,
+                  _endTime != null ? _endTime!.hour : _startTime.hour,
+                  _endTime != null ? _endTime!.minute : _startTime.minute,
+                );
+                if (_endTime!.isBefore(_startTime)) _startTime = _endTime!;
+              } else {
+                _startTime = DateTime(
+                  day.year,
+                  day.month,
+                  day.day,
+                  _startTime.hour,
+                  _startTime.minute,
+                );
+                if (_endTime != null && _startTime.isAfter(_endTime!))
+                  _endTime = null;
+              }
+            },
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+            top: 12,
+            left: 16,
+            right: 16,
+            bottom: 18,
+          ),
+          child: Column(
+            children: [
+              BottomDrawerItem(
+                title: '时间',
+                value: getClockTime(_calendarIndex == 1
+                    ? (_endTime != null ? _endTime! : _startTime)
+                    : _startTime),
+                icon: SVGIcon(
+                  Ico.Time,
+                  width: MEAS.itemOperationIconLength,
+                  height: MEAS.itemOperationIconLength,
+                ),
+                onPressed: () => showBottomDrawer(
+                  context: context,
+                  builder: (context) => TimePickerDrawer(
+                    _calendarIndex == 1
+                        ? (_endTime != null ? _endTime! : _startTime)
+                        : _startTime,
+                    mode: CupertinoDatePickerMode.time,
+                    onConfirmed: (time) => setState(
+                      () {
+                        if (_calendarIndex == 1)
+                          _endTime = time;
+                        else
+                          _startTime = time;
                       },
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              BottomDrawerItem(
+                title: '提醒',
+                value: notificationTypeMap[_notificationType]![0],
+                icon: SVGIcon(
+                  Ico.Notification,
+                  width: MEAS.itemOperationIconLength,
+                  height: MEAS.itemOperationIconLength,
+                ),
+                onPressed: () => showBottomDrawer(
+                  context: context,
+                  builder: (context) => BottomDrawerSelect<NotificationType>(
+                    title: '提醒',
+                    selectList: NotificationType.values,
+                    itemBuilder: (type, index) => BottomDrawerItem(
+                      key: ValueKey(type),
+                      title: notificationTypeMap[type]![0],
+                      icon: SVGIcon(
+                        type == _notificationType
+                            ? Ico.RadioChecked
+                            : Ico.Radio,
+                        width: 20,
+                        height: 20,
+                      ),
+                    ),
+                    onSelected: (type, index) => {
+                      if (_notificationType != type)
+                        setState(() {
+                          _notificationType = type;
+                        })
+                    },
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 }

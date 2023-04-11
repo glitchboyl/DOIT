@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范-暗夜模式" transform="translate(-134.000000, -596.000000)">
+            <g id="doit-icon-anniversary" transform="translate(134.000000, 596.000000)">
+                <rect id="矩形" stroke="#EBEDF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" x="3" y="4" width="14" height="12" rx="2"></rect>
+                <path d="M5,4 L15,4 C16.1045695,4 17,4.8954305 17,6 L17,7 L17,7 L3,7 L3,6 C3,4.8954305 3.8954305,4 5,4 Z" id="矩形" stroke="#EBEDF5" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M7.45227279,9.43623957 C8.05530317,8.85458681 9.03300859,8.85458681 9.63603897,9.43623957 L10,9.78729806 L10.363961,9.43623957 C10.9669914,8.85458681 11.9446968,8.85458681 12.5477272,9.43623957 C13.1507576,10.0178923 13.1507576,10.9609378 12.5477272,11.5425905 L10.694234,13.3303768 C10.306833,13.7040443 9.693167,13.7040443 9.30576599,13.3303768 L7.45227279,11.5425905 L7.45227279,11.5425905 C6.8492424,10.9609378 6.8492424,10.0178923 7.45227279,9.43623957 Z" id="路径" fill="#ABAFC2"></path>
+            </g>
+        </g>
+    </g>
+</svg>

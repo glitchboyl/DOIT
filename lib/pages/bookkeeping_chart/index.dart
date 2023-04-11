@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
-import 'package:doit/widgets/text.dart';
 import 'package:doit/widgets/list_title.dart';
 import 'package:doit/widgets/time_picker.dart';
 import 'package:doit/widgets/time_picker_drawer.dart';
@@ -93,199 +92,199 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBarBuilder(
-          leading: SVGIconButton(
-            Ico.Back,
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: TextBuilder(
-            '图表',
-            color: Styles.PrimaryTextColor,
-            fontWeight: FontWeight.bold,
-            fontSize: Styles.greatTextSize,
-            lineHeight: Styles.greatTextLineHeight,
-          ),
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Scaffold(
+      appBar: AppBarBuilder(
+        leading: SVGIconButton(
+          isDarkMode ? Ico.BackDark : Ico.Back,
+          onPressed: () => Navigator.pop(context),
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              color: Styles.RegularBaseColor,
-              padding: EdgeInsets.only(
-                top: 4,
-                left: 16,
-                right: 16,
-                bottom: 6,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    height: 44,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Styles.BackgroundColor,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(
-                        12,
-                      ),
+        title: Text(
+          '图表',
+          style: TextStyles.greatTextStyle,
+        ),
+      ),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            color: colorScheme.regularBaseColor,
+            padding: EdgeInsets.only(
+              top: 4,
+              left: 16,
+              right: 16,
+              bottom: 6,
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  height: 44,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: colorScheme.backgroundColor,
+                      width: 1,
                     ),
-                    child: TabBar(
-                      padding: EdgeInsets.all(4),
-                      controller: _tabController,
-                      labelStyle: TextStyle(
-                        fontSize: Styles.smallTextSize,
-                      ),
-                      indicator: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          10,
-                        ),
-                        color: Styles.PrimaryColor,
-                      ),
-                      labelColor: Styles.RegularBaseColor,
-                      unselectedLabelColor: Styles.PrimaryTextColor,
-                      tabs: [
-                        Tab(
-                          text: '一周',
-                        ),
-                        Tab(
-                          text: '整月',
-                        ),
-                        Tab(
-                          text: '整年',
-                        ),
-                        Tab(
-                          text: '总览',
-                        ),
-                      ],
-                      onTap: (index) {
-                        if (index != _viewType.index) {
-                          setState(() {
-                            _viewType = BookkeepingChartViewType.values[index];
-                            _focusedTime = initialFocusedTime();
-                          });
-                        }
-                      },
+                    borderRadius: BorderRadius.circular(
+                      12,
                     ),
                   ),
-                  SizedBox(height: 12),
-                  Row(
-                    children: [
-                      if (_viewType != BookkeepingChartViewType.Overview)
-                        GestureDetector(
-                          behavior: HitTestBehavior.translucent,
-                          child: Wrap(
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              TextBuilder(
-                                getFocusedTimeText(),
-                                fontSize: Styles.textSize,
-                                lineHeight: Styles.textLineHeight,
-                              ),
-                              SizedBox(width: 4),
-                              RotatedBox(
-                                quarterTurns: -1,
-                                child: SVGIcon(
-                                  Ico.Triangle,
-                                  width: MEAS.arrowLength,
-                                  height: MEAS.arrowLength,
-                                ),
-                              ),
-                            ],
-                          ),
-                          onTap: () => showBottomDrawer(
-                            context: context,
-                            builder: (context) => TimePickerDrawer(
-                              _focusedTime,
-                              mode: _viewType == BookkeepingChartViewType.Month
-                                  ? CupertinoDatePickerMode.ym
-                                  : _viewType == BookkeepingChartViewType.Year
-                                      ? CupertinoDatePickerMode.year
-                                      : CupertinoDatePickerMode.week,
-                              onConfirmed: (time) => setState(
-                                () => _focusedTime = time,
-                              ),
-                            ),
-                          ),
-                        ),
-                      Spacer(),
-                      Container(
-                        width: 96,
-                        height: 28,
-                        child: TabBar(
-                          controller: _typeTabController,
-                          labelStyle: TextStyle(
-                            fontSize: Styles.smallTextSize,
-                          ),
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(
-                              8,
-                            ),
-                            color: Styles.BackgroundColor,
-                          ),
-                          labelPadding: EdgeInsets.zero,
-                          labelColor: Styles.PrimaryColor,
-                          unselectedLabelColor: Styles.PrimaryTextColor,
-                          tabs: [
-                            Tab(
-                              text: '收入',
-                            ),
-                            Tab(
-                              text: '支出',
-                            ),
-                          ],
-                          onTap: (index) {
-                            if (index == 0 &&
-                                _type != BookkeepingItemType.Incomes) {
-                              setState(
-                                () => {
-                                  _type = BookkeepingItemType.Incomes,
-                                },
-                              );
-                            } else if (index == 1 &&
-                                _type != BookkeepingItemType.Expenses) {
-                              setState(
-                                () => {
-                                  _type = BookkeepingItemType.Expenses,
-                                },
-                              );
-                            }
-                          },
-                        ),
+                  child: TabBar(
+                    padding: EdgeInsets.all(4),
+                    controller: _tabController,
+                    labelStyle: TextStyle(
+                      fontSize: TextStyles.SmallTextSize,
+                    ),
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        10,
+                      ),
+                      color: colorScheme.primaryColor,
+                    ),
+                    labelColor: colorScheme.regularBaseColor,
+                    unselectedLabelColor: colorScheme.primaryTextColor,
+                    tabs: [
+                      Tab(
+                        text: '一周',
+                      ),
+                      Tab(
+                        text: '整月',
+                      ),
+                      Tab(
+                        text: '整年',
+                      ),
+                      Tab(
+                        text: '总览',
                       ),
                     ],
+                    onTap: (index) {
+                      if (index != _viewType.index) {
+                        setState(() {
+                          _viewType = BookkeepingChartViewType.values[index];
+                          _focusedTime = initialFocusedTime();
+                        });
+                      }
+                    },
                   ),
+                ),
+                SizedBox(height: 12),
+                Row(
+                  children: [
+                    if (_viewType != BookkeepingChartViewType.Overview)
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        child: Wrap(
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              getFocusedTimeText(),
+                              style: TextStyles.regularTextStyle,
+                            ),
+                            SizedBox(width: 4),
+                            RotatedBox(
+                              quarterTurns: -1,
+                              child: SVGIcon(
+                                Ico.Triangle,
+                                width: MEAS.arrowLength,
+                                height: MEAS.arrowLength,
+                              ),
+                            ),
+                          ],
+                        ),
+                        onTap: () => showBottomDrawer(
+                          context: context,
+                          builder: (context) => TimePickerDrawer(
+                            _focusedTime,
+                            mode: _viewType == BookkeepingChartViewType.Month
+                                ? CupertinoDatePickerMode.ym
+                                : _viewType == BookkeepingChartViewType.Year
+                                    ? CupertinoDatePickerMode.year
+                                    : CupertinoDatePickerMode.week,
+                            onConfirmed: (time) => setState(
+                              () => _focusedTime = time,
+                            ),
+                          ),
+                        ),
+                      ),
+                    Spacer(),
+                    Container(
+                      width: 96,
+                      height: 28,
+                      child: TabBar(
+                        controller: _typeTabController,
+                        labelStyle: TextStyle(
+                          fontSize: TextStyles.SmallTextSize,
+                        ),
+                        indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            8,
+                          ),
+                          color: colorScheme.backgroundColor,
+                        ),
+                        labelPadding: EdgeInsets.zero,
+                        labelColor: colorScheme.primaryColor,
+                        unselectedLabelColor: colorScheme.primaryTextColor,
+                        tabs: [
+                          Tab(
+                            text: '收入',
+                          ),
+                          Tab(
+                            text: '支出',
+                          ),
+                        ],
+                        onTap: (index) {
+                          if (index == 0 &&
+                              _type != BookkeepingItemType.Incomes) {
+                            setState(
+                              () => {
+                                _type = BookkeepingItemType.Incomes,
+                              },
+                            );
+                          } else if (index == 1 &&
+                              _type != BookkeepingItemType.Expenses) {
+                            setState(
+                              () => {
+                                _type = BookkeepingItemType.Expenses,
+                              },
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 16,
+              ),
+              child: ListView(
+                children: [
+                  BookkeepingLineChart(
+                    focusedTime: _focusedTime,
+                    type: _type,
+                    viewType: _viewType,
+                  ),
+                  ListTitle(
+                    '分类统计',
+                  ),
+                  BookkeepingCategoryChart(
+                    focusedTime: _focusedTime,
+                    type: _type,
+                    viewType: _viewType,
+                  ),
+                  SizedBox(height: 18),
                 ],
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                ),
-                child: ListView(
-                  children: [
-                    BookkeepingLineChart(
-                      focusedTime: _focusedTime,
-                      type: _type,
-                      viewType: _viewType,
-                    ),
-                    ListTitle(
-                      '分类统计',
-                    ),
-                    BookkeepingCategoryChart(
-                      focusedTime: _focusedTime,
-                      type: _type,
-                      viewType: _viewType,
-                    ),
-                    SizedBox(height: 18),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
+          ),
+        ],
+      ),
+    );
+  }
 }

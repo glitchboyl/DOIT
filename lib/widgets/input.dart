@@ -4,11 +4,9 @@ import 'package:doit/constants/styles.dart';
 class Input extends StatelessWidget {
   Input({
     super.key,
-    this.height,
-    this.color = Styles.PrimaryTextColor,
-    this.fontSize,
-    this.lineHeight,
-    this.fontWeight,
+    this.padding = const EdgeInsets.symmetric(vertical: 15),
+    this.style,
+    this.color,
     this.initialValue,
     this.hintText,
     this.autofocus = false,
@@ -18,11 +16,9 @@ class Input extends StatelessWidget {
     this.onChanged,
   });
 
-  final double? height;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? style;
   final Color? color;
-  final double? fontSize;
-  final double? lineHeight;
-  final FontWeight? fontWeight;
   final String? initialValue;
   final String? hintText;
   final bool autofocus;
@@ -35,14 +31,10 @@ class Input extends StatelessWidget {
   Widget build(context) => TextFormField(
         initialValue: initialValue,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-            vertical: ((height ?? (Styles.smallTextLineHeight + 24)) -
-                    (lineHeight ?? Styles.smallTextLineHeight)) /
-                2,
-          ),
+          contentPadding: padding,
           hintText: hintText,
-          hintStyle: const TextStyle(
-            color: Styles.DeactivedDeepColor,
+          hintStyle: TextStyle(
+            color: Theme.of(context).colorScheme.deactivedDeepColor,
           ),
           border: border,
           focusedBorder: border,
@@ -54,11 +46,8 @@ class Input extends StatelessWidget {
         maxLength: maxLength,
         keyboardType: TextInputType.multiline,
         autofocus: autofocus,
-        style: TextStyle(
+        style: (style ?? TextStyles.smallTextStyle).copyWith(
           color: color,
-          fontSize: fontSize ?? Styles.smallTextSize,
-          height: (lineHeight ?? Styles.smallTextLineHeight) /
-              (fontSize ?? Styles.smallTextSize),
         ),
         onChanged: onChanged,
         cursorColor: color,
