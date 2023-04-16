@@ -1,4 +1,4 @@
-const String _prefix = 'assets/icons/';
+const String _prefix = 'assets/icons';
 
 abstract class Ico {
   static const String Schedule = '$_prefix/schedule.svg';
