@@ -13,11 +13,14 @@ class ThemeProvider extends ChangeNotifier {
       };
 }
 
-bool isDarkMode(BuildContext context) =>
-    (Provider.of<ThemeProvider>(
-          context,
-          listen: false,
-        ).themeMode ==
-        ThemeMode.dark) ||
-    (SchedulerBinding.instance.window.platformBrightness == Brightness.dark) ||
-    (Theme.of(context).brightness == Brightness.dark);
+bool isDarkMode(BuildContext context) {
+  final themeMode = Provider.of<ThemeProvider>(
+    context,
+    listen: false,
+  ).themeMode;
+  return themeMode == ThemeMode.dark ||
+      (themeMode == ThemeMode.system
+              ? SchedulerBinding.instance.window.platformBrightness
+              : Theme.of(context).brightness) ==
+          Brightness.dark;
+}

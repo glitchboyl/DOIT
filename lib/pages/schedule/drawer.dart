@@ -14,6 +14,7 @@ class SchedulePageDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final _isDarkMode = isDarkMode(context);
     return Drawer(
       width: MEAS.drawerWidth,
       elevation: 0,
@@ -55,13 +56,13 @@ class SchedulePageDrawer extends StatelessWidget {
           //   ],
           // ),
           SchedulePageDrawerItem(
-            icon: isDarkMode(context)
+            icon: _isDarkMode
                 ? Ico.ScheduleStatisticsDark
                 : Ico.ScheduleStatistics,
             title: '日程统计',
           ),
           SchedulePageDrawerItem(
-            icon: isDarkMode(context) ? Ico.AnniversaryDark : Ico.Anniversary,
+            icon: _isDarkMode ? Ico.AnniversaryDark : Ico.Anniversary,
             title: '纪念日',
           ),
           // SchedulePageDrawerItem(
@@ -69,14 +70,14 @@ class SchedulePageDrawer extends StatelessWidget {
           //   title: '废纸篓',
           // ),
           SchedulePageDrawerItem(
-            icon: isDarkMode(context) ? Ico.ContactUsDark : Ico.ContactUs,
+            icon: _isDarkMode ? Ico.ContactUsDark : Ico.ContactUs,
             title: '联系我们',
           ),
           SchedulePageDrawerItem(
-            icon: isDarkMode(context) ? Ico.LightMode : Ico.DarkMode,
-            title: '${isDarkMode(context) ? '日' : '夜'}间模式',
+            icon: _isDarkMode ? Ico.LightMode : Ico.DarkMode,
+            title: '${_isDarkMode ? '日' : '夜'}间模式',
             onTap: () => themeProvider.changeTheme(
-              isDarkMode(context) ? ThemeMode.light : ThemeMode.dark,
+              _isDarkMode ? ThemeMode.light : ThemeMode.dark,
             ),
           ),
         ],
