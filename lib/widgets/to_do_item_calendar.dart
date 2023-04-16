@@ -73,11 +73,11 @@ class _ToDoItemCalendarState extends State<ToDoItemCalendar>
                 borderRadius: BorderRadius.circular(
                   8,
                 ),
-                color: colorScheme.backgroundColor,
+                color: colorScheme.tabActivedColor,
               ),
               labelPadding: EdgeInsets.zero,
-              labelColor: colorScheme.primaryColor,
-              unselectedLabelColor: colorScheme.primaryTextColor,
+              labelColor: colorScheme.tabActivedTextColor,
+              unselectedLabelColor: colorScheme.tabTextColor,
               tabs: [
                 Tab(
                   text: '开始',

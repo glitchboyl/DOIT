@@ -25,7 +25,7 @@ class ToDoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       key: ValueKey(item.id),
       child: Row(
@@ -80,7 +80,7 @@ class ToDoItemWidget extends StatelessWidget {
                       Row(
                         children: [
                           IconBuilder(
-                            item.levelIcon,
+                            item.levelIcon(context),
                             width: MEAS.toDoItemLevelLength,
                             height: MEAS.toDoItemLevelLength,
                             margin: EdgeInsets.only(
@@ -97,7 +97,7 @@ class ToDoItemWidget extends StatelessWidget {
                           ),
                           Spacer(),
                           IconBuilder(
-                            item.typeIcon,
+                            item.typeIcon(context),
                             width: MEAS.toDoItemTypeLength,
                             height: MEAS.toDoItemTypeLength,
                             margin: EdgeInsets.only(
@@ -150,15 +150,10 @@ class ToDoItemWidget extends StatelessWidget {
                         ),
                         alignment: Alignment.centerRight,
                         child: SVGIcon(
-                          item.completeTime != null
-                              ? isDarkMode
-                                  ? Ico.ResumeDark
-                                  : Ico.Resume
-                              : isDarkMode
-                                  ? Ico.CompleteDark
-                                  : Ico.Complete,
+                          item.completeTime != null ? Ico.Resume : Ico.Complete,
                           width: MEAS.itemOperationIconLength,
                           height: MEAS.itemOperationIconLength,
+                          color: colorScheme.whiteColor,
                         ),
                       ),
                       autoClose: true,
@@ -173,8 +168,8 @@ class ToDoItemWidget extends StatelessWidget {
                       key: ValueKey(item.id.toString() + '_EDIT'),
                       color: colorScheme.primaryColor,
                       child: SVGIcon(
-                        isDarkMode ? Ico.EditDark : Ico.Edit,
-                        color: colorScheme.regularBaseColor,
+                        Ico.Edit,
+                        color: colorScheme.whiteColor,
                         width: MEAS.itemOperationIconLength,
                         height: MEAS.itemOperationIconLength,
                       ),
@@ -185,8 +180,8 @@ class ToDoItemWidget extends StatelessWidget {
                       key: ValueKey(item.id.toString() + '_DELETE'),
                       color: colorScheme.dangerousColor,
                       child: SVGIcon(
-                        isDarkMode ? Ico.TrashDark : Ico.Trash,
-                        color: colorScheme.regularBaseColor,
+                        Ico.Trash,
+                        color: colorScheme.whiteColor,
                         width: MEAS.itemOperationIconLength,
                         height: MEAS.itemOperationIconLength,
                       ),

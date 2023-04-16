@@ -14,22 +14,29 @@ class Statistic extends StatelessWidget {
   final double amount;
 
   @override
-  Widget build(BuildContext context) => Expanded(
-        child: Container(
-          padding: EdgeInsets.symmetric(vertical: 12),
-          child: Column(
-            children: [
-              Text(
-                type == BookkeepingItemType.Incomes ? '收入' : '支出',
-                style: TextStyles.smallTextStyle,
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    return Expanded(
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12),
+        child: Column(
+          children: [
+            Text(
+              type == BookkeepingItemType.Incomes ? '收入' : '支出',
+              style: TextStyles.smallTextStyle.copyWith(
+                color: colorScheme.primaryTextColor,
               ),
-              SizedBox(height: 10),
-              Text(
-                '${type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(amount)}',
-                style: TextStyles.amountTextStyle,
+            ),
+            SizedBox(height: 10),
+            Text(
+              '${type == BookkeepingItemType.Incomes ? '+' : '-'}${moneyFormat(amount)}',
+              style: TextStyles.amountTextStyle.copyWith(
+                color: colorScheme.primaryTextColor,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
+  }
 }

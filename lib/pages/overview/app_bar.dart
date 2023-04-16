@@ -7,6 +7,7 @@ import 'package:doit/widgets/time_picker.dart';
 import 'package:doit/widgets/time_picker_drawer.dart';
 import 'package:doit/models/overview.dart';
 import 'package:doit/providers/to_do_list.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/constants/icons.dart';
@@ -21,15 +22,14 @@ class OverviewPageAppBar extends AppBarBuilder {
         child: Consumer<ToDoListProvider>(
           builder: (context, provider, _) {
             final colorScheme = Theme.of(context).colorScheme;
-            final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-
+            
             return AppBarBuilder(
               leading: SVGIconButton(
                 provider.overviewMode == OverviewMode.Day
-                    ? isDarkMode
+                    ? isDarkMode(context)
                         ? Ico.OverviewByMonthDark
                         : Ico.OverviewByMonth
-                    : isDarkMode
+                    : isDarkMode(context)
                         ? Ico.OverviewByDayDark
                         : Ico.OverviewByDay,
                 onPressed: provider.toggleOverviewMode,
@@ -45,9 +45,10 @@ class OverviewPageAppBar extends AppBarBuilder {
                     ),
                     SizedBox(width: 4),
                     SVGIcon(
-                      isDarkMode ? Ico.ArrowDark : Ico.Arrow,
-                      width: MEAS.arrowLength,
-                      height: MEAS.arrowLength,
+                      Ico.Arrow,
+                      width: MEAS.indicatorLength,
+                      height: MEAS.indicatorLength,
+                      color: colorScheme.primaryTextColor,
                     ),
                   ],
                 ),

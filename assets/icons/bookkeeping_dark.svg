@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>切片</title>
-    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
-        <g id="DOIT视觉规范-暗夜模式" transform="translate(-259.000000, -76.000000)">
-            <g id="doit-tab-bookkeeping-selected" transform="translate(259.000000, 76.000000)">
-                <path d="M13,5 L17,5 C21.9705627,5 26,9.02943725 26,14 L26,17 C26,20.8659932 22.8659932,24 19,24 L11,24 C7.13400675,24 4,20.8659932 4,17 L4,14 C4,9.02943725 8.02943725,5 13,5 Z" id="矩形" stroke="#5B58F5" stroke-width="2" fill="#5B58F5" stroke-linejoin="round"></path>
-                <line x1="18.5" y1="23.5" x2="18.5" y2="24.5" id="直线-4" stroke="#5B58F5" stroke-width="3" stroke-linejoin="round"></line>
-                <line x1="11.5" y1="23.5" x2="11.5" y2="24.5" id="直线-4" stroke="#5B58F5" stroke-width="3" stroke-linejoin="round"></line>
-                <line x1="14.5" y1="18" x2="15.5" y2="18" id="直线-7" stroke="#17181F" stroke-width="3" stroke-linejoin="round"></line>
-                <line x1="11" y1="8" x2="19" y2="8" id="直线-7" stroke="#17181F" stroke-width="2"></line>
+    <g id="DO-IT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DOIT视觉规范-暗夜模式" transform="translate(-259.000000, -118.000000)">
+            <g id="doit-tab-bookkeeping-unselected" transform="translate(259.000000, 118.000000)">
+                <path d="M13,5 L17,5 C21.9705627,5 26,9.02943725 26,14 L26,17 C26,20.8659932 22.8659932,24 19,24 L11,24 C7.13400675,24 4,20.8659932 4,17 L4,14 C4,9.02943725 8.02943725,5 13,5 Z" id="矩形" stroke="#939EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M10,23 L13,23 L13,24.5 C13,25.3284271 12.3284271,26 11.5,26 C10.6715729,26 10,25.3284271 10,24.5 L10,23 L10,23 Z" id="矩形" fill="#939EB8"></path>
+                <path d="M17,23 L20,23 L20,24.5 C20,25.3284271 19.3284271,26 18.5,26 C17.6715729,26 17,25.3284271 17,24.5 L17,23 L17,23 Z" id="矩形" fill="#939EB8"></path>
+                <line x1="14.5" y1="18" x2="15.5" y2="18" id="直线-7" stroke="#939EB8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></line>
+                <line x1="11" y1="8" x2="19" y2="8" id="直线-7" stroke="#939EB8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></line>
             </g>
         </g>
     </g>

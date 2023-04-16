@@ -11,6 +11,7 @@ import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/time.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -94,11 +95,10 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBarBuilder(
         leading: SVGIconButton(
-          isDarkMode ? Ico.BackDark : Ico.Back,
+          isDarkMode(context) ? Ico.BackDark : Ico.Back,
           onPressed: () => Navigator.pop(context),
         ),
         title: Text(
@@ -124,7 +124,7 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
                   height: 44,
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: colorScheme.backgroundColor,
+                      color: colorScheme.greyColor,
                       width: 1,
                     ),
                     borderRadius: BorderRadius.circular(
@@ -141,10 +141,11 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
                       borderRadius: BorderRadius.circular(
                         10,
                       ),
-                      color: colorScheme.primaryColor,
+                      color: colorScheme.tabActivedColor,
                     ),
-                    labelColor: colorScheme.regularBaseColor,
-                    unselectedLabelColor: colorScheme.primaryTextColor,
+                    labelPadding: EdgeInsets.zero,
+                    labelColor: colorScheme.tabActivedTextColor,
+                    unselectedLabelColor: colorScheme.tabTextColor,
                     tabs: [
                       Tab(
                         text: '一周',
@@ -180,15 +181,18 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
                           children: [
                             Text(
                               getFocusedTimeText(),
-                              style: TextStyles.regularTextStyle,
+                              style: TextStyles.regularTextStyle.copyWith(
+                                color: colorScheme.primaryTextColor,
+                              ),
                             ),
                             SizedBox(width: 4),
                             RotatedBox(
                               quarterTurns: -1,
                               child: SVGIcon(
                                 Ico.Triangle,
-                                width: MEAS.arrowLength,
-                                height: MEAS.arrowLength,
+                                width: MEAS.indicatorLength,
+                                height: MEAS.indicatorLength,
+                                color: colorScheme.primaryTextColor,
                               ),
                             ),
                           ],
@@ -221,11 +225,11 @@ class _BookkeepingChartPageState extends State<BookkeepingChartPage>
                           borderRadius: BorderRadius.circular(
                             8,
                           ),
-                          color: colorScheme.backgroundColor,
+                          color: colorScheme.tabActivedColor,
                         ),
                         labelPadding: EdgeInsets.zero,
-                        labelColor: colorScheme.primaryColor,
-                        unselectedLabelColor: colorScheme.primaryTextColor,
+                        labelColor: colorScheme.tabActivedTextColor,
+                        unselectedLabelColor: colorScheme.tabTextColor,
                         tabs: [
                           Tab(
                             text: '收入',

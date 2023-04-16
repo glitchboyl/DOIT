@@ -6,10 +6,12 @@ class SVGIconButton extends StatelessWidget {
   const SVGIconButton(
     this.icon, {
     super.key,
+    this.color,
     required this.onPressed,
   });
 
   final String icon;
+  final Color? color;
   final void Function() onPressed;
 
   @override
@@ -19,6 +21,7 @@ class SVGIconButton extends StatelessWidget {
           icon,
           width: MEAS.appBarIconLength,
           height: MEAS.appBarIconLength,
+          color: color,
         ),
         onPressed: onPressed,
       );

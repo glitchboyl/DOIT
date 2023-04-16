@@ -38,7 +38,7 @@ class BookkeepingDataRow extends StatelessWidget {
               right: 8,
             ),
             borderRadius: BorderRadius.circular(8),
-            color: colorScheme.backgroundColor,
+            color: colorScheme.greyColor,
             iconWidth: MEAS.bookkeepingItemTypeIconLength,
             iconHeight: MEAS.bookkeepingItemTypeIconLength,
           ),
@@ -47,7 +47,9 @@ class BookkeepingDataRow extends StatelessWidget {
             children: [
               Text(
                 title,
-                style: TextStyles.regularTextStyle,
+                style: TextStyles.regularTextStyle.copyWith(
+                  color: colorScheme.primaryTextColor,
+                ),
               ),
               Text(
                 subTitle,

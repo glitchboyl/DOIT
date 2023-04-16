@@ -20,40 +20,45 @@ class BottomDrawerItem extends StatelessWidget {
   final bool hideArrow;
   final void Function()? onPressed;
 
-  Widget buildWidget(BuildContext context) => SizedBox(
-        height: 50,
-        child: Row(
-          children: [
-            if (icon != null) ...[
-              icon!,
-              SizedBox(width: 10),
-            ],
-            Text(
-              title,
-              style: TextStyles.regularTextStyle,
-            ),
-            Spacer(),
-            if (value != null)
-              Text(
-                value!,
-                style: TextStyles.regularTextStyle,
-              ),
-            if (onPressed != null && !hideArrow) ...[
-              SizedBox(width: 10),
-              RotatedBox(
-                quarterTurns: -1,
-                child: SVGIcon(
-                  Theme.of(context).brightness == Brightness.dark
-                      ? Ico.ArrowDark
-                      : Ico.Arrow,
-                  width: MEAS.arrowLength,
-                  height: MEAS.arrowLength,
-                ),
-              ),
-            ],
+  Widget buildWidget(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textStyle = TextStyles.regularTextStyle.copyWith(
+      color: colorScheme.primaryTextColor,
+    );
+    return SizedBox(
+      height: 50,
+      child: Row(
+        children: [
+          if (icon != null) ...[
+            icon!,
+            SizedBox(width: 10),
           ],
-        ),
-      );
+          Text(
+            title,
+            style: textStyle,
+          ),
+          Spacer(),
+          if (value != null)
+            Text(
+              value!,
+              style: textStyle,
+            ),
+          if (onPressed != null && !hideArrow) ...[
+            SizedBox(width: 10),
+            RotatedBox(
+              quarterTurns: -1,
+              child: SVGIcon(
+                Ico.Arrow,
+                width: MEAS.indicatorLength,
+                height: MEAS.indicatorLength,
+                color: colorScheme.primaryTextColor,
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) => onPressed != null

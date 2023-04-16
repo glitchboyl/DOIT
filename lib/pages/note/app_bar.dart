@@ -3,27 +3,34 @@ import 'package:provider/provider.dart';
 import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/providers/note.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
 import 'package:doit/constants/icons.dart';
+import 'package:doit/constants/styles.dart';
 
 class NotesPageAppBar extends AppBarBuilder {
   const NotesPageAppBar({super.key});
   @override
   Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return AppBarBuilder(
       leading: SVGIconButton(
-        isDarkMode ? Ico.BackDark : Ico.Back,
+        isDarkMode(context) ? Ico.BackDark : Ico.Back,
         onPressed: () => Navigator.pop(context),
       ),
       trailings: [
         SVGIconButton(
-          isDarkMode ? Ico.EditDark : Ico.Edit,
+          Ico.Edit,
+          color: isDarkMode(context)
+              ? DarkStyles.PrimaryTextColor
+              : LightStyles.RegularBaseColor,
           onPressed: () => Navigator.pushNamed(context, '/note_publish'),
         ),
         SVGIconButton(
-          isDarkMode ? Ico.TrashDark : Ico.Trash,
+          Ico.Trash,
+          color: isDarkMode(context)
+              ? DarkStyles.PrimaryTextColor
+              : LightStyles.RegularBaseColor,
           onPressed: () {
             final _provider = Provider.of<NoteProvider>(context, listen: false);
             showConfirmDialog(

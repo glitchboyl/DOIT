@@ -66,7 +66,6 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Wrap(
       children: [
         Container(
@@ -77,9 +76,10 @@ class _CalendarState extends State<Calendar> {
               firstDay.isBefore(widget.focusedDay ?? _focusedDay)
                   ? GestureDetector(
                       child: SVGIcon(
-                        isDarkMode ? Ico.TriangleDark : Ico.Triangle,
-                        width: MEAS.arrowLength,
-                        height: MEAS.arrowLength,
+                        Ico.Triangle,
+                        width: MEAS.indicatorLength,
+                        height: MEAS.indicatorLength,
+                        color: colorScheme.primaryTextColor,
                       ),
                       onTap: () => {
                         setState(
@@ -95,15 +95,17 @@ class _CalendarState extends State<Calendar> {
                       },
                     )
                   : SizedBox(
-                      width: MEAS.arrowLength,
-                      height: MEAS.arrowLength,
+                      width: MEAS.indicatorLength,
+                      height: MEAS.indicatorLength,
                     ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 alignment: Alignment.center,
                 child: Text(
                   '${_focusedDay.year}.${fillDateZero(_focusedDay.month)}',
-                  style: TextStyles.regularTextStyle,
+                  style: TextStyles.regularTextStyle.copyWith(
+                    color: colorScheme.primaryTextColor,
+                  ),
                 ),
               ),
               lastDay.isAfter(_focusedDay)
@@ -111,9 +113,10 @@ class _CalendarState extends State<Calendar> {
                       child: RotatedBox(
                         quarterTurns: 2,
                         child: SVGIcon(
-                          isDarkMode ? Ico.TriangleDark : Ico.Triangle,
-                          width: MEAS.arrowLength,
-                          height: MEAS.arrowLength,
+                          Ico.Triangle,
+                          width: MEAS.indicatorLength,
+                          height: MEAS.indicatorLength,
+                          color: colorScheme.primaryTextColor,
                         ),
                       ),
                       onTap: () => {
@@ -130,8 +133,8 @@ class _CalendarState extends State<Calendar> {
                       },
                     )
                   : SizedBox(
-                      width: MEAS.arrowLength,
-                      height: MEAS.arrowLength,
+                      width: MEAS.indicatorLength,
+                      height: MEAS.indicatorLength,
                     ),
             ],
           ),
@@ -219,7 +222,7 @@ class _CalendarState extends State<Calendar> {
                   text: day.day.toString(),
                   textColor: (day.isSameDay(widget.startTime) ||
                           day.isSameDay(widget.endTime))
-                      ? colorScheme.regularBaseColor
+                      ? colorScheme.whiteColor
                       : day.isSameMonth(focusedDay)
                           ? colorScheme.primaryTextColor
                           : colorScheme.deactivedDeepColor,
@@ -228,7 +231,7 @@ class _CalendarState extends State<Calendar> {
                       : lunar.day,
                   subTextColor: (day.isSameDay(widget.startTime) ||
                           day.isSameDay(widget.endTime))
-                      ? colorScheme.regularBaseColor
+                      ? colorScheme.whiteColor
                       : day.isSameMonth(focusedDay)
                           ? highlight
                               ? colorScheme.primaryColor

@@ -82,14 +82,14 @@ class _CalendarRowState extends State<CalendarRow> {
               ),
             ),
             Positioned(
-              bottom: -MEAS.arrowLength - 2,
-              left: constraints.maxWidth / 14 - MEAS.arrowLength / 2,
+              bottom: -MEAS.indicatorLength - 2,
+              left: constraints.maxWidth / 14 - MEAS.indicatorLength / 2,
               child: RotatedBox(
                 quarterTurns: -1,
                 child: SVGIcon(
                   Ico.Triangle,
-                  width: MEAS.arrowLength,
-                  height: MEAS.arrowLength,
+                  width: MEAS.indicatorLength,
+                  height: MEAS.indicatorLength,
                   color: colorScheme.primaryColor,
                 ),
               ),
@@ -128,7 +128,7 @@ class _CalendarRowState extends State<CalendarRow> {
                             date.day.toString(),
                             style: TextStyles.dateTextStyle.copyWith(
                               color: i == _focusedIndex
-                                  ? colorScheme.regularBaseColor
+                                  ? colorScheme.whiteColor
                                   : colorScheme.primaryTextColor,
                             ),
                           ),
@@ -141,7 +141,7 @@ class _CalendarRowState extends State<CalendarRow> {
                                 : lunar.day,
                             style: TextStyles.tinyTextStyle.copyWith(
                               color: i == _focusedIndex
-                                  ? colorScheme.regularBaseColor
+                                  ? colorScheme.whiteColor
                                   : highlight
                                       ? colorScheme.primaryColor
                                       : colorScheme.primaryTextColor,

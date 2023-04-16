@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/models/note.dart';
@@ -18,6 +17,7 @@ class NoteItemWidget extends StatelessWidget {
       Text(
         note.title,
         style: TextStyles.regularTextStyle.copyWith(
+          color: colorScheme.primaryTextColor,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -68,7 +68,9 @@ class NoteItemWidget extends StatelessWidget {
         _widgets.add(
           Text(
             note.body,
-            style: TextStyles.smallTextStyle,
+            style: TextStyles.smallTextStyle.copyWith(
+              color: colorScheme.primaryTextColor,
+            ),
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),

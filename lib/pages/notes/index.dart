@@ -4,6 +4,7 @@ import 'app_bar.dart';
 import 'note_item.dart';
 import 'package:doit/widgets/blank.dart';
 import 'package:doit/providers/note.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/constants/icons.dart';
 
 class NotesPage extends StatelessWidget {
@@ -42,7 +43,7 @@ class NotesPage extends StatelessWidget {
               if (provider.noteList.length == 0) {
                 return Blank(
                   '记录是时光的见证者，这一刻由你主导',
-                  Ico.NotesBlank,
+                  isDarkMode(context) ? Ico.NotesBlankDark : Ico.NotesBlank,
                 );
               }
               buildWidgets(context, provider);

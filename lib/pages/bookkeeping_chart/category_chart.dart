@@ -164,7 +164,7 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
         titleStyle: TextStyle(
           fontSize:
               isTouched ? TextStyles.AmountTextSize : TextStyles.SmallTextSize,
-          color: colorScheme.primaryTextColor,
+          color: LightStyles.PrimaryTextColor,
           // shadows: shadows,
         ),
       );
@@ -214,7 +214,7 @@ class _BookkeepingCategoryChartState extends State<BookkeepingCategoryChart> {
                 (_statistics[categoryType]! / _totalAmount * 100)
                     .toStringAsFixed(0));
             return BookkeepingDataRow(
-              icon: bookkeepingItemCategoryMap[categoryType]!.icon,
+              icon: bookkeepingItemCategoryMap[categoryType]!.icon(context),
               title: bookkeepingItemCategoryMap[categoryType]!.text,
               subTitle: '${percentage.toInt()}%',
               amount: _statistics[categoryType]!,

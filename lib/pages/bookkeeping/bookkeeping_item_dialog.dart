@@ -7,9 +7,10 @@ import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/text_button.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/widgets/input.dart';
-import 'package:doit/widgets/parts.dart';
+import 'package:doit/widgets/gadgets.dart';
 import 'package:doit/models/bookkeeping_item.dart';
 import 'package:doit/providers/bookkeeping.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
@@ -79,7 +80,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
               children: [
                 SizedBox(width: 16),
                 SVGIcon(
-                  Ico.Date,
+                  isDarkMode(context) ? Ico.DateDark : Ico.Date,
                   width: MEAS.itemOperationIconLength,
                   height: MEAS.itemOperationIconLength,
                 ),
@@ -170,11 +171,11 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                     borderRadius: BorderRadius.circular(
                       8,
                     ),
-                    color: colorScheme.backgroundColor,
+                    color: colorScheme.tabActivedColor,
                   ),
                   labelPadding: EdgeInsets.zero,
-                  labelColor: colorScheme.primaryColor,
-                  unselectedLabelColor: colorScheme.primaryTextColor,
+                  labelColor: colorScheme.tabActivedTextColor,
+                  unselectedLabelColor: colorScheme.tabTextColor,
                   tabs: [
                     Tab(
                       text: '收入',
@@ -217,7 +218,8 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                       return BookkeepingItemCategoryWidget(
                         key: ValueKey('$_type:$category'),
                         isActived: category == _category,
-                        icon: bookkeepingItemCategoryMap[category]!.icon,
+                        icon:
+                            bookkeepingItemCategoryMap[category]!.icon(context),
                         text: bookkeepingItemCategoryMap[category]!.text,
                         onTap: () {
                           if (category != _category) {
@@ -259,6 +261,7 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                       child: Input(
                         initialValue: _title,
                         hintText: '要留下备注吗？',
+                        color: colorScheme.primaryTextColor,
                         maxLength: 50,
                         maxLines: 1,
                         border: bodyBorder,
@@ -268,7 +271,9 @@ class _BookkeepingItemDialogState extends State<BookkeepingItemDialog>
                     Expanded(
                       child: Text(
                         moneyFormat(_amount),
-                        style: TextStyles.amountTextStyle,
+                        style: TextStyles.amountTextStyle.copyWith(
+                          color: colorScheme.primaryTextColor,
+                        ),
                         textAlign: TextAlign.right,
                       ),
                     ),

@@ -30,7 +30,7 @@ class BookkeepingLineChart extends StatelessWidget {
   LineChartData chartData(BuildContext context) => LineChartData(
         lineTouchData: lineTouchData(context),
         gridData: gridData,
-        titlesData: titlesData,
+        titlesData: titlesData(context),
         borderData: borderData(context),
         lineBarsData: lineBarsData(context),
         minX: 0,
@@ -72,9 +72,9 @@ class BookkeepingLineChart extends StatelessWidget {
     );
   }
 
-  FlTitlesData get titlesData => FlTitlesData(
+  FlTitlesData titlesData(BuildContext context) => FlTitlesData(
         bottomTitles: AxisTitles(
-          sideTitles: bottomTitles,
+          sideTitles: bottomTitles(context),
         ),
         rightTitles: AxisTitles(
           sideTitles: SideTitles(showTitles: false),
@@ -83,7 +83,7 @@ class BookkeepingLineChart extends StatelessWidget {
           sideTitles: SideTitles(showTitles: false),
         ),
         leftTitles: AxisTitles(
-          sideTitles: leftTitles(),
+          sideTitles: leftTitles(context),
         ),
       );
 
@@ -91,21 +91,35 @@ class BookkeepingLineChart extends StatelessWidget {
         lineChartBarData(context),
       ];
 
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
+  Widget leftTitleWidgets(
+    BuildContext context,
+    double value,
+    TitleMeta meta,
+  ) {
     return Text(
       (_peakAmount / _maxY * value.toInt()).truncate().toString(),
-      style: TextStyles.tinyTextStyle,
+      style: TextStyles.tinyTextStyle.copyWith(
+        color: Theme.of(context).colorScheme.primaryTextColor,
+      ),
     );
   }
 
-  SideTitles leftTitles() => SideTitles(
-        getTitlesWidget: leftTitleWidgets,
+  SideTitles leftTitles(BuildContext context) => SideTitles(
+        getTitlesWidget: (double value, TitleMeta meta) => leftTitleWidgets(
+          context,
+          value,
+          meta,
+        ),
         showTitles: true,
         interval: 1,
         reservedSize: 46,
       );
 
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+  Widget bottomTitleWidgets(
+    BuildContext context,
+    double value,
+    TitleMeta meta,
+  ) {
     final index = _calculations.indexWhere(
       (e) =>
           (e[0].toStringAsFixed(2) == value.toStringAsFixed(2)) && e[2] != '',
@@ -116,18 +130,24 @@ class BookkeepingLineChart extends StatelessWidget {
         space: 4,
         child: Text(
           _calculations[index][2],
-          style: TextStyles.tinyTextStyle,
+          style: TextStyles.tinyTextStyle.copyWith(
+            color: Theme.of(context).colorScheme.primaryTextColor,
+          ),
         ),
       );
     }
     return SizedBox.shrink();
   }
 
-  SideTitles get bottomTitles => SideTitles(
+  SideTitles bottomTitles(BuildContext context) => SideTitles(
         showTitles: true,
         reservedSize: 14,
         interval: 0.01,
-        getTitlesWidget: bottomTitleWidgets,
+        getTitlesWidget: (double value, TitleMeta meta) => bottomTitleWidgets(
+          context,
+          value,
+          meta,
+        ),
       );
 
   FlGridData get gridData => FlGridData(show: false);
@@ -293,7 +313,6 @@ class BookkeepingLineChart extends StatelessWidget {
       case BookkeepingChartViewType.Week:
       default:
         summaryText += '一周';
-
         break;
     }
     summaryText +=
@@ -310,13 +329,14 @@ class BookkeepingLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     calculate(context);
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       height: 224,
       margin: EdgeInsets.only(top: 12),
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: Theme.of(context).colorScheme.regularBaseColor,
+        color: colorScheme.regularBaseColor,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -325,6 +345,7 @@ class BookkeepingLineChart extends StatelessWidget {
           Text(
             getSummaryText(),
             style: TextStyles.smallTextStyle.copyWith(
+              color: colorScheme.primaryTextColor,
               fontWeight: FontWeight.bold,
             ),
           ),

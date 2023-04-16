@@ -14,6 +14,7 @@ class NotePage extends StatelessWidget {
     final List<Widget> _widgets = [];
     final focusedNote =
         Provider.of<NoteProvider>(context, listen: false).focusedNote!;
+    final colorScheme = Theme.of(context).colorScheme;
     if (focusedNote.images.length > 0) {
       final List<Widget> _images = [];
       final List<ImageView> _imageView = [];
@@ -89,6 +90,7 @@ class NotePage extends StatelessWidget {
             Text(
               focusedNote.title,
               style: TextStyles.largeTextStyle.copyWith(
+                color: colorScheme.primaryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -96,13 +98,14 @@ class NotePage extends StatelessWidget {
             Text(
               '${getDateTime(focusedNote.publishTime)} ${getClockTime(focusedNote.publishTime)}',
               style: TextStyles.smallTextStyle.copyWith(
-                color: Theme.of(context).colorScheme.secondaryTextColor,
+                color: colorScheme.secondaryTextColor,
               ),
             ),
             SizedBox(height: 20),
             Text(
               focusedNote.body,
               style: TextStyles.largeTextStyle.copyWith(
+                color: colorScheme.primaryTextColor,
                 fontSize: TextStyles.RegularTextSize,
               ),
             ),

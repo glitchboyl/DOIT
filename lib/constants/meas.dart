@@ -34,7 +34,7 @@ abstract class MEAS {
   static const double drawerWidth = 283;
   static const double drawerItemIconLength = 16;
 
-  static const double arrowLength = 12;
+  static const double indicatorLength = 12;
 
   static const double dashLength = 4;
   static const double dashGapLength = 3;

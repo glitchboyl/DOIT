@@ -38,6 +38,14 @@ class _InteractiveButtonState extends State<InteractiveButton> {
   }
 
   @override
+  void didUpdateWidget(covariant InteractiveButton oldWidget) {
+    if (oldWidget.color != widget.color) {
+      setState(() => _buttonColor = widget.color);
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(context) => SizedBox(
         width: widget.width,
         height: widget.height,
@@ -45,16 +53,14 @@ class _InteractiveButtonState extends State<InteractiveButton> {
           onTapDown: (tapDetails) {
             if (widget.activedColor != null &&
                 widget.activedColor != widget.color) {
-              setState(() {
-                _buttonColor = widget.activedColor!;
-              });
+              setState(
+                () => _buttonColor = widget.activedColor!,
+              );
             }
           },
-          onTapCancel: () {
-            setState(() {
-              _buttonColor = widget.color;
-            });
-          },
+          onTapCancel: () => setState(
+            () => _buttonColor = widget.color,
+          ),
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: _buttonColor,

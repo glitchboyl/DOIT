@@ -11,7 +11,7 @@ class BookkeepingPageAppBar extends AppBarBuilder {
         title: Text(
           '记账',
           style: TextStyles.greatTextStyle.copyWith(
-            color: Theme.of(context).colorScheme.regularBaseColor,
+            color: Theme.of(context).colorScheme.whiteColor,
           ),
         ),
         backgroundColor: Colors.transparent,

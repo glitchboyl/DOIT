@@ -8,6 +8,7 @@ import 'package:doit/widgets/to_do_item_dialog.dart';
 import 'package:doit/widgets/simple_to_do_item.dart';
 import 'package:doit/widgets/blank.dart';
 import 'package:doit/providers/to_do_list.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/models/schedule.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/utils/toast.dart';
@@ -116,7 +117,9 @@ class SchedulePage extends StatelessWidget {
                 if (_widgets.length == 1) {
                   return Blank(
                     '没有安排就是最好的安排',
-                    Ico.ScheduleBlank,
+                    isDarkMode(context)
+                        ? Ico.ScheduleBlankDark
+                        : Ico.ScheduleBlank,
                   );
                 }
 

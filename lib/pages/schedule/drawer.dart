@@ -1,6 +1,5 @@
 import 'package:doit/constants/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 // import 'expansion_tile.dart';
 import 'drawer_item.dart';
@@ -15,10 +14,6 @@ class SchedulePageDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
-    final isDarkMode = (themeProvider.themeMode == ThemeMode.system
-            ? SchedulerBinding.instance.window.platformBrightness
-            : Theme.of(context).brightness) ==
-        Brightness.dark;
     return Drawer(
       width: MEAS.drawerWidth,
       elevation: 0,
@@ -60,13 +55,13 @@ class SchedulePageDrawer extends StatelessWidget {
           //   ],
           // ),
           SchedulePageDrawerItem(
-            icon: isDarkMode
+            icon: isDarkMode(context)
                 ? Ico.ScheduleStatisticsDark
                 : Ico.ScheduleStatistics,
             title: '日程统计',
           ),
           SchedulePageDrawerItem(
-            icon: isDarkMode ? Ico.AnniversaryDark : Ico.Anniversary,
+            icon: isDarkMode(context) ? Ico.AnniversaryDark : Ico.Anniversary,
             title: '纪念日',
           ),
           // SchedulePageDrawerItem(
@@ -74,14 +69,14 @@ class SchedulePageDrawer extends StatelessWidget {
           //   title: '废纸篓',
           // ),
           SchedulePageDrawerItem(
-            icon: isDarkMode ? Ico.ContactUsDark : Ico.ContactUs,
+            icon: isDarkMode(context) ? Ico.ContactUsDark : Ico.ContactUs,
             title: '联系我们',
           ),
           SchedulePageDrawerItem(
-            icon: isDarkMode ? Ico.LightMode : Ico.DarkMode,
-            title: '${isDarkMode ? '日' : '夜'}间模式',
+            icon: isDarkMode(context) ? Ico.LightMode : Ico.DarkMode,
+            title: '${isDarkMode(context) ? '日' : '夜'}间模式',
             onTap: () => themeProvider.changeTheme(
-              isDarkMode ? ThemeMode.light : ThemeMode.dark,
+              isDarkMode(context) ? ThemeMode.light : ThemeMode.dark,
             ),
           ),
         ],

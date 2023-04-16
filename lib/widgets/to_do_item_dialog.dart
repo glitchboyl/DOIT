@@ -8,7 +8,7 @@ import 'to_do_item_calendar.dart';
 import 'bottom_drawer_select.dart';
 import 'bottom_drawer_item.dart';
 import 'icon.dart';
-import 'parts.dart';
+import 'gadgets.dart';
 import 'package:doit/utils/time.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/notification_service.dart';
@@ -16,6 +16,7 @@ import 'package:doit/utils/toast.dart';
 // import 'package:doit/utils/local_calendar_service.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/providers/to_do_list.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -68,7 +69,6 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
   @override
   Widget build(context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Wrap(
       children: [
         AppBarBuilder(
@@ -82,10 +82,10 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
           trailings: [
             SVGIconButton(
               _publishActived
-                  ? isDarkMode
+                  ? isDarkMode(context)
                       ? Ico.PublishDark
                       : Ico.Publish
-                  : isDarkMode
+                  : isDarkMode(context)
                       ? Ico.PublishDisabledDark
                       : Ico.PublishDisabled,
               onPressed: () async {
@@ -161,7 +161,12 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                 maxLength: 50,
                 maxLines: 1,
                 autofocus: true,
-                border: titleBorder,
+                border: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: colorScheme.greyColor,
+                    width: 1.2,
+                  ),
+                ),
                 onChanged: (value) => setState(() {
                   _title = value;
                   _publishActived = validate();
@@ -185,7 +190,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                     child: Row(
                       children: [
                         SVGIcon(
-                          Ico.Date,
+                          isDarkMode(context) ? Ico.DateDark : Ico.Date,
                           width: MEAS.itemOperationIconLength,
                           height: MEAS.itemOperationIconLength,
                         ),
@@ -218,7 +223,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                   ),
                   GestureDetector(
                     child: IconBuilder(
-                      toDoItemLevelMap[_level]!.icon,
+                      toDoItemLevelMap[_level]!.icon(context),
                       width: MEAS.toDoItemPropertyLength,
                       height: MEAS.toDoItemPropertyLength,
                       margin: EdgeInsets.only(
@@ -238,7 +243,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                           key: ValueKey(level),
                           title: toDoItemLevelMap[level]!.text,
                           icon: IconBuilder(
-                            toDoItemLevelMap[level]!.icon,
+                            toDoItemLevelMap[level]!.icon(context),
                             width: MEAS.toDoItemPropertyLength,
                             height: MEAS.toDoItemPropertyLength,
                             borderRadius: BorderRadius.circular(50),
@@ -258,7 +263,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                   ),
                   GestureDetector(
                     child: IconBuilder(
-                      toDoItemTypeMap[_type]!.icon,
+                      toDoItemTypeMap[_type]!.icon(context),
                       width: MEAS.toDoItemPropertyLength,
                       height: MEAS.toDoItemPropertyLength,
                       margin: EdgeInsets.only(
@@ -278,7 +283,7 @@ class _ToDoItemDialogState extends State<ToDoItemDialog> {
                           key: ValueKey(type),
                           title: toDoItemTypeMap[type]!.text,
                           icon: IconBuilder(
-                            toDoItemTypeMap[type]!.icon,
+                            toDoItemTypeMap[type]!.icon(context),
                             width: MEAS.toDoItemPropertyLength,
                             height: MEAS.toDoItemPropertyLength,
                             borderRadius: BorderRadius.circular(6),

@@ -64,6 +64,30 @@ extension CustomColor on ColorScheme {
   Color get bookkeepingStatisticsShadowColor => brightness == Brightness.light
       ? LightStyles.BookkeepingStatisticsShadowColor
       : DarkStyles.BookkeepingStatisticsShadowColor;
+
+  Color get whiteColor => brightness == Brightness.light
+      ? LightStyles.RegularBaseColor
+      : DarkStyles.PrimaryTextColor;
+
+  Color get tabColor => brightness == Brightness.light
+      ? LightStyles.RegularBaseColor
+      : DarkStyles.PrimaryTextColor;
+
+  Color get tabActivedColor => brightness == Brightness.light
+      ? LightStyles.BackgroundColor
+      : DarkStyles.PrimaryColor;
+
+  Color get tabTextColor => brightness == Brightness.light
+      ? LightStyles.RegularBaseColor
+      : DarkStyles.SecondaryTextColor;
+
+  Color get tabActivedTextColor => brightness == Brightness.light
+      ? LightStyles.PrimaryColor
+      : DarkStyles.PrimaryTextColor;
+
+  Color get greyColor => brightness == Brightness.light
+      ? LightStyles.BackgroundColor
+      : DarkStyles.DeactivedColor;
 }
 
 const _defaultTextStyle = TextStyle(
@@ -133,10 +157,6 @@ abstract class TextStyles {
     fontSize: SmallTextSize,
     height: confirmDialogContentLineHeight / SmallTextSize,
   );
-
-  // static final daysOfWeekTextStyle = smallTextStyle.copyWith(
-  //   color: SecondaryTextColor,
-  // );
 }
 
 abstract class LightStyles {
@@ -190,10 +210,10 @@ abstract class LightStyles {
 
 abstract class DarkStyles {
   static const Color RegularBaseColor = Color(0xFF17181F);
-  static const Color PrimaryColor = Color(0xFF5B58F5);
+  static const Color PrimaryColor = Color(0xFF524EF5);
   static const Color PrimaryLightColor = Color(0xFF5753FC);
   static const Color PrimaryDeepColor = Color(0xFF4542EB);
-  static const Color PrimaryTextColor = Color(0xFFEBEDF5);
+  static const Color PrimaryTextColor = Color(0xFFF2F4FC);
   static const Color SecondaryTextColor = Color(0xFFABAFC2);
   static const Color BackgroundColor = Color(0xFF0F0F14);
   static const Color BarrierColor = Color(0x5C10101A);
@@ -230,7 +250,7 @@ abstract class DarkStyles {
 
   static const Color NoteImagesIndicatorBackgroundColor = Color(0x1A373655);
 
-  static const Color CalendarDateRangeColor = Color(0xFFF0F0FF);
+  static const Color CalendarDateRangeColor = Color(0xFF1D1D47);
 
   static const Color DialogActionActivedColor = Color(0xFFEFEFF2);
 

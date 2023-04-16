@@ -55,7 +55,7 @@ class ImageItem extends StatelessWidget {
                         width: MEAS.notePublishImageLength,
                         height: MEAS.notePublishImageLength,
                         fit: BoxFit.cover,
-                        //                        frameBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        // frameBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
                         //   return Center(child: child);
                         // },
                       )
@@ -104,7 +104,7 @@ class ImageUploader extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(MEAS.notePublishImageRadius),
             border: Border.all(
-              color: Theme.of(context).colorScheme.backgroundColor,
+              color: Theme.of(context).colorScheme.greyColor,
               width: 2,
             ),
           ),

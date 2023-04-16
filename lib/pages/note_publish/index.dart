@@ -8,9 +8,10 @@ import 'package:doit/widgets/app_bar.dart';
 import 'package:doit/widgets/svg_icon_button.dart';
 import 'package:doit/widgets/input.dart';
 import 'package:doit/widgets/images_viewer.dart';
-import 'package:doit/widgets/parts.dart';
+import 'package:doit/widgets/gadgets.dart';
 import 'image.dart';
 import 'package:doit/providers/note.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/models/note.dart';
 import 'package:doit/constants/icons.dart';
@@ -103,20 +104,19 @@ class _NotePublishPageState extends State<NotePublishPage> {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBarBuilder(
         leading: SVGIconButton(
-          isDarkMode ? Ico.BackDark : Ico.Back,
+          isDarkMode(context) ? Ico.BackDark : Ico.Back,
           onPressed: () => Navigator.pop(context),
         ),
         trailings: [
           SVGIconButton(
             _publishActived
-                ? isDarkMode
+                ? isDarkMode(context)
                     ? Ico.PublishDark
                     : Ico.Publish
-                : isDarkMode
+                : isDarkMode(context)
                     ? Ico.PublishDisabledDark
                     : Ico.PublishDisabled,
             onPressed: () async {
@@ -181,11 +181,17 @@ class _NotePublishPageState extends State<NotePublishPage> {
               children: [
                 Input(
                   initialValue: _title,
+                  color: colorScheme.primaryTextColor,
                   style: TextStyles.regularTextStyle.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
                   hintText: '在这一刻，要写点什么呢~',
-                  border: titleBorder,
+                  border: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: colorScheme.greyColor,
+                      width: 1.2,
+                    ),
+                  ),
                   maxLines: 1,
                   autofocus: true,
                   onChanged: (value) => setState(
@@ -202,7 +208,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
-                        color: colorScheme.backgroundColor,
+                        color: colorScheme.greyColor,
                         width: 1.2,
                       ),
                     ),
@@ -210,6 +216,7 @@ class _NotePublishPageState extends State<NotePublishPage> {
                   child: Input(
                     initialValue: _body,
                     padding: EdgeInsets.symmetric(vertical: 12),
+                    color: colorScheme.primaryTextColor,
                     hintText: '记下这一刻…',
                     border: bodyBorder,
                     autofocus: true,

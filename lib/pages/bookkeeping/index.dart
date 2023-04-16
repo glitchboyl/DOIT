@@ -10,6 +10,7 @@ import 'bookkeeping_item.dart';
 import 'package:doit/widgets/blank.dart';
 import 'package:doit/models/bookkeeping.dart';
 import 'package:doit/models/bookkeeping_item.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/utils/toast.dart';
 import 'package:doit/utils/show_bottom_drawer.dart';
 import 'package:doit/utils/show_confirm_dialog.dart';
@@ -100,7 +101,11 @@ class BookkeepingPage extends StatelessWidget {
   Widget build(BuildContext context) => Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(Images.BookkeepingBackground),
+            image: AssetImage(
+              isDarkMode(context)
+                  ? Images.BookkeepingBackgroundDark
+                  : Images.BookkeepingBackground,
+            ),
             alignment: Alignment.center,
             fit: BoxFit.cover,
           ),
@@ -118,7 +123,9 @@ class BookkeepingPage extends StatelessWidget {
                         if (_widgets.length == 2) {
                           return Blank(
                             '增添一笔生活的痕迹吧',
-                            Ico.BookkeepingBlank,
+                            isDarkMode(context)
+                                ? Ico.BookkeepingBlankDark
+                                : Ico.BookkeepingBlank,
                           );
                         }
                         if (provider.fresh != null) {

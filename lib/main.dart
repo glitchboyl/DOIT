@@ -77,7 +77,6 @@ class DOITApp extends StatefulWidget {
 
 class _DOITAppState extends State<DOITApp> with WidgetsBindingObserver {
   int _currentIndex = 0;
-  List<BottomNavigationBarItem> _navigationBarItems = [];
   final List<AppBarBuilder> _appBarWidgets = [];
   final List<Widget> _pageWidgets = [];
 
@@ -95,21 +94,6 @@ class _DOITAppState extends State<DOITApp> with WidgetsBindingObserver {
     });
     for (int i = 0; i < navigation.length; i++) {
       final page = navigation[i];
-      _navigationBarItems.add(
-        BottomNavigationBarItem(
-          icon: SVGIcon(
-            page.icon(context),
-            width: MEAS.bottomNavigationBarIconLength,
-            height: MEAS.bottomNavigationBarIconLength,
-          ),
-          activeIcon: SVGIcon(
-            page.activeIcon(context),
-            width: MEAS.bottomNavigationBarIconLength,
-            height: MEAS.bottomNavigationBarIconLength,
-          ),
-          label: '',
-        ),
-      );
       _appBarWidgets.add(page.appBar());
       _pageWidgets.add(page.widget());
     }
@@ -165,7 +149,23 @@ class _DOITAppState extends State<DOITApp> with WidgetsBindingObserver {
           floatingActionButtonAnimator: FABAnimator(),
           resizeToAvoidBottomInset: false,
           bottomNavigationBar: BottomNavigationBarBuilder(
-            items: _navigationBarItems,
+            items: navigation
+                .map(
+                  (page) => BottomNavigationBarItem(
+                    icon: SVGIcon(
+                      page.icon(context),
+                      width: MEAS.bottomNavigationBarIconLength,
+                      height: MEAS.bottomNavigationBarIconLength,
+                    ),
+                    activeIcon: SVGIcon(
+                      page.activeIcon(context),
+                      width: MEAS.bottomNavigationBarIconLength,
+                      height: MEAS.bottomNavigationBarIconLength,
+                    ),
+                    label: '',
+                  ),
+                )
+                .toList(),
             currentIndex: _currentIndex,
             onTap: (int index) {
               if (_currentIndex != index) {

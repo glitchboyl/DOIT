@@ -30,7 +30,7 @@ class AddButton extends StatelessWidget {
       shape: const CircleBorder(),
       child: SVGIcon(
         Ico.Add,
-        color: colorScheme.regularBaseColor,
+        color: LightStyles.RegularBaseColor,
       ),
       onPressed: () {
         String currentPage = currentPageKey.toString();

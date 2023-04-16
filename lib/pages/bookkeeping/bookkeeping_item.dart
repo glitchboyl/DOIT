@@ -35,7 +35,7 @@ class BookkeepingItemWidget extends StatelessWidget {
         key: ValueKey(item.id.toString() + '_SLIDABLE'),
         groupTag: 'KEEP_ONLY_ONE_SLIDABLE_OPEN',
         child: BookkeepingDataRow(
-          icon: bookkeepingItemCategoryMap[item.category]!.icon,
+          icon: bookkeepingItemCategoryMap[item.category]!.icon(context),
           title: item.title,
           subTitle: getClockTime(item.time),
           amount: item.amount,
@@ -50,9 +50,9 @@ class BookkeepingItemWidget extends StatelessWidget {
               color: colorScheme.primaryColor,
               child: SVGIcon(
                 Ico.Edit,
-                color: colorScheme.regularBaseColor,
                 width: MEAS.itemOperationIconLength,
                 height: MEAS.itemOperationIconLength,
+                color: colorScheme.whiteColor,
               ),
               onPressed: (context) => onEdited(context),
               autoClose: true,
@@ -62,9 +62,9 @@ class BookkeepingItemWidget extends StatelessWidget {
               color: colorScheme.dangerousColor,
               child: SVGIcon(
                 Ico.Trash,
-                color: colorScheme.regularBaseColor,
                 width: MEAS.itemOperationIconLength,
                 height: MEAS.itemOperationIconLength,
+                color: colorScheme.whiteColor,
               ),
               onPressed: (context) => onDeleted(context),
               autoClose: true,

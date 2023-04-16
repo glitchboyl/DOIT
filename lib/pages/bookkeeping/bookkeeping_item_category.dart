@@ -32,7 +32,7 @@ class BookkeepingItemCategoryWidget extends StatelessWidget {
             margin: EdgeInsets.only(
               bottom: 4,
             ),
-            color: colorScheme.backgroundColor,
+            color: colorScheme.greyColor,
             border: isActived
                 ? Border.all(
                     color: colorScheme.primaryColor,

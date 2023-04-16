@@ -19,16 +19,13 @@ abstract class Ico {
   static const String BookkeepingActived = '$_prefix/overview_actived.svg';
   static const String BookkeepingDark = '$_prefix/bookkeeping_dark.svg';
   static const String BookkeepingActivedDark =
-      '$_prefix/overview_actived_dark.svg';
+      '$_prefix/bookkeeping_actived_dark.svg';
 
   static const String Back = '$_prefix/back.svg';
   static const String BackDark = '$_prefix/back_dark.svg';
   static const String Triangle = '$_prefix/triangle.svg';
-  static const String TriangleDark = '$_prefix/triangle_dark.svg';
   static const String Arrow = '$_prefix/arrow.svg';
-  static const String ArrowDark = '$_prefix/arrow_dark.svg';
   static const String Cross = '$_prefix/cross.svg';
-  static const String CrossDark = '$_prefix/cross_dark.svg';
   static const String Radio = '$_prefix/radio.svg';
   static const String RadioDark = '$_prefix/radio_dark.svg';
   static const String RadioChecked = '$_prefix/radio_checked.svg';
@@ -53,7 +50,6 @@ abstract class Ico {
   static const String DarkMode = '$_prefix/dark_mode.svg';
 
   static const String Study = '$_prefix/study.svg';
-  static const String StudyDark = '$_prefix/study_dark.svg';
   static const String Work = '$_prefix/work.svg';
   static const String Life = '$_prefix/life.svg';
   static const String Health = '$_prefix/health.svg';
@@ -64,16 +60,11 @@ abstract class Ico {
   static const String LevelIV = '$_prefix/level_IV.svg';
 
   static const String Resume = '$_prefix/resume.svg';
-  static const String ResumeDark = '$_prefix/resume_dark.svg';
   static const String Complete = '$_prefix/complete.svg';
-  static const String CompleteDark = '$_prefix/complete_dark.svg';
 
   static const String Add = '$_prefix/add.svg';
-  static const String AddDark = '$_prefix/add_dark.svg';
   static const String Edit = '$_prefix/edit.svg';
-  static const String EditDark = '$_prefix/edit_dark.svg';
   static const String Trash = '$_prefix/trash.svg';
-  static const String TrashDark = '$_prefix/trash_dark.svg';
   static const String Publish = '$_prefix/publish.svg';
   static const String PublishDark = '$_prefix/publish_dark.svg';
   static const String PublishDisabled = '$_prefix/publish_disabled.svg';
@@ -117,6 +108,8 @@ abstract class Ico {
   static const String BookkeepingFinancingDark =
       '$_prefix/bookkeeping_financing_dark.svg';
   static const String BookkeepingStudy = '$_prefix/bookkeeping_study.svg';
+  static const String BookkeepingStudyDark =
+      '$_prefix/bookkeeping_study_dark.svg';
   static const String BookkeepingFoodAndDrink =
       '$_prefix/bookkeeping_food_and_drink.svg';
   static const String BookkeepingFoodAndDrinkDark =
@@ -154,6 +147,9 @@ abstract class Ico {
   static const String BackspaceDark = '$_prefix/backspace_dark.svg';
 
   static const String ScheduleBlank = '$_prefix/schedule_blank.svg';
+  static const String ScheduleBlankDark = '$_prefix/schedule_blank.svg';
   static const String NotesBlank = '$_prefix/notes_blank.svg';
+  static const String NotesBlankDark = '$_prefix/notes_blank.svg';
   static const String BookkeepingBlank = '$_prefix/bookkeeping_blank.svg';
+  static const String BookkeepingBlankDark = '$_prefix/bookkeeping_blank.svg';
 }

@@ -43,7 +43,9 @@ class ConfirmDialogBuilder extends StatelessWidget {
                     padding: EdgeInsets.all(16),
                     child: Text(
                       text,
-                      style: TextStyles.confirmDialogContentStyle,
+                      style: TextStyles.confirmDialogContentStyle.copyWith(
+                        color: colorScheme.primaryTextColor,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),

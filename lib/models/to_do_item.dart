@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'property.dart';
+import 'package:doit/providers/theme.dart';
 import 'package:doit/constants/icons.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -37,67 +38,62 @@ enum RepeatType {
 
 final toDoItemTypeMap = {
   ToDoItemType.Study: Property(
-    icon: Ico.Study,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
-        ? DarkStyles.StudyColor
-        : LightStyles.StudyColor,
+    icon: (context) => Ico.Study,
+    color: (context) =>
+        isDarkMode(context) ? DarkStyles.StudyColor : LightStyles.StudyColor,
     text: '学习',
   ),
   ToDoItemType.Work: Property(
-    icon: Ico.Work,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
-        ? DarkStyles.WorkColor
-        : LightStyles.WorkColor,
+    icon: (context) => Ico.Work,
+    color: (context) =>
+        isDarkMode(context) ? DarkStyles.WorkColor : LightStyles.WorkColor,
     text: '工作',
   ),
   ToDoItemType.Life: Property(
-    icon: Ico.Life,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
-        ? DarkStyles.LifeColor
-        : LightStyles.LifeColor,
+    icon: (context) => Ico.Life,
+    color: (context) =>
+        isDarkMode(context) ? DarkStyles.LifeColor : LightStyles.LifeColor,
     text: '生活',
   ),
   ToDoItemType.Health: Property(
-    icon: Ico.Health,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
-        ? DarkStyles.HealthColor
-        : LightStyles.HealthColor,
+    icon: (context) => Ico.Health,
+    color: (context) =>
+        isDarkMode(context) ? DarkStyles.HealthColor : LightStyles.HealthColor,
     text: '健康',
   ),
   ToDoItemType.Travel: Property(
-    icon: Ico.Travel,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
-        ? DarkStyles.TravelColor
-        : LightStyles.TravelColor,
+    icon: (context) => Ico.Travel,
+    color: (context) =>
+        isDarkMode(context) ? DarkStyles.TravelColor : LightStyles.TravelColor,
     text: '旅行',
   ),
 };
 
 final toDoItemLevelMap = {
   ToDoItemLevel.I: Property(
-    icon: Ico.LevelI,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
+    icon: (context) => Ico.LevelI,
+    color: (context) => isDarkMode(context)
         ? DarkStyles.ToDoItemLevelIColor
         : LightStyles.ToDoItemLevelIColor,
     text: '重要且紧急',
   ),
   ToDoItemLevel.II: Property(
-    icon: Ico.LevelII,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
+    icon: (context) => Ico.LevelII,
+    color: (context) => isDarkMode(context)
         ? DarkStyles.ToDoItemLevelIIColor
         : LightStyles.ToDoItemLevelIIColor,
     text: '重要不紧急',
   ),
   ToDoItemLevel.III: Property(
-    icon: Ico.LevelIII,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
+    icon: (context) => Ico.LevelIII,
+    color: (context) => isDarkMode(context)
         ? DarkStyles.ToDoItemLevelIIIColor
         : LightStyles.ToDoItemLevelIIIColor,
     text: '不重要紧急',
   ),
   ToDoItemLevel.IV: Property(
-    icon: Ico.LevelIV,
-    color: (context) => Theme.of(context).brightness == Brightness.dark
+    icon: (context) => Ico.LevelIV,
+    color: (context) => isDarkMode(context)
         ? DarkStyles.ToDoItemLevelIVColor
         : LightStyles.ToDoItemLevelIVColor,
     text: '不重要不紧急',
@@ -171,25 +167,23 @@ class ToDoItem {
     };
   }
 
-  String get typeIcon =>
-      toDoItemTypeMap[type]?.icon ?? toDoItemTypeMap[ToDoItemType.Life]!.icon;
+  String typeIcon(BuildContext context) =>
+      toDoItemTypeMap[type]?.icon(context) ??
+      toDoItemTypeMap[ToDoItemType.Life]!.icon(context);
 
   Color typeColor(BuildContext context) => completeTime != null
-      ? Theme.of(context).brightness == Brightness.dark
-          ? DarkStyles.DeactivedColor
-          : LightStyles.DeactivedColor
+      ? Theme.of(context).colorScheme.deactivedColor
       : toDoItemTypeMap[type]!.color(context);
 
   String get typeText =>
       toDoItemTypeMap[type]?.text ?? toDoItemTypeMap[ToDoItemType.Life]!.text;
 
-  String get levelIcon =>
-      toDoItemLevelMap[level]?.icon ?? toDoItemLevelMap[ToDoItemLevel.IV]!.icon;
+  String levelIcon(BuildContext context) =>
+      toDoItemLevelMap[level]?.icon(context) ??
+      toDoItemLevelMap[ToDoItemLevel.IV]!.icon(context);
 
   Color levelColor(BuildContext context) => completeTime != null
-      ? Theme.of(context).brightness == Brightness.dark
-          ? DarkStyles.DeactivedColor
-          : LightStyles.DeactivedColor
+      ? Theme.of(context).colorScheme.deactivedColor
       : toDoItemLevelMap[level]!.color(context);
 
   String get levelText =>

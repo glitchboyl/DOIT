@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/models/to_do_item.dart';
 import 'package:doit/constants/styles.dart';
 
@@ -35,6 +35,7 @@ class CalendarViewToDoItem extends StatelessWidget {
               child: Text(
                 item.title,
                 style: TextStyles.tinyTextStyle.copyWith(
+                  color: Theme.of(context).colorScheme.whiteColor,
                   fontWeight: FontWeight.bold,
                 ),
                 // maxLines: 1,

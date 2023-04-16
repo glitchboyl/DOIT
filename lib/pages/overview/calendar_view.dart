@@ -165,7 +165,7 @@ class _CalendarViewState extends State<CalendarView> {
                         day.day.toString(),
                         style: TextStyles.dateTextStyle.copyWith(
                           color: day.isSameDay(_provider.focusedDate)
-                              ? colorScheme.regularBaseColor
+                              ? colorScheme.whiteColor
                               : day.isSameMonth(focusedDay)
                                   ? colorScheme.primaryTextColor
                                   : colorScheme.deactivedDeepColor,
@@ -178,7 +178,7 @@ class _CalendarViewState extends State<CalendarView> {
                             : lunar.day,
                         style: TextStyles.tinyTextStyle.copyWith(
                           color: day.isSameDay(_provider.focusedDate)
-                              ? colorScheme.regularBaseColor
+                              ? colorScheme.whiteColor
                               : day.isSameMonth(focusedDay)
                                   ? highlight
                                       ? colorScheme.primaryColor

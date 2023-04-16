@@ -1,4 +1,4 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:doit/widgets/svg_icon.dart';
 import 'package:doit/constants/styles.dart';
 import 'package:doit/constants/meas.dart';
@@ -28,6 +28,7 @@ class Blank extends StatelessWidget {
             Text(
               text,
               style: TextStyles.regularTextStyle.copyWith(
+                color: Theme.of(context).colorScheme.primaryTextColor,
                 fontWeight: FontWeight.bold,
               ),
             ),

@@ -7,7 +7,7 @@ class Property {
     required this.text,
   });
 
-  final String icon;
+  final String Function(BuildContext) icon;
   final Color Function(BuildContext) color;
   final String text;
 }
