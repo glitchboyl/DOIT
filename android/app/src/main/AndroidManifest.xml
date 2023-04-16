@@ -8,7 +8,9 @@
     <application
         android:name="${applicationName}"
         android:label="DOIT"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/launcher_icon"
+        android:allowBackup="true"
+    >
         <activity
             android:name="io.flutter.embedding.android.FlutterActivity"
             android:launchMode="singleTop"

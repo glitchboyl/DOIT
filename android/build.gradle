@@ -18,9 +18,6 @@ allprojects {
         jcenter()
         maven {url 'https://developer.huawei.com/repo/'} 
     }
-    tasks.withType(JavaCompile){
-        options.compilerArgs <<"-Xlint:deprecation"
-    }
 }
 
 rootProject.buildDir = '../build'

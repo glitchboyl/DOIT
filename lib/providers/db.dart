@@ -4,7 +4,6 @@ import 'package:sqflite/sqflite.dart';
 late Future<Database> _db;
 
 final Future<void> Function() connectDB = () async => {
-      print(await getDatabasesPath()),
       _db = openDatabase(
         join(await getDatabasesPath(), 'doit_database.db'),
         onCreate: (db, version) async {

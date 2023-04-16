@@ -20,6 +20,7 @@ class SchedulePageDrawerItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return GestureDetector(
+      behavior: HitTestBehavior.translucent,
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
