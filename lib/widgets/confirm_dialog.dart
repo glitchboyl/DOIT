@@ -32,7 +32,7 @@ class ConfirmDialogBuilder extends StatelessWidget {
         filter: ImageFilter.blur(sigmaX: 10, sigmaY: 0),
         child: Container(
           height: 112,
-          color: colorScheme.backgroundColor,
+          color: colorScheme.greyColor,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,

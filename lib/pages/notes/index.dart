@@ -14,13 +14,7 @@ class NotesPage extends StatelessWidget {
   ];
   final ScrollController _scrollController = ScrollController();
 
-  NoteProvider getProvider(BuildContext context, {bool listen = true}) =>
-      Provider.of<NoteProvider>(
-        context,
-        listen: listen,
-      );
-
-  void buildWidgets(BuildContext context, NoteProvider provider) {
+  void buildWidgets(NoteProvider provider) {
     _widgets.removeRange(1, _widgets.length);
     provider.noteList.forEach(
       (note) => _widgets.add(
@@ -46,7 +40,7 @@ class NotesPage extends StatelessWidget {
                   isDarkMode(context) ? Ico.NotesBlankDark : Ico.NotesBlank,
                 );
               }
-              buildWidgets(context, provider);
+              buildWidgets(provider);
               if (provider.noteList.length > _widgets.length - 1) {
                 Future.delayed(
                   const Duration(milliseconds: 1),

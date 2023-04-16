@@ -20,7 +20,7 @@ class ConfirmDialogActionButton extends StatelessWidget {
     return Expanded(
       flex: 1,
       child: InteractiveButton(
-        color: colorScheme.backgroundColor,
+        color: colorScheme.greyColor,
         activedColor: colorScheme.dialogActionActivedColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.all(Radius.circular(0)),
