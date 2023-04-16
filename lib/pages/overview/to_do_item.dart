@@ -25,7 +25,9 @@ class ToDoItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-
+    final textStyle = TextStyles.smallTextStyle.copyWith(
+      color: colorScheme.primaryTextColor,
+    );
     return Container(
       key: ValueKey(item.id),
       child: Row(
@@ -44,14 +46,13 @@ class ToDoItemWidget extends StatelessWidget {
                 if (!item.startTime.isSameDay(item.endTime))
                   Text(
                     getDateTime(item.startTime),
-                    style: TextStyles.smallTextStyle,
+                    style: textStyle,
                     textAlign: TextAlign.center,
                   ),
                 Text(
                   // item.startTime != null ? getClockTime(item.startTime!) : '整天',
                   getClockTime(item.startTime),
-
-                  style: TextStyles.smallTextStyle,
+                  style: textStyle,
                 ),
               ],
             ),
@@ -93,7 +94,7 @@ class ToDoItemWidget extends StatelessWidget {
                           ),
                           Text(
                             item.levelText,
-                            style: TextStyles.smallTextStyle,
+                            style: textStyle,
                           ),
                           Spacer(),
                           IconBuilder(
@@ -110,14 +111,16 @@ class ToDoItemWidget extends StatelessWidget {
                           ),
                           Text(
                             item.typeText,
-                            style: TextStyles.smallTextStyle,
+                            style: textStyle,
                           ),
                         ],
                       ),
                       SizedBox(height: 8),
                       Text(
                         item.title,
-                        style: TextStyles.regularTextStyle,
+                        style: TextStyles.regularTextStyle.copyWith(
+                          color: colorScheme.primaryTextColor,
+                        ),
                       ),
                       if (item.remarks != '') ...[
                         SizedBox(height: 2),

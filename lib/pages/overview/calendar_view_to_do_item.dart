@@ -35,7 +35,7 @@ class CalendarViewToDoItem extends StatelessWidget {
               child: Text(
                 item.title,
                 style: TextStyles.tinyTextStyle.copyWith(
-                  color: Theme.of(context).colorScheme.whiteColor,
+                  color: Theme.of(context).colorScheme.primaryTextColor,
                   fontWeight: FontWeight.bold,
                 ),
                 // maxLines: 1,
