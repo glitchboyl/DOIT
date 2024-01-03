@@ -78,7 +78,7 @@ extension CustomColor on ColorScheme {
       : DarkStyles.PrimaryColor;
 
   Color get tabTextColor => brightness == Brightness.light
-      ? LightStyles.RegularBaseColor
+      ? LightStyles.PrimaryTextColor
       : DarkStyles.SecondaryTextColor;
 
   Color get tabActivedTextColor => brightness == Brightness.light

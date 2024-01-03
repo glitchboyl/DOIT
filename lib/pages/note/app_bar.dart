@@ -23,14 +23,14 @@ class NotesPageAppBar extends AppBarBuilder {
           Ico.Edit,
           color: isDarkMode(context)
               ? DarkStyles.PrimaryTextColor
-              : LightStyles.RegularBaseColor,
+              : LightStyles.PrimaryTextColor,
           onPressed: () => Navigator.pushNamed(context, '/note_publish'),
         ),
         SVGIconButton(
           Ico.Trash,
           color: isDarkMode(context)
               ? DarkStyles.PrimaryTextColor
-              : LightStyles.RegularBaseColor,
+              : LightStyles.PrimaryTextColor,
           onPressed: () {
             final _provider = Provider.of<NoteProvider>(context, listen: false);
             showConfirmDialog(
